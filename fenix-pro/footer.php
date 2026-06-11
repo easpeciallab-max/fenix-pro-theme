@@ -71,6 +71,7 @@ $fenix_email = fenix_mod( 'contact_email' );
 		<div class="footer-bottom">
 			<p class="footer-copy">&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> — สงวนลิขสิทธิ์</p>
 			<p class="footer-risk"><?php echo fenix_icon( 'warn', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?> <?php echo esc_html( fenix_mod( 'footer_risk' ) ); ?></p>
+			<p class="footer-test"><?php echo esc_html( 'test 001' ); ?></p>
 		</div>
 
 	</div>
