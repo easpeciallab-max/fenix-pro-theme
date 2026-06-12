@@ -594,6 +594,11 @@ h3 {
 	margin-bottom: 20px;
 }
 
+.hero-actions .btn {
+	flex: 0 1 274px;
+	min-width: 0;
+}
+
 .hero-note {
 	display: flex;
 	align-items: center;
