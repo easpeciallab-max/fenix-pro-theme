@@ -70,7 +70,7 @@ $fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
 		</div>
 
 		<div class="footer-bottom">
-			<p class="footer-copy">&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> — สงวนลิขสิทธิ์</p>
+			<p class="footer-copy">&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> สงวนลิขสิทธิ์</p>
 			<?php if ( $fenix_fb || $fenix_email ) : ?>
 			<div class="footer-links-mini">
 				<?php if ( $fenix_fb ) : ?>
