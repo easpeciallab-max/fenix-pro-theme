@@ -1318,7 +1318,7 @@ h3 {
 	padding: 24px 28px;
 	margin-bottom: 34px;
 	border: 1px solid rgba(255, 255, 255, 0.09);
-	border-radius: 8px;
+	border-radius: var(--radius-lg);
 	background:
 		linear-gradient(135deg, rgba(255, 122, 26, 0.13), rgba(242, 193, 78, 0.035)),
 		rgba(255, 255, 255, 0.025);
@@ -1355,7 +1355,7 @@ h3 {
 	min-width: 260px;
 	padding: 15px 22px;
 	border: 1px solid rgba(255, 255, 255, 0.16);
-	border-radius: 8px;
+	border-radius: 999px;
 	background: var(--line-green);
 	color: #03240F;
 	font-family: var(--font-display);
@@ -1405,9 +1405,9 @@ h3 {
 }
 
 .footer-trust li {
-	padding: 7px 10px;
+	padding: 7px 12px;
 	border: 1px solid rgba(255, 255, 255, 0.08);
-	border-radius: 6px;
+	border-radius: 999px;
 	background: rgba(255, 255, 255, 0.035);
 	color: var(--ash);
 	font-size: 0.78rem;
@@ -1417,7 +1417,7 @@ h3 {
 .footer-connect {
 	padding: 22px;
 	border: 1px solid rgba(255, 255, 255, 0.09);
-	border-radius: 8px;
+	border-radius: var(--radius);
 	background: rgba(255, 255, 255, 0.035);
 }
 
@@ -1444,9 +1444,9 @@ h3 {
 	align-items: center;
 	gap: 12px;
 	min-height: 48px;
-	padding: 12px 14px;
+	padding: 12px 18px;
 	border: 1px solid rgba(255, 255, 255, 0.08);
-	border-radius: 8px;
+	border-radius: 999px;
 	background: rgba(10, 10, 14, 0.36);
 	color: var(--ash);
 	font-size: 0.96rem;
@@ -1498,7 +1498,7 @@ h3 {
 	padding: 14px 16px;
 	margin-bottom: 20px;
 	border: 1px solid rgba(255, 197, 61, 0.16);
-	border-radius: 8px;
+	border-radius: var(--radius);
 	background: rgba(255, 197, 61, 0.045);
 }
 
