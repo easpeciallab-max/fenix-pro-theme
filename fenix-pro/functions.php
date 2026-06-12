@@ -119,6 +119,29 @@ function fenix_has_elementor_content( $post_id = null ) {
 	return fenix_elementor_data_has_widgets( $elements );
 }
 
+function fenix_uses_elementor_page_template( $post_id = null ) {
+	if ( ! $post_id ) {
+		$post_id = get_queried_object_id();
+	}
+
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	$template = $post_id ? get_page_template_slug( $post_id ) : '';
+
+	return in_array(
+		$template,
+		array(
+			'elementor_canvas',
+			'elementor_header_footer',
+			'template-elementor-canvas.php',
+			'template-elementor-full-width.php',
+		),
+		true
+	);
+}
+
 function fenix_body_classes( $classes ) {
 	if ( is_page() && fenix_is_elementor_page( get_queried_object_id() ) ) {
 		$classes[] = 'fenix-has-elementor';
