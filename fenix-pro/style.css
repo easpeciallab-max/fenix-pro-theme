@@ -3540,6 +3540,11 @@ h1, h2, h3, h4,
 	align-items: center !important;
 }
 
+.fenix-has-elementor .elementor-section:has(.fenix-el-board) h1.elementor-heading-title {
+	font-size: clamp(2.8rem, 4.1vw, 3.25rem) !important;
+	line-height: 1.22 !important;
+}
+
 .fenix-has-elementor .elementor-column:has(.fenix-el-board) {
 	width: 44% !important;
 	flex: 0 0 44% !important;
