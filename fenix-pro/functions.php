@@ -149,6 +149,7 @@ function fenix_defaults() {
 
 		/* ขั้นตอนใช้งาน */
 		'show_steps'     => true,
+		'steps_kicker'   => 'Workflow',
 		'steps_title'    => 'เริ่มใช้งานใน 4 ขั้นตอน',
 		'steps_subtitle' => 'จากศูนย์จนระบบเริ่มทำงาน โดยมีทีมงานช่วยดูแลตลอดทาง',
 		'step1_title'    => 'ติดตั้ง MT5',
@@ -162,6 +163,7 @@ function fenix_defaults() {
 
 		/* ผลการทดสอบ */
 		'show_perf'         => true,
+		'perf_kicker'       => 'Evidence',
 		'perf_title'        => 'ผลการทดสอบระบบ',
 		'perf_subtitle'     => 'ความโปร่งใสคือสิ่งที่เราให้ความสำคัญ ข้อมูลการทดสอบทุกชุดระบุเงื่อนไขไว้ชัดเจน',
 		'stat1_label'       => 'ช่วงเวลาทดสอบ',
@@ -289,6 +291,27 @@ function fenix_defaults() {
 			'highlight2'     => 'ลดการเทรดด้วยอารมณ์',
 			'highlight3'     => 'บริหารความเสี่ยงได้',
 			'highlight4'     => 'มีทีมช่วยติดตั้ง',
+
+			/* หน้าแรก — แถบสถานะ / Control center */
+			'show_live_status'     => true,
+			'live_status_kicker'   => 'Live System Flow',
+			'live_status_items'    => "FENIX PRO EA สำหรับ MetaTrader 5\nระบบช่วยเทรดอัตโนมัติแบบ Risk-first\nตรวจสอบ Backtest และ Forward Test ก่อนใช้งาน\nตั้งค่าตามทุนและความเสี่ยงของแต่ละบัญชี",
+			'show_control_center'  => true,
+			'control_kicker'       => 'FENIX PRO EA Control Center',
+			'control_title'        => 'ภาพรวมก่อนเริ่มใช้งาน FENIX PRO EA',
+			'control_subtitle'     => 'ดูขั้นตอนสำคัญของระบบ ตั้งแต่ความพร้อมของ MetaTrader 5 การตั้งค่าความเสี่ยง ไปจนถึงการติดตามผลผ่าน Dashboard โดยไม่ต้องเดาเอง',
+			'control_panel_title'  => 'System Readiness',
+			'control_panel_status' => 'พร้อมประเมินความเหมาะสม',
+			'control_badge'        => 'MT5',
+			'control_panel_text'   => 'ก่อนเริ่มใช้งาน ทีมจะช่วยเช็กข้อมูลหลักที่ส่งผลต่อการตั้งค่า เช่น ประเภทบัญชี โบรกเกอร์ ทุนที่ใช้ และระดับความเสี่ยงที่รับได้',
+			'control_metric1_label' => 'Platform',
+			'control_metric1_value' => 'MetaTrader 5',
+			'control_metric2_label' => 'Mode',
+			'control_metric2_value' => 'EA Setup',
+			'control_metric3_label' => 'Focus',
+			'control_metric3_value' => 'Risk-first',
+			'control_list_title'   => 'สิ่งที่ควรเตรียมก่อนเริ่ม',
+			'control_list_items'   => "บัญชี MetaTrader 5 และโบรกเกอร์ที่ใช้งาน\nทุนที่ต้องการนำมาใช้กับระบบ\nระดับความเสี่ยงที่รับได้\nเป้าหมายการใช้งาน: ติดตั้ง / ทดลอง / ปรับพอร์ต",
 
 			/* หน้าแรก — การ์ดนำทาง */
 			'home_cards_title' => 'ดูข้อมูลเชิงลึกต่อ',
