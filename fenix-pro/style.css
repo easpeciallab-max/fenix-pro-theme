@@ -1392,7 +1392,15 @@ h3 {
 	font-size: 0.96rem;
 	line-height: 1.85;
 	margin-top: 22px;
-	max-width: 520px;
+	max-width: 620px;
+}
+
+.footer-tagline p {
+	margin: 0;
+}
+
+.footer-tagline p + p {
+	margin-top: 12px;
 }
 
 .footer-trust {

@@ -8,6 +8,7 @@
 $fenix_line  = fenix_mod( 'line_url' );
 $fenix_fb    = fenix_mod( 'facebook_url' );
 $fenix_email = fenix_mod( 'contact_email' );
+$fenix_intro = fenix_lines( fenix_mod( 'footer_tagline' ) );
 $fenix_trust = fenix_lines( fenix_mod( 'footer_trust_items' ) );
 $fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
 ?>
@@ -34,7 +35,13 @@ $fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
 					<img class="brand-logo" src="<?php echo esc_url( fenix_logo_url() ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" width="64" height="64">
 					<span class="brand-name">FENIX <em>PRO</em><small>EA&nbsp;for&nbsp;MT5</small></span>
 				</a>
-				<p class="footer-tagline"><?php echo esc_html( fenix_mod( 'footer_tagline' ) ); ?></p>
+				<?php if ( $fenix_intro ) : ?>
+				<div class="footer-tagline">
+					<?php foreach ( $fenix_intro as $fenix_paragraph ) : ?>
+					<p><?php echo esc_html( $fenix_paragraph ); ?></p>
+					<?php endforeach; ?>
+				</div>
+				<?php endif; ?>
 				<?php if ( $fenix_trust ) : ?>
 				<ul class="footer-trust">
 					<?php foreach ( $fenix_trust as $fenix_item ) : ?>
