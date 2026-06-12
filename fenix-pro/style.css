@@ -2780,33 +2780,32 @@ h1, h2, h3, h4,
 	overflow: hidden;
 	padding: 18px 0;
 	background:
-		linear-gradient(90deg, rgba(255, 122, 26, 0.12), rgba(242, 193, 78, 0.04) 42%, rgba(6, 199, 85, 0.05)),
+		linear-gradient(90deg, rgba(255, 122, 26, 0.08), rgba(6, 199, 85, 0.05), rgba(255, 122, 26, 0.08)),
 		#0D0D13;
 	border-bottom: 1px solid var(--border-soft);
 }
 
 .live-strip-inner {
-	display: grid;
-	grid-template-columns: auto 1fr;
+	display: flex;
 	align-items: center;
-	gap: 22px;
-	min-width: 0;
+	justify-content: center;
 }
 
 .live-strip-label {
 	display: inline-flex;
 	align-items: center;
-	gap: 9px;
-	padding: 8px 14px;
+	gap: 10px;
+	padding: 10px 22px;
 	border-radius: 999px;
 	border: 1px solid rgba(62, 207, 142, 0.28);
 	background: rgba(62, 207, 142, 0.08);
 	color: var(--ok);
 	font-family: var(--font-display);
 	font-weight: 700;
-	font-size: 0.78rem;
-	letter-spacing: 0.12em;
+	font-size: 0.82rem;
+	letter-spacing: 0.16em;
 	white-space: nowrap;
+	box-shadow: 0 14px 40px rgba(62, 207, 142, 0.08);
 }
 
 .live-strip-label i,

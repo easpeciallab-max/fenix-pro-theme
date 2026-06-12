@@ -286,7 +286,7 @@ function fenix_defaults() {
 		array(
 
 			/* หน้าแรก — แถบไฮไลต์ */
-			'show_highlight' => true,
+			'show_highlight' => false,
 			'highlight1'     => 'ทำงานบน MetaTrader 5',
 			'highlight2'     => 'ลดการเทรดด้วยอารมณ์',
 			'highlight3'     => 'บริหารความเสี่ยงได้',
@@ -295,7 +295,7 @@ function fenix_defaults() {
 			/* หน้าแรก — แถบสถานะ / Control center */
 			'show_live_status'     => true,
 			'live_status_kicker'   => 'Live System Flow',
-			'live_status_items'    => "FENIX PRO EA สำหรับ MetaTrader 5\nระบบช่วยเทรดอัตโนมัติแบบ Risk-first\nตรวจสอบ Backtest และ Forward Test ก่อนใช้งาน\nตั้งค่าตามทุนและความเสี่ยงของแต่ละบัญชี",
+			'live_status_items'    => '',
 			'show_control_center'  => true,
 			'control_kicker'       => 'FENIX PRO EA Control Center',
 			'control_title'        => 'ภาพรวมก่อนเริ่มใช้งาน FENIX PRO EA',
