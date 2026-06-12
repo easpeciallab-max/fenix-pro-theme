@@ -3476,3 +3476,55 @@ h1, h2, h3, h4,
 		bottom: 96px;
 	}
 }
+
+/* ==========================================================
+   36) Elementor compatibility
+   ========================================================== */
+.elementor-page-shell {
+	width: 100%;
+	min-height: 40vh;
+	overflow-x: hidden;
+	background: var(--void);
+}
+
+.elementor-page-shell--auto,
+.elementor-page-shell--front,
+.elementor-page-shell--full,
+.elementor-page-shell--canvas {
+	padding: 0;
+}
+
+.elementor-entry {
+	margin: 0;
+}
+
+.elementor-page-shell .entry-content,
+.elementor-entry .entry-content {
+	max-width: none;
+}
+
+.elementor-page-shell .elementor {
+	width: 100%;
+}
+
+.elementor-page-shell .elementor-widget-text-editor p:last-child {
+	margin-bottom: 0;
+}
+
+.elementor-page-shell .elementor-button,
+.elementor-page-shell .elementor-button-link {
+	border-radius: 999px;
+	font-family: var(--font-display);
+}
+
+.elementor-page-shell .keep-case,
+.elementor-page-shell input,
+.elementor-page-shell textarea,
+.elementor-page-shell code,
+.elementor-page-shell pre {
+	text-transform: none;
+}
+
+.fenix-elementor-canvas {
+	background: var(--void);
+}

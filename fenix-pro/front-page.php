@@ -7,6 +7,23 @@
 
 get_header();
 
+if ( fenix_is_elementor_page() ) :
+	?>
+	<main id="main" class="elementor-page-shell elementor-page-shell--front">
+		<?php
+		while ( have_posts() ) :
+			the_post();
+			?>
+			<article <?php post_class( 'elementor-entry' ); ?>>
+				<?php the_content(); ?>
+			</article>
+		<?php endwhile; ?>
+	</main>
+	<?php
+	get_footer();
+	return;
+endif;
+
 $fenix_line = fenix_mod( 'line_url' );
 ?>
 

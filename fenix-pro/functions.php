@@ -18,6 +18,9 @@ function fenix_setup() {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'align-wide' );
+	add_theme_support( 'responsive-embeds' );
+	add_theme_support( 'elementor' );
 	add_theme_support(
 		'html5',
 		array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' )
@@ -59,6 +62,30 @@ function fenix_assets() {
 	wp_enqueue_script( 'fenix-main', get_template_directory_uri() . '/assets/js/main.js', array(), $script_version, true );
 }
 add_action( 'wp_enqueue_scripts', 'fenix_assets' );
+
+/* --------------------------------------------------------------
+ * Builder compatibility
+ * -------------------------------------------------------------- */
+function fenix_is_elementor_page( $post_id = null ) {
+	if ( ! $post_id ) {
+		$post_id = get_queried_object_id();
+	}
+
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	return $post_id && 'builder' === get_post_meta( $post_id, '_elementor_edit_mode', true );
+}
+
+function fenix_body_classes( $classes ) {
+	if ( is_page() && fenix_is_elementor_page( get_queried_object_id() ) ) {
+		$classes[] = 'fenix-has-elementor';
+	}
+
+	return $classes;
+}
+add_filter( 'body_class', 'fenix_body_classes' );
 
 /* --------------------------------------------------------------
  * Default content (ทุกค่าแก้ได้ในหน้า "ปรับแต่ง / Customize")

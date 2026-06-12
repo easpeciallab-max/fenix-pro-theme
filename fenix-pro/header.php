@@ -15,6 +15,7 @@
 <?php wp_body_open(); ?>
 <a class="skip-link" href="#main">ข้ามไปยังเนื้อหา</a>
 
+<?php if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'header' ) ) : ?>
 <header class="site-header" id="top">
 	<div class="container header-inner">
 
@@ -47,3 +48,4 @@
 
 	</div>
 </header>
+<?php endif; ?>

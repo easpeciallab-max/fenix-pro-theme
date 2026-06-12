@@ -6,9 +6,24 @@
  */
 
 get_header();
+
+$fenix_is_elementor = fenix_is_elementor_page();
 ?>
 
-<main id="main">
+<main id="main"<?php echo $fenix_is_elementor ? ' class="elementor-page-shell elementor-page-shell--auto"' : ''; ?>>
+	<?php if ( $fenix_is_elementor ) : ?>
+
+		<?php
+		while ( have_posts() ) :
+			the_post();
+			?>
+			<article <?php post_class( 'elementor-entry' ); ?>>
+				<?php the_content(); ?>
+			</article>
+		<?php endwhile; ?>
+
+	<?php else : ?>
+
 	<div class="entry">
 		<div class="container-narrow">
 
@@ -35,6 +50,7 @@ get_header();
 
 		</div>
 	</div>
+	<?php endif; ?>
 </main>
 
 <?php

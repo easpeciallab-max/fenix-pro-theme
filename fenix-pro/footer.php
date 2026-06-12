@@ -37,6 +37,7 @@ $fenix_mobile_nav = array(
 );
 ?>
 
+<?php if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'footer' ) ) : ?>
 <footer class="site-footer" id="contact">
 	<div class="container">
 
@@ -110,6 +111,7 @@ $fenix_mobile_nav = array(
 
 	</div>
 </footer>
+<?php endif; ?>
 
 <?php if ( fenix_mod( 'show_mobile_nav' ) ) : ?>
 <nav class="mobile-app-nav" aria-label="เมนูลัดมือถือ">
