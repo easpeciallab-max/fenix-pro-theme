@@ -69,11 +69,6 @@ $fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
 
 		</div>
 
-		<div class="footer-risk">
-			<?php echo fenix_icon( 'warn', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-			<p><?php echo esc_html( fenix_mod( 'footer_risk' ) ); ?></p>
-		</div>
-
 		<div class="footer-bottom">
 			<p class="footer-copy">&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> — สงวนลิขสิทธิ์</p>
 			<?php if ( $fenix_fb || $fenix_email ) : ?>

@@ -1480,31 +1480,6 @@ h3 {
 	color: var(--flare);
 }
 
-.footer-risk {
-	position: relative;
-	display: flex;
-	align-items: flex-start;
-	gap: 10px;
-	padding: 14px 16px;
-	margin-bottom: 20px;
-	border: 1px solid rgba(255, 197, 61, 0.16);
-	border-radius: var(--radius);
-	background: rgba(255, 197, 61, 0.045);
-}
-
-.footer-risk .icon {
-	flex: 0 0 auto;
-	margin-top: 3px;
-	color: var(--warn);
-}
-
-.footer-risk p {
-	margin: 0;
-	color: var(--ash-2);
-	font-size: 0.82rem;
-	line-height: 1.7;
-}
-
 .footer-bottom {
 	position: relative;
 	display: flex;
@@ -1975,10 +1950,6 @@ h3 {
 
 	.footer-prep-list li {
 		padding: 11px 12px;
-	}
-
-	.footer-risk {
-		padding: 12px;
 	}
 
 	.footer-bottom {

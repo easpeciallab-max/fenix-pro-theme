@@ -288,7 +288,6 @@ function fenix_customize_register( $wp_customize ) {
 				'footer_prep_items'    => array( 'รายการที่ควรเตรียม (บรรทัดละ 1 รายการ)', 'textarea' ),
 				'footer_tagline'      => array( 'คำโปรยใต้โลโก้', 'textarea' ),
 				'footer_trust_items'  => array( 'ป้ายความน่าเชื่อถือ (บรรทัดละ 1 รายการ)', 'textarea' ),
-				'footer_risk'         => array( 'คำเตือนความเสี่ยงบรรทัดล่างสุด', 'textarea' ),
 				'footer_risk_link'    => array( 'ข้อความลิงก์คำเตือนความเสี่ยง', 'text' ),
 			),
 		),
