@@ -3528,3 +3528,61 @@ h1, h2, h3, h4,
 .fenix-elementor-canvas {
 	background: var(--void);
 }
+
+/* Elementor starter template guardrails */
+.fenix-has-elementor .elementor-section:has(.fenix-el-board) > .elementor-container {
+	min-height: 620px !important;
+	align-items: center;
+}
+
+.fenix-has-elementor .elementor-section:has(.fenix-el-board) .elementor-column > .elementor-widget-wrap {
+	align-content: center !important;
+	align-items: center !important;
+}
+
+.fenix-has-elementor .elementor-widget-html:has(.fenix-el-board) {
+	width: 100%;
+}
+
+.fenix-has-elementor .fenix-el-board {
+	width: min(100%, 460px) !important;
+	min-height: 430px !important;
+	margin-inline: auto !important;
+}
+
+.fenix-has-elementor .fenix-el-board-grid {
+	grid-template-columns: minmax(0, 1fr) auto !important;
+}
+
+.fenix-has-elementor .fenix-el-board-grid span,
+.fenix-has-elementor .fenix-el-board-grid strong {
+	min-width: 0;
+	white-space: nowrap;
+}
+
+.fenix-has-elementor .fenix-el-flow {
+	width: min(100%, 1180px);
+	margin-inline: auto;
+}
+
+@media (max-width: 960px) {
+	.fenix-has-elementor .elementor-section:has(.fenix-el-board) > .elementor-container {
+		min-height: 0 !important;
+	}
+
+	.fenix-has-elementor .fenix-el-board {
+		margin-top: 34px !important;
+	}
+}
+
+@media (max-width: 640px) {
+	.fenix-has-elementor .fenix-el-board {
+		width: 100% !important;
+		min-height: 360px !important;
+		border-radius: 26px !important;
+	}
+
+	.fenix-has-elementor .fenix-el-board-grid {
+		font-size: 0.9rem;
+	}
+}
