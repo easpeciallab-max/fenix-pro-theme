@@ -1289,9 +1289,21 @@ h3 {
    20) Footer
    ========================================================== */
 .site-footer {
+	position: relative;
 	border-top: 1px solid var(--border);
-	background: var(--coal);
-	padding: 64px 0 28px;
+	background: linear-gradient(180deg, var(--coal), var(--void));
+	padding: 64px 0 30px;
+}
+
+.site-footer::before {
+	content: "";
+	position: absolute;
+	top: -1px;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, var(--ember), var(--gold), transparent);
+	opacity: 0.55;
 }
 
 .footer-grid {
@@ -1309,12 +1321,25 @@ h3 {
 }
 
 .footer-head {
+	position: relative;
 	font-size: 0.95rem;
 	font-weight: 500;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
 	color: var(--ink);
+	padding-bottom: 14px;
 	margin-bottom: 18px;
+}
+
+.footer-head::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 30px;
+	height: 2px;
+	border-radius: 2px;
+	background: linear-gradient(90deg, var(--ember), transparent);
 }
 
 .footer-links {
@@ -1354,12 +1379,42 @@ h3 {
 	color: var(--ember);
 }
 
+.footer-contact .icon-line {
+	color: var(--line-green);
+}
+
+/* แถบคำเตือนความเสี่ยง — กล่องเฉพาะ ดูเป็นทางการ */
+.footer-disclaimer {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 16px 20px;
+	margin-bottom: 28px;
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	background: rgba(255, 197, 61, 0.045);
+}
+
+.footer-disclaimer .icon {
+	flex-shrink: 0;
+	margin-top: 2px;
+	color: var(--warn);
+}
+
+.footer-disclaimer p {
+	margin: 0;
+	color: var(--ash-2);
+	font-size: 0.84rem;
+	line-height: 1.75;
+}
+
+/* แถบล่างสุด */
 .footer-bottom {
 	border-top: 1px solid var(--border);
-	padding-top: 22px;
+	padding-top: 24px;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 10px 28px;
+	gap: 12px 24px;
 	align-items: center;
 	justify-content: space-between;
 }
@@ -1370,17 +1425,26 @@ h3 {
 	margin: 0;
 }
 
-.footer-risk {
-	display: flex;
+.footer-top {
+	display: inline-flex;
 	align-items: center;
-	gap: 8px;
-	color: var(--ash-2);
-	font-size: 0.82rem;
-	margin: 0;
+	gap: 7px;
+	padding: 8px 16px;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	color: var(--ash);
+	font-size: 0.84rem;
+	transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
 }
 
-.footer-risk .icon {
-	color: var(--warn);
+.footer-top:hover {
+	color: var(--flare);
+	border-color: var(--ember);
+	background: rgba(255, 122, 26, 0.06);
+}
+
+.footer-top .icon {
+	transform: rotate(-90deg);
 }
 
 /* ==========================================================

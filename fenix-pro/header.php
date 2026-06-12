@@ -36,7 +36,7 @@
 			);
 			?>
 			<a class="btn btn-line btn-sm nav-cta" href="<?php echo esc_url( fenix_mod( 'line_url' ) ); ?>" target="_blank" rel="noopener">
-				<?php echo fenix_icon( 'chat' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<span>สอบถามทาง LINE</span>
 			</a>
 		</nav>

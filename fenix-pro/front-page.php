@@ -44,7 +44,7 @@ $fenix_line = fenix_mod( 'line_url' );
 
 			<div class="hero-actions">
 				<a class="btn btn-fire" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
-					<?php echo fenix_icon( 'chat', 'icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					<?php echo fenix_icon( 'line', 'icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					<?php echo esc_html( fenix_mod( 'hero_btn1_text' ) ); ?>
 				</a>
 				<a class="btn btn-ghost" href="#about">
@@ -364,7 +364,7 @@ $fenix_line = fenix_mod( 'line_url' );
 			<h2><?php echo esc_html( fenix_mod( 'cta_title' ) ); ?></h2>
 			<p><?php echo esc_html( fenix_mod( 'cta_subtitle' ) ); ?></p>
 			<a class="btn btn-line btn-lg" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
-				<?php echo fenix_icon( 'chat' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<?php echo esc_html( fenix_mod( 'cta_btn_text' ) ); ?>
 			</a>
 		</div>
