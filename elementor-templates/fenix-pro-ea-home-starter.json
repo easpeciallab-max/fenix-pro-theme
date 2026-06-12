@@ -1,0 +1,1765 @@
+{
+  "content": [
+    {
+      "id": "100008",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "content_width": {
+          "unit": "px",
+          "size": 1180,
+          "sizes": []
+        },
+        "gap": "extended",
+        "background_background": "classic",
+        "background_color": "#0A0A0E",
+        "padding": {
+          "unit": "px",
+          "top": "96",
+          "right": "24",
+          "bottom": "86",
+          "left": "24",
+          "isLinked": false
+        },
+        "_title": "Hero - FENIX PRO EA",
+        "height": "min-height",
+        "custom_height": {
+          "unit": "px",
+          "size": 720,
+          "sizes": []
+        }
+      },
+      "elements": [
+        {
+          "id": "100005",
+          "elType": "column",
+          "settings": {
+            "_column_size": 56,
+            "_inline_size": null,
+            "content_position": "center",
+            "padding": {
+              "unit": "px",
+              "top": "20",
+              "right": "20",
+              "bottom": "20",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "100000",
+              "elType": "widget",
+              "settings": {
+                "title": "FENIX PRO EA",
+                "header_size": "div",
+                "title_color": "#FFB347",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "700",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 14,
+                  "sizes": []
+                },
+                "typography_letter_spacing": {
+                  "unit": "em",
+                  "size": 0.12,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "12",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100001",
+              "elType": "widget",
+              "settings": {
+                "title": "ระบบช่วยเทรดอัตโนมัติบน METATRADER 5",
+                "header_size": "h1",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 58,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "20",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100002",
+              "elType": "widget",
+              "settings": {
+                "editor": "ออกแบบมาเพื่อช่วยให้การเทรดเป็นระบบมากขึ้น ลดการตัดสินใจตามอารมณ์ และวางกระบวนการบริหารความเสี่ยงให้ชัดเจนตั้งแต่ก่อนเริ่มใช้งาน",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 20,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "28",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            },
+            {
+              "id": "100003",
+              "elType": "widget",
+              "settings": {
+                "text": "ทัก LINE เพื่อสอบถามรายละเอียด",
+                "link": {
+                  "url": "#",
+                  "is_external": "",
+                  "nofollow": "",
+                  "custom_attributes": ""
+                },
+                "align": "left",
+                "size": "lg",
+                "button_text_color": "#0A0A0E",
+                "background_color": "#06C755",
+                "hover_color": "#0A0A0E",
+                "button_background_hover_color": "#19E06D",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "999",
+                  "right": "999",
+                  "bottom": "999",
+                  "left": "999",
+                  "isLinked": true
+                },
+                "text_padding": {
+                  "unit": "px",
+                  "top": "18",
+                  "right": "30",
+                  "bottom": "18",
+                  "left": "30",
+                  "isLinked": false
+                },
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 17,
+                  "sizes": []
+                },
+                "typography_font_weight": "700"
+              },
+              "elements": [],
+              "widgetType": "button"
+            },
+            {
+              "id": "100004",
+              "elType": "widget",
+              "settings": {
+                "editor": "การเทรดมีความเสี่ยงสูง โปรดศึกษาข้อมูลและประเมินความเหมาะสมก่อนตัดสินใจใช้งาน",
+                "text_color": "#8E8A9D",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 14,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "18",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "100007",
+          "elType": "column",
+          "settings": {
+            "_column_size": 44,
+            "_inline_size": null,
+            "content_position": "center"
+          },
+          "elements": [
+            {
+              "id": "100006",
+              "elType": "widget",
+              "settings": {
+                "html": "<div class=\"fenix-el-board\"><div class=\"fenix-el-board-top\"><span>FENIX PRO EA</span><em>LIVE MODE</em></div><div class=\"fenix-el-orbit\"><b></b><b></b><b></b><strong>MT5</strong></div><div class=\"fenix-el-board-grid\"><span>Signal Scan</span><strong>Active</strong><span>Risk Filter</span><strong>Ready</strong><span>Execution</span><strong>Systematic</strong></div></div><style>.fenix-el-board{position:relative;overflow:hidden;border:1px solid rgba(255,122,26,.26);border-radius:32px;background:radial-gradient(circle at 18% 10%,rgba(255,122,26,.30),transparent 34%),linear-gradient(145deg,#171016,#0b0b10);padding:28px;min-height:430px;box-shadow:0 30px 90px rgba(0,0,0,.38);font-family:\"Noto Sans Thai\",sans-serif}.fenix-el-board-top{display:flex;justify-content:space-between;gap:16px;color:#ffb347;font-weight:800;letter-spacing:.12em;font-size:13px}.fenix-el-board-top em{font-style:normal;color:#39ef91}.fenix-el-orbit{position:absolute;left:50%;top:48%;width:230px;height:230px;transform:translate(-50%,-50%);border:1px solid rgba(255,179,71,.22);border-radius:50%;display:grid;place-items:center;color:#fff}.fenix-el-orbit:before,.fenix-el-orbit:after{content:\"\";position:absolute;inset:28px;border:1px solid rgba(255,122,26,.18);border-radius:50%;animation:fenixSpin 16s linear infinite}.fenix-el-orbit:after{inset:62px;animation-duration:10s;animation-direction:reverse}.fenix-el-orbit b{position:absolute;width:10px;height:10px;border-radius:50%;background:#ff7a1a;box-shadow:0 0 22px #ff7a1a}.fenix-el-orbit b:nth-child(1){left:18px;top:104px}.fenix-el-orbit b:nth-child(2){right:48px;top:42px;background:#06c755;box-shadow:0 0 22px #06c755}.fenix-el-orbit b:nth-child(3){right:28px;bottom:52px;background:#f2c14e;box-shadow:0 0 22px #f2c14e}.fenix-el-orbit strong{font-size:42px;letter-spacing:.08em}.fenix-el-board-grid{position:absolute;left:28px;right:28px;bottom:28px;display:grid;grid-template-columns:1fr auto;gap:10px 18px;border-top:1px solid rgba(255,255,255,.08);padding-top:18px;color:#a7a3b5}.fenix-el-board-grid strong{color:#f7f4ef}@keyframes fenixSpin{to{transform:rotate(360deg)}}@media(max-width:767px){.fenix-el-board{min-height:360px;border-radius:26px}.fenix-el-orbit{width:190px;height:190px}.fenix-el-orbit strong{font-size:34px}}</style>"
+              },
+              "elements": [],
+              "widgetType": "html"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "10000b",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "content_width": {
+          "unit": "px",
+          "size": 1180,
+          "sizes": []
+        },
+        "gap": "extended",
+        "background_background": "classic",
+        "background_color": "#0D1110",
+        "padding": {
+          "unit": "px",
+          "top": "24",
+          "right": "24",
+          "bottom": "24",
+          "left": "24",
+          "isLinked": false
+        },
+        "_title": "Live System Flow",
+        "border_border": "solid",
+        "border_width": {
+          "unit": "px",
+          "top": "1",
+          "right": "0",
+          "bottom": "1",
+          "left": "0",
+          "isLinked": false
+        },
+        "border_color": "rgba(255,255,255,0.08)"
+      },
+      "elements": [
+        {
+          "id": "10000a",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "_inline_size": null
+          },
+          "elements": [
+            {
+              "id": "100009",
+              "elType": "widget",
+              "settings": {
+                "html": "<div class=\"fenix-el-flow\"><div class=\"fenix-el-flow-badge\"><span></span> LIVE SYSTEM FLOW</div><div class=\"fenix-el-flow-track\"><div class=\"fenix-el-flow-move\"><strong>MT5 SIGNAL CHECK</strong><i></i><strong>RISK-FIRST SETUP</strong><i></i><strong>BACKTEST / FORWARD TEST</strong><i></i><strong>LINE SUPPORT</strong><i></i><strong>MT5 SIGNAL CHECK</strong><i></i><strong>RISK-FIRST SETUP</strong><i></i><strong>BACKTEST / FORWARD TEST</strong><i></i><strong>LINE SUPPORT</strong><i></i></div></div></div><style>.fenix-el-flow{display:flex;align-items:center;gap:24px;overflow:hidden;border:1px solid rgba(6,199,85,.25);border-radius:999px;background:linear-gradient(90deg,rgba(6,199,85,.10),rgba(255,122,26,.08));padding:14px 18px;color:#f7f4ef;font-family:\"Noto Sans Thai\",sans-serif}.fenix-el-flow-badge{flex:0 0 auto;display:inline-flex;align-items:center;gap:10px;color:#2df48b;font-size:14px;font-weight:800;letter-spacing:.12em}.fenix-el-flow-badge span{width:10px;height:10px;border-radius:50%;background:#2df48b;box-shadow:0 0 22px rgba(45,244,139,.9)}.fenix-el-flow-track{overflow:hidden;flex:1;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}.fenix-el-flow-move{display:flex;width:max-content;gap:22px;align-items:center;animation:fenixFlow 28s linear infinite}.fenix-el-flow strong{white-space:nowrap;color:#bfc1cf;font-size:15px;font-weight:600}.fenix-el-flow i{width:7px;height:7px;border-radius:50%;background:#ff9f2e;box-shadow:0 0 16px rgba(255,159,46,.7)}@keyframes fenixFlow{from{transform:translateX(0)}to{transform:translateX(-50%)}}@media(max-width:767px){.fenix-el-flow{border-radius:26px;align-items:flex-start;flex-direction:column}.fenix-el-flow-track{width:100%}}</style>"
+              },
+              "elements": [],
+              "widgetType": "html"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "100014",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "content_width": {
+          "unit": "px",
+          "size": 1180,
+          "sizes": []
+        },
+        "gap": "extended",
+        "background_background": "classic",
+        "background_color": "#101016",
+        "padding": {
+          "unit": "px",
+          "top": "92",
+          "right": "24",
+          "bottom": "92",
+          "left": "24",
+          "isLinked": false
+        },
+        "_title": "About / SEO Copy"
+      },
+      "elements": [
+        {
+          "id": "100010",
+          "elType": "column",
+          "settings": {
+            "_column_size": 44,
+            "_inline_size": null,
+            "content_position": "center"
+          },
+          "elements": [
+            {
+              "id": "10000c",
+              "elType": "widget",
+              "settings": {
+                "title": "WHY FENIX PRO EA",
+                "header_size": "div",
+                "title_color": "#FFB347",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "700",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 14,
+                  "sizes": []
+                },
+                "typography_letter_spacing": {
+                  "unit": "em",
+                  "size": 0.12,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "12",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10000d",
+              "elType": "widget",
+              "settings": {
+                "title": "เปลี่ยนการเทรดให้เป็นระบบ ไม่ใช่อารมณ์ชั่ววูบ",
+                "header_size": "h2",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 40,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10000e",
+              "elType": "widget",
+              "settings": {
+                "editor": "หน้า section นี้ตั้งใจไว้เป็นเนื้อหา SEO หลักของหน้าแรก ใส่คำอธิบาย FENIX PRO EA ให้ชัดว่าเหมาะกับใคร ทำงานบน MT5 อย่างไร และช่วยจัดระบบการตัดสินใจได้แบบไหน",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            },
+            {
+              "id": "10000f",
+              "elType": "widget",
+              "settings": {
+                "editor": "แนะนำให้เก็บข้อความ 2 พารากราฟขึ้นไป เพื่อให้หน้าแรกไม่ดูเป็นแค่หน้าโฆษณา แต่เป็นหน้าที่มีบริบทเพียงพอสำหรับคนอ่านและ search engine",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "100013",
+          "elType": "column",
+          "settings": {
+            "_column_size": 56,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#14141A",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,122,26,0.18)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "100011",
+              "elType": "widget",
+              "settings": {
+                "title": "ปัญหาที่ระบบเข้ามาช่วยจัดการ",
+                "header_size": "h3",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 24,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100012",
+              "elType": "widget",
+              "settings": {
+                "editor": "<ul><li>ลดการเข้าออเดอร์จากความกลัวหรือความโลภ</li><li>จัดการเงื่อนไขการทำงานให้ทำซ้ำได้อย่างมีวินัย</li><li>ช่วยให้ติดตาม Backtest / Forward Test ได้เป็นระบบ</li><li>มีทีมช่วยแนะนำการติดตั้งและการเริ่มใช้งาน</li></ul>",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "100025",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "content_width": {
+          "unit": "px",
+          "size": 1180,
+          "sizes": []
+        },
+        "gap": "extended",
+        "background_background": "classic",
+        "background_color": "#0A0A0E",
+        "padding": {
+          "unit": "px",
+          "top": "86",
+          "right": "24",
+          "bottom": "86",
+          "left": "24",
+          "isLinked": false
+        },
+        "_title": "Workflow Cards"
+      },
+      "elements": [
+        {
+          "id": "100018",
+          "elType": "column",
+          "settings": {
+            "_column_size": 25,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#15151B",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,255,255,0.10)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "100015",
+              "elType": "widget",
+              "settings": {
+                "title": "01",
+                "header_size": "div",
+                "title_color": "#FF7A1A",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 34,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100016",
+              "elType": "widget",
+              "settings": {
+                "title": "ติดตั้ง MT5",
+                "header_size": "h3",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100017",
+              "elType": "widget",
+              "settings": {
+                "editor": "เตรียมบัญชี เทอร์มินัล หรือ VPS ให้พร้อมสำหรับการใช้งาน",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "10001c",
+          "elType": "column",
+          "settings": {
+            "_column_size": 25,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#15151B",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,255,255,0.10)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "100019",
+              "elType": "widget",
+              "settings": {
+                "title": "02",
+                "header_size": "div",
+                "title_color": "#FF7A1A",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 34,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10001a",
+              "elType": "widget",
+              "settings": {
+                "title": "ตั้งค่า FENIX PRO EA",
+                "header_size": "h3",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10001b",
+              "elType": "widget",
+              "settings": {
+                "editor": "กำหนดเงื่อนไข Lot ความเสี่ยง และกรอบการทำงานของระบบ",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "100020",
+          "elType": "column",
+          "settings": {
+            "_column_size": 25,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#15151B",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,255,255,0.10)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "10001d",
+              "elType": "widget",
+              "settings": {
+                "title": "03",
+                "header_size": "div",
+                "title_color": "#FF7A1A",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 34,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10001e",
+              "elType": "widget",
+              "settings": {
+                "title": "ทดสอบก่อนใช้งาน",
+                "header_size": "h3",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10001f",
+              "elType": "widget",
+              "settings": {
+                "editor": "ตรวจสอบ Backtest และ Forward Test เพื่อประเมินความเหมาะสม",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "100024",
+          "elType": "column",
+          "settings": {
+            "_column_size": 25,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#15151B",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,255,255,0.10)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "100021",
+              "elType": "widget",
+              "settings": {
+                "title": "04",
+                "header_size": "div",
+                "title_color": "#FF7A1A",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 34,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100022",
+              "elType": "widget",
+              "settings": {
+                "title": "ติดตามผล",
+                "header_size": "h3",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100023",
+              "elType": "widget",
+              "settings": {
+                "editor": "ดูสถานะการทำงานและปรับแผนตามความเสี่ยงที่ยอมรับได้",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "100030",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "content_width": {
+          "unit": "px",
+          "size": 1180,
+          "sizes": []
+        },
+        "gap": "extended",
+        "background_background": "classic",
+        "background_color": "#101016",
+        "padding": {
+          "unit": "px",
+          "top": "92",
+          "right": "24",
+          "bottom": "92",
+          "left": "24",
+          "isLinked": false
+        },
+        "_title": "Feature Split"
+      },
+      "elements": [
+        {
+          "id": "100029",
+          "elType": "column",
+          "settings": {
+            "_column_size": 40,
+            "_inline_size": null,
+            "content_position": "center"
+          },
+          "elements": [
+            {
+              "id": "100026",
+              "elType": "widget",
+              "settings": {
+                "title": "FEATURES",
+                "header_size": "div",
+                "title_color": "#FFB347",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "700",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 14,
+                  "sizes": []
+                },
+                "typography_letter_spacing": {
+                  "unit": "em",
+                  "size": 0.12,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "12",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100027",
+              "elType": "widget",
+              "settings": {
+                "title": "จุดเด่นของ FENIX PRO EA",
+                "header_size": "h2",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 40,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100028",
+              "elType": "widget",
+              "settings": {
+                "editor": "ออกแบบ layout ส่วนนี้ให้เป็น block สั้น ๆ แก้คำง่าย เหมาะกับการปรับข้อความขาย จุดเด่น และภาพประกอบใน Elementor",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "10002c",
+          "elType": "column",
+          "settings": {
+            "_column_size": 30,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#171218",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,122,26,0.20)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "10002a",
+              "elType": "widget",
+              "settings": {
+                "title": "MT5 EXPERT ADVISOR",
+                "header_size": "h3",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10002b",
+              "elType": "widget",
+              "settings": {
+                "editor": "ทำงานบน MetaTrader 5 และเหมาะสำหรับผู้ใช้ที่ต้องการระบบช่วยเทรดแบบมีเงื่อนไขชัดเจน",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "10002f",
+          "elType": "column",
+          "settings": {
+            "_column_size": 30,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#12191A",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(6,199,85,0.20)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "10002d",
+              "elType": "widget",
+              "settings": {
+                "title": "RISK-FIRST SETUP",
+                "header_size": "h3",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10002e",
+              "elType": "widget",
+              "settings": {
+                "editor": "วางกรอบความเสี่ยงก่อนเริ่มใช้งาน เพื่อให้การตัดสินใจไม่หลุดจากแผนหลัก",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "100038",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "content_width": {
+          "unit": "px",
+          "size": 1180,
+          "sizes": []
+        },
+        "gap": "extended",
+        "background_background": "classic",
+        "background_color": "#0A0A0E",
+        "padding": {
+          "unit": "px",
+          "top": "92",
+          "right": "24",
+          "bottom": "92",
+          "left": "24",
+          "isLinked": false
+        },
+        "_title": "Performance Placeholder"
+      },
+      "elements": [
+        {
+          "id": "100035",
+          "elType": "column",
+          "settings": {
+            "_column_size": 50,
+            "_inline_size": null,
+            "content_position": "center"
+          },
+          "elements": [
+            {
+              "id": "100031",
+              "elType": "widget",
+              "settings": {
+                "title": "EVIDENCE",
+                "header_size": "div",
+                "title_color": "#FFB347",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "700",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 14,
+                  "sizes": []
+                },
+                "typography_letter_spacing": {
+                  "unit": "em",
+                  "size": 0.12,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "12",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100032",
+              "elType": "widget",
+              "settings": {
+                "title": "พื้นที่แสดงผลการทดสอบจริง",
+                "header_size": "h2",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 40,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100033",
+              "elType": "widget",
+              "settings": {
+                "editor": "ใช้ส่วนนี้ใส่ภาพ Backtest, Forward Test หรือรายงานจากบัญชีจริง โดยไม่ใส่ตัวเลขสมมติ ถ้ายังไม่มีข้อมูล ให้ใช้ข้อความ “ระบุ...” ไว้ก่อน",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            },
+            {
+              "id": "100034",
+              "elType": "widget",
+              "settings": {
+                "editor": "<strong>ช่วงเวลาทดสอบ:</strong> ระบุช่วงเวลา<br><strong>คู่เงิน / สินทรัพย์:</strong> เช่น XAUUSD<br><strong>Timeframe:</strong> ระบุ Timeframe<br><strong>Max Drawdown:</strong> ระบุ %",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 17,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "100037",
+          "elType": "column",
+          "settings": {
+            "_column_size": 50,
+            "_inline_size": null
+          },
+          "elements": [
+            {
+              "id": "100036",
+              "elType": "widget",
+              "settings": {
+                "html": "<div class=\"fenix-el-placeholder\"><span>UPLOAD BACKTEST / FORWARD IMAGE</span><strong>ใช้พื้นที่นี้วางภาพกราฟหรือรายงานจริง</strong></div><style>.fenix-el-placeholder{min-height:360px;border:1px dashed rgba(255,179,71,.35);border-radius:28px;background:linear-gradient(145deg,rgba(255,122,26,.10),rgba(6,199,85,.05));display:grid;place-items:center;text-align:center;padding:28px;color:#a7a3b5;font-family:\"Noto Sans Thai\",sans-serif}.fenix-el-placeholder span{display:block;color:#ffb347;font-size:13px;font-weight:800;letter-spacing:.14em;margin-bottom:8px}.fenix-el-placeholder strong{color:#f7f4ef;font-size:22px;font-weight:600}</style>"
+              },
+              "elements": [],
+              "widgetType": "html"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "100043",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "content_width": {
+          "unit": "px",
+          "size": 1180,
+          "sizes": []
+        },
+        "gap": "extended",
+        "background_background": "classic",
+        "background_color": "#101016",
+        "padding": {
+          "unit": "px",
+          "top": "86",
+          "right": "24",
+          "bottom": "98",
+          "left": "24",
+          "isLinked": false
+        },
+        "_title": "Fit / CTA"
+      },
+      "elements": [
+        {
+          "id": "10003b",
+          "elType": "column",
+          "settings": {
+            "_column_size": 36,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#14141A",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,255,255,0.10)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "100039",
+              "elType": "widget",
+              "settings": {
+                "title": "เหมาะกับใคร",
+                "header_size": "h3",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10003a",
+              "elType": "widget",
+              "settings": {
+                "editor": "<ul><li>ผู้ใช้ MT5 ที่ต้องการระบบช่วยเทรด</li><li>คนที่อยากลดการตัดสินใจจากอารมณ์</li><li>ผู้ที่พร้อมเรียนรู้เรื่องความเสี่ยงก่อนใช้งาน</li></ul>",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "10003e",
+          "elType": "column",
+          "settings": {
+            "_column_size": 28,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#14141A",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,255,255,0.10)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "10003c",
+              "elType": "widget",
+              "settings": {
+                "title": "ก่อนทัก LINE",
+                "header_size": "h3",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "10003d",
+              "elType": "widget",
+              "settings": {
+                "editor": "<ul><li>ทุนที่ต้องการเริ่มต้น</li><li>โบรกเกอร์และประเภทบัญชี MT5</li><li>เป้าหมายการใช้งาน</li><li>ระดับความเสี่ยงที่รับได้</li></ul>",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "100042",
+          "elType": "column",
+          "settings": {
+            "_column_size": 36,
+            "_inline_size": null,
+            "background_background": "classic",
+            "background_color": "#211711",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,122,26,0.26)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "28",
+              "right": "28",
+              "bottom": "28",
+              "left": "28",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "10003f",
+              "elType": "widget",
+              "settings": {
+                "title": "พร้อมเริ่มต้นใช้งาน FENIX PRO EA?",
+                "header_size": "h2",
+                "title_color": "#F7F4EF",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.18,
+                  "sizes": []
+                },
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 30,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "100040",
+              "elType": "widget",
+              "settings": {
+                "editor": "สอบถามรายละเอียด เงื่อนไขการใช้งาน และความเหมาะสมกับทุนของคุณได้ทาง LINE",
+                "text_color": "#A7A3B5",
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 18,
+                  "sizes": []
+                },
+                "typography_font_weight": "300",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.8,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            },
+            {
+              "id": "100041",
+              "elType": "widget",
+              "settings": {
+                "text": "ทัก LINE OFFICIAL ACCOUNT",
+                "link": {
+                  "url": "#",
+                  "is_external": "",
+                  "nofollow": "",
+                  "custom_attributes": ""
+                },
+                "align": "left",
+                "size": "lg",
+                "button_text_color": "#0A0A0E",
+                "background_color": "#06C755",
+                "hover_color": "#0A0A0E",
+                "button_background_hover_color": "#19E06D",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "999",
+                  "right": "999",
+                  "bottom": "999",
+                  "left": "999",
+                  "isLinked": true
+                },
+                "text_padding": {
+                  "unit": "px",
+                  "top": "18",
+                  "right": "30",
+                  "bottom": "18",
+                  "left": "30",
+                  "isLinked": false
+                },
+                "typography_typography": "custom",
+                "typography_font_family": "Noto Sans Thai",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 17,
+                  "sizes": []
+                },
+                "typography_font_weight": "700"
+              },
+              "elements": [],
+              "widgetType": "button"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    }
+  ],
+  "page_settings": [],
+  "version": "0.4",
+  "title": "FENIX PRO EA - Home Starter",
+  "type": "page"
+}
