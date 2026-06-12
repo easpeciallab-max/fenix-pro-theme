@@ -249,8 +249,17 @@ function fenix_defaults() {
 		'cta_btn_text' => 'ทัก LINE เพื่อขอรายละเอียด',
 
 		/* Footer */
-		'footer_tagline' => 'ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5 เพื่อการเทรดที่เป็นระบบ มีวินัย และบริหารความเสี่ยงได้',
-		'footer_risk'    => 'การเทรดมีความเสี่ยงสูง ผลลัพธ์ในอดีตไม่ได้รับประกันผลลัพธ์ในอนาคต โปรดศึกษาข้อมูลก่อนตัดสินใจใช้งาน',
+		'footer_kicker'       => 'FENIX PRO EA',
+		'footer_cta_title'    => 'พร้อมเริ่มต้นใช้งาน FENIX PRO?',
+		'footer_cta_text'     => 'สอบถามการติดตั้ง เงื่อนไขการใช้งาน และความเหมาะสมกับทุนของคุณได้ทาง LINE',
+		'footer_line_text'    => 'ทัก LINE Official Account',
+		'footer_facebook_text' => 'Facebook Page',
+		'footer_email_text'    => 'Email Support',
+		'footer_contact_head'  => 'ช่องทางติดต่อ',
+		'footer_tagline'      => 'ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5 เพื่อการเทรดที่เป็นระบบ มีวินัย และบริหารความเสี่ยงได้',
+		'footer_trust_items'  => "MT5 Expert Advisor\nSupport ภาษาไทย\nRisk-first setup",
+		'footer_risk'         => 'การเทรดมีความเสี่ยงสูง ผลลัพธ์ในอดีตไม่ได้รับประกันผลลัพธ์ในอนาคต โปรดศึกษาข้อมูลก่อนตัดสินใจใช้งาน',
+		'footer_risk_link'    => 'อ่านคำเตือนความเสี่ยงฉบับเต็ม',
 	);
 
 	/* ===== เนื้อหาหน้าย่อย (multipage) ===== */

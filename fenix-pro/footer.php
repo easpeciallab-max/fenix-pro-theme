@@ -8,35 +8,56 @@
 $fenix_line  = fenix_mod( 'line_url' );
 $fenix_fb    = fenix_mod( 'facebook_url' );
 $fenix_email = fenix_mod( 'contact_email' );
+$fenix_trust = fenix_lines( fenix_mod( 'footer_trust_items' ) );
 ?>
 
 <footer class="site-footer" id="contact">
 	<div class="container">
 
+		<div class="footer-cta">
+			<div>
+				<p class="footer-kicker"><?php echo esc_html( fenix_mod( 'footer_kicker' ) ); ?></p>
+				<h2><?php echo esc_html( fenix_mod( 'footer_cta_title' ) ); ?></h2>
+				<p><?php echo esc_html( fenix_mod( 'footer_cta_text' ) ); ?></p>
+			</div>
+			<a class="footer-primary" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
+				<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<span><?php echo esc_html( fenix_mod( 'footer_line_text' ) ); ?></span>
+			</a>
+		</div>
+
 		<div class="footer-main">
 
 			<div class="footer-brand">
 				<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<img class="brand-logo" src="<?php echo esc_url( fenix_logo_url() ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" width="56" height="56">
+					<img class="brand-logo" src="<?php echo esc_url( fenix_logo_url() ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" width="64" height="64">
 					<span class="brand-name">FENIX <em>PRO</em><small>EA&nbsp;for&nbsp;MT5</small></span>
 				</a>
 				<p class="footer-tagline"><?php echo esc_html( fenix_mod( 'footer_tagline' ) ); ?></p>
+				<?php if ( $fenix_trust ) : ?>
+				<ul class="footer-trust">
+					<?php foreach ( $fenix_trust as $fenix_item ) : ?>
+					<li><?php echo esc_html( $fenix_item ); ?></li>
+					<?php endforeach; ?>
+				</ul>
+				<?php endif; ?>
 			</div>
 
 			<div class="footer-connect">
-				<h3 class="footer-head">ติดต่อเรา</h3>
+				<h3 class="footer-head"><?php echo esc_html( fenix_mod( 'footer_contact_head' ) ); ?></h3>
 
-				<a class="footer-line-btn" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
-					<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-					<span>LINE OFFICIAL ACCOUNT</span>
-				</a>
-
-				<ul class="footer-meta">
+				<ul class="footer-contact-list">
+					<li class="footer-contact-line">
+						<a href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
+							<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							<span><?php echo esc_html( fenix_mod( 'footer_line_text' ) ); ?></span>
+						</a>
+					</li>
 					<?php if ( $fenix_fb ) : ?>
 					<li>
 						<a href="<?php echo esc_url( $fenix_fb ); ?>" target="_blank" rel="noopener">
 							<?php echo fenix_icon( 'facebook', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-							<span>Facebook Page</span>
+							<span><?php echo esc_html( fenix_mod( 'footer_facebook_text' ) ); ?></span>
 						</a>
 					</li>
 					<?php endif; ?>
@@ -44,7 +65,8 @@ $fenix_email = fenix_mod( 'contact_email' );
 					<li>
 						<a href="<?php echo esc_url( 'mailto:' . $fenix_email ); ?>">
 							<?php echo fenix_icon( 'mail', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-							<span class="keep-case"><?php echo esc_html( $fenix_email ); ?></span>
+							<span><?php echo esc_html( fenix_mod( 'footer_email_text' ) ); ?></span>
+							<small class="keep-case"><?php echo esc_html( $fenix_email ); ?></small>
 						</a>
 					</li>
 					<?php endif; ?>
@@ -53,9 +75,14 @@ $fenix_email = fenix_mod( 'contact_email' );
 
 		</div>
 
+		<div class="footer-risk">
+			<?php echo fenix_icon( 'warn', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			<p><?php echo esc_html( fenix_mod( 'footer_risk' ) ); ?></p>
+		</div>
+
 		<div class="footer-bottom">
 			<p class="footer-copy">&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> — สงวนลิขสิทธิ์</p>
-			<a class="footer-legal" href="<?php echo esc_url( home_url( '/risk-disclosure/' ) ); ?>">คำเตือนความเสี่ยง</a>
+			<a class="footer-legal" href="<?php echo esc_url( home_url( '/risk-disclosure/' ) ); ?>"><?php echo esc_html( fenix_mod( 'footer_risk_link' ) ); ?></a>
 		</div>
 
 	</div>

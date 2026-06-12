@@ -277,8 +277,17 @@ function fenix_customize_register( $wp_customize ) {
 		'fenix_footer' => array(
 			'title'  => '15) Footer ท้ายเว็บ',
 			'fields' => array(
-				'footer_tagline' => array( 'คำโปรยใต้โลโก้', 'textarea' ),
-				'footer_risk'    => array( 'คำเตือนความเสี่ยงบรรทัดล่างสุด', 'textarea' ),
+				'footer_kicker'       => array( 'ข้อความเล็กเหนือ CTA footer', 'text' ),
+				'footer_cta_title'    => array( 'หัวข้อ CTA ใน footer', 'text' ),
+				'footer_cta_text'     => array( 'คำอธิบาย CTA ใน footer', 'textarea' ),
+				'footer_line_text'    => array( 'ข้อความปุ่ม LINE ใน footer', 'text' ),
+				'footer_facebook_text' => array( 'ข้อความลิงก์ Facebook ใน footer', 'text' ),
+				'footer_email_text'    => array( 'ข้อความลิงก์ Email ใน footer', 'text' ),
+				'footer_contact_head'  => array( 'หัวข้อช่องทางติดต่อ', 'text' ),
+				'footer_tagline'      => array( 'คำโปรยใต้โลโก้', 'textarea' ),
+				'footer_trust_items'  => array( 'ป้ายความน่าเชื่อถือ (บรรทัดละ 1 รายการ)', 'textarea' ),
+				'footer_risk'         => array( 'คำเตือนความเสี่ยงบรรทัดล่างสุด', 'textarea' ),
+				'footer_risk_link'    => array( 'ข้อความลิงก์คำเตือนความเสี่ยง', 'text' ),
 			),
 		),
 	);
