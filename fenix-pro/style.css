@@ -3540,8 +3540,22 @@ h1, h2, h3, h4,
 	align-items: center !important;
 }
 
+.fenix-has-elementor .elementor-column:has(.fenix-el-board) {
+	width: 44% !important;
+	flex: 0 0 44% !important;
+}
+
+.fenix-has-elementor .elementor-column:has(.fenix-el-board) > .elementor-widget-wrap {
+	width: 100% !important;
+	justify-content: center !important;
+}
+
 .fenix-has-elementor .elementor-widget-html:has(.fenix-el-board) {
-	width: 100%;
+	--container-widget-width: 100% !important;
+	--container-widget-flex-grow: 1 !important;
+	width: 100% !important;
+	max-width: 460px !important;
+	flex: 0 0 100% !important;
 }
 
 .fenix-has-elementor .fenix-el-board {
@@ -3568,6 +3582,11 @@ h1, h2, h3, h4,
 @media (max-width: 960px) {
 	.fenix-has-elementor .elementor-section:has(.fenix-el-board) > .elementor-container {
 		min-height: 0 !important;
+	}
+
+	.fenix-has-elementor .elementor-column:has(.fenix-el-board) {
+		width: 100% !important;
+		flex-basis: 100% !important;
 	}
 
 	.fenix-has-elementor .fenix-el-board {
