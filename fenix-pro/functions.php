@@ -77,6 +77,16 @@ function fenix_defaults() {
 		'show_float_line' => false,
 		'float_line_text' => 'สอบถามทาง LINE',
 
+		/* Mobile bottom bar */
+		'show_mobile_nav'         => true,
+		'mobile_nav_home_label'   => 'หน้าแรก',
+		'mobile_nav_home_url'     => '/',
+		'mobile_nav_test_label'   => 'ผลทดสอบ',
+		'mobile_nav_test_url'     => '/forward-test/',
+		'mobile_nav_price_label'  => 'แพ็กเกจ',
+		'mobile_nav_price_url'    => '/pricing/',
+		'mobile_nav_line_label'   => 'ทัก LINE',
+
 		/* Hero */
 		'show_hero'      => true,
 		'hero_badge'     => 'Automated Trading System • MT5',
@@ -415,6 +425,23 @@ function fenix_lines( $text ) {
 }
 
 /**
+ * แปลงลิงก์ที่ตั้งค่าได้ ให้รองรับทั้ง URL เต็ม, anchor และ slug ภายในเว็บ
+ */
+function fenix_link_url( $url ) {
+	$url = trim( (string) $url );
+
+	if ( '' === $url ) {
+		return '#';
+	}
+
+	if ( '#' === $url || 0 === strpos( $url, '#' ) || preg_match( '#^(https?:)?//#i', $url ) || preg_match( '#^(mailto|tel):#i', $url ) ) {
+		return $url;
+	}
+
+	return home_url( '/' . ltrim( $url, '/' ) );
+}
+
+/**
  * URL โลโก้ (ใช้โลโก้ที่อัปโหลดเอง ถ้าไม่มีใช้โลโก้ที่ฝังมากับธีม)
  */
 function fenix_logo_url() {
@@ -504,6 +531,9 @@ function fenix_icon( $name, $class = 'icon' ) {
 		'clock'    => '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
 		'gauge'    => '<path d="M4.5 19a9 9 0 1 1 15 0"/><path d="M12 13l4-4"/><circle cx="12" cy="14" r="1.6"/>',
 		'flag'     => '<path d="M5 21V4"/><path d="M5 5h12l-2.5 3.5L17 12H5"/>',
+		'home'     => '<path d="M4 11.5 12 5l8 6.5"/><path d="M6.5 10.5V20h11v-9.5"/><path d="M10 20v-5h4v5"/>',
+		'chart'    => '<path d="M4 19V5"/><path d="M4 19h16"/><path d="M7 15l3-3 2.4 2.4L17.5 9"/><path d="M15 9h2.5v2.5"/>',
+		'tag'      => '<path d="M20 12.5 12.5 20 4 11.5V4h7.5L20 12.5z"/><circle cx="8.2" cy="8.2" r="0.8"/>',
 		'cpu'      => '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>',
 		'candles'  => '<path d="M7 6v3M7 15v3M7 9h0a1.5 1.5 0 0 1 1.5 1.5v3A1.5 1.5 0 0 1 7 15h0a1.5 1.5 0 0 1-1.5-1.5v-3A1.5 1.5 0 0 1 7 9zM17 3v3M17 13v4M17 6h0a1.5 1.5 0 0 1 1.5 1.5v4A1.5 1.5 0 0 1 17 13h0a1.5 1.5 0 0 1-1.5-1.5v-4A1.5 1.5 0 0 1 17 6z"/><path d="M3 21h18"/>',
 		'layout'   => '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',

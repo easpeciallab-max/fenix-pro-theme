@@ -11,6 +11,30 @@ $fenix_email = fenix_mod( 'contact_email' );
 $fenix_intro = fenix_lines( fenix_mod( 'footer_tagline' ) );
 $fenix_trust = fenix_lines( fenix_mod( 'footer_trust_items' ) );
 $fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
+$fenix_mobile_nav = array(
+	array(
+		'label' => fenix_mod( 'mobile_nav_home_label' ),
+		'url'   => fenix_link_url( fenix_mod( 'mobile_nav_home_url' ) ),
+		'icon'  => 'home',
+	),
+	array(
+		'label' => fenix_mod( 'mobile_nav_test_label' ),
+		'url'   => fenix_link_url( fenix_mod( 'mobile_nav_test_url' ) ),
+		'icon'  => 'chart',
+	),
+	array(
+		'label' => fenix_mod( 'mobile_nav_price_label' ),
+		'url'   => fenix_link_url( fenix_mod( 'mobile_nav_price_url' ) ),
+		'icon'  => 'tag',
+	),
+	array(
+		'label'        => fenix_mod( 'mobile_nav_line_label' ),
+		'url'          => $fenix_line,
+		'icon'         => 'line',
+		'is_action'    => true,
+		'target_blank' => true,
+	),
+);
 ?>
 
 <footer class="site-footer" id="contact">
@@ -86,6 +110,17 @@ $fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
 
 	</div>
 </footer>
+
+<?php if ( fenix_mod( 'show_mobile_nav' ) ) : ?>
+<nav class="mobile-app-nav" aria-label="เมนูลัดมือถือ">
+	<?php foreach ( $fenix_mobile_nav as $fenix_item ) : ?>
+	<a class="mobile-app-nav-item<?php echo ! empty( $fenix_item['is_action'] ) ? ' is-action' : ''; ?>" href="<?php echo esc_url( $fenix_item['url'] ); ?>"<?php echo ! empty( $fenix_item['target_blank'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
+		<span class="mobile-app-nav-icon"><?php echo fenix_icon( $fenix_item['icon'], 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+		<span><?php echo esc_html( $fenix_item['label'] ); ?></span>
+	</a>
+	<?php endforeach; ?>
+</nav>
+<?php endif; ?>
 
 <?php if ( fenix_mod( 'show_float_line' ) ) : ?>
 <a class="float-line" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr( fenix_mod( 'float_line_text' ) ); ?>">

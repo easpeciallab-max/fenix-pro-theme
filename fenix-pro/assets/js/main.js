@@ -40,6 +40,44 @@
 		});
 	}
 
+	/* Mobile app-style bottom navigation */
+	var mobileNav = document.querySelector('.mobile-app-nav');
+	if (mobileNav) {
+		document.body.classList.add('has-mobile-app-nav');
+
+		var currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+		var activeItem = null;
+		var activeLength = 0;
+		var mobileItems = mobileNav.querySelectorAll('.mobile-app-nav-item');
+
+		mobileItems.forEach(function (item) {
+			var itemUrl = new URL(item.href, window.location.origin);
+			var itemPath = itemUrl.pathname.replace(/\/+$/, '') || '/';
+			var isMatch = itemPath === '/' ? currentPath === '/' : currentPath.indexOf(itemPath) === 0;
+
+			if (!item.classList.contains('is-action') && isMatch && itemPath.length >= activeLength) {
+				activeItem = item;
+				activeLength = itemPath.length;
+			}
+
+			item.addEventListener('pointerdown', function () {
+				item.classList.add('is-pressing');
+			});
+
+			item.addEventListener('pointerup', function () {
+				item.classList.remove('is-pressing');
+			});
+
+			item.addEventListener('pointerleave', function () {
+				item.classList.remove('is-pressing');
+			});
+		});
+
+		if (activeItem) {
+			activeItem.classList.add('is-active');
+		}
+	}
+
 	/* Reveal on scroll */
 	var items = document.querySelectorAll('.reveal');
 	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

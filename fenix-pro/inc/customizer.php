@@ -291,6 +291,21 @@ function fenix_customize_register( $wp_customize ) {
 				'footer_risk_link'    => array( 'ข้อความลิงก์คำเตือนความเสี่ยง', 'text' ),
 			),
 		),
+
+		'fenix_mobile_nav' => array(
+			'title'       => '16) เมนูลัดมือถือด้านล่าง',
+			'description' => 'เมนูลัดด้านล่างบนมือถือ ใช้สำหรับพาผู้เข้าชมไปยังหน้าหลักที่สำคัญและปุ่มทัก LINE',
+			'fields'      => array(
+				'show_mobile_nav'        => array( 'แสดงเมนูลัดด้านล่างบนมือถือ', 'checkbox' ),
+				'mobile_nav_home_label'  => array( 'เมนู 1 — ชื่อ', 'text' ),
+				'mobile_nav_home_url'    => array( 'เมนู 1 — ลิงก์หรือ slug', 'text' ),
+				'mobile_nav_test_label'  => array( 'เมนู 2 — ชื่อ', 'text' ),
+				'mobile_nav_test_url'    => array( 'เมนู 2 — ลิงก์หรือ slug', 'text' ),
+				'mobile_nav_price_label' => array( 'เมนู 3 — ชื่อ', 'text' ),
+				'mobile_nav_price_url'   => array( 'เมนู 3 — ลิงก์หรือ slug', 'text' ),
+				'mobile_nav_line_label'  => array( 'เมนู 4 — ชื่อปุ่ม LINE', 'text' ),
+			),
+		),
 	);
 
 	/* เพิ่ม FAQ 10 ข้อเข้า section FAQ */
@@ -304,7 +319,7 @@ function fenix_customize_register( $wp_customize ) {
 	 * =================================================== */
 
 	$sections['fenix_home'] = array(
-		'title'       => '16) หน้าแรก — ไฮไลต์ & การ์ดนำทาง',
+		'title'       => '17) หน้าแรก — ไฮไลต์ & การ์ดนำทาง',
 		'description' => 'แถบไฮไลต์ใต้ Hero และการ์ด 5 ใบที่ลิงก์ไปยังหน้าย่อย ลิงก์ตั้งค่าตาม slug มาตรฐานแล้ว แก้ได้หากใช้ slug อื่น',
 		'fields'      => array(
 			'show_highlight'   => array( 'แสดงแถบไฮไลต์ใต้ Hero', 'checkbox' ),
