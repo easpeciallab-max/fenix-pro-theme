@@ -1400,7 +1400,8 @@ h3 {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
-	margin-top: 24px;
+	padding: 0;
+	margin: 24px 0 0;
 }
 
 .footer-trust li {
@@ -1433,6 +1434,8 @@ h3 {
 	list-style: none;
 	display: grid;
 	gap: 10px;
+	padding: 0;
+	margin: 0;
 }
 
 .footer-contact-list a {

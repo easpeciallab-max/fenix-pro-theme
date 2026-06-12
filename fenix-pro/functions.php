@@ -44,14 +44,19 @@ add_action( 'after_setup_theme', 'fenix_setup' );
  * Styles & scripts
  * -------------------------------------------------------------- */
 function fenix_assets() {
+	$style_path    = get_stylesheet_directory() . '/style.css';
+	$script_path   = get_template_directory() . '/assets/js/main.js';
+	$style_version = file_exists( $style_path ) ? filemtime( $style_path ) : FENIX_VERSION;
+	$script_version = file_exists( $script_path ) ? filemtime( $script_path ) : FENIX_VERSION;
+
 	wp_enqueue_style(
 		'fenix-fonts',
 		'https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap',
 		array(),
 		null
 	);
-	wp_enqueue_style( 'fenix-style', get_stylesheet_uri(), array( 'fenix-fonts' ), FENIX_VERSION );
-	wp_enqueue_script( 'fenix-main', get_template_directory_uri() . '/assets/js/main.js', array(), FENIX_VERSION, true );
+	wp_enqueue_style( 'fenix-style', get_stylesheet_uri(), array( 'fenix-fonts' ), $style_version );
+	wp_enqueue_script( 'fenix-main', get_template_directory_uri() . '/assets/js/main.js', array(), $script_version, true );
 }
 add_action( 'wp_enqueue_scripts', 'fenix_assets' );
 
