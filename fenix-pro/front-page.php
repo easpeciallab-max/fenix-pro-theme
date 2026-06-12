@@ -105,6 +105,9 @@ $fenix_line = fenix_mod( 'line_url' );
 <?php endif; ?>
 
 <?php /* ============ แถบสถานะเคลื่อนไหว ============ */ ?>
+<?php
+$fenix_live_items = fenix_lines( fenix_mod( 'live_status_items' ) );
+?>
 <?php if ( fenix_mod( 'show_live_status' ) && fenix_mod( 'live_status_kicker' ) ) : ?>
 <section class="live-strip" aria-label="<?php echo esc_attr( fenix_mod( 'live_status_kicker' ) ); ?>">
 	<div class="container">
@@ -113,6 +116,20 @@ $fenix_line = fenix_mod( 'line_url' );
 				<i aria-hidden="true"></i>
 				<?php echo esc_html( fenix_mod( 'live_status_kicker' ) ); ?>
 			</span>
+			<?php if ( ! empty( $fenix_live_items ) ) : ?>
+				<div class="live-track-wrap">
+					<div class="live-track">
+						<?php for ( $round = 0; $round < 2; $round++ ) : ?>
+							<?php foreach ( $fenix_live_items as $fenix_live_item ) : ?>
+								<span class="live-item">
+									<i aria-hidden="true"></i>
+									<?php echo esc_html( $fenix_live_item ); ?>
+								</span>
+							<?php endforeach; ?>
+						<?php endfor; ?>
+					</div>
+				</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>

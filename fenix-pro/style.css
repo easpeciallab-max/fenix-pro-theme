@@ -2786,9 +2786,11 @@ h1, h2, h3, h4,
 }
 
 .live-strip-inner {
-	display: flex;
+	display: grid;
+	grid-template-columns: auto 1fr;
 	align-items: center;
-	justify-content: center;
+	gap: 18px;
+	min-width: 0;
 }
 
 .live-strip-label {
@@ -2806,6 +2808,8 @@ h1, h2, h3, h4,
 	letter-spacing: 0.16em;
 	white-space: nowrap;
 	box-shadow: 0 14px 40px rgba(62, 207, 142, 0.08);
+	position: relative;
+	z-index: 2;
 }
 
 .live-strip-label i,
@@ -3376,6 +3380,10 @@ h1, h2, h3, h4,
 		grid-template-columns: 1fr;
 	}
 
+	.live-strip-label {
+		justify-self: center;
+	}
+
 	.control-copy {
 		max-width: 720px;
 	}
@@ -3414,7 +3422,7 @@ h1, h2, h3, h4,
 	}
 
 	.live-strip-label {
-		justify-self: start;
+		justify-self: center;
 	}
 
 	.live-track-wrap {

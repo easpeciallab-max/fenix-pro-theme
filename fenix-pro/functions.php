@@ -295,7 +295,7 @@ function fenix_defaults() {
 			/* หน้าแรก — แถบสถานะ / Control center */
 			'show_live_status'     => true,
 			'live_status_kicker'   => 'Live System Flow',
-			'live_status_items'    => '',
+			'live_status_items'    => "FENIX PRO EA บน MetaTrader 5\nRisk-first setup\nBacktest และ Forward Test\nตั้งค่าตามทุนและความเสี่ยง\nLINE Support ภาษาไทย",
 			'show_control_center'  => true,
 			'control_kicker'       => 'FENIX PRO EA Control Center',
 			'control_title'        => 'ภาพรวมก่อนเริ่มใช้งาน FENIX PRO EA',
