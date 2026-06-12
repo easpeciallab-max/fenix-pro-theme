@@ -78,6 +78,47 @@ function fenix_is_elementor_page( $post_id = null ) {
 	return $post_id && 'builder' === get_post_meta( $post_id, '_elementor_edit_mode', true );
 }
 
+function fenix_elementor_data_has_widgets( $elements ) {
+	if ( ! is_array( $elements ) ) {
+		return false;
+	}
+
+	foreach ( $elements as $element ) {
+		if ( ! empty( $element['widgetType'] ) ) {
+			return true;
+		}
+
+		if ( ! empty( $element['elements'] ) && fenix_elementor_data_has_widgets( $element['elements'] ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function fenix_has_elementor_content( $post_id = null ) {
+	if ( ! fenix_is_elementor_page( $post_id ) ) {
+		return false;
+	}
+
+	if ( ! $post_id ) {
+		$post_id = get_queried_object_id();
+	}
+
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	$elementor_data = get_post_meta( $post_id, '_elementor_data', true );
+	if ( empty( $elementor_data ) ) {
+		return false;
+	}
+
+	$elements = json_decode( $elementor_data, true );
+
+	return fenix_elementor_data_has_widgets( $elements );
+}
+
 function fenix_body_classes( $classes ) {
 	if ( is_page() && fenix_is_elementor_page( get_queried_object_id() ) ) {
 		$classes[] = 'fenix-has-elementor';

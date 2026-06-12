@@ -7,7 +7,7 @@
 
 get_header();
 
-if ( fenix_is_elementor_page() ) :
+if ( fenix_has_elementor_content() ) :
 	?>
 	<main id="main" class="elementor-page-shell elementor-page-shell--front">
 		<?php
