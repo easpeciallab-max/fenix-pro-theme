@@ -9,6 +9,7 @@ $fenix_line  = fenix_mod( 'line_url' );
 $fenix_fb    = fenix_mod( 'facebook_url' );
 $fenix_email = fenix_mod( 'contact_email' );
 $fenix_trust = fenix_lines( fenix_mod( 'footer_trust_items' ) );
+$fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
 ?>
 
 <footer class="site-footer" id="contact">
@@ -43,34 +44,20 @@ $fenix_trust = fenix_lines( fenix_mod( 'footer_trust_items' ) );
 				<?php endif; ?>
 			</div>
 
-			<div class="footer-connect">
-				<h3 class="footer-head"><?php echo esc_html( fenix_mod( 'footer_contact_head' ) ); ?></h3>
+			<div class="footer-prep">
+				<h3 class="footer-head"><?php echo esc_html( fenix_mod( 'footer_prep_title' ) ); ?></h3>
+				<p><?php echo esc_html( fenix_mod( 'footer_prep_text' ) ); ?></p>
 
-				<ul class="footer-contact-list">
-					<li class="footer-contact-line">
-						<a href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
-							<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-							<span><?php echo esc_html( fenix_mod( 'footer_line_text' ) ); ?></span>
-						</a>
-					</li>
-					<?php if ( $fenix_fb ) : ?>
+				<?php if ( $fenix_prep ) : ?>
+				<ul class="footer-prep-list">
+					<?php foreach ( $fenix_prep as $fenix_item ) : ?>
 					<li>
-						<a href="<?php echo esc_url( $fenix_fb ); ?>" target="_blank" rel="noopener">
-							<?php echo fenix_icon( 'facebook', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-							<span><?php echo esc_html( fenix_mod( 'footer_facebook_text' ) ); ?></span>
-						</a>
+						<?php echo fenix_icon( 'check', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<span><?php echo esc_html( $fenix_item ); ?></span>
 					</li>
-					<?php endif; ?>
-					<?php if ( $fenix_email ) : ?>
-					<li>
-						<a href="<?php echo esc_url( 'mailto:' . $fenix_email ); ?>">
-							<?php echo fenix_icon( 'mail', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-							<span><?php echo esc_html( fenix_mod( 'footer_email_text' ) ); ?></span>
-							<small class="keep-case"><?php echo esc_html( $fenix_email ); ?></small>
-						</a>
-					</li>
-					<?php endif; ?>
+					<?php endforeach; ?>
 				</ul>
+				<?php endif; ?>
 			</div>
 
 		</div>
@@ -82,6 +69,16 @@ $fenix_trust = fenix_lines( fenix_mod( 'footer_trust_items' ) );
 
 		<div class="footer-bottom">
 			<p class="footer-copy">&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> — สงวนลิขสิทธิ์</p>
+			<?php if ( $fenix_fb || $fenix_email ) : ?>
+			<div class="footer-links-mini">
+				<?php if ( $fenix_fb ) : ?>
+				<a href="<?php echo esc_url( $fenix_fb ); ?>" target="_blank" rel="noopener"><?php echo esc_html( fenix_mod( 'footer_facebook_text' ) ); ?></a>
+				<?php endif; ?>
+				<?php if ( $fenix_email ) : ?>
+				<a class="keep-case" href="<?php echo esc_url( 'mailto:' . $fenix_email ); ?>"><?php echo esc_html( $fenix_email ); ?></a>
+				<?php endif; ?>
+			</div>
+			<?php endif; ?>
 			<a class="footer-legal" href="<?php echo esc_url( home_url( '/risk-disclosure/' ) ); ?>"><?php echo esc_html( fenix_mod( 'footer_risk_link' ) ); ?></a>
 		</div>
 
