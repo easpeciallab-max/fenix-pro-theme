@@ -426,7 +426,7 @@ h3 {
 	list-style: none;
 }
 
-.nav-list li {
+.nav-list > li {
 	position: relative;
 	height: var(--header-h);
 	display: flex;
@@ -2381,7 +2381,7 @@ h3 {
 		gap: 2px;
 	}
 
-	.nav-list li {
+	.nav-list > li {
 		height: auto;
 		display: block;
 	}
