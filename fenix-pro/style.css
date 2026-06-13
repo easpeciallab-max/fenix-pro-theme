@@ -428,7 +428,7 @@ h3 {
 
 .nav-list li {
 	position: relative;
-	height: 40px;
+	height: var(--header-h);
 	display: flex;
 	align-items: center;
 }
@@ -486,7 +486,7 @@ h3 {
 
 .nav-list .sub-menu {
 	position: absolute;
-	top: calc(100% + (var(--header-h) - 40px) / 2 + 1px);
+	top: calc(100% + 1px);
 	left: 50%;
 	z-index: 30;
 	display: grid;
@@ -725,12 +725,16 @@ h3 {
 
 .site-header .language-switcher--gtranslate #gt_float_wrapper {
 	position: relative !important;
-	display: block !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: flex-end !important;
+	height: var(--header-h) !important;
 	overflow: visible !important;
 }
 
 .site-header .language-switcher--gtranslate .gt_float_switcher {
 	overflow: visible !important;
+	position: static !important;
 	border: 1px solid var(--border) !important;
 	border-radius: 999px !important;
 	background: rgba(255, 255, 255, 0.04) !important;
@@ -799,7 +803,7 @@ h3 {
 
 .site-header .language-switcher--gtranslate .gt_float_switcher .gt_options {
 	position: absolute !important;
-	top: calc(100% + (var(--header-h) - 40px) / 2 + 1px) !important;
+	top: calc(100% + 1px) !important;
 	right: 0 !important;
 	z-index: 9999 !important;
 	width: min(240px, calc(100vw - 32px)) !important;
@@ -2485,6 +2489,12 @@ h3 {
 	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected,
 	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected .gt-current-lang {
 		width: 100% !important;
+	}
+
+	/* รีเซ็ตความสูง wrapper บนมือถือ (เดสก์ท็อปบังคับ 72px เพื่อจัดดรอปดาวน์) */
+	.site-header .language-switcher--gtranslate #gt_float_wrapper {
+		height: auto !important;
+		display: block !important;
 	}
 
 	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected .gt-current-lang {
