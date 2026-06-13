@@ -32,7 +32,7 @@
 					'container'      => false,
 					'menu_class'     => 'nav-list',
 					'fallback_cb'    => 'fenix_fallback_menu',
-					'depth'          => 1,
+					'depth'          => 2,
 				)
 			);
 			?>

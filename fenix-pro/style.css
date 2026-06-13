@@ -426,6 +426,10 @@ h3 {
 	list-style: none;
 }
 
+.nav-list li {
+	position: relative;
+}
+
 .nav-list a {
 	font-family: var(--font-display);
 	font-weight: 400;
@@ -453,6 +457,86 @@ h3 {
 
 .nav-list a:hover::after {
 	width: 100%;
+}
+
+.nav-list .menu-item-has-children > a {
+	padding-right: 18px;
+}
+
+.nav-list .menu-item-has-children > a::before {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 7px;
+	height: 7px;
+	border-right: 1.5px solid currentColor;
+	border-bottom: 1.5px solid currentColor;
+	transform: translateY(-65%) rotate(45deg);
+	opacity: 0.8;
+	transition: transform 0.18s ease;
+}
+
+.nav-list .menu-item-has-children:hover > a::before,
+.nav-list .menu-item-has-children:focus-within > a::before {
+	transform: translateY(-35%) rotate(225deg);
+}
+
+.nav-list .sub-menu {
+	position: absolute;
+	top: calc(100% + 16px);
+	left: 50%;
+	z-index: 30;
+	display: grid;
+	gap: 4px;
+	width: 220px;
+	margin: 0;
+	padding: 8px;
+	list-style: none;
+	border: 1px solid var(--border);
+	border-radius: 18px;
+	background: rgba(18, 18, 24, 0.98);
+	box-shadow: 0 18px 46px rgba(0, 0, 0, 0.36), 0 0 0 1px rgba(255, 122, 26, 0.08);
+	opacity: 0;
+	visibility: hidden;
+	transform: translate(-50%, 8px);
+	transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+
+.nav-list .sub-menu::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: -16px;
+	height: 16px;
+}
+
+.nav-list li:hover > .sub-menu,
+.nav-list li:focus-within > .sub-menu {
+	opacity: 1;
+	visibility: visible;
+	transform: translate(-50%, 0);
+}
+
+.nav-list .sub-menu a {
+	display: block;
+	padding: 10px 12px;
+	border-radius: 12px;
+	color: var(--ash);
+	font-size: 0.9rem;
+	line-height: 1.25;
+}
+
+.nav-list .sub-menu a::after,
+.nav-list .sub-menu a::before {
+	display: none;
+}
+
+.nav-list .sub-menu a:hover,
+.nav-list .sub-menu a:focus-visible {
+	background: rgba(255, 122, 26, 0.12);
+	color: var(--ink);
 }
 
 .language-switcher {
@@ -2272,6 +2356,14 @@ h3 {
 		gap: 0;
 	}
 
+	.nav-list .menu-item-has-children > a {
+		padding-right: 4px;
+	}
+
+	.nav-list .menu-item-has-children > a::before {
+		display: none;
+	}
+
 	.nav-list a {
 		display: block;
 		padding: 13px 4px;
@@ -2281,6 +2373,29 @@ h3 {
 
 	.nav-list a::after {
 		display: none;
+	}
+
+	.nav-list .sub-menu {
+		position: static;
+		display: grid;
+		width: 100%;
+		margin: 0 0 8px;
+		padding: 8px;
+		border-radius: 16px;
+		opacity: 1;
+		visibility: visible;
+		transform: none;
+		box-shadow: none;
+		background: rgba(255, 255, 255, 0.035);
+	}
+
+	.nav-list .sub-menu::before {
+		display: none;
+	}
+
+	.nav-list .sub-menu a {
+		padding: 11px 12px;
+		border-bottom: 0;
 	}
 
 	.nav-cta {

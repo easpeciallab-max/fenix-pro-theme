@@ -579,15 +579,21 @@ function fenix_logo_url() {
  */
 function fenix_fallback_menu() {
 	$items = array(
-		'/'                 => 'หน้าแรก',
-		'/backtest/'        => 'Backtest',
-		'/forward-test/'    => 'Forward Test',
-		'/pricing/'         => 'แพ็กเกจ',
-		'/how-to-install/'  => 'วิธีติดตั้ง',
-		'/risk-disclosure/' => 'ความเสี่ยง',
+		'/'                => 'หน้าแรก',
+		'/pricing/'        => 'แพ็กเกจ',
+		'/how-to-install/' => 'วิธีติดตั้ง',
 	);
 	echo '<ul class="nav-list">';
+	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">หน้าแรก</a></li>';
+	echo '<li class="menu-item-has-children"><a href="' . esc_url( home_url( '/forward-test/' ) ) . '">ผลทดสอบ</a>';
+	echo '<ul class="sub-menu">';
+	echo '<li><a href="' . esc_url( home_url( '/backtest/' ) ) . '">Backtest</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/forward-test/' ) ) . '">Forward Test</a></li>';
+	echo '</ul></li>';
 	foreach ( $items as $path => $label ) {
+		if ( '/' === $path ) {
+			continue;
+		}
 		echo '<li><a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $label ) . '</a></li>';
 	}
 	echo '</ul>';
