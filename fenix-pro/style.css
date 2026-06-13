@@ -809,9 +809,16 @@ h3 {
 }
 
 .site-header .language-switcher--gtranslate .gt_float_switcher .gt_options.gt-open {
-	display: block !important;
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 2px !important;
 	opacity: 1 !important;
 	transform: translateY(0) !important;
+}
+
+/* ดันภาษาไทยขึ้นเป็นอันแรก (ทำงานเมื่อ gt_options เป็น flex ตอนเปิด) */
+.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options a[data-gt-lang="th"] {
+	order: -1 !important;
 }
 
 .site-header .language-switcher--gtranslate .gt_float_switcher .gt_options a {
