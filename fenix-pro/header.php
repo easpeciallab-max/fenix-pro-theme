@@ -36,12 +36,14 @@
 				)
 			);
 			?>
-			<?php fenix_language_switcher(); ?>
-			<a class="btn btn-line btn-sm nav-cta" href="<?php echo esc_url( fenix_mod( 'line_url' ) ); ?>" target="_blank" rel="noopener">
-				<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				<span>สอบถามทาง LINE</span>
-			</a>
 		</nav>
+
+		<?php fenix_language_switcher(); ?>
+
+		<a class="btn btn-line btn-sm nav-cta" href="<?php echo esc_url( fenix_mod( 'line_url' ) ); ?>" target="_blank" rel="noopener">
+			<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			<span>สอบถามทาง LINE</span>
+		</a>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="เปิด/ปิดเมนู">
 			<span></span><span></span><span></span>

@@ -2344,6 +2344,7 @@ h3 {
 	/* Mobile nav — full-screen drawer */
 	.nav-toggle {
 		display: inline-flex;
+		margin-left: 0;
 	}
 
 	/* ยกเลเยอร์ header (และ drawer ที่เป็นลูก) ให้อยู่เหนือบาร์ล่าง (z-index 120) */
@@ -2448,108 +2449,14 @@ h3 {
 		font-size: 0.92rem;
 	}
 
+	/* ปุ่ม LINE ไม่ต้องอยู่บนบาร์มือถือ (มีบาร์ล่าง "ทัก LINE" อยู่แล้ว) */
 	.nav-cta {
-		margin-top: 14px;
-		justify-content: center;
-		width: 100%;
+		display: none;
 	}
 
-	/* Language switcher — แสดงรายการภาษาแบบ flat ในเมนู (ไม่ต้องกดเปิด dropdown ซ้อน) */
+	/* ตัวเปลี่ยนภาษาอยู่บนบาร์เหมือนเดสก์ท็อป (กด pill แล้วเปิด dropdown) — ดันชิดขวาติดปุ่มเมนู */
 	.language-switcher {
-		margin-top: 14px;
-		padding-top: 16px;
-		border-top: 1px solid var(--border);
-	}
-
-	.language-switcher summary {
-		width: 100%;
-		justify-content: space-between;
-		height: 46px;
-		padding-inline: 16px;
-	}
-
-	.language-switcher-menu {
-		position: static;
-		width: 100%;
-		margin-top: 10px;
-		box-shadow: none;
-	}
-
-	.language-switcher--plugin ul {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 8px;
-	}
-
-	.language-switcher--plugin a {
-		justify-content: center;
-	}
-
-	.site-header .language-switcher--gtranslate {
-		width: 100%;
-	}
-
-	.site-header .language-switcher--gtranslate #gt_float_wrapper,
-	.site-header .language-switcher--gtranslate .gtranslate_wrapper,
-	.site-header .language-switcher--gtranslate .gt_float_switcher,
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected,
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected .gt-current-lang {
-		width: 100% !important;
-	}
-
-	/* รีเซ็ตความสูง wrapper บนมือถือ (เดสก์ท็อปบังคับ 72px เพื่อจัดดรอปดาวน์) */
-	.site-header .language-switcher--gtranslate #gt_float_wrapper {
-		height: auto !important;
-		display: block !important;
-	}
-
-	/* ซ่อนปุ่มภาษาปัจจุบัน (toggle) บนมือถือ เพราะโชว์ทุกภาษาแบบ flat แล้ว */
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected {
-		display: none !important;
-	}
-
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options {
-		position: static !important;
-		display: grid !important;
-		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-		gap: 8px !important;
-		opacity: 1 !important;
-		visibility: visible !important;
-		width: 100% !important;
-		min-width: 0 !important;
-		max-height: none !important;
-		margin-top: 12px !important;
-		padding: 0 !important;
-		border: 0 !important;
-		background: transparent !important;
-		box-shadow: none !important;
-		transform: none !important;
-	}
-
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options a {
-		justify-content: center !important;
-		gap: 0 !important;
-		padding: 13px 10px !important;
-		border: 0 !important;
-		border-radius: 12px !important;
-		background: rgba(255, 255, 255, 0.045) !important;
-		color: var(--ash) !important;
-		font-size: 0.95rem !important;
-		font-weight: 600 !important;
-		text-align: center !important;
-		transition: background-color 0.16s ease, color 0.16s ease !important;
-	}
-
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options a:hover,
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options a:active {
-		background: rgba(255, 122, 26, 0.16) !important;
-		color: var(--ink) !important;
-		transform: none !important;
-	}
-
-	/* ซ่อนธงที่โหลดไม่ขึ้น (รูปแตก) บนมือถือ — ใช้ชื่อภาษาล้วน */
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options img {
-		display: none !important;
+		margin-left: auto;
 	}
 }
 
