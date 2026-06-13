@@ -15,6 +15,8 @@ define( 'FENIX_VERSION', '1.0.0' );
  * Theme setup
  * -------------------------------------------------------------- */
 function fenix_setup() {
+	load_theme_textdomain( 'fenix-pro', get_template_directory() . '/languages' );
+
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
@@ -167,6 +169,8 @@ function fenix_defaults() {
 		'contact_email'   => '',
 		'show_float_line' => false,
 		'float_line_text' => 'สอบถามทาง LINE',
+		'show_language_switcher' => true,
+		'language_fallback_items' => "th|TH|ไทย\nen|EN|English\nzh|ZH|中文\nfr|FR|Français\nde|DE|Deutsch\nru|RU|Русский\nja|JA|日本語\nko|KO|한국어",
 
 		/* Mobile bottom bar */
 		'show_mobile_nav'         => true,
@@ -587,6 +591,115 @@ function fenix_fallback_menu() {
 		echo '<li><a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $label ) . '</a></li>';
 	}
 	echo '</ul>';
+}
+
+/**
+ * Language switcher slot.
+ *
+ * This prefers multilingual plugins for real translated URLs, hreflang, SEO,
+ * and Elementor compatibility. The manual fallback is only a visible starter
+ * until a plugin such as TranslatePress, Polylang, or WPML owns translations.
+ */
+function fenix_language_switcher() {
+	if ( ! fenix_mod( 'show_language_switcher' ) ) {
+		return;
+	}
+
+	$plugin_markup = '';
+
+	if ( shortcode_exists( 'language-switcher' ) ) {
+		$plugin_markup = do_shortcode( '[language-switcher]' );
+	} elseif ( function_exists( 'pll_the_languages' ) ) {
+		$plugin_markup = pll_the_languages(
+			array(
+				'echo'          => 0,
+				'show_flags'    => 0,
+				'show_names'    => 1,
+				'hide_if_empty' => 0,
+			)
+		);
+	} elseif ( function_exists( 'icl_get_languages' ) ) {
+		$wpml_languages = icl_get_languages( 'skip_missing=0&orderby=code' );
+
+		if ( is_array( $wpml_languages ) && $wpml_languages ) {
+			$plugin_markup = '<ul class="language-switcher-list">';
+			foreach ( $wpml_languages as $language ) {
+				if ( empty( $language['url'] ) || empty( $language['native_name'] ) ) {
+					continue;
+				}
+
+				$plugin_markup .= sprintf(
+					'<li><a class="%1$s" href="%2$s">%3$s</a></li>',
+					! empty( $language['active'] ) ? 'is-active' : '',
+					esc_url( $language['url'] ),
+					esc_html( $language['native_name'] )
+				);
+			}
+			$plugin_markup .= '</ul>';
+		}
+	}
+
+	if ( $plugin_markup ) {
+		echo '<div class="language-switcher language-switcher--plugin" aria-label="' . esc_attr__( 'Language switcher', 'fenix-pro' ) . '">';
+		echo wp_kses_post( $plugin_markup );
+		echo '</div>';
+		return;
+	}
+
+	$languages = array();
+	foreach ( fenix_lines( fenix_mod( 'language_fallback_items' ) ) as $language_line ) {
+		$parts = array_map( 'trim', explode( '|', $language_line ) );
+		if ( count( $parts ) < 3 ) {
+			continue;
+		}
+
+		$code = sanitize_key( $parts[0] );
+		if ( ! $code ) {
+			continue;
+		}
+
+		$languages[ $code ] = array(
+			'short' => $parts[1],
+			'label' => $parts[2],
+		);
+	}
+
+	if ( ! $languages ) {
+		$languages = array(
+			'th' => array(
+				'short' => 'TH',
+				'label' => 'ไทย',
+			),
+			'en' => array(
+				'short' => 'EN',
+				'label' => 'English',
+			),
+		);
+	}
+
+	$current = substr( get_locale(), 0, 2 );
+	if ( isset( $_GET['lang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$current = sanitize_key( wp_unslash( $_GET['lang'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	}
+
+	if ( ! isset( $languages[ $current ] ) ) {
+		$current = 'th';
+	}
+	?>
+	<details class="language-switcher language-switcher--fallback">
+		<summary aria-label="<?php echo esc_attr__( 'Choose language', 'fenix-pro' ); ?>">
+			<span><?php echo esc_html( $languages[ $current ]['short'] ); ?></span>
+		</summary>
+		<div class="language-switcher-menu">
+			<?php foreach ( $languages as $code => $language ) : ?>
+				<a class="<?php echo esc_attr( $code === $current ? 'is-active' : '' ); ?>" href="<?php echo esc_url( add_query_arg( 'lang', $code ) ); ?>">
+					<span><?php echo esc_html( $language['short'] ); ?></span>
+					<small><?php echo esc_html( $language['label'] ); ?></small>
+				</a>
+			<?php endforeach; ?>
+		</div>
+	</details>
+	<?php
 }
 
 /**

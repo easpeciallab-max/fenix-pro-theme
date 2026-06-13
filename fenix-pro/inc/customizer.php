@@ -50,6 +50,8 @@ function fenix_customize_register( $wp_customize ) {
 				'contact_email'   => array( 'อีเมลติดต่อ (ถ้ามี)', 'text' ),
 				'show_float_line' => array( 'แสดงปุ่ม LINE ลอยมุมขวาล่าง', 'checkbox' ),
 				'float_line_text' => array( 'ข้อความบนปุ่ม LINE ลอย', 'text' ),
+				'show_language_switcher' => array( 'แสดงตัวสลับภาษาในเมนูบน', 'checkbox' ),
+				'language_fallback_items' => array( 'รายการภาษาสำรอง (code|ป้ายสั้น|ชื่อภาษา)', 'textarea' ),
 			),
 		),
 
