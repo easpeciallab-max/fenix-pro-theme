@@ -180,9 +180,11 @@ function fenix_defaults() {
 		'mobile_nav_home_url'     => '/',
 		'mobile_nav_test_label'   => 'ผลทดสอบ',
 		'mobile_nav_test_url'     => '/forward-test/',
-		'mobile_nav_price_label'  => 'แพ็กเกจ',
-		'mobile_nav_price_url'    => '/pricing/',
-		'mobile_nav_line_label'   => 'ทัก LINE',
+		'mobile_nav_price_label'   => 'แพ็กเกจ',
+		'mobile_nav_price_url'     => '/pricing/',
+		'mobile_nav_install_label' => 'วิธีติดตั้ง',
+		'mobile_nav_install_url'   => '/how-to-install/',
+		'mobile_nav_line_label'    => 'ทัก LINE',
 
 		/* Hero */
 		'show_hero'      => true,

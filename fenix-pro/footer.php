@@ -28,6 +28,11 @@ $fenix_mobile_nav = array(
 		'icon'  => 'tag',
 	),
 	array(
+		'label' => fenix_mod( 'mobile_nav_install_label' ),
+		'url'   => fenix_link_url( fenix_mod( 'mobile_nav_install_url' ) ),
+		'icon'  => 'download',
+	),
+	array(
 		'label'        => fenix_mod( 'mobile_nav_line_label' ),
 		'url'          => $fenix_line,
 		'icon'         => 'line',
