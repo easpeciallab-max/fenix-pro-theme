@@ -2322,30 +2322,36 @@ h3 {
 		min-width: 0;
 	}
 
-	/* Mobile nav */
+	/* Mobile nav — floating drawer */
 	.nav-toggle {
 		display: inline-flex;
 	}
 
 	.site-nav {
 		position: fixed;
-		top: var(--header-h);
-		left: 0;
-		right: 0;
+		top: calc(var(--header-h) + 8px);
+		left: 12px;
+		right: 12px;
 		flex-direction: column;
 		align-items: stretch;
 		gap: 0;
-		padding: 18px 24px 26px;
-		background: rgba(12, 12, 17, 0.98);
-		border-bottom: 1px solid var(--border);
-		transform: translateY(-12px);
+		padding: 14px;
+		max-height: calc(100vh - var(--header-h) - 28px);
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		background: linear-gradient(180deg, rgba(20, 20, 27, 0.99), rgba(12, 12, 17, 0.99));
+		border: 1px solid var(--border);
+		border-radius: 20px;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 122, 26, 0.07);
+		transform: translateY(-10px) scale(0.98);
+		transform-origin: top right;
 		opacity: 0;
 		visibility: hidden;
-		transition: transform 0.22s ease, opacity 0.22s ease, visibility 0.22s;
+		transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, visibility 0.24s;
 	}
 
 	.nav-open .site-nav {
-		transform: translateY(0);
+		transform: translateY(0) scale(1);
 		opacity: 1;
 		visibility: visible;
 	}
@@ -2353,11 +2359,11 @@ h3 {
 	.nav-list {
 		flex-direction: column;
 		align-items: stretch;
-		gap: 0;
+		gap: 2px;
 	}
 
 	.nav-list .menu-item-has-children > a {
-		padding-right: 4px;
+		padding-right: 14px;
 	}
 
 	.nav-list .menu-item-has-children > a::before {
@@ -2365,28 +2371,41 @@ h3 {
 	}
 
 	.nav-list a {
-		display: block;
-		padding: 13px 4px;
-		border-bottom: 1px solid var(--border);
-		font-size: 1.05rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 13px 14px;
+		border-bottom: 0;
+		border-radius: 12px;
+		font-size: 1rem;
+		color: var(--ash);
+		transition: background-color 0.16s ease, color 0.16s ease;
 	}
 
 	.nav-list a::after {
 		display: none;
 	}
 
+	.nav-list a:hover,
+	.nav-list a:focus-visible {
+		background: rgba(255, 122, 26, 0.10);
+		color: var(--ink);
+	}
+
 	.nav-list .sub-menu {
 		position: static;
 		display: grid;
-		width: 100%;
-		margin: 0 0 8px;
-		padding: 8px;
-		border-radius: 16px;
+		width: auto;
+		margin: 2px 0 6px 10px;
+		padding: 2px 0 2px 12px;
+		border: 0;
+		border-left: 2px solid rgba(255, 122, 26, 0.28);
+		border-radius: 0;
 		opacity: 1;
 		visibility: visible;
 		transform: none;
 		box-shadow: none;
-		background: rgba(255, 255, 255, 0.035);
+		background: transparent;
 	}
 
 	.nav-list .sub-menu::before {
@@ -2394,17 +2413,22 @@ h3 {
 	}
 
 	.nav-list .sub-menu a {
-		padding: 11px 12px;
+		padding: 10px 12px;
 		border-bottom: 0;
+		font-size: 0.92rem;
 	}
 
 	.nav-cta {
-		margin-top: 18px;
+		margin-top: 14px;
 		justify-content: center;
+		width: 100%;
 	}
 
+	/* Language switcher — แสดงรายการภาษาแบบ flat ในเมนู (ไม่ต้องกดเปิด dropdown ซ้อน) */
 	.language-switcher {
 		margin-top: 14px;
+		padding-top: 16px;
+		border-top: 1px solid var(--border);
 	}
 
 	.language-switcher summary {
@@ -2447,12 +2471,34 @@ h3 {
 		justify-content: space-between !important;
 	}
 
+	/* ไม่ต้องมีลูกศร toggle เพราะรายการภาษาแสดงแบบ flat อยู่แล้ว */
+	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected .gt-current-lang span.gt_float_switcher-arrow {
+		display: none !important;
+	}
+
 	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options {
 		position: static !important;
+		display: grid !important;
+		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+		gap: 8px !important;
+		opacity: 1 !important;
+		visibility: visible !important;
 		width: 100% !important;
 		min-width: 0 !important;
-		margin-top: 10px !important;
+		max-height: none !important;
+		margin-top: 12px !important;
+		padding: 0 !important;
+		border: 0 !important;
+		background: transparent !important;
 		box-shadow: none !important;
+		transform: none !important;
+	}
+
+	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options a {
+		justify-content: center !important;
+		border: 1px solid var(--border) !important;
+		border-radius: 12px !important;
+		background: rgba(255, 255, 255, 0.03) !important;
 	}
 }
 
