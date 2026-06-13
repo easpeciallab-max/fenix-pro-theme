@@ -2955,6 +2955,25 @@ h1, h2, h3, h4,
 	color: #E8D8AC;
 }
 
+.riskdoc-figure {
+	margin: 0 0 34px;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	overflow: hidden;
+	background: var(--coal-2);
+}
+
+.riskdoc-figure img {
+	width: 100%;
+}
+
+.riskdoc-figure figcaption {
+	padding: 13px 18px;
+	border-top: 1px solid var(--border);
+	color: var(--ash);
+	font-size: 0.9rem;
+}
+
 .riskdoc {
 	display: grid;
 	gap: 14px;

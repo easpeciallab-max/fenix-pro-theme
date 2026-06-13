@@ -471,6 +471,8 @@ function fenix_customize_register( $wp_customize ) {
 		'fields'      => array(
 			'riskpage_sub'     => array( 'คำโปรยใต้ชื่อหน้า', 'text' ),
 			'riskpage_intro'   => array( 'ย่อหน้าเกริ่นนำ', 'textarea' ),
+			'riskpage_image'   => array( 'ภาพประกอบความเสี่ยง', 'image' ),
+			'riskpage_image_caption' => array( 'คำบรรยายภาพประกอบความเสี่ยง', 'text' ),
 			'rp_block1_title'  => array( 'หัวข้อ 1', 'text' ),
 			'rp_block1_text'   => array( 'เนื้อหา 1', 'textarea' ),
 			'rp_block2_title'  => array( 'หัวข้อ 2', 'text' ),

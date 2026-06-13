@@ -24,6 +24,15 @@ fenix_page_hero( 'Risk Disclosure', $fenix_title ? $fenix_title : 'คำเต�
 			<p><?php echo esc_html( fenix_mod( 'riskpage_intro' ) ); ?></p>
 		</div>
 
+		<?php if ( fenix_mod( 'riskpage_image' ) ) : ?>
+			<figure class="riskdoc-figure reveal">
+				<img src="<?php echo esc_url( fenix_mod( 'riskpage_image' ) ); ?>" alt="<?php echo esc_attr( fenix_mod( 'riskpage_image_caption' ) ); ?>" loading="lazy">
+				<?php if ( fenix_mod( 'riskpage_image_caption' ) ) : ?>
+					<figcaption><?php echo esc_html( fenix_mod( 'riskpage_image_caption' ) ); ?></figcaption>
+				<?php endif; ?>
+			</figure>
+		<?php endif; ?>
+
 		<div class="riskdoc">
 			<?php
 			$fenix_n = 0;

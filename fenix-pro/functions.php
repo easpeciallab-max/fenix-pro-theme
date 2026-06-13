@@ -162,6 +162,8 @@ function fenix_defaults() {
 		return $d;
 	}
 
+	$install_assets = get_template_directory_uri() . '/assets/img/install/';
+
 	$d = array(
 		/* ทั่วไป */
 		'line_url'        => '#',
@@ -233,10 +235,10 @@ function fenix_defaults() {
 		'gallery_title'    => 'หน้าตาระบบจริง',
 		'gallery_subtitle' => 'Dashboard ออกแบบให้ดูง่าย เห็นสถานะระบบ เงื่อนไขหลัก และผลการทำงานในบัญชีได้ชัดเจน',
 		'gallery_note'     => '* ภาพใช้เพื่อประกอบการนำเสนอ ไม่ใช่การรับประกันผลลัพธ์',
-		'gallery_img1'     => '',
-		'gallery_cap1'     => 'Dashboard ของ FENIX PRO EA',
-		'gallery_img2'     => '',
-		'gallery_cap2'     => 'หน้าจอ MT5 ขณะระบบทำงาน',
+		'gallery_img1'     => $install_assets . 'step-05.jpg',
+		'gallery_cap1'     => 'Dashboard แสดงสถานะการทำงานของ FENIX PRO EA',
+		'gallery_img2'     => $install_assets . 'step-06.jpg',
+		'gallery_cap2'     => 'ตัวอย่างการตั้งค่าความเสี่ยงและ Lot Size',
 		'gallery_img3'     => '',
 		'gallery_cap3'     => 'หน้าต่างตั้งค่าหลักของระบบ',
 		'gallery_img4'     => '',
@@ -479,22 +481,22 @@ function fenix_defaults() {
 			'install_req'       => "บัญชีเทรดของโบรกเกอร์ที่รองรับ MetaTrader 5\nโปรแกรม MetaTrader 5 (PC หรือ VPS)\nไฟล์ FENIX PRO EA ที่ได้รับหลังสั่งซื้อ\nแนะนำใช้ VPS เพื่อให้ระบบทำงานต่อเนื่อง 24 ชม.",
 			'inst_step1_title'  => 'ติดตั้ง MetaTrader 5 / เตรียม VPS',
 			'inst_step1_desc'   => 'ดาวน์โหลดและติดตั้ง MT5 จากโบรกเกอร์ของคุณ หากต้องการให้ระบบรันตลอด 24 ชม. แนะนำให้เช่า VPS แล้วติดตั้ง MT5 บน VPS แทนเครื่องส่วนตัว',
-			'inst_step1_img'    => '',
+			'inst_step1_img'    => $install_assets . 'step-01.jpg',
 			'inst_step2_title'  => 'เปิดโฟลเดอร์ Experts แล้วนำไฟล์ EA เข้า',
 			'inst_step2_desc'   => 'ใน MT5 ไปที่เมนู File → Open Data Folder → MQL5 → Experts จากนั้นวางไฟล์ FENIX PRO EA ลงในโฟลเดอร์นี้ แล้วปิด-เปิด MT5 หรือกด Refresh',
-			'inst_step2_img'    => '',
+			'inst_step2_img'    => $install_assets . 'step-02.jpg',
 			'inst_step3_title'  => 'ลาก EA ขึ้นกราฟและตั้งค่า',
 			'inst_step3_desc'   => 'เปิดกราฟคู่เงินที่ต้องการ แล้วลาก FENIX PRO EA จากหน้าต่าง Navigator ขึ้นกราฟ ตั้งค่าพารามิเตอร์ตามคำแนะนำ เช่น Lot และระดับความเสี่ยงให้เหมาะกับทุน',
-			'inst_step3_img'    => '',
+			'inst_step3_img'    => $install_assets . 'step-03.jpg',
 			'inst_step4_title'  => 'เปิด AutoTrading',
 			'inst_step4_desc'   => 'กดปุ่ม AutoTrading (Algo Trading) ด้านบนให้เป็นสีเขียว และตรวจสอบว่ามีไอคอนหน้ายิ้มมุมขวาบนของกราฟ แสดงว่า EA พร้อมทำงาน',
-			'inst_step4_img'    => '',
+			'inst_step4_img'    => $install_assets . 'step-04.jpg',
 			'inst_step5_title'  => 'ตรวจสอบการทำงานผ่าน Dashboard',
 			'inst_step5_desc'   => 'สังเกตสถานะระบบบนกราฟและแท็บ Experts/Journal ว่าทำงานปกติ ติดตามผลและเงื่อนไขการเทรดได้จาก Dashboard ของระบบ',
-			'inst_step5_img'    => '',
+			'inst_step5_img'    => $install_assets . 'step-05.jpg',
 			'inst_step6_title'  => 'ปรับความเสี่ยงให้เหมาะกับตัวเอง',
 			'inst_step6_desc'   => 'ทบทวนการตั้งค่าความเสี่ยงเป็นระยะ ใช้เงินเย็น และปรับ Lot ให้สอดคล้องกับทุน เพื่อให้ Drawdown อยู่ในระดับที่รับได้',
-			'inst_step6_img'    => '',
+			'inst_step6_img'    => $install_assets . 'step-06.jpg',
 			'install_note'      => 'ต้องการให้ทีมงานช่วยติดตั้งให้? ทักมาทาง LINE ได้เลย',
 
 			/* หน้า Pricing (เพิ่มเติม) */
@@ -505,6 +507,8 @@ function fenix_defaults() {
 			/* หน้า Risk Disclosure */
 			'riskpage_sub'     => 'ข้อมูลความเสี่ยงที่ควรอ่านก่อนเริ่มใช้งาน',
 			'riskpage_intro'   => 'โปรดอ่านและทำความเข้าใจข้อมูลความเสี่ยงต่อไปนี้อย่างละเอียดก่อนตัดสินใจใช้งาน FENIX PRO EA หรือทำการเทรดใด ๆ',
+			'riskpage_image'   => $install_assets . 'step-06.jpg',
+			'riskpage_image_caption' => 'ตัวอย่างแนวทางตั้งค่าความเสี่ยงและ Lot Size ให้เหมาะสมกับทุน',
 			'rp_block1_title'  => 'ความเสี่ยงของการเทรด',
 			'rp_block1_text'   => 'การเทรด Forex, ทองคำ, CFD และสินทรัพย์ทางการเงินอื่น ๆ มีความเสี่ยงสูงต่อเงินทุนของคุณ ราคาอาจเคลื่อนไหวผันผวนรุนแรง คุณอาจสูญเสียเงินลงทุนบางส่วนหรือทั้งหมด จึงควรใช้เฉพาะเงินเย็นที่พร้อมรับความเสี่ยงได้',
 			'rp_block2_title'  => 'ไม่มีการรับประกันผลกำไร',
