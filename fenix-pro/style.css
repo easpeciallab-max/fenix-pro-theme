@@ -506,6 +506,27 @@ h3 {
 	transform: translateY(2px) rotate(225deg);
 }
 
+.language-switcher-current {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.language-switcher-flag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.35em;
+	font-size: 1rem;
+	line-height: 1;
+	text-transform: none;
+}
+
+.language-switcher-code {
+	font-weight: 700;
+	letter-spacing: 0.08em;
+}
+
 .language-switcher-menu {
 	position: absolute;
 	top: calc(100% + 12px);
@@ -543,7 +564,7 @@ h3 {
 	transform: translateX(2px);
 }
 
-.language-switcher-menu a span {
+.language-switcher-menu a .language-switcher-code {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -554,6 +575,10 @@ h3 {
 	color: var(--flare);
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
+}
+
+.language-switcher-menu a .language-switcher-flag {
+	font-size: 1.08rem;
 }
 
 .language-switcher-menu a small {

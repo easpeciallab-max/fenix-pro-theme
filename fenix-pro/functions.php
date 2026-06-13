@@ -170,7 +170,7 @@ function fenix_defaults() {
 		'show_float_line' => false,
 		'float_line_text' => 'สอบถามทาง LINE',
 		'show_language_switcher' => true,
-		'language_fallback_items' => "th|TH|ไทย\nen|EN|English\nzh|ZH|中文\nfr|FR|Français\nde|DE|Deutsch\nru|RU|Русский\nja|JA|日本語\nko|KO|한국어",
+		'language_fallback_items' => "th|🇹🇭|TH|ไทย\nen|🇬🇧|EN|English\nzh|🇨🇳|ZH|中文\nfr|🇫🇷|FR|Français\nde|🇩🇪|DE|Deutsch\nru|🇷🇺|RU|Русский\nja|🇯🇵|JA|日本語\nko|🇰🇷|KO|한국어",
 
 		/* Mobile bottom bar */
 		'show_mobile_nav'         => true,
@@ -658,19 +658,32 @@ function fenix_language_switcher() {
 			continue;
 		}
 
+		if ( count( $parts ) >= 4 ) {
+			$flag  = $parts[1];
+			$short = $parts[2];
+			$label = $parts[3];
+		} else {
+			$flag  = '';
+			$short = $parts[1];
+			$label = $parts[2];
+		}
+
 		$languages[ $code ] = array(
-			'short' => $parts[1],
-			'label' => $parts[2],
+			'flag'  => $flag,
+			'short' => $short,
+			'label' => $label,
 		);
 	}
 
 	if ( ! $languages ) {
 		$languages = array(
 			'th' => array(
+				'flag'  => '🇹🇭',
 				'short' => 'TH',
 				'label' => 'ไทย',
 			),
 			'en' => array(
+				'flag'  => '🇬🇧',
 				'short' => 'EN',
 				'label' => 'English',
 			),
@@ -688,12 +701,20 @@ function fenix_language_switcher() {
 	?>
 	<details class="language-switcher language-switcher--fallback">
 		<summary aria-label="<?php echo esc_attr__( 'Choose language', 'fenix-pro' ); ?>">
-			<span><?php echo esc_html( $languages[ $current ]['short'] ); ?></span>
+			<span class="language-switcher-current">
+				<?php if ( ! empty( $languages[ $current ]['flag'] ) ) : ?>
+					<span class="language-switcher-flag" aria-hidden="true"><?php echo esc_html( $languages[ $current ]['flag'] ); ?></span>
+				<?php endif; ?>
+				<span class="language-switcher-code"><?php echo esc_html( $languages[ $current ]['short'] ); ?></span>
+			</span>
 		</summary>
 		<div class="language-switcher-menu">
 			<?php foreach ( $languages as $code => $language ) : ?>
 				<a class="<?php echo esc_attr( $code === $current ? 'is-active' : '' ); ?>" href="<?php echo esc_url( add_query_arg( 'lang', $code ) ); ?>">
-					<span><?php echo esc_html( $language['short'] ); ?></span>
+					<?php if ( ! empty( $language['flag'] ) ) : ?>
+						<span class="language-switcher-flag" aria-hidden="true"><?php echo esc_html( $language['flag'] ); ?></span>
+					<?php endif; ?>
+					<span class="language-switcher-code"><?php echo esc_html( $language['short'] ); ?></span>
 					<small><?php echo esc_html( $language['label'] ); ?></small>
 				</a>
 			<?php endforeach; ?>
