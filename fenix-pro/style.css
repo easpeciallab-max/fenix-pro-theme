@@ -478,7 +478,8 @@ h3 {
 }
 
 .nav-list .menu-item-has-children:hover > a::before,
-.nav-list .menu-item-has-children:focus-within > a::before {
+.nav-list .menu-item-has-children:focus-within > a::before,
+.nav-list .menu-item-has-children.is-open > a::before {
 	transform: translateY(-35%) rotate(225deg);
 }
 
@@ -513,7 +514,8 @@ h3 {
 }
 
 .nav-list li:hover > .sub-menu,
-.nav-list li:focus-within > .sub-menu {
+.nav-list li:focus-within > .sub-menu,
+.nav-list li.is-open > .sub-menu {
 	opacity: 1;
 	visibility: visible;
 	transform: translate(-50%, 0);

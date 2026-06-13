@@ -40,6 +40,45 @@
 		});
 	}
 
+	/* Parent menu items with a submenu toggle the dropdown instead of navigating */
+	var parentLinks = document.querySelectorAll('.nav-list .menu-item-has-children > a');
+	parentLinks.forEach(function (link) {
+		link.setAttribute('aria-haspopup', 'true');
+		link.setAttribute('aria-expanded', 'false');
+		link.addEventListener('click', function (e) {
+			e.preventDefault();
+			var li = link.parentNode;
+			var willOpen = !li.classList.contains('is-open');
+
+			var siblings = li.parentNode.querySelectorAll('.menu-item-has-children.is-open');
+			siblings.forEach(function (other) {
+				if (other !== li) {
+					other.classList.remove('is-open');
+					var otherLink = other.querySelector(':scope > a');
+					if (otherLink) {
+						otherLink.setAttribute('aria-expanded', 'false');
+					}
+				}
+			});
+
+			li.classList.toggle('is-open', willOpen);
+			link.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+		});
+	});
+
+	document.addEventListener('click', function (e) {
+		if (e.target.closest('.nav-list .menu-item-has-children')) {
+			return;
+		}
+		document.querySelectorAll('.nav-list .menu-item-has-children.is-open').forEach(function (li) {
+			li.classList.remove('is-open');
+			var openLink = li.querySelector(':scope > a');
+			if (openLink) {
+				openLink.setAttribute('aria-expanded', 'false');
+			}
+		});
+	});
+
 	/* Mobile app-style bottom navigation */
 	var mobileNav = document.querySelector('.mobile-app-nav');
 	if (mobileNav) {
