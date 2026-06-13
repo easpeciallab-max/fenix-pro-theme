@@ -2503,12 +2503,8 @@ h3 {
 		display: block !important;
 	}
 
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected .gt-current-lang {
-		justify-content: space-between !important;
-	}
-
-	/* ไม่ต้องมีลูกศร toggle เพราะรายการภาษาแสดงแบบ flat อยู่แล้ว */
-	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected .gt-current-lang span.gt_float_switcher-arrow {
+	/* ซ่อนปุ่มภาษาปัจจุบัน (toggle) บนมือถือ เพราะโชว์ทุกภาษาแบบ flat แล้ว */
+	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected {
 		display: none !important;
 	}
 
@@ -2532,9 +2528,28 @@ h3 {
 
 	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options a {
 		justify-content: center !important;
-		border: 1px solid var(--border) !important;
+		gap: 0 !important;
+		padding: 13px 10px !important;
+		border: 0 !important;
 		border-radius: 12px !important;
-		background: rgba(255, 255, 255, 0.03) !important;
+		background: rgba(255, 255, 255, 0.045) !important;
+		color: var(--ash) !important;
+		font-size: 0.95rem !important;
+		font-weight: 600 !important;
+		text-align: center !important;
+		transition: background-color 0.16s ease, color 0.16s ease !important;
+	}
+
+	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options a:hover,
+	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options a:active {
+		background: rgba(255, 122, 26, 0.16) !important;
+		color: var(--ink) !important;
+		transform: none !important;
+	}
+
+	/* ซ่อนธงที่โหลดไม่ขึ้น (รูปแตก) บนมือถือ — ใช้ชื่อภาษาล้วน */
+	.site-header .language-switcher--gtranslate .gt_float_switcher .gt_options img {
+		display: none !important;
 	}
 }
 
