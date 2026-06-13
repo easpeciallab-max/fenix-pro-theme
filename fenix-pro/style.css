@@ -428,6 +428,9 @@ h3 {
 
 .nav-list li {
 	position: relative;
+	height: 40px;
+	display: flex;
+	align-items: center;
 }
 
 .nav-list a {
@@ -483,7 +486,7 @@ h3 {
 
 .nav-list .sub-menu {
 	position: absolute;
-	top: calc(100% + 16px);
+	top: calc(100% + (var(--header-h) - 40px) / 2 + 1px);
 	left: 50%;
 	z-index: 30;
 	display: grid;
@@ -796,7 +799,7 @@ h3 {
 
 .site-header .language-switcher--gtranslate .gt_float_switcher .gt_options {
 	position: absolute !important;
-	top: calc(100% + 12px) !important;
+	top: calc(100% + (var(--header-h) - 40px) / 2 + 1px) !important;
 	right: 0 !important;
 	z-index: 9999 !important;
 	width: min(240px, calc(100vw - 32px)) !important;
@@ -2372,6 +2375,11 @@ h3 {
 		flex-direction: column;
 		align-items: stretch;
 		gap: 2px;
+	}
+
+	.nav-list li {
+		height: auto;
+		display: block;
 	}
 
 	.nav-list .menu-item-has-children > a {
