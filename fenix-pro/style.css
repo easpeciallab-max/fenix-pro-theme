@@ -607,6 +607,37 @@ h3 {
 	letter-spacing: 0.06em;
 }
 
+.language-switcher--gtranslate select,
+.language-switcher--gtranslate .gt_selector {
+	min-width: 84px;
+	height: 40px;
+	padding: 0 34px 0 14px;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.04);
+	color: var(--ink);
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 0.82rem;
+	letter-spacing: 0.04em;
+	outline: 0;
+	cursor: pointer;
+}
+
+.language-switcher--gtranslate select:hover,
+.language-switcher--gtranslate .gt_selector:hover {
+	border-color: rgba(255, 122, 26, 0.42);
+	background-color: rgba(255, 122, 26, 0.11);
+}
+
+.language-switcher--gtranslate img {
+	display: inline-block;
+	width: 18px;
+	height: auto;
+	margin-right: 6px;
+	vertical-align: middle;
+}
+
 .nav-toggle {
 	display: none;
 	margin-left: auto;

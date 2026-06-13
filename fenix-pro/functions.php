@@ -606,8 +606,12 @@ function fenix_language_switcher() {
 	}
 
 	$plugin_markup = '';
+	$plugin_class  = '';
 
-	if ( shortcode_exists( 'language-switcher' ) ) {
+	if ( shortcode_exists( 'gtranslate' ) ) {
+		$plugin_markup = do_shortcode( '[gtranslate]' );
+		$plugin_class  = ' language-switcher--gtranslate';
+	} elseif ( shortcode_exists( 'language-switcher' ) ) {
 		$plugin_markup = do_shortcode( '[language-switcher]' );
 	} elseif ( function_exists( 'pll_the_languages' ) ) {
 		$plugin_markup = pll_the_languages(
@@ -640,7 +644,7 @@ function fenix_language_switcher() {
 	}
 
 	if ( $plugin_markup ) {
-		echo '<div class="language-switcher language-switcher--plugin" aria-label="' . esc_attr__( 'Language switcher', 'fenix-pro' ) . '">';
+		echo '<div class="language-switcher language-switcher--plugin' . esc_attr( $plugin_class ) . '" aria-label="' . esc_attr__( 'Language switcher', 'fenix-pro' ) . '">';
 		echo wp_kses_post( $plugin_markup );
 		echo '</div>';
 		return;
