@@ -1984,7 +1984,7 @@ h3 {
 	gap: 14px 20px;
 	max-width: 760px;
 	margin: 0 auto;
-	padding: 16px 20px;
+	padding: 16px 52px 16px 20px;
 	border: 1px solid var(--border);
 	border-radius: 16px;
 	background: rgba(15, 15, 20, 0.97);
@@ -2016,9 +2016,61 @@ h3 {
 	flex-shrink: 0;
 }
 
+.cookie-consent-close {
+	position: absolute;
+	top: 50%;
+	right: 14px;
+	transform: translateY(-50%);
+	display: inline-grid;
+	place-items: center;
+	width: 30px;
+	height: 30px;
+	border: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.06);
+	color: var(--ash);
+	cursor: pointer;
+	transition: color 0.16s ease, background 0.16s ease;
+}
+
+.cookie-consent-close:hover {
+	color: var(--ink);
+	background: rgba(255, 255, 255, 0.12);
+}
+
+.cookie-consent-close .icon {
+	width: 0.95rem;
+	height: 0.95rem;
+}
+
 @media (max-width: 760px) {
-	body.has-mobile-app-nav .cookie-consent {
-		bottom: calc(90px + env(safe-area-inset-bottom));
+	/* การ์ดกลางจอ + พื้นหลังเบลอ */
+	.cookie-consent {
+		top: 50%;
+		bottom: auto;
+		left: 16px;
+		right: 16px;
+		max-width: 420px;
+		flex-direction: column;
+		align-items: stretch;
+		padding: 42px 22px 22px;
+		transform: translateY(-50%);
+	}
+
+	.cookie-consent.is-visible::before {
+		content: "";
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		background: rgba(6, 6, 10, 0.62);
+		-webkit-backdrop-filter: blur(6px);
+		backdrop-filter: blur(6px);
+	}
+
+	.cookie-consent-close {
+		top: 12px;
+		right: 12px;
+		transform: none;
 	}
 
 	.cookie-consent-actions {

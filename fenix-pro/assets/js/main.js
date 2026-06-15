@@ -297,15 +297,23 @@
 			}
 		};
 
+		var sessionDismissed = function () {
+			try { return sessionStorage.getItem('fenixConsentDismissed') === '1'; } catch (e) { return false; }
+		};
+		var setSessionDismissed = function () {
+			try { sessionStorage.setItem('fenixConsentDismissed', '1'); } catch (e) {}
+		};
+
 		var consent = getConsent();
 		if (consent === 'accepted') {
 			loadTrackers();
-		} else if (consent !== 'declined') {
+		} else if (consent !== 'declined' && !sessionDismissed()) {
 			cookieBar.classList.add('is-visible');
 		}
 
 		var acceptBtn = cookieBar.querySelector('.cookie-accept');
 		var declineBtn = cookieBar.querySelector('.cookie-decline');
+		var closeBtn = cookieBar.querySelector('.cookie-consent-close');
 		if (acceptBtn) {
 			acceptBtn.addEventListener('click', function () {
 				setConsent('accepted');
@@ -316,6 +324,12 @@
 		if (declineBtn) {
 			declineBtn.addEventListener('click', function () {
 				setConsent('declined');
+				cookieBar.classList.remove('is-visible');
+			});
+		}
+		if (closeBtn) {
+			closeBtn.addEventListener('click', function () {
+				setSessionDismissed();
 				cookieBar.classList.remove('is-visible');
 			});
 		}

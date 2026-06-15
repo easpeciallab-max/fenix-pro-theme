@@ -154,6 +154,7 @@ $fenix_mobile_nav = array(
 
 <?php if ( fenix_mod( 'show_cookie_consent' ) ) : ?>
 <div class="cookie-consent" role="dialog" aria-label="ความยินยอมการใช้คุกกี้">
+	<button type="button" class="cookie-consent-close" aria-label="ปิด"><?php echo fenix_icon( 'x', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 	<p class="cookie-consent-text">
 		<?php echo esc_html( fenix_mod( 'cookie_consent_text' ) ); ?>
 		<?php
