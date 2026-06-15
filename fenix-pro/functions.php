@@ -70,6 +70,16 @@ function fenix_assets() {
 			'nonce'   => wp_create_nonce( 'fenix_load_more' ),
 		)
 	);
+	if ( fenix_mod( 'show_cookie_consent' ) ) {
+		wp_localize_script(
+			'fenix-main',
+			'fenixTracking',
+			array(
+				'ga'    => fenix_mod( 'ga_measurement_id' ),
+				'pixel' => fenix_mod( 'fb_pixel_id' ),
+			)
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'fenix_assets' );
 
@@ -197,6 +207,12 @@ function fenix_defaults() {
 		/* SEO / แชร์ลิงก์ (Open Graph) */
 		'og_default_image'       => '',
 		'og_default_description' => 'FENIX PRO EA · ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5 เน้นวินัยและการบริหารความเสี่ยง',
+
+		/* คุกกี้ / Consent + Tracking (โหลด tracking เฉพาะหลังกดยอมรับ) */
+		'show_cookie_consent' => false,
+		'cookie_consent_text' => 'เว็บไซต์นี้ใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานและวิเคราะห์การเข้าชม คุณเลือกยอมรับหรือปฏิเสธคุกกี้ที่ไม่จำเป็นได้',
+		'ga_measurement_id'   => '',
+		'fb_pixel_id'         => '',
 
 		/* Hero */
 		'show_hero'      => true,

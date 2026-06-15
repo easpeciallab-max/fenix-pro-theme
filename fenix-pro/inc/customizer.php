@@ -323,6 +323,17 @@ function fenix_customize_register( $wp_customize ) {
 		),
 	);
 
+	$sections['fenix_cookie'] = array(
+		'title'       => '18) คุกกี้ / Tracking',
+		'description' => 'แถบขอความยินยอมคุกกี้ และโค้ดติดตาม (Google Analytics / Facebook Pixel จะโหลดเฉพาะหลังผู้ใช้กด "ยอมรับ" เท่านั้น)',
+		'fields'      => array(
+			'show_cookie_consent' => array( 'แสดงแถบขอความยินยอมคุกกี้', 'checkbox' ),
+			'cookie_consent_text' => array( 'ข้อความบนแถบคุกกี้', 'textarea' ),
+			'ga_measurement_id'   => array( 'Google Analytics 4 ID (เช่น G-XXXXXXXXXX)', 'text' ),
+			'fb_pixel_id'         => array( 'Facebook Pixel ID', 'text' ),
+		),
+	);
+
 	/* เพิ่ม FAQ 10 ข้อเข้า section FAQ */
 	for ( $i = 1; $i <= 10; $i++ ) {
 		$sections['fenix_faq']['fields'][ 'faq' . $i . '_q' ] = array( 'คำถามข้อ ' . $i, 'text' );

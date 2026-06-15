@@ -152,6 +152,24 @@ $fenix_mobile_nav = array(
 </a>
 <?php endif; ?>
 
+<?php if ( fenix_mod( 'show_cookie_consent' ) ) : ?>
+<div class="cookie-consent" role="dialog" aria-label="ความยินยอมการใช้คุกกี้">
+	<p class="cookie-consent-text">
+		<?php echo esc_html( fenix_mod( 'cookie_consent_text' ) ); ?>
+		<?php
+		$fenix_privacy = get_page_by_path( 'privacy-policy' );
+		if ( $fenix_privacy ) :
+			?>
+			<a class="cookie-consent-link" href="<?php echo esc_url( get_permalink( $fenix_privacy ) ); ?>">อ่านนโยบาย</a>
+		<?php endif; ?>
+	</p>
+	<div class="cookie-consent-actions">
+		<button type="button" class="btn btn-ghost btn-sm cookie-decline">ปฏิเสธ</button>
+		<button type="button" class="btn btn-fire btn-sm cookie-accept">ยอมรับ</button>
+	</div>
+</div>
+<?php endif; ?>
+
 <?php wp_footer(); ?>
 </body>
 </html>

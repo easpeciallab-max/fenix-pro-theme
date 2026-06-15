@@ -257,4 +257,67 @@
 				});
 		});
 	}
+
+	/* Cookie consent + gated tracking (โหลด GA/Pixel เฉพาะหลังกดยอมรับ) */
+	var cookieBar = document.querySelector('.cookie-consent');
+	if (cookieBar) {
+		var trackingCfg = window.fenixTracking || {};
+
+		var getConsent = function () {
+			var m = document.cookie.match(/(?:^|;\s*)fenix_consent=([^;]+)/);
+			return m ? m[1] : '';
+		};
+		var setConsent = function (value) {
+			var d = new Date();
+			d.setTime(d.getTime() + 365 * 24 * 60 * 60 * 1000);
+			document.cookie = 'fenix_consent=' + value + '; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
+		};
+		var loadTrackers = function () {
+			if (trackingCfg.ga) {
+				var g = document.createElement('script');
+				g.async = true;
+				g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(trackingCfg.ga);
+				document.head.appendChild(g);
+				window.dataLayer = window.dataLayer || [];
+				window.gtag = function () { window.dataLayer.push(arguments); };
+				window.gtag('js', new Date());
+				window.gtag('config', trackingCfg.ga);
+			}
+			if (trackingCfg.pixel) {
+				!function (f, b, e, v, n, t, s) {
+					if (f.fbq) return;
+					n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+					if (!f._fbq) f._fbq = n;
+					n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+					t = b.createElement(e); t.async = !0; t.src = v;
+					s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+				}(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+				window.fbq('init', trackingCfg.pixel);
+				window.fbq('track', 'PageView');
+			}
+		};
+
+		var consent = getConsent();
+		if (consent === 'accepted') {
+			loadTrackers();
+		} else if (consent !== 'declined') {
+			cookieBar.classList.add('is-visible');
+		}
+
+		var acceptBtn = cookieBar.querySelector('.cookie-accept');
+		var declineBtn = cookieBar.querySelector('.cookie-decline');
+		if (acceptBtn) {
+			acceptBtn.addEventListener('click', function () {
+				setConsent('accepted');
+				cookieBar.classList.remove('is-visible');
+				loadTrackers();
+			});
+		}
+		if (declineBtn) {
+			declineBtn.addEventListener('click', function () {
+				setConsent('declined');
+				cookieBar.classList.remove('is-visible');
+			});
+		}
+	}
 })();
