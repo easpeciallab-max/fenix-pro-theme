@@ -92,7 +92,7 @@
 		mobileItems.forEach(function (item) {
 			var itemUrl = new URL(item.href, window.location.origin);
 			var itemPath = itemUrl.pathname.replace(/\/+$/, '') || '/';
-			var isMatch = itemPath === '/' ? currentPath === '/' : currentPath.indexOf(itemPath) === 0;
+			var isMatch = itemPath === '/' ? currentPath === '/' : (currentPath === itemPath || currentPath.indexOf(itemPath + '/') === 0);
 
 			if (!item.classList.contains('is-action') && isMatch && itemPath.length >= activeLength) {
 				activeItem = item;
@@ -258,11 +258,11 @@
 		});
 	}
 
-	/* Cookie consent + gated tracking (โหลด GA/Pixel เฉพาะหลังกดยอมรับ) */
+	/* Cookie consent + gated tracking (โหลด GA/Pixel เฉพาะหลังยอมรับ; ผู้ที่เคยยอมรับโหลดต่อแม้ปิดแบนเนอร์) */
+	var trackingCfg = window.fenixTracking || {};
 	var cookieBar = document.querySelector('.cookie-consent');
-	if (cookieBar) {
-		var trackingCfg = window.fenixTracking || {};
 
+	if (trackingCfg.ga || trackingCfg.pixel || cookieBar) {
 		var getConsent = function () {
 			var m = document.cookie.match(/(?:^|;\s*)fenix_consent=([^;]+)/);
 			return m ? m[1] : '';
@@ -290,48 +290,53 @@
 					if (!f._fbq) f._fbq = n;
 					n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
 					t = b.createElement(e); t.async = !0; t.src = v;
-					s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+					s = b.getElementsByTagName(e)[0];
+					if (s && s.parentNode) { s.parentNode.insertBefore(t, s); } else { (b.head || b.documentElement).appendChild(t); }
 				}(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 				window.fbq('init', trackingCfg.pixel);
 				window.fbq('track', 'PageView');
 			}
 		};
 
-		var sessionDismissed = function () {
-			try { return sessionStorage.getItem('fenixConsentDismissed') === '1'; } catch (e) { return false; }
-		};
-		var setSessionDismissed = function () {
-			try { sessionStorage.setItem('fenixConsentDismissed', '1'); } catch (e) {}
-		};
-
-		var consent = getConsent();
-		if (consent === 'accepted') {
+		if (getConsent() === 'accepted') {
 			loadTrackers();
-		} else if (consent !== 'declined' && !sessionDismissed()) {
-			cookieBar.classList.add('is-visible');
 		}
 
-		var acceptBtn = cookieBar.querySelector('.cookie-accept');
-		var declineBtn = cookieBar.querySelector('.cookie-decline');
-		var closeBtn = cookieBar.querySelector('.cookie-consent-close');
-		if (acceptBtn) {
-			acceptBtn.addEventListener('click', function () {
-				setConsent('accepted');
-				cookieBar.classList.remove('is-visible');
-				loadTrackers();
-			});
-		}
-		if (declineBtn) {
-			declineBtn.addEventListener('click', function () {
-				setConsent('declined');
-				cookieBar.classList.remove('is-visible');
-			});
-		}
-		if (closeBtn) {
-			closeBtn.addEventListener('click', function () {
-				setSessionDismissed();
-				cookieBar.classList.remove('is-visible');
-			});
+		if (cookieBar) {
+			var sessionDismissed = function () {
+				try { return sessionStorage.getItem('fenixConsentDismissed') === '1'; } catch (e) { return false; }
+			};
+			var setSessionDismissed = function () {
+				try { sessionStorage.setItem('fenixConsentDismissed', '1'); } catch (e) {}
+			};
+
+			var consent = getConsent();
+			if (consent !== 'accepted' && consent !== 'declined' && !sessionDismissed()) {
+				cookieBar.classList.add('is-visible');
+			}
+
+			var acceptBtn = cookieBar.querySelector('.cookie-accept');
+			var declineBtn = cookieBar.querySelector('.cookie-decline');
+			var closeBtn = cookieBar.querySelector('.cookie-consent-close');
+			if (acceptBtn) {
+				acceptBtn.addEventListener('click', function () {
+					setConsent('accepted');
+					cookieBar.classList.remove('is-visible');
+					loadTrackers();
+				});
+			}
+			if (declineBtn) {
+				declineBtn.addEventListener('click', function () {
+					setConsent('declined');
+					cookieBar.classList.remove('is-visible');
+				});
+			}
+			if (closeBtn) {
+				closeBtn.addEventListener('click', function () {
+					setSessionDismissed();
+					cookieBar.classList.remove('is-visible');
+				});
+			}
 		}
 	}
 })();

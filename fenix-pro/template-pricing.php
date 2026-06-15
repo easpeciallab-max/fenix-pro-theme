@@ -114,8 +114,10 @@ if ( count( $fenix_rows ) >= 2 ) :
 										<?php
 										if ( '✓' === $fenix_cell ) {
 											echo fenix_icon( 'check', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput
+											echo '<span class="sr-only">มี</span>';
 										} elseif ( '✗' === $fenix_cell || 'x' === strtolower( $fenix_cell ) ) {
 											echo fenix_icon( 'x', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput
+											echo '<span class="sr-only">ไม่มี</span>';
 										} else {
 											echo esc_html( $fenix_cell );
 										}

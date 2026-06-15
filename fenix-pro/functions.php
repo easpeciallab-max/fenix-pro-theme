@@ -70,7 +70,7 @@ function fenix_assets() {
 			'nonce'   => wp_create_nonce( 'fenix_load_more' ),
 		)
 	);
-	if ( fenix_mod( 'show_cookie_consent' ) ) {
+	if ( fenix_mod( 'ga_measurement_id' ) || fenix_mod( 'fb_pixel_id' ) ) {
 		wp_localize_script(
 			'fenix-main',
 			'fenixTracking',
@@ -221,7 +221,7 @@ function fenix_defaults() {
 		'hero_subtitle'  => 'ระบบช่วยเทรดอัตโนมัติ เพื่อการเทรดที่มีวินัยมากขึ้น',
 		'hero_desc'      => 'ออกแบบมาเพื่อช่วยให้การเทรดเป็นระบบ ลดการตัดสินใจตามอารมณ์ พร้อมแนวคิดบริหารความเสี่ยงสำหรับผู้ใช้งาน MetaTrader 5',
 		'hero_btn1_text' => 'สอบถามรายละเอียด',
-		'hero_btn2_text' => 'ดูผลการทดสอบระบบ',
+		'hero_btn2_text' => 'รู้จักระบบ',
 		'hero_note'      => 'การเทรดมีความเสี่ยง โปรดศึกษาข้อมูลก่อนตัดสินใจใช้งาน',
 		'hero_image'     => '',
 
@@ -928,6 +928,10 @@ function fenix_open_graph() {
 		printf( '<meta property="%1$s" content="%2$s">' . "\n", esc_attr( $property ), esc_attr( $value ) );
 	}
 
+	if ( '' !== (string) $img ) {
+		printf( '<meta property="og:image:alt" content="%s">' . "\n", esc_attr( $title ) );
+	}
+
 	if ( 'article' === $type ) {
 		printf( '<meta property="article:published_time" content="%s">' . "\n", esc_attr( get_the_date( 'c' ) ) );
 		printf( '<meta property="article:modified_time" content="%s">' . "\n", esc_attr( get_the_modified_date( 'c' ) ) );
@@ -940,10 +944,70 @@ function fenix_open_graph() {
 	}
 	if ( '' !== (string) $img ) {
 		printf( '<meta name="twitter:image" content="%s">' . "\n", esc_attr( $img ) );
+		printf( '<meta name="twitter:image:alt" content="%s">' . "\n", esc_attr( $title ) );
 	}
 }
 if ( ! defined( 'WPSEO_VERSION' ) && ! class_exists( 'RankMath' ) && ! defined( 'SEOPRESS_VERSION' ) ) {
 	add_action( 'wp_head', 'fenix_open_graph', 5 );
+}
+
+/* --------------------------------------------------------------
+ * Structured data: Organization + WebSite (ทั้งเว็บ) + FAQPage (หน้าแรก)
+ * ปิดอัตโนมัติถ้ามีปลั๊ก SEO
+ * -------------------------------------------------------------- */
+function fenix_schema_jsonld() {
+	$blocks = array();
+
+	$org = array(
+		'@context' => 'https://schema.org',
+		'@type'    => 'Organization',
+		'name'     => get_bloginfo( 'name' ),
+		'url'      => home_url( '/' ),
+		'logo'     => fenix_logo_url(),
+	);
+	if ( fenix_mod( 'facebook_url' ) ) {
+		$org['sameAs'] = array( fenix_mod( 'facebook_url' ) );
+	}
+	$blocks[] = $org;
+
+	$blocks[] = array(
+		'@context' => 'https://schema.org',
+		'@type'    => 'WebSite',
+		'name'     => get_bloginfo( 'name' ),
+		'url'      => home_url( '/' ),
+	);
+
+	if ( is_front_page() ) {
+		$faqs = array();
+		for ( $i = 1; $i <= 10; $i++ ) {
+			$q = fenix_mod( 'faq' . $i . '_q' );
+			$a = fenix_mod( 'faq' . $i . '_a' );
+			if ( $q && $a ) {
+				$faqs[] = array(
+					'@type'          => 'Question',
+					'name'           => wp_strip_all_tags( $q ),
+					'acceptedAnswer' => array(
+						'@type' => 'Answer',
+						'text'  => wp_strip_all_tags( $a ),
+					),
+				);
+			}
+		}
+		if ( $faqs ) {
+			$blocks[] = array(
+				'@context'   => 'https://schema.org',
+				'@type'      => 'FAQPage',
+				'mainEntity' => $faqs,
+			);
+		}
+	}
+
+	foreach ( $blocks as $fenix_block ) {
+		echo '<script type="application/ld+json">' . wp_json_encode( $fenix_block, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+	}
+}
+if ( ! defined( 'WPSEO_VERSION' ) && ! class_exists( 'RankMath' ) && ! defined( 'SEOPRESS_VERSION' ) ) {
+	add_action( 'wp_head', 'fenix_schema_jsonld', 6 );
 }
 
 /* --------------------------------------------------------------
@@ -999,7 +1063,7 @@ function fenix_post_card() {
 	<article <?php post_class( 'post-card' ); ?>>
 		<?php if ( has_post_thumbnail() ) : ?>
 			<a class="post-card-thumb" href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail( 'medium_large' ); ?>
+				<?php the_post_thumbnail( 'medium_large', array( 'alt' => esc_attr( get_the_title() ) ) ); ?>
 				<?php if ( $cat ) : ?>
 					<span class="post-card-cat"><?php echo esc_html( $cat->name ); ?></span>
 				<?php endif; ?>
@@ -1021,13 +1085,35 @@ function fenix_post_card() {
 function fenix_load_more() {
 	check_ajax_referer( 'fenix_load_more', 'nonce' );
 
-	$page  = isset( $_POST['page'] ) ? max( 1, (int) $_POST['page'] ) : 1;
-	$query = array();
+	$page = isset( $_POST['page'] ) ? max( 1, (int) $_POST['page'] ) : 1;
+
+	$incoming = array();
 	if ( isset( $_POST['query'] ) ) {
-		$decoded = json_decode( sanitize_text_field( wp_unslash( $_POST['query'] ) ), true );
+		$decoded = json_decode( wp_unslash( $_POST['query'] ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( is_array( $decoded ) ) {
-			$query = $decoded;
+			$incoming = $decoded;
 		}
+	}
+
+	// รับเฉพาะ query var ที่หน้าเว็บส่งมาได้จริง + sanitize ทีละค่า (กัน inject meta_query/tax_query หนัก ๆ)
+	$query = array();
+	if ( isset( $incoming['category_name'] ) ) {
+		$query['category_name'] = sanitize_text_field( $incoming['category_name'] );
+	}
+	if ( isset( $incoming['cat'] ) ) {
+		$query['cat'] = (int) $incoming['cat'];
+	}
+	if ( isset( $incoming['tag'] ) ) {
+		$query['tag'] = sanitize_text_field( $incoming['tag'] );
+	}
+	if ( isset( $incoming['author'] ) ) {
+		$query['author'] = (int) $incoming['author'];
+	}
+	if ( isset( $incoming['author_name'] ) ) {
+		$query['author_name'] = sanitize_text_field( $incoming['author_name'] );
+	}
+	if ( isset( $incoming['s'] ) ) {
+		$query['s'] = sanitize_text_field( $incoming['s'] );
 	}
 
 	// บังคับค่าที่ปลอดภัย ไม่ให้ฝั่ง client กำหนดเอง

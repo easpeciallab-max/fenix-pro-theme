@@ -65,7 +65,7 @@ $fenix_line = fenix_mod( 'line_url' );
 					<?php echo esc_html( fenix_mod( 'hero_btn1_text' ) ); ?>
 				</a>
 				<a class="btn btn-ghost" href="#about">
-					รู้จักระบบ
+					<?php echo esc_html( fenix_mod( 'hero_btn2_text' ) ); ?>
 					<?php echo fenix_icon( 'arrow', 'icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				</a>
 			</div>
@@ -96,6 +96,11 @@ $fenix_line = fenix_mod( 'line_url' );
 		</div>
 	</div>
 </section>
+<?php endif; ?>
+
+<?php /* รับประกันว่ามี h1 เสมอ แม้ปิด hero (สำคัญต่อ SEO/screen reader) */ ?>
+<?php if ( ! fenix_mod( 'show_hero' ) ) : ?>
+<h1 class="sr-only"><?php echo esc_html( fenix_mod( 'hero_title' ) ? fenix_mod( 'hero_title' ) : get_bloginfo( 'name' ) ); ?></h1>
 <?php endif; ?>
 
 <?php /* ============ แถบไฮไลต์ ============ */ ?>

@@ -64,7 +64,7 @@ function fenix_customize_register( $wp_customize ) {
 				'hero_subtitle'  => array( 'ประโยคหลัก (Sub headline)', 'text' ),
 				'hero_desc'      => array( 'คำอธิบายสั้น', 'textarea' ),
 				'hero_btn1_text' => array( 'ข้อความปุ่มหลัก (ลิงก์ไป LINE)', 'text' ),
-				'hero_btn2_text' => array( 'ข้อความปุ่มรอง (เลื่อนไปผลทดสอบ)', 'text' ),
+				'hero_btn2_text' => array( 'ข้อความปุ่มรอง (เลื่อนไปส่วนรู้จักระบบ)', 'text' ),
 				'hero_note'      => array( 'ข้อความเตือนความเสี่ยงใต้ปุ่ม', 'text' ),
 				'hero_image'     => array( 'ภาพประกอบ Hero (ไม่ใส่ = ใช้โลโก้)', 'image', 'แนะนำภาพ Dashboard หรือหน้าจอ MT5 ขนาดกว้างอย่างน้อย 900px' ),
 			),
@@ -345,7 +345,7 @@ function fenix_customize_register( $wp_customize ) {
 	 * =================================================== */
 
 	$sections['fenix_home'] = array(
-		'title'       => '17) หน้าแรก · ไฮไลต์ & การ์ดนำทาง',
+		'title'       => '19) หน้าแรก · ไฮไลต์ & การ์ดนำทาง',
 		'description' => 'แถบไฮไลต์ใต้ Hero และการ์ด 5 ใบที่ลิงก์ไปยังหน้าย่อย ลิงก์ตั้งค่าตาม slug มาตรฐานแล้ว แก้ได้หากใช้ slug อื่น',
 		'fields'      => array(
 			'show_highlight'   => array( 'แสดงแถบไฮไลต์ใต้ Hero', 'checkbox' ),
@@ -393,7 +393,7 @@ function fenix_customize_register( $wp_customize ) {
 	);
 
 	$sections['fenix_backtest'] = array(
-		'title'       => '18) หน้า Backtest',
+		'title'       => '20) หน้า Backtest',
 		'description' => 'กรอกผลการทดสอบย้อนหลังจริงเท่านั้น และอย่าลบ Disclaimer',
 		'fields'      => array(
 			'backtest_sub'         => array( 'คำโปรยใต้ชื่อหน้า', 'text' ),
@@ -422,7 +422,7 @@ function fenix_customize_register( $wp_customize ) {
 	);
 
 	$sections['fenix_forward'] = array(
-		'title'       => '19) หน้า Forward Test',
+		'title'       => '21) หน้า Forward Test',
 		'description' => 'กรอกผลการทดสอบบนบัญชีจริง/เดโม่จริงเท่านั้น และอย่าลบ Disclaimer',
 		'fields'      => array(
 			'forward_sub'         => array( 'คำโปรยใต้ชื่อหน้า', 'text' ),
@@ -449,7 +449,7 @@ function fenix_customize_register( $wp_customize ) {
 	);
 
 	$sections['fenix_install'] = array(
-		'title'       => '20) หน้า How to Install',
+		'title'       => '22) หน้า How to Install',
 		'description' => 'คู่มือติดตั้งทีละขั้นตอน อัปโหลดภาพประกอบแต่ละขั้นได้ (เว้นว่างได้)',
 		'fields'      => array(
 			'install_sub'      => array( 'คำโปรยใต้ชื่อหน้า', 'text' ),
@@ -478,7 +478,7 @@ function fenix_customize_register( $wp_customize ) {
 	);
 
 	$sections['fenix_pricing_extra'] = array(
-		'title'       => '21) หน้า Pricing (เพิ่มเติม)',
+		'title'       => '23) หน้า Pricing (เพิ่มเติม)',
 		'description' => 'หน้านี้ใช้แพ็กเกจจากหมวด "แพ็กเกจราคา" ร่วมกัน และเพิ่มตารางเปรียบเทียบได้ที่นี่',
 		'fields'      => array(
 			'pricing_sub'   => array( 'คำโปรยใต้ชื่อหน้า', 'text' ),
@@ -488,7 +488,7 @@ function fenix_customize_register( $wp_customize ) {
 	);
 
 	$sections['fenix_riskpage'] = array(
-		'title'       => '22) หน้า Risk Disclosure',
+		'title'       => '24) หน้า Risk Disclosure',
 		'description' => 'หน้าประกาศความเสี่ยงฉบับเต็ม มี 6 หัวข้อ เว้นว่างหัวข้อที่ไม่ใช้ได้',
 		'fields'      => array(
 			'riskpage_sub'     => array( 'คำโปรยใต้ชื่อหน้า', 'text' ),

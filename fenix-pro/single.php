@@ -48,7 +48,7 @@ while ( have_posts() ) :
 
 			<?php if ( has_post_thumbnail() ) : ?>
 				<div class="container container-narrow">
-					<figure class="article-thumb"><?php the_post_thumbnail( 'large' ); ?></figure>
+					<figure class="article-thumb"><?php the_post_thumbnail( 'large', array( 'alt' => esc_attr( get_the_title() ) ) ); ?></figure>
 				</div>
 			<?php endif; ?>
 
@@ -99,7 +99,7 @@ while ( have_posts() ) :
 				<div class="article-disclaimer">
 					<?php echo fenix_icon( 'warn', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					<p>
-						<?php echo esc_html( fenix_mod( 'footer_risk' ) ); ?>
+						<?php echo esc_html( fenix_mod( 'risk_text' ) ); ?>
 						<a href="<?php echo esc_url( home_url( '/risk-disclosure/' ) ); ?>">อ่านคำเตือนฉบับเต็ม</a>
 					</p>
 				</div>
@@ -139,7 +139,7 @@ while ( have_posts() ) :
 								<article <?php post_class( 'post-card' ); ?>>
 									<?php if ( has_post_thumbnail() ) : ?>
 										<a class="post-card-thumb" href="<?php the_permalink(); ?>">
-											<?php the_post_thumbnail( 'medium_large' ); ?>
+											<?php the_post_thumbnail( 'medium_large', array( 'alt' => esc_attr( get_the_title() ) ) ); ?>
 										</a>
 									<?php endif; ?>
 									<div class="post-card-body">
@@ -185,7 +185,7 @@ while ( have_posts() ) :
 	if ( $fenix_thumb ) {
 		$fenix_schema['image'] = $fenix_thumb;
 	}
-	echo '<script type="application/ld+json">' . wp_json_encode( $fenix_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput
+	echo '<script type="application/ld+json">' . wp_json_encode( $fenix_schema, JSON_UNESCAPED_UNICODE ) . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput
 	?>
 
 	<?php
