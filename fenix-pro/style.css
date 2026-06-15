@@ -2261,6 +2261,217 @@ h3 {
 }
 
 /* ==========================================================
+   22b) Single article (บทความ)
+   ========================================================== */
+.single-article {
+	padding-top: 40px;
+}
+
+.article-hero {
+	padding-bottom: 28px;
+}
+
+.breadcrumb {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	font-size: 0.82rem;
+	color: var(--ash-2);
+	margin-bottom: 22px;
+}
+
+.breadcrumb a {
+	color: var(--ash-2);
+}
+
+.breadcrumb a:hover {
+	color: var(--flare);
+}
+
+.breadcrumb-sep {
+	opacity: 0.55;
+}
+
+.breadcrumb-current {
+	color: var(--ash);
+	max-width: 24ch;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.article-cat {
+	display: inline-flex;
+	align-items: center;
+	padding: 5px 14px;
+	border-radius: 999px;
+	border: 1px solid var(--border-fire);
+	background: rgba(255, 122, 26, 0.08);
+	color: var(--flare);
+	font-family: var(--font-display);
+	font-size: 0.78rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	margin-bottom: 16px;
+}
+
+.article-cat:hover {
+	background: rgba(255, 122, 26, 0.14);
+	color: var(--flare);
+}
+
+.article-title {
+	font-size: clamp(1.9rem, 4.4vw, 2.9rem);
+	line-height: 1.18;
+	margin: 0 0 16px;
+}
+
+.article-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 9px;
+	color: var(--ash-2);
+	font-size: 0.88rem;
+}
+
+.article-meta-sep {
+	opacity: 0.5;
+}
+
+.article-thumb {
+	margin: 0 0 40px;
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	border: 1px solid var(--border);
+	box-shadow: 0 18px 48px rgba(0, 0, 0, 0.4);
+}
+
+.article-thumb img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* เนื้อหาบทความ — typography อ่านสบาย */
+.entry-content {
+	line-height: 1.85;
+}
+
+.entry-content p {
+	margin: 0 0 1.25em;
+}
+
+.entry-content h2 {
+	font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+}
+
+.entry-content h2::before {
+	content: "";
+	display: block;
+	width: 34px;
+	height: 3px;
+	border-radius: 3px;
+	margin-bottom: 0.55em;
+	background: linear-gradient(90deg, var(--ember), var(--gold));
+}
+
+.entry-content h3 {
+	font-size: clamp(1.15rem, 2vw, 1.4rem);
+}
+
+.entry-content a {
+	color: var(--flare);
+}
+
+.entry-content a:hover {
+	color: var(--gold);
+}
+
+.entry-content img {
+	height: auto;
+	margin: 1.5em 0;
+}
+
+.entry-content figure {
+	margin: 1.6em 0;
+}
+
+.entry-content figcaption {
+	margin-top: 8px;
+	font-size: 0.84rem;
+	color: var(--ash-2);
+	text-align: center;
+}
+
+.article-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	list-style: none;
+	margin: 36px 0 0;
+	padding: 0;
+}
+
+.article-tags li {
+	margin: 0;
+}
+
+.article-tags a {
+	display: inline-flex;
+	padding: 6px 14px;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	color: var(--ash);
+	font-size: 0.82rem;
+}
+
+.article-tags a:hover {
+	border-color: var(--border-fire);
+	color: var(--flare);
+}
+
+.article-disclaimer {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	margin-top: 36px;
+	padding: 16px 20px;
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	background: rgba(255, 197, 61, 0.045);
+}
+
+.article-disclaimer .icon {
+	flex-shrink: 0;
+	margin-top: 2px;
+	color: var(--warn);
+}
+
+.article-disclaimer p {
+	margin: 0;
+	color: var(--ash-2);
+	font-size: 0.84rem;
+	line-height: 1.7;
+}
+
+.article-disclaimer a {
+	color: var(--flare);
+	white-space: nowrap;
+}
+
+.page-links {
+	margin-top: 28px;
+	font-size: 0.9rem;
+	color: var(--ash-2);
+}
+
+.related-section .sec-head {
+	margin-bottom: 32px;
+}
+
+/* ==========================================================
    23) Reveal animation
    ========================================================== */
 .reveal {
