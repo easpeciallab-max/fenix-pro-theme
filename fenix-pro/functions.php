@@ -962,6 +962,9 @@ function fenix_collect_toc( $content ) {
 }
 add_filter( 'the_content', 'fenix_collect_toc', 20 );
 
+/* ตัดคำนำหน้า "หมวดหมู่:" / "ป้ายกำกับ:" ออกจากหัวข้อหน้า archive */
+add_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
+
 /* --------------------------------------------------------------
  * Customizer
  * -------------------------------------------------------------- */
