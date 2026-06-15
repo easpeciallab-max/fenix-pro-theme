@@ -1958,6 +1958,40 @@ h3 {
 	height: 20px;
 }
 
+/* ปุ่ม LINE วงกลมลอยมุมขวาล่าง (เฉพาะเดสก์ท็อป) */
+.line-fab {
+	position: fixed;
+	right: 28px;
+	bottom: 28px;
+	z-index: 95;
+	display: inline-grid;
+	place-items: center;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: var(--line-green);
+	color: #03240F;
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+	transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.line-fab:hover {
+	transform: translateY(-3px);
+	color: #03240F;
+	background: #1BD466;
+}
+
+.line-fab .icon {
+	width: 30px;
+	height: 30px;
+}
+
+@media (max-width: 760px) {
+	.line-fab {
+		display: none;
+	}
+}
+
 /* ==========================================================
    Cookie consent
    ========================================================== */

@@ -152,6 +152,12 @@ $fenix_mobile_nav = array(
 </a>
 <?php endif; ?>
 
+<?php if ( $fenix_line ) : ?>
+<a class="line-fab" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener" aria-label="สอบถามทาง LINE">
+	<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+</a>
+<?php endif; ?>
+
 <?php if ( fenix_mod( 'show_cookie_consent' ) ) : ?>
 <div class="cookie-consent" role="dialog" aria-label="ความยินยอมการใช้คุกกี้">
 	<button type="button" class="cookie-consent-close" aria-label="ปิด"><?php echo fenix_icon( 'x', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
