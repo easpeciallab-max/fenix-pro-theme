@@ -258,12 +258,10 @@ h3 {
 .btn-fire {
 	background: var(--grad-fire);
 	color: #1C0D00;
-	box-shadow: var(--shadow-fire);
 }
 
 .btn-fire:hover {
 	color: #1C0D00;
-	box-shadow: 0 14px 40px rgba(255, 110, 20, 0.45);
 }
 
 .btn-ghost {
@@ -281,7 +279,6 @@ h3 {
 .btn-line {
 	background: var(--line-green);
 	color: #03240F;
-	box-shadow: 0 10px 30px rgba(6, 199, 85, 0.3);
 }
 
 .btn-line:hover {
@@ -1768,14 +1765,12 @@ h3 {
 	font-family: var(--font-display);
 	font-size: 0.98rem;
 	font-weight: 700;
-	box-shadow: 0 14px 34px rgba(6, 199, 85, 0.28);
-	transition: transform 0.18s ease, box-shadow 0.18s ease;
+	transition: transform 0.18s ease;
 }
 
 .footer-primary:hover {
 	transform: translateY(-2px);
 	color: #03240F;
-	box-shadow: 0 18px 42px rgba(6, 199, 85, 0.38);
 }
 
 .footer-primary .icon {
@@ -1954,14 +1949,12 @@ h3 {
 	font-family: var(--font-display);
 	font-weight: 600;
 	font-size: 0.95rem;
-	box-shadow: 0 14px 36px rgba(6, 199, 85, 0.4);
-	transition: transform 0.18s ease, box-shadow 0.18s ease;
+	transition: transform 0.18s ease;
 }
 
 .float-line:hover {
 	transform: translateY(-3px);
 	color: #03240F;
-	box-shadow: 0 18px 44px rgba(6, 199, 85, 0.5);
 }
 
 .float-line .icon {
@@ -2074,7 +2067,7 @@ h3 {
 	}
 
 	.cookie-consent-actions {
-		flex: 1 1 100%;
+		width: 100%;
 	}
 
 	.cookie-consent-actions .btn {
