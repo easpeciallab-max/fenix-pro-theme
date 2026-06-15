@@ -69,38 +69,33 @@ $fenix_found = (int) $GLOBALS['wp_query']->found_posts;
 					<?php
 					while ( have_posts() ) :
 						the_post();
-						$fenix_cats = get_the_category();
-						$fenix_cat  = ! empty( $fenix_cats ) ? $fenix_cats[0] : null;
-						?>
-						<article <?php post_class( 'post-card' ); ?>>
-							<?php if ( has_post_thumbnail() ) : ?>
-								<a class="post-card-thumb" href="<?php the_permalink(); ?>">
-									<?php the_post_thumbnail( 'medium_large' ); ?>
-									<?php if ( $fenix_cat ) : ?>
-										<span class="post-card-cat"><?php echo esc_html( $fenix_cat->name ); ?></span>
-									<?php endif; ?>
-								</a>
-							<?php endif; ?>
-							<div class="post-card-body">
-								<span class="post-meta"><?php echo esc_html( get_the_date() ); ?></span>
-								<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-								<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 22 ) ); ?></p>
-								<span class="post-card-more">อ่านต่อ <?php echo fenix_icon( 'arrow', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-							</div>
-						</article>
-					<?php endwhile; ?>
-				</div>
-
-				<div class="pagination">
-					<?php
-					echo paginate_links( // phpcs:ignore WordPress.Security.EscapeOutput
-						array(
-							'prev_text' => '&larr; ก่อนหน้า',
-							'next_text' => 'ถัดไป &rarr;',
-						)
-					);
+						fenix_post_card();
+					endwhile;
 					?>
 				</div>
+
+				<?php if ( $GLOBALS['wp_query']->max_num_pages > 1 ) : ?>
+					<div class="load-more">
+						<button type="button" class="btn btn-ghost load-more-btn"
+							data-page="<?php echo esc_attr( (string) max( 1, (int) get_query_var( 'paged' ) ) ); ?>"
+							data-max="<?php echo esc_attr( (string) (int) $GLOBALS['wp_query']->max_num_pages ); ?>"
+							data-query="<?php echo esc_attr( wp_json_encode( $GLOBALS['wp_query']->query ) ); ?>">
+							โหลดเพิ่ม
+						</button>
+					</div>
+					<noscript>
+						<div class="pagination">
+							<?php
+							echo paginate_links( // phpcs:ignore WordPress.Security.EscapeOutput
+								array(
+									'prev_text' => '&larr; ก่อนหน้า',
+									'next_text' => 'ถัดไป &rarr;',
+								)
+							);
+							?>
+						</div>
+					</noscript>
+				<?php endif; ?>
 
 			<?php else : ?>
 

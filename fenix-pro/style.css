@@ -2236,6 +2236,16 @@ h3 {
 	transform: translateX(3px);
 }
 
+.load-more {
+	text-align: center;
+	margin-top: 48px;
+}
+
+.load-more-btn.is-loading {
+	opacity: 0.7;
+	pointer-events: none;
+}
+
 .entry {
 	padding: 64px 0 96px;
 }

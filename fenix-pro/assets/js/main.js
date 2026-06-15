@@ -209,4 +209,52 @@
 		window.addEventListener('resize', onProgress);
 		onProgress();
 	}
+
+	/* Load more posts (AJAX) */
+	var loadMoreBtn = document.querySelector('.load-more-btn');
+	if (loadMoreBtn && window.fenixLoadMore) {
+		var loadMoreLabel = loadMoreBtn.textContent.trim();
+		loadMoreBtn.addEventListener('click', function () {
+			var page = parseInt(loadMoreBtn.getAttribute('data-page'), 10) || 1;
+			var max = parseInt(loadMoreBtn.getAttribute('data-max'), 10) || 1;
+			var next = page + 1;
+			if (loadMoreBtn.classList.contains('is-loading') || next > max) {
+				return;
+			}
+			loadMoreBtn.classList.add('is-loading');
+			loadMoreBtn.textContent = 'กำลังโหลด…';
+
+			var data = new FormData();
+			data.append('action', 'fenix_load_more');
+			data.append('nonce', window.fenixLoadMore.nonce);
+			data.append('page', next);
+			data.append('query', loadMoreBtn.getAttribute('data-query') || '');
+
+			fetch(window.fenixLoadMore.ajaxUrl, {
+				method: 'POST',
+				body: data,
+				credentials: 'same-origin'
+			})
+				.then(function (res) { return res.text(); })
+				.then(function (html) {
+					var grid = document.querySelector('.posts-grid');
+					if (grid && html.trim()) {
+						grid.insertAdjacentHTML('beforeend', html);
+					}
+					loadMoreBtn.setAttribute('data-page', String(next));
+					loadMoreBtn.classList.remove('is-loading');
+					loadMoreBtn.textContent = loadMoreLabel;
+					if (next >= max) {
+						var wrap = loadMoreBtn.closest('.load-more');
+						if (wrap) {
+							wrap.parentNode.removeChild(wrap);
+						}
+					}
+				})
+				.catch(function () {
+					loadMoreBtn.classList.remove('is-loading');
+					loadMoreBtn.textContent = loadMoreLabel;
+				});
+		});
+	}
 })();

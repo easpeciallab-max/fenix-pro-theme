@@ -62,6 +62,14 @@ function fenix_assets() {
 	);
 	wp_enqueue_style( 'fenix-style', get_stylesheet_uri(), array( 'fenix-fonts' ), $style_version );
 	wp_enqueue_script( 'fenix-main', get_template_directory_uri() . '/assets/js/main.js', array(), $script_version, true );
+	wp_localize_script(
+		'fenix-main',
+		'fenixLoadMore',
+		array(
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'fenix_load_more' ),
+		)
+	);
 }
 add_action( 'wp_enqueue_scripts', 'fenix_assets' );
 
@@ -964,6 +972,67 @@ add_filter( 'the_content', 'fenix_collect_toc', 20 );
 
 /* ตัดคำนำหน้า "หมวดหมู่:" / "ป้ายกำกับ:" ออกจากหัวข้อหน้า archive */
 add_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
+
+/* --------------------------------------------------------------
+ * การ์ดบทความ (ใช้ร่วมกันที่ index และ AJAX โหลดเพิ่ม)
+ * -------------------------------------------------------------- */
+function fenix_post_card() {
+	$cats = get_the_category();
+	$cat  = ! empty( $cats ) ? $cats[0] : null;
+	?>
+	<article <?php post_class( 'post-card' ); ?>>
+		<?php if ( has_post_thumbnail() ) : ?>
+			<a class="post-card-thumb" href="<?php the_permalink(); ?>">
+				<?php the_post_thumbnail( 'medium_large' ); ?>
+				<?php if ( $cat ) : ?>
+					<span class="post-card-cat"><?php echo esc_html( $cat->name ); ?></span>
+				<?php endif; ?>
+			</a>
+		<?php endif; ?>
+		<div class="post-card-body">
+			<span class="post-meta"><?php echo esc_html( get_the_date() ); ?></span>
+			<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+			<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 22 ) ); ?></p>
+			<span class="post-card-more">อ่านต่อ <?php echo fenix_icon( 'arrow', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+		</div>
+	</article>
+	<?php
+}
+
+/* --------------------------------------------------------------
+ * AJAX โหลดบทความเพิ่ม (ปุ่ม "โหลดเพิ่ม")
+ * -------------------------------------------------------------- */
+function fenix_load_more() {
+	check_ajax_referer( 'fenix_load_more', 'nonce' );
+
+	$page  = isset( $_POST['page'] ) ? max( 1, (int) $_POST['page'] ) : 1;
+	$query = array();
+	if ( isset( $_POST['query'] ) ) {
+		$decoded = json_decode( sanitize_text_field( wp_unslash( $_POST['query'] ) ), true );
+		if ( is_array( $decoded ) ) {
+			$query = $decoded;
+		}
+	}
+
+	// บังคับค่าที่ปลอดภัย ไม่ให้ฝั่ง client กำหนดเอง
+	$query['paged']               = $page;
+	$query['post_type']           = 'post';
+	$query['post_status']         = 'publish';
+	$query['posts_per_page']      = (int) get_option( 'posts_per_page' );
+	$query['ignore_sticky_posts'] = true;
+
+	$loop = new WP_Query( $query );
+	if ( $loop->have_posts() ) {
+		while ( $loop->have_posts() ) {
+			$loop->the_post();
+			fenix_post_card();
+		}
+	}
+	wp_reset_postdata();
+	wp_die();
+}
+add_action( 'wp_ajax_fenix_load_more', 'fenix_load_more' );
+add_action( 'wp_ajax_nopriv_fenix_load_more', 'fenix_load_more' );
 
 /* --------------------------------------------------------------
  * Customizer
