@@ -1,6 +1,6 @@
 <?php
 /**
- * Static page
+ * Static page (หน้าทั่วไป เช่น นโยบายความเป็นส่วนตัว, เงื่อนไข, เกี่ยวกับเรา)
  *
  * @package fenix-pro
  */
@@ -24,32 +24,53 @@ $fenix_is_elementor = fenix_is_elementor_page();
 
 	<?php else : ?>
 
-	<div class="entry">
-		<div class="container-narrow">
+		<?php
+		while ( have_posts() ) :
+			the_post();
+			?>
 
-			<?php
-			while ( have_posts() ) :
-				the_post();
-				?>
-				<article <?php post_class(); ?>>
+			<div class="page-hero">
+				<div class="container">
+					<nav class="breadcrumb breadcrumb-center" aria-label="เส้นทางนำทาง">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>">หน้าแรก</a>
+						<?php if ( $post->post_parent ) : ?>
+							<span class="breadcrumb-sep" aria-hidden="true">›</span>
+							<a href="<?php echo esc_url( get_permalink( $post->post_parent ) ); ?>"><?php echo esc_html( get_the_title( $post->post_parent ) ); ?></a>
+						<?php endif; ?>
+						<span class="breadcrumb-sep" aria-hidden="true">›</span>
+						<span class="breadcrumb-current"><?php the_title(); ?></span>
+					</nav>
+					<h1><?php the_title(); ?></h1>
+				</div>
+			</div>
 
-					<header class="entry-header">
-						<h1><?php the_title(); ?></h1>
-					</header>
+			<div class="entry">
+				<div class="container-narrow">
+					<article <?php post_class(); ?>>
 
-					<?php if ( has_post_thumbnail() ) : ?>
-						<div class="entry-thumb"><?php the_post_thumbnail( 'large' ); ?></div>
-					<?php endif; ?>
+						<?php if ( has_post_thumbnail() ) : ?>
+							<figure class="article-thumb"><?php the_post_thumbnail( 'large' ); ?></figure>
+						<?php endif; ?>
 
-					<div class="entry-content">
-						<?php the_content(); ?>
-					</div>
+						<div class="entry-content">
+							<?php the_content(); ?>
+						</div>
 
-				</article>
-			<?php endwhile; ?>
+						<?php
+						wp_link_pages(
+							array(
+								'before' => '<div class="page-links">หน้า: ',
+								'after'  => '</div>',
+							)
+						);
+						?>
 
-		</div>
-	</div>
+					</article>
+				</div>
+			</div>
+
+		<?php endwhile; ?>
+
 	<?php endif; ?>
 </main>
 
