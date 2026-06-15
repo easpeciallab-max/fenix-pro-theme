@@ -2300,12 +2300,31 @@ h3 {
 .error-search input {
 	flex: 1;
 	min-width: 0;
+	-webkit-appearance: none;
+	appearance: none;
 	border: 0;
 	background: transparent;
 	color: var(--ink);
 	font-family: inherit;
 	font-size: 0.98rem;
 	outline: 0;
+}
+
+.error-search input::placeholder {
+	color: var(--ash-2);
+}
+
+.error-search input::-webkit-search-cancel-button,
+.error-search input::-webkit-search-decoration {
+	-webkit-appearance: none;
+	appearance: none;
+	display: none;
+}
+
+.error-search input:-webkit-autofill {
+	-webkit-text-fill-color: var(--ink);
+	-webkit-box-shadow: 0 0 0 1000px var(--coal-2) inset;
+	caret-color: var(--ink);
 }
 
 .error-search button {
@@ -2327,6 +2346,11 @@ h3 {
 	gap: 12px;
 	justify-content: center;
 	margin-bottom: 28px;
+}
+
+.error-actions .btn {
+	min-width: 180px;
+	justify-content: center;
 }
 
 .error-links {
