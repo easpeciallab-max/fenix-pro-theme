@@ -544,6 +544,18 @@ function fenix_customize_register( $wp_customize ) {
 		),
 	);
 
+	$sections['fenix_blog'] = array(
+		'title'       => '27) หน้าแรก · บทความล่าสุด',
+		'description' => 'แสดงบทความล่าสุด 3 รายการบนหน้าแรก ส่วนนี้จะซ่อนอัตโนมัติเมื่อยังไม่มีบทความที่เผยแพร่',
+		'fields'      => array(
+			'show_blog'      => array( 'แสดงส่วนนี้', 'checkbox' ),
+			'blog_kicker'    => array( 'ป้ายเล็กเหนือหัวข้อ', 'text' ),
+			'blog_title'     => array( 'หัวข้อ', 'text' ),
+			'blog_subtitle'  => array( 'คำอธิบายใต้หัวข้อ', 'textarea' ),
+			'blog_all_label' => array( 'ข้อความลิงก์ดูบทความทั้งหมด', 'text' ),
+		),
+	);
+
 	$priority = 10;
 
 	foreach ( $sections as $section_id => $section ) {

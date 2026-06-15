@@ -690,6 +690,45 @@ $fenix_has_perf     = ! empty( $fenix_perf_stats ) || $fenix_perf_img || $fenix_
 </section>
 <?php endif; ?>
 
+<?php /* ============ บทความล่าสุด (ซ่อนอัตโนมัติเมื่อไม่มีบทความ) ============ */ ?>
+<?php
+$fenix_blog_q = new WP_Query(
+	array(
+		'post_type'           => 'post',
+		'post_status'         => 'publish',
+		'posts_per_page'      => 3,
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => true,
+	)
+);
+?>
+<?php if ( fenix_mod( 'show_blog' ) && $fenix_blog_q->have_posts() ) : ?>
+<section class="section section-alt blog-section" id="articles">
+	<div class="container">
+		<div class="sec-head reveal">
+			<span class="kicker"><?php echo esc_html( fenix_mod( 'blog_kicker' ) ); ?></span>
+			<h2><?php echo esc_html( fenix_mod( 'blog_title' ) ); ?></h2>
+			<p><?php echo esc_html( fenix_mod( 'blog_subtitle' ) ); ?></p>
+		</div>
+		<div class="posts-grid reveal">
+			<?php
+			while ( $fenix_blog_q->have_posts() ) :
+				$fenix_blog_q->the_post();
+				fenix_post_card();
+			endwhile;
+			?>
+		</div>
+		<?php
+		$fenix_posts_page = (int) get_option( 'page_for_posts' );
+		if ( $fenix_posts_page ) :
+			?>
+			<p class="sec-note reveal"><a class="price-all-link" href="<?php echo esc_url( get_permalink( $fenix_posts_page ) ); ?>"><?php echo esc_html( fenix_mod( 'blog_all_label' ) ); ?> <?php echo fenix_icon( 'arrow', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a></p>
+		<?php endif; ?>
+	</div>
+</section>
+<?php endif; ?>
+<?php wp_reset_postdata(); ?>
+
 <?php /* ============ คำเตือนความเสี่ยง (ย่อ) ============ */ ?>
 <?php if ( fenix_mod( 'show_risk' ) ) : ?>
 <section class="section section-risk" id="risk">

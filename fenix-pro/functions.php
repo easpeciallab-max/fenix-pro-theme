@@ -588,6 +588,13 @@ function fenix_defaults() {
 			/* ปุ่มลิงก์ผลที่ตรวจสอบได้ (เช่น Myfxbook) บนหน้าแรก */
 			'verified_link_label' => 'ดูผลแบบเรียลไทม์',
 			'verified_link_url'   => '',
+
+			/* บทความล่าสุดบนหน้าแรก (ซ่อนอัตโนมัติเมื่อยังไม่มีบทความที่เผยแพร่) */
+			'show_blog'      => true,
+			'blog_kicker'    => 'Articles',
+			'blog_title'     => 'บทความและความรู้',
+			'blog_subtitle'  => 'รวมบทความเกี่ยวกับ EA การเทรดอัตโนมัติ และการบริหารความเสี่ยงบน MetaTrader 5',
+			'blog_all_label' => 'ดูบทความทั้งหมด',
 		)
 	);
 
