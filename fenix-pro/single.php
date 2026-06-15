@@ -41,6 +41,8 @@ while ( have_posts() ) :
 						<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
 						<span class="article-meta-sep" aria-hidden="true">·</span>
 						<span><?php echo esc_html( 'อ่าน ' . $fenix_reading . ' นาที' ); ?></span>
+						<span class="article-meta-sep" aria-hidden="true">·</span>
+						<span><?php echo esc_html( 'เข้าชม ' . number_format_i18n( fenix_get_post_views( get_the_ID() ) ) . ' ครั้ง' ); ?></span>
 					</div>
 				</div>
 			</header>
@@ -99,7 +101,7 @@ while ( have_posts() ) :
 				<section class="section section-alt related-section" aria-label="บทความที่เกี่ยวข้อง">
 					<div class="container">
 						<div class="sec-head"><h2>บทความที่เกี่ยวข้อง</h2></div>
-						<div class="posts-grid">
+						<div class="related-rail">
 							<?php
 							while ( $fenix_related->have_posts() ) :
 								$fenix_related->the_post();
@@ -127,12 +129,6 @@ while ( have_posts() ) :
 		endif;
 		?>
 
-		<div class="container container-narrow">
-			<nav class="nav-links" aria-label="บทความก่อนหน้า/ถัดไป">
-				<?php previous_post_link( '%link', '&larr; %title' ); ?>
-				<?php next_post_link( '%link', '%title &rarr;' ); ?>
-			</nav>
-		</div>
 	</main>
 
 	<?php

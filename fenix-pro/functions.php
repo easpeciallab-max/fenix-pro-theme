@@ -828,6 +828,31 @@ function fenix_icon( $name, $class = 'icon' ) {
 }
 
 /* --------------------------------------------------------------
+ * Post views (ตัวนับยอดเข้าชมบทความ)
+ * -------------------------------------------------------------- */
+function fenix_get_post_views( $post_id ) {
+	return (int) get_post_meta( $post_id, 'fenix_views', true );
+}
+
+function fenix_increment_post_views( $post_id ) {
+	if ( ! $post_id ) {
+		return;
+	}
+	update_post_meta( $post_id, 'fenix_views', fenix_get_post_views( $post_id ) + 1 );
+}
+
+/* นับเฉพาะผู้เข้าชมหน้าบทความเดี่ยว (ข้ามแอดมิน เพื่อไม่ให้ตัวเลขเพี้ยน)
+   หมายเหตุ: ถ้าใช้ปลั๊กแคชหน้า ตัวเลขอาจนับไม่ครบทุกครั้ง */
+add_action(
+	'wp_head',
+	function () {
+		if ( is_singular( 'post' ) && ! current_user_can( 'edit_posts' ) ) {
+			fenix_increment_post_views( get_queried_object_id() );
+		}
+	}
+);
+
+/* --------------------------------------------------------------
  * Customizer
  * -------------------------------------------------------------- */
 require get_template_directory() . '/inc/customizer.php';
