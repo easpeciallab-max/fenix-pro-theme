@@ -1966,7 +1966,7 @@ h3 {
 	left: 16px;
 	right: 16px;
 	bottom: 16px;
-	z-index: 99999;
+	z-index: 140;
 	display: none;
 	flex-wrap: wrap;
 	align-items: center;
@@ -2049,16 +2049,6 @@ h3 {
 	/* ในแนวตั้ง flex-basis 280px จะกลายเป็นความสูง ต้องรีเซ็ตไม่ให้กล่องสูงเกิน */
 	.cookie-consent-text {
 		flex: none;
-	}
-
-	.cookie-consent.is-visible::before {
-		content: "";
-		position: fixed;
-		inset: 0;
-		z-index: -1;
-		background: rgba(6, 6, 10, 0.62);
-		-webkit-backdrop-filter: blur(6px);
-		backdrop-filter: blur(6px);
 	}
 
 	.cookie-consent-close {
