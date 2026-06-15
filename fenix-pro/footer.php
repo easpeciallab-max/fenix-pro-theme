@@ -111,7 +111,23 @@ $fenix_mobile_nav = array(
 				<?php endif; ?>
 			</div>
 			<?php endif; ?>
-			<a class="footer-legal" href="<?php echo esc_url( home_url( '/risk-disclosure/' ) ); ?>"><?php echo esc_html( fenix_mod( 'footer_risk_link' ) ); ?></a>
+			<nav class="footer-legal" aria-label="ลิงก์ทางกฎหมาย">
+				<?php
+				foreach ( array(
+					'about'          => 'เกี่ยวกับเรา',
+					'privacy-policy' => 'นโยบายความเป็นส่วนตัว',
+					'terms'          => 'เงื่อนไขการใช้บริการ',
+				) as $fenix_slug => $fenix_label ) :
+					$fenix_legal_page = get_page_by_path( $fenix_slug );
+					if ( $fenix_legal_page ) :
+						?>
+						<a href="<?php echo esc_url( get_permalink( $fenix_legal_page ) ); ?>"><?php echo esc_html( $fenix_label ); ?></a>
+						<?php
+					endif;
+				endforeach;
+				?>
+				<a href="<?php echo esc_url( home_url( '/risk-disclosure/' ) ); ?>"><?php echo esc_html( fenix_mod( 'footer_risk_link' ) ); ?></a>
+			</nav>
 		</div>
 
 	</div>

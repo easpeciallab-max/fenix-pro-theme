@@ -1903,12 +1903,19 @@ h3 {
 }
 
 .footer-legal {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 8px 18px;
+	align-items: center;
+}
+
+.footer-legal a {
 	color: var(--ash-2);
 	font-size: 0.82rem;
 	transition: color 0.18s ease;
 }
 
-.footer-legal:hover {
+.footer-legal a:hover {
 	color: var(--flare);
 }
 
@@ -3209,7 +3216,8 @@ h3 {
 		text-align: center;
 	}
 
-	.footer-links-mini {
+	.footer-links-mini,
+	.footer-legal {
 		justify-content: center;
 	}
 
