@@ -17,7 +17,7 @@ $fenix_line = fenix_mod( 'line_url' );
 
 				<p class="error-code">404</p>
 				<h1 class="error-title">ไม่พบหน้าที่คุณค้นหา</h1>
-				<p class="error-text">หน้านี้อาจถูกย้าย ลบ หรือพิมพ์ลิงก์ผิด — ลองค้นหา หรือกลับไปหน้าหลักได้เลย</p>
+				<p class="error-text">หน้านี้อาจถูกย้าย ลบ หรือพิมพ์ลิงก์ผิด ลองค้นหา หรือกลับไปหน้าหลักได้เลย</p>
 
 				<form class="error-search" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 					<input type="search" name="s" placeholder="ค้นหาบทความ…" aria-label="ค้นหา" value="<?php echo esc_attr( get_search_query() ); ?>">
