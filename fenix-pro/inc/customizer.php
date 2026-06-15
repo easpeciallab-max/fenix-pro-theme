@@ -1,7 +1,7 @@
 <?php
 /**
  * FENIX PRO EA · Customizer (หน้า "ปรับแต่ง")
- * ทุกข้อความ รูปภาพ ลิงก์ และการเปิด–ปิด section แก้ได้จากที่นี่
+ * ทุกข้อความ รูปภาพ ลิงก์ และการเปิดและปิด section แก้ได้จากที่นี่
  *
  * @package fenix-pro
  */
@@ -30,7 +30,7 @@ function fenix_customize_register( $wp_customize ) {
 		'fenix_panel',
 		array(
 			'title'       => 'FENIX PRO · ตั้งค่าหน้าเว็บ',
-			'description' => 'แก้ไขข้อความ รูปภาพ ลิงก์ และเปิด–ปิดแต่ละส่วนของหน้าแรกได้ทั้งหมดจากเมนูนี้ กด "เผยแพร่" เพื่อบันทึก',
+			'description' => 'แก้ไขข้อความ รูปภาพ ลิงก์ และเปิดและปิดแต่ละส่วนของหน้าแรกได้ทั้งหมดจากเมนูนี้ กด "เผยแพร่" เพื่อบันทึก',
 			'priority'    => 10,
 		)
 	);
@@ -176,6 +176,8 @@ function fenix_customize_register( $wp_customize ) {
 				'stat6_value'        => array( 'ข้อมูล 6 · ค่า', 'text' ),
 				'perf_image'         => array( 'ภาพกราฟผลทดสอบ (Backtest/Forward)', 'image' ),
 				'perf_image_caption' => array( 'คำบรรยายภาพ', 'text' ),
+				'verified_link_label' => array( 'ข้อความปุ่มผลเรียลไทม์ (ถ้ามี)', 'text' ),
+				'verified_link_url'   => array( 'ลิงก์ผลที่ตรวจสอบได้ เช่น Myfxbook / FXBlue (แสดงปุ่มเมื่อกรอกเท่านั้น)', 'url' ),
 				'perf_note'          => array( 'หมายเหตุเงื่อนไขการทดสอบ', 'textarea' ),
 				'perf_disclaimer'    => array( 'ข้อความ Disclaimer (จำเป็นต้องมี)', 'textarea' ),
 			),
@@ -229,6 +231,9 @@ function fenix_customize_register( $wp_customize ) {
 				'pkg3_featured'    => array( 'แพ็กเกจ 3 · ติดป้าย "แนะนำ"', 'checkbox' ),
 				'pricing_btn_text' => array( 'ข้อความปุ่มบนการ์ดราคา', 'text' ),
 				'pricing_note'     => array( 'หมายเหตุท้ายส่วนราคา', 'text' ),
+				'show_pricing_home'  => array( 'แสดงตัวอย่างแพ็กเกจบนหน้าแรก', 'checkbox' ),
+				'pricing_home_title' => array( 'หน้าแรก · หัวข้อแพ็กเกจ', 'text' ),
+				'pricing_home_sub'   => array( 'หน้าแรก · คำอธิบายแพ็กเกจ', 'textarea' ),
 			),
 		),
 
@@ -272,6 +277,9 @@ function fenix_customize_register( $wp_customize ) {
 			'title'  => '14) CTA ปิดท้าย',
 			'fields' => array(
 				'show_cta'     => array( 'แสดงส่วนนี้', 'checkbox' ),
+				'show_mid_cta'  => array( 'แสดงแถบทัก LINE คั่นกลางหน้าแรก', 'checkbox' ),
+				'mid_cta_title' => array( 'แถบกลางหน้า · หัวข้อ', 'text' ),
+				'mid_cta_text'  => array( 'แถบกลางหน้า · คำอธิบาย', 'textarea' ),
 				'cta_title'    => array( 'หัวข้อ', 'text' ),
 				'cta_subtitle' => array( 'คำอธิบาย', 'textarea' ),
 				'cta_btn_text' => array( 'ข้อความปุ่ม', 'text' ),
@@ -508,6 +516,31 @@ function fenix_customize_register( $wp_customize ) {
 			'rp_block6_title'  => array( 'หัวข้อ 6', 'text' ),
 			'rp_block6_text'   => array( 'เนื้อหา 6', 'textarea' ),
 			'riskpage_updated' => array( 'วันที่ปรับปรุงล่าสุด', 'text' ),
+		),
+	);
+
+	$sections['fenix_team'] = array(
+		'title'       => '25) ทีมงาน / ใครอยู่เบื้องหลัง',
+		'description' => 'แสดงตัวตนของทีม/ผู้พัฒนาเพื่อสร้างความน่าเชื่อถือ แนะนำประสบการณ์และเหตุผลที่สร้างระบบ เปิด "แสดงส่วนนี้" เมื่อกรอกข้อมูลจริงแล้ว ห้ามใส่ข้อมูลเท็จ',
+		'fields'      => array(
+			'show_team'   => array( 'แสดงส่วนนี้ (เปิดเมื่อกรอกข้อมูลจริง)', 'checkbox' ),
+			'team_kicker' => array( 'ป้ายเล็กเหนือหัวข้อ', 'text' ),
+			'team_title'  => array( 'หัวข้อ', 'text' ),
+			'team_text'   => array( 'เนื้อหา (เว้นบรรทัด = ย่อหน้าใหม่)', 'textarea' ),
+			'team_points' => array( 'จุดเด่นของทีม (บรรทัดละ 1 ข้อ)', 'textarea' ),
+			'team_img'    => array( 'รูปทีม / ผู้พัฒนา (ถ้ามี)', 'image' ),
+		),
+	);
+
+	$sections['fenix_assurance'] = array(
+		'title'       => '26) ความมั่นใจก่อนเริ่ม',
+		'description' => 'จุดสร้างความสบายใจก่อนตัดสินใจ ใช้ข้อความที่เป็นจริง ไม่การันตีกำไร',
+		'fields'      => array(
+			'show_assurance'     => array( 'แสดงส่วนนี้', 'checkbox' ),
+			'assurance_kicker'   => array( 'ป้ายเล็กเหนือหัวข้อ', 'text' ),
+			'assurance_title'    => array( 'หัวข้อ', 'text' ),
+			'assurance_subtitle' => array( 'คำอธิบายใต้หัวข้อ', 'textarea' ),
+			'assurance_items'    => array( 'รายการความมั่นใจ (บรรทัดละ 1 ข้อ)', 'textarea' ),
 		),
 	);
 

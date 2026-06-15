@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: FENIX — หน้า Pricing
+ * Template Name: FENIX · หน้า Pricing
  *
  * @package fenix-pro
  */

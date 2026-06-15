@@ -1,5 +1,5 @@
 /**
- * FENIX PRO EA — theme scripts
+ * FENIX PRO EA · theme scripts
  */
 (function () {
 	'use strict';
@@ -142,7 +142,7 @@
 		});
 	}
 
-	/* Related posts rail — arrow scroll + show controls only when overflowing */
+	/* Related posts rail · arrow scroll + show controls only when overflowing */
 	document.querySelectorAll('.related-section').forEach(function (section) {
 		var rail = section.querySelector('.related-rail');
 		if (!rail) {
@@ -167,7 +167,7 @@
 		window.addEventListener('resize', updateControls);
 	});
 
-	/* Share — copy link to clipboard */
+	/* Share · copy link to clipboard */
 	document.querySelectorAll('.share-copy').forEach(function (btn) {
 		btn.addEventListener('click', function () {
 			var url = btn.getAttribute('data-url') || window.location.href;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: FENIX — หน้า Backtest
+ * Template Name: FENIX · หน้า Backtest
  *
  * @package fenix-pro
  */

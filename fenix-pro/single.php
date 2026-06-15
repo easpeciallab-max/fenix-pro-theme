@@ -1,6 +1,6 @@
 <?php
 /**
- * Single post — บทความ (ออกแบบสำหรับคอนเทนต์ SEO)
+ * Single post · บทความ (ออกแบบสำหรับคอนเทนต์ SEO)
  *
  * @package fenix-pro
  */

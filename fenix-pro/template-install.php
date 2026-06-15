@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: FENIX — หน้า How to Install
+ * Template Name: FENIX · หน้า How to Install
  *
  * @package fenix-pro
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: FENIX — หน้า Risk Disclosure
+ * Template Name: FENIX · หน้า Risk Disclosure
  *
  * @package fenix-pro
  */
