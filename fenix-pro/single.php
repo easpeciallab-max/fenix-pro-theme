@@ -60,7 +60,7 @@ while ( have_posts() ) :
 				$fenix_toc            = isset( $GLOBALS['fenix_toc'] ) ? $GLOBALS['fenix_toc'] : array();
 				?>
 
-				<?php if ( count( $fenix_toc ) >= 3 ) : ?>
+				<?php if ( count( $fenix_toc ) >= 1 ) : ?>
 					<nav class="toc" aria-label="สารบัญ">
 						<p class="toc-title"><?php echo fenix_icon( 'layout', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?> สารบัญ</p>
 						<ul>
