@@ -3695,7 +3695,7 @@ h1, h2, h3, h4,
 	border-left: 3px solid var(--ok);
 	border-radius: var(--radius);
 	padding: 24px 28px;
-	margin-top: 26px;
+	margin: 26px 0 44px;
 }
 
 .req-box h3 {
