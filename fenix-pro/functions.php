@@ -186,6 +186,10 @@ function fenix_defaults() {
 		'mobile_nav_install_url'   => '/how-to-install/',
 		'mobile_nav_line_label'    => 'ทัก LINE',
 
+		/* SEO / แชร์ลิงก์ (Open Graph) */
+		'og_default_image'       => '',
+		'og_default_description' => 'FENIX PRO EA — ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5 เน้นวินัยและการบริหารความเสี่ยง',
+
 		/* Hero */
 		'show_hero'      => true,
 		'hero_badge'     => 'Automated Trading System • MT5',
@@ -813,6 +817,7 @@ function fenix_icon( $name, $class = 'icon' ) {
 		'mail'     => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
 		'facebook' => '<path d="M14 8h2.5V4.5H14c-2.2 0-4 1.8-4 4V11H7.5v3.5H10v6h3.5v-6h2.6l.4-3.5h-3V8.7c0-.4.3-.7.5-.7z"/>',
 		'download' => '<path d="M12 4v10M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/>',
+		'link'     => '<path d="M9.5 14.5l5-5"/><path d="M11.5 6.5l1-1a4 4 0 0 1 5.7 5.7l-2 2"/><path d="M12.5 17.5l-1 1a4 4 0 0 1-5.7-5.7l2-2"/>',
 	);
 
 	// แบรนด์ไอคอน LINE (โลโก้จริง) — เป็น path แบบ fill ไม่ใช่ stroke จึง render แยก.
@@ -851,6 +856,111 @@ add_action(
 		}
 	}
 );
+
+/* --------------------------------------------------------------
+ * Open Graph / Twitter meta (รูปแชร์ LINE/Facebook)
+ * ปิดอัตโนมัติถ้ามีปลั๊ก SEO (Yoast/Rank Math) เพื่อไม่ให้แท็กซ้ำ
+ * -------------------------------------------------------------- */
+function fenix_open_graph() {
+	$site        = get_bloginfo( 'name' );
+	$default_img = fenix_mod( 'og_default_image' );
+	if ( ! $default_img ) {
+		$default_img = fenix_logo_url();
+	}
+
+	if ( is_singular() ) {
+		$title = get_the_title();
+		$desc  = has_excerpt() ? get_the_excerpt() : wp_trim_words( wp_strip_all_tags( strip_shortcodes( get_the_content() ) ), 40, '…' );
+		$url   = get_permalink();
+		$img   = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+		if ( ! $img ) {
+			$img = $default_img;
+		}
+		$type = is_singular( 'post' ) ? 'article' : 'website';
+	} else {
+		$title = is_front_page() ? $site : wp_strip_all_tags( wp_get_document_title() );
+		$desc  = fenix_mod( 'og_default_description' );
+		$url   = home_url( '/' );
+		$img   = $default_img;
+		$type  = 'website';
+	}
+
+	$desc = trim( (string) $desc );
+
+	$tags = array(
+		'og:site_name'   => $site,
+		'og:locale'      => get_locale(),
+		'og:type'        => $type,
+		'og:title'       => $title,
+		'og:description' => $desc,
+		'og:url'         => $url,
+		'og:image'       => $img,
+	);
+
+	foreach ( $tags as $property => $value ) {
+		if ( '' === (string) $value ) {
+			continue;
+		}
+		printf( '<meta property="%1$s" content="%2$s">' . "\n", esc_attr( $property ), esc_attr( $value ) );
+	}
+
+	if ( 'article' === $type ) {
+		printf( '<meta property="article:published_time" content="%s">' . "\n", esc_attr( get_the_date( 'c' ) ) );
+		printf( '<meta property="article:modified_time" content="%s">' . "\n", esc_attr( get_the_modified_date( 'c' ) ) );
+	}
+
+	echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+	printf( '<meta name="twitter:title" content="%s">' . "\n", esc_attr( $title ) );
+	if ( '' !== $desc ) {
+		printf( '<meta name="twitter:description" content="%s">' . "\n", esc_attr( $desc ) );
+	}
+	if ( '' !== (string) $img ) {
+		printf( '<meta name="twitter:image" content="%s">' . "\n", esc_attr( $img ) );
+	}
+}
+if ( ! defined( 'WPSEO_VERSION' ) && ! class_exists( 'RankMath' ) && ! defined( 'SEOPRESS_VERSION' ) ) {
+	add_action( 'wp_head', 'fenix_open_graph', 5 );
+}
+
+/* --------------------------------------------------------------
+ * Table of Contents — เก็บหัวข้อ H2/H3 จากเนื้อหาบทความ + ใส่ id ให้ลิงก์
+ * ($GLOBALS['fenix_toc'] ถูกเติมตอน the_content ถูกประมวลผล)
+ * -------------------------------------------------------------- */
+function fenix_collect_toc( $content ) {
+	if ( ! ( is_singular( 'post' ) && is_main_query() && in_the_loop() ) ) {
+		return $content;
+	}
+
+	$GLOBALS['fenix_toc'] = array();
+	$index                = 0;
+
+	return preg_replace_callback(
+		'/<(h[23])([^>]*)>(.*?)<\/\1>/is',
+		function ( $matches ) use ( &$index ) {
+			$index++;
+			$tag   = strtolower( $matches[1] );
+			$attrs = $matches[2];
+			$inner = $matches[3];
+
+			if ( preg_match( '/\bid=["\']([^"\']+)["\']/', $attrs, $id_match ) ) {
+				$id = $id_match[1];
+			} else {
+				$id     = 'toc-' . $index;
+				$attrs .= ' id="' . $id . '"';
+			}
+
+			$GLOBALS['fenix_toc'][] = array(
+				'level' => (int) substr( $tag, 1 ),
+				'text'  => trim( wp_strip_all_tags( $inner ) ),
+				'id'    => $id,
+			);
+
+			return '<' . $tag . $attrs . '>' . $inner . '</' . $tag . '>';
+		},
+		$content
+	);
+}
+add_filter( 'the_content', 'fenix_collect_toc', 20 );
 
 /* --------------------------------------------------------------
  * Customizer

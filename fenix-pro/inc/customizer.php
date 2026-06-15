@@ -314,6 +314,15 @@ function fenix_customize_register( $wp_customize ) {
 		),
 	);
 
+	$sections['fenix_seo'] = array(
+		'title'       => '17) SEO / แชร์ลิงก์',
+		'description' => 'รูปและคำโปรยเวลาแชร์ลิงก์ใน LINE/Facebook (Open Graph) บทความจะใช้ภาพหน้าปก (Featured image) อัตโนมัติ',
+		'fields'      => array(
+			'og_default_image'       => array( 'รูปสำหรับแชร์ (แนะนำ 1200×630px)', 'image' ),
+			'og_default_description' => array( 'คำโปรยเวลาแชร์หน้าหลัก/หน้าที่ไม่มีภาพ', 'textarea' ),
+		),
+	);
+
 	/* เพิ่ม FAQ 10 ข้อเข้า section FAQ */
 	for ( $i = 1; $i <= 10; $i++ ) {
 		$sections['fenix_faq']['fields'][ 'faq' . $i . '_q' ] = array( 'คำถามข้อ ' . $i, 'text' );

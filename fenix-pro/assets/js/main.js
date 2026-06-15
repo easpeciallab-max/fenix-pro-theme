@@ -166,4 +166,47 @@
 		updateControls();
 		window.addEventListener('resize', updateControls);
 	});
+
+	/* Share — copy link to clipboard */
+	document.querySelectorAll('.share-copy').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			var url = btn.getAttribute('data-url') || window.location.href;
+			var done = function () {
+				btn.classList.add('is-copied');
+				setTimeout(function () {
+					btn.classList.remove('is-copied');
+				}, 1600);
+			};
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				navigator.clipboard.writeText(url).then(done).catch(function () {});
+			} else {
+				var ta = document.createElement('textarea');
+				ta.value = url;
+				ta.setAttribute('readonly', '');
+				ta.style.position = 'absolute';
+				ta.style.left = '-9999px';
+				document.body.appendChild(ta);
+				ta.select();
+				try {
+					document.execCommand('copy');
+					done();
+				} catch (e) {}
+				document.body.removeChild(ta);
+			}
+		});
+	});
+
+	/* Reading progress bar */
+	var progress = document.querySelector('.reading-progress span');
+	var progressArticle = document.querySelector('.single-article');
+	if (progress && progressArticle) {
+		var onProgress = function () {
+			var total = progressArticle.offsetHeight - window.innerHeight;
+			var scrolled = Math.min(Math.max(-progressArticle.getBoundingClientRect().top, 0), Math.max(total, 0));
+			progress.style.width = (total > 0 ? (scrolled / total) * 100 : 0) + '%';
+		};
+		window.addEventListener('scroll', onProgress, { passive: true });
+		window.addEventListener('resize', onProgress);
+		onProgress();
+	}
 })();

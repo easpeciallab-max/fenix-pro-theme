@@ -15,6 +15,8 @@ while ( have_posts() ) :
 	$fenix_thumb = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 	?>
 
+	<div class="reading-progress" aria-hidden="true"><span></span></div>
+
 	<main id="main">
 		<article <?php post_class( 'single-article' ); ?>>
 
@@ -51,8 +53,33 @@ while ( have_posts() ) :
 			<?php endif; ?>
 
 			<div class="container container-narrow">
+				<?php
+				$GLOBALS['fenix_toc'] = array();
+				$fenix_content        = apply_filters( 'the_content', get_the_content() );
+				$fenix_content        = str_replace( ']]>', ']]&gt;', $fenix_content );
+				$fenix_toc            = isset( $GLOBALS['fenix_toc'] ) ? $GLOBALS['fenix_toc'] : array();
+				?>
+
+				<?php if ( count( $fenix_toc ) >= 3 ) : ?>
+					<nav class="toc" aria-label="สารบัญ">
+						<p class="toc-title"><?php echo fenix_icon( 'layout', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?> สารบัญ</p>
+						<ul>
+							<?php foreach ( $fenix_toc as $fenix_h ) : ?>
+								<li class="toc-l<?php echo esc_attr( $fenix_h['level'] ); ?>"><a href="#<?php echo esc_attr( $fenix_h['id'] ); ?>"><?php echo esc_html( $fenix_h['text'] ); ?></a></li>
+							<?php endforeach; ?>
+						</ul>
+					</nav>
+				<?php endif; ?>
+
 				<div class="entry-content">
-					<?php the_content(); ?>
+					<?php echo $fenix_content; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				</div>
+
+				<div class="article-share">
+					<span class="article-share-label">แชร์บทความนี้</span>
+					<a class="share-btn share-line" href="<?php echo esc_url( 'https://social-plugins.line.me/lineit/share?url=' . rawurlencode( get_permalink() ) ); ?>" target="_blank" rel="noopener" aria-label="แชร์ไป LINE"><?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+					<a class="share-btn share-fb" href="<?php echo esc_url( 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( get_permalink() ) ); ?>" target="_blank" rel="noopener" aria-label="แชร์ไป Facebook"><?php echo fenix_icon( 'facebook' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+					<button class="share-btn share-copy" type="button" data-url="<?php echo esc_url( get_permalink() ); ?>" aria-label="คัดลอกลิงก์"><?php echo fenix_icon( 'link' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 				</div>
 
 				<?php
