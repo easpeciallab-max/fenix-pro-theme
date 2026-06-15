@@ -141,4 +141,29 @@
 			el.classList.add('in');
 		});
 	}
+
+	/* Related posts rail — arrow scroll + show controls only when overflowing */
+	document.querySelectorAll('.related-section').forEach(function (section) {
+		var rail = section.querySelector('.related-rail');
+		if (!rail) {
+			return;
+		}
+
+		function updateControls() {
+			var scrollable = rail.scrollWidth > rail.clientWidth + 4;
+			section.classList.toggle('is-scrollable', scrollable);
+		}
+
+		section.querySelectorAll('.rail-btn').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				var dir = parseInt(btn.getAttribute('data-dir'), 10) || 1;
+				var card = rail.querySelector('.post-card');
+				var step = card ? card.offsetWidth + 18 : rail.clientWidth * 0.8;
+				rail.scrollBy({ left: dir * step, behavior: 'smooth' });
+			});
+		});
+
+		updateControls();
+		window.addEventListener('resize', updateControls);
+	});
 })();

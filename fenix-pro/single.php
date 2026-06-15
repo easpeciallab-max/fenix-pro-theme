@@ -10,10 +10,9 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$fenix_cats    = get_the_category();
-	$fenix_cat     = ! empty( $fenix_cats ) ? $fenix_cats[0] : null;
-	$fenix_reading = max( 1, (int) ceil( mb_strlen( wp_strip_all_tags( strip_shortcodes( get_the_content() ) ) ) / 400 ) );
-	$fenix_thumb   = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+	$fenix_cats  = get_the_category();
+	$fenix_cat   = ! empty( $fenix_cats ) ? $fenix_cats[0] : null;
+	$fenix_thumb = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 	?>
 
 	<main id="main">
@@ -39,8 +38,6 @@ while ( have_posts() ) :
 
 					<div class="article-meta">
 						<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
-						<span class="article-meta-sep" aria-hidden="true">·</span>
-						<span><?php echo esc_html( 'อ่าน ' . $fenix_reading . ' นาที' ); ?></span>
 						<span class="article-meta-sep" aria-hidden="true">·</span>
 						<span><?php echo esc_html( 'เข้าชม ' . number_format_i18n( fenix_get_post_views( get_the_ID() ) ) . ' ครั้ง' ); ?></span>
 					</div>
@@ -91,7 +88,7 @@ while ( have_posts() ) :
 				array(
 					'category__in'        => array( $fenix_cat->term_id ),
 					'post__not_in'        => array( get_the_ID() ),
-					'posts_per_page'      => 3,
+					'posts_per_page'      => 9,
 					'no_found_rows'       => true,
 					'ignore_sticky_posts' => true,
 				)
@@ -100,7 +97,13 @@ while ( have_posts() ) :
 				?>
 				<section class="section section-alt related-section" aria-label="บทความที่เกี่ยวข้อง">
 					<div class="container">
-						<div class="sec-head"><h2>บทความที่เกี่ยวข้อง</h2></div>
+						<div class="related-head">
+							<h2>บทความที่เกี่ยวข้อง</h2>
+							<div class="rail-nav">
+								<button type="button" class="rail-btn rail-prev" data-dir="-1" aria-label="เลื่อนซ้าย"><?php echo fenix_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+								<button type="button" class="rail-btn rail-next" data-dir="1" aria-label="เลื่อนขวา"><?php echo fenix_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+							</div>
+						</div>
 						<div class="related-rail">
 							<?php
 							while ( $fenix_related->have_posts() ) :

@@ -2467,8 +2467,60 @@ h3 {
 	color: var(--ash-2);
 }
 
-.related-section .sec-head {
-	margin-bottom: 32px;
+.related-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 28px;
+}
+
+.related-head h2 {
+	margin: 0;
+	font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+}
+
+.rail-nav {
+	display: none;
+	gap: 8px;
+}
+
+.related-section.is-scrollable .rail-nav {
+	display: inline-flex;
+}
+
+.rail-btn {
+	display: inline-grid;
+	place-items: center;
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	border: 1px solid var(--border);
+	background: var(--coal-2);
+	color: var(--ash);
+	cursor: pointer;
+	transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.rail-btn:hover {
+	color: var(--flare);
+	border-color: var(--border-fire);
+	background: rgba(255, 122, 26, 0.08);
+}
+
+.rail-btn .icon {
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.rail-prev .icon {
+	transform: rotate(180deg);
+}
+
+@media (max-width: 760px) {
+	.rail-nav {
+		display: none !important;
+	}
 }
 
 /* บทความที่เกี่ยวข้อง — เลื่อนซ้าย-ขวาได้ */
