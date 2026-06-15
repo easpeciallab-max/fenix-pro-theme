@@ -2046,6 +2046,11 @@ h3 {
 		transform: translateY(-50%);
 	}
 
+	/* ในแนวตั้ง flex-basis 280px จะกลายเป็นความสูง ต้องรีเซ็ตไม่ให้กล่องสูงเกิน */
+	.cookie-consent-text {
+		flex: none;
+	}
+
 	.cookie-consent.is-visible::before {
 		content: "";
 		position: fixed;
