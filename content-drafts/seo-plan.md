@@ -1130,3 +1130,81 @@ slug: `/วิธีเลือก-ea-ระวังสแกม/`
 - **meta title:** เคสการใช้งาน FENIX PRO EA เหมาะกับนักเทรดแบบไหน
 - **meta description:** รวมเคสการใช้งาน FENIX PRO EA สำหรับนักเทรดที่ไม่มีเวลาเฝ้าจอ อยากลดอารมณ์ และอยากเทรดเป็นระบบ พร้อมสิ่งที่ควรเข้าใจก่อนเริ่มใช้งานจริง
 - **CTA:** นำผู้อ่านไปทัก LINE เพื่อให้ทีมช่วยประเมินว่าเหมาะกับสไตล์และทุนของเขาไหม และลิงก์ไป /pricing/ เพื่อเลือกระดับการดูแล
+
+---
+
+## 8) ตาราง slug (อังกฤษ) ทั้ง 36 บท + cornerstone
+
+กฎ: พิมพ์เล็กล้วน คั่นด้วย - มี token คีย์เวิร์ดจริง (ea/mt5/backtest/vps) ไม่ใส่ปี ห้ามเปลี่ยนหลังเผยแพร่ (ต้องทำ 301)
+
+### หมวด basics (/category/ea-basics/)
+| # | บทความ | slug |
+|---|---|---|
+| 1 | EA คืออะไร | what-is-ea |
+| 5 | Expert Advisor ทำงานอย่างไร | how-ea-works |
+| 9 | ข้อดี/ข้อจำกัดของ EA | ea-pros-cons |
+| 13 | คำศัพท์พื้นฐาน EA | ea-trading-terms |
+| 17 | EA vs Algorithmic Trading | ea-vs-algo-trading |
+| 21 | ความเข้าใจผิดเรื่อง EA 7 ข้อ | ea-myths |
+| 29 | เช็กลิสต์มือใหม่ก่อนใช้ EA | ea-beginner-checklist |
+
+### หมวด mt5 (/category/metatrader5/)
+| # | บทความ | slug |
+|---|---|---|
+| 2 | วิธีติดตั้ง MetaTrader 5 | how-to-install-mt5 |
+| 6 | วิธีลง EA บน MT5 | how-to-install-ea-mt5 |
+| 10 | VPS สำหรับรัน EA | vps-for-ea |
+| 14 | เปิด AutoTrading บน MT5 | enable-autotrading-mt5 |
+| 22 | โบรกเกอร์ที่รองรับ MT5 | mt5-brokers |
+| 26 | EA ไม่ทำงานบน MT5 แก้ยังไง | ea-not-working-mt5 |
+
+### หมวด risk (/category/risk-management/)
+| # | บทความ | slug |
+|---|---|---|
+| 3 | Money Management คืออะไร | money-management |
+| 11 | วิธีคำนวณ Lot size | calculate-lot-size |
+| 18 | Drawdown คืออะไร | what-is-drawdown |
+| 25 | จิตวิทยาการเทรด | trading-psychology |
+| 30 | ความเสี่ยงต่อออเดอร์ | risk-per-trade |
+| 33 | ทุนเริ่มต้นรัน EA | ea-starting-capital |
+
+### หมวด testing (/category/backtest-forward/)
+| # | บทความ | slug |
+|---|---|---|
+| 7 | อ่านผล Backtest EA | read-ea-backtest |
+| 15 | Forward Test สำคัญยังไง | forward-test-ea |
+| 19 | ตรวจสอบผล EA ด้วย Myfxbook | verify-ea-myfxbook |
+| 23 | Profit Factor / Win Rate | ea-stats-explained |
+| 27 | Over-optimization & Curve Fitting | over-optimization-ea |
+| 31 | ประเมิน EA ก่อนซื้อ | evaluate-ea-checklist |
+
+### หมวด trust (/category/ea-trust/)
+| # | บทความ | slug |
+|---|---|---|
+| 8 | สัญญาณ EA สแกม 9 ข้อ | ea-scam-warning-signs |
+| 12 | EA vs เทรดเอง | ea-vs-manual-trading |
+| 20 | วิธีเลือกซื้อ EA ปลอดภัย | how-to-choose-ea |
+| 24 | EA ฟรี vs เสียเงิน | free-vs-paid-ea |
+| 32 | 10 คำถามก่อนซื้อ EA | questions-before-buying-ea |
+| 35 | EA คุ้มไหม | is-ea-worth-it |
+
+### หมวด brand (/category/fenix-updates/)
+| # | บทความ | slug |
+|---|---|---|
+| 4 | FENIX PRO EA คืออะไร | fenix-pro-ea |
+| 16 | เบื้องหลัง Risk-first | fenix-pro-ea-risk-first |
+| 28 | เคสการใช้งาน FENIX | fenix-pro-ea-use-cases |
+| 34 | วิธีตั้งค่า FENIX | fenix-pro-ea-setup |
+| 36 | อัปเดตเวอร์ชัน FENIX | fenix-pro-ea-updates |
+
+### Cornerstone / hub ของแต่ละหมวด (ไม่สร้างหน้า pillar แยก กัน cannibalization)
+บทอื่นในหมวดลิงก์ขึ้น cornerstone, cornerstone ลิงก์เข้าหน้าแรก/หน้าขาย
+
+| หมวด | cornerstone | หน้าขายที่ผูก |
+|---|---|---|
+| basics | #1 what-is-ea | หน้าแรก (/) |
+| mt5 | #6 how-to-install-ea-mt5 | /how-to-install/ |
+| risk | #3 money-management | /risk-disclosure/ |
+| testing | #7 read-ea-backtest | /backtest/ /forward-test/ |
+| trust | #20 how-to-choose-ea | /pricing/ + หน้าแรก |
+| brand | หน้าแรก (/) | #4 /fenix-pro-ea/ |
