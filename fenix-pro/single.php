@@ -162,6 +162,7 @@ while ( have_posts() ) :
 	</main>
 
 	<?php
+	if ( ! fenix_has_seo_plugin() ) :
 	$fenix_schema = array(
 		'@context'         => 'https://schema.org',
 		'@type'            => 'BlogPosting',
@@ -186,6 +187,7 @@ while ( have_posts() ) :
 		$fenix_schema['image'] = $fenix_thumb;
 	}
 	echo '<script type="application/ld+json">' . wp_json_encode( $fenix_schema, JSON_UNESCAPED_UNICODE ) . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput
+	endif;
 
 	fenix_breadcrumb_jsonld(
 		array_values(
