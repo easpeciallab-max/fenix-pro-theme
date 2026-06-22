@@ -47,6 +47,9 @@ function fenix_customize_register( $wp_customize ) {
 			'fields'      => array(
 				'line_url'        => array( 'ลิงก์ LINE OA', 'url', 'เช่น https://lin.ee/xxxxx หรือ https://line.me/R/ti/p/@xxxxx' ),
 				'facebook_url'    => array( 'ลิงก์ Facebook Page (ถ้ามี)', 'url' ),
+				'instagram_url'   => array( 'ลิงก์ Instagram (ถ้ามี)', 'url' ),
+				'tiktok_url'      => array( 'ลิงก์ TikTok (ถ้ามี)', 'url' ),
+				'youtube_url'     => array( 'ลิงก์ YouTube (ถ้ามี)', 'url' ),
 				'contact_email'   => array( 'อีเมลติดต่อ (ถ้ามี)', 'text' ),
 				'show_float_line' => array( 'แสดงปุ่ม LINE ลอยมุมขวาล่าง', 'checkbox' ),
 				'float_line_text' => array( 'ข้อความบนปุ่ม LINE ลอย', 'text' ),
@@ -299,7 +302,6 @@ function fenix_customize_register( $wp_customize ) {
 				'footer_prep_text'     => array( 'คำอธิบายการ์ดเตรียมข้อมูลก่อนทัก LINE', 'textarea' ),
 				'footer_prep_items'    => array( 'รายการที่ควรเตรียม (บรรทัดละ 1 รายการ)', 'textarea' ),
 				'footer_tagline'      => array( 'คำโปรยใต้โลโก้', 'textarea' ),
-				'footer_trust_items'  => array( 'ป้ายความน่าเชื่อถือ (บรรทัดละ 1 รายการ)', 'textarea' ),
 				'footer_risk_link'    => array( 'ข้อความลิงก์คำเตือนความเสี่ยง', 'text' ),
 			),
 		),

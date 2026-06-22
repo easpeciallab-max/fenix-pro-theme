@@ -9,7 +9,6 @@ $fenix_line  = fenix_mod( 'line_url' );
 $fenix_fb    = fenix_mod( 'facebook_url' );
 $fenix_email = fenix_mod( 'contact_email' );
 $fenix_intro = fenix_lines( fenix_mod( 'footer_tagline' ) );
-$fenix_trust = fenix_lines( fenix_mod( 'footer_trust_items' ) );
 $fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
 $fenix_mobile_nav = array(
 	array(
@@ -72,13 +71,7 @@ $fenix_mobile_nav = array(
 					<?php endforeach; ?>
 				</div>
 				<?php endif; ?>
-				<?php if ( $fenix_trust ) : ?>
-				<ul class="footer-trust">
-					<?php foreach ( $fenix_trust as $fenix_item ) : ?>
-					<li><?php echo esc_html( $fenix_item ); ?></li>
-					<?php endforeach; ?>
-				</ul>
-				<?php endif; ?>
+				<?php fenix_social_row( 'footer-social' ); ?>
 			</div>
 
 			<div class="footer-prep">

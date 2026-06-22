@@ -36,6 +36,7 @@
 				)
 			);
 			?>
+			<?php fenix_social_row( 'nav-social' ); ?>
 		</nav>
 
 		<?php fenix_language_switcher(); ?>
