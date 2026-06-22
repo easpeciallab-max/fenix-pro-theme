@@ -680,6 +680,7 @@ function fenix_fallback_menu() {
 		'/'                => 'หน้าแรก',
 		'/pricing/'        => 'แพ็กเกจ',
 		'/how-to-install/' => 'วิธีติดตั้ง',
+		'/articles/'       => 'บทความ',
 	);
 	echo '<ul class="nav-list">';
 	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">หน้าแรก</a></li>';
