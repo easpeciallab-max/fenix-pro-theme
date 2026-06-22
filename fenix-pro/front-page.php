@@ -84,13 +84,13 @@ $fenix_line = fenix_mod( 'line_url' );
 		<div class="hero-visual <?php echo $fenix_is_photo ? 'hero-visual--photo' : 'hero-visual--orb'; ?> reveal">
 			<?php if ( $fenix_is_photo ) : ?>
 				<figure class="hero-frame">
-					<img src="<?php echo esc_url( $fenix_hero_src ); ?>" alt="<?php echo esc_attr( fenix_mod( 'hero_title' ) ); ?>" loading="eager">
+					<img src="<?php echo esc_url( $fenix_hero_src ); ?>" alt="<?php echo esc_attr( fenix_mod( 'hero_title' ) ); ?>" loading="eager" fetchpriority="high" decoding="async">
 				</figure>
 			<?php else : ?>
 				<div class="hero-orb">
 					<span class="orb-ring orb-ring-a"></span>
 					<span class="orb-ring orb-ring-b"></span>
-					<img src="<?php echo esc_url( $fenix_hero_src ); ?>" alt="<?php echo esc_attr( fenix_mod( 'hero_title' ) ); ?>" loading="eager" width="420" height="420">
+					<img src="<?php echo esc_url( $fenix_hero_src ); ?>" alt="<?php echo esc_attr( fenix_mod( 'hero_title' ) ); ?>" loading="eager" fetchpriority="high" decoding="async" width="420" height="420">
 				</div>
 			<?php endif; ?>
 		</div>

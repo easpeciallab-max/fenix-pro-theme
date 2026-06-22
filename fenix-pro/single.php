@@ -186,6 +186,18 @@ while ( have_posts() ) :
 		$fenix_schema['image'] = $fenix_thumb;
 	}
 	echo '<script type="application/ld+json">' . wp_json_encode( $fenix_schema, JSON_UNESCAPED_UNICODE ) . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput
+
+	fenix_breadcrumb_jsonld(
+		array_values(
+			array_filter(
+				array(
+					array( 'name' => 'หน้าแรก', 'url' => home_url( '/' ) ),
+					$fenix_cat ? array( 'name' => $fenix_cat->name, 'url' => get_category_link( $fenix_cat->term_id ) ) : null,
+					array( 'name' => get_the_title(), 'url' => get_permalink() ),
+				)
+			)
+		)
+	);
 	?>
 
 	<?php

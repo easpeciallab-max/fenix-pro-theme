@@ -207,6 +207,8 @@ function fenix_defaults() {
 		/* SEO / แชร์ลิงก์ (Open Graph) */
 		'og_default_image'       => '',
 		'og_default_description' => 'FENIX PRO EA · ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5 เน้นวินัยและการบริหารความเสี่ยง',
+		'search_console_verify'  => '',
+		'bing_verify'            => '',
 
 		/* คุกกี้ / Consent + Tracking (โหลด tracking เฉพาะหลังกดยอมรับ) */
 		'show_cookie_consent' => false,
@@ -970,6 +972,9 @@ function fenix_open_graph() {
 	}
 
 	$desc = trim( (string) $desc );
+	if ( '' === $desc ) {
+		$desc = trim( (string) fenix_mod( 'og_default_description' ) );
+	}
 
 	if ( '' !== $desc ) {
 		printf( '<meta name="description" content="%s">' . "\n", esc_attr( $desc ) );
@@ -1029,8 +1034,16 @@ function fenix_schema_jsonld() {
 		'url'      => home_url( '/' ),
 		'logo'     => fenix_logo_url(),
 	);
+	$fenix_same = array();
 	if ( fenix_mod( 'facebook_url' ) ) {
-		$org['sameAs'] = array( fenix_mod( 'facebook_url' ) );
+		$fenix_same[] = fenix_mod( 'facebook_url' );
+	}
+	$fenix_line_url = fenix_mod( 'line_url' );
+	if ( $fenix_line_url && preg_match( '#^https?://#i', $fenix_line_url ) ) {
+		$fenix_same[] = $fenix_line_url;
+	}
+	if ( $fenix_same ) {
+		$org['sameAs'] = $fenix_same;
 	}
 	$blocks[] = $org;
 
@@ -1064,6 +1077,24 @@ function fenix_schema_jsonld() {
 				'mainEntity' => $faqs,
 			);
 		}
+
+		$fenix_app = array(
+			'@context'            => 'https://schema.org',
+			'@type'               => 'SoftwareApplication',
+			'name'                => fenix_mod( 'hero_title' ),
+			'applicationCategory' => 'FinanceApplication',
+			'operatingSystem'     => 'MetaTrader 5',
+			'url'                 => home_url( '/' ),
+			'publisher'           => array(
+				'@type' => 'Organization',
+				'name'  => get_bloginfo( 'name' ),
+			),
+		);
+		$fenix_app_desc = trim( (string) fenix_mod( 'og_default_description' ) );
+		if ( '' !== $fenix_app_desc ) {
+			$fenix_app['description'] = $fenix_app_desc;
+		}
+		$blocks[] = $fenix_app;
 	}
 
 	foreach ( $blocks as $fenix_block ) {
@@ -1072,6 +1103,114 @@ function fenix_schema_jsonld() {
 }
 if ( ! defined( 'WPSEO_VERSION' ) && ! class_exists( 'RankMath' ) && ! defined( 'SEOPRESS_VERSION' ) ) {
 	add_action( 'wp_head', 'fenix_schema_jsonld', 6 );
+}
+
+/* --------------------------------------------------------------
+ * SEO เสริม: canonical (archive), robots, sitemap, verification,
+ * preconnect ฟอนต์ และ BreadcrumbList helper
+ * -------------------------------------------------------------- */
+function fenix_has_seo_plugin() {
+	return defined( 'WPSEO_VERSION' ) || class_exists( 'RankMath' ) || defined( 'SEOPRESS_VERSION' );
+}
+
+/* preconnect ฟอนต์ Google ลด RTT ให้โหลดเร็วขึ้นบนมือถือ */
+function fenix_resource_hints( $hints, $relation ) {
+	if ( 'preconnect' === $relation ) {
+		$hints[] = 'https://fonts.googleapis.com';
+		$hints[] = array(
+			'href'        => 'https://fonts.gstatic.com',
+			'crossorigin' => 'anonymous',
+		);
+	}
+	return $hints;
+}
+add_filter( 'wp_resource_hints', 'fenix_resource_hints', 10, 2 );
+
+/* meta ยืนยันความเป็นเจ้าของเว็บ (Google Search Console / Bing) แสดงเมื่อกรอกเท่านั้น */
+function fenix_verification_meta() {
+	$gsc  = trim( (string) fenix_mod( 'search_console_verify' ) );
+	$bing = trim( (string) fenix_mod( 'bing_verify' ) );
+	if ( '' !== $gsc ) {
+		printf( '<meta name="google-site-verification" content="%s">' . "\n", esc_attr( $gsc ) );
+	}
+	if ( '' !== $bing ) {
+		printf( '<meta name="msvalidate.01" content="%s">' . "\n", esc_attr( $bing ) );
+	}
+}
+add_action( 'wp_head', 'fenix_verification_meta', 1 );
+
+/* canonical สำหรับหน้า archive (หมวด/แท็ก) ที่ WP core ไม่ออกให้ ปิดถ้ามีปลั๊ก SEO */
+function fenix_archive_canonical() {
+	if ( fenix_has_seo_plugin() ) {
+		return;
+	}
+	$url = '';
+	if ( is_category() || is_tag() || is_tax() ) {
+		$term = get_queried_object();
+		if ( $term && ! is_wp_error( $term ) ) {
+			$link = get_term_link( $term );
+			if ( ! is_wp_error( $link ) ) {
+				$url = $link;
+			}
+		}
+	} elseif ( is_post_type_archive() ) {
+		$url = get_post_type_archive_link( get_post_type() );
+	}
+	if ( ! $url ) {
+		return;
+	}
+	$paged = max( (int) get_query_var( 'paged' ), (int) get_query_var( 'page' ) );
+	if ( $paged > 1 ) {
+		$url = trailingslashit( $url ) . 'page/' . $paged . '/';
+	}
+	printf( '<link rel="canonical" href="%s">' . "\n", esc_url( $url ) );
+}
+add_action( 'wp_head', 'fenix_archive_canonical' );
+
+/* noindex หน้าบาง/ซ้ำ (ค้นหา, ผู้เขียน, วันที่) ไม่ให้แย่ง crawl budget */
+function fenix_robots_noindex( $robots ) {
+	if ( is_search() || is_author() || is_date() ) {
+		$robots['noindex'] = true;
+		$robots['follow']  = true;
+	}
+	return $robots;
+}
+add_filter( 'wp_robots', 'fenix_robots_noindex' );
+
+/* ชี้ sitemap ใน robots.txt (เฉพาะตอนไม่มีปลั๊ก SEO ที่จัดการ sitemap เอง) */
+function fenix_robots_txt( $output, $public ) {
+	if ( '1' === (string) $public && ! fenix_has_seo_plugin() ) {
+		$output .= 'Sitemap: ' . esc_url( home_url( '/wp-sitemap.xml' ) ) . "\n";
+	}
+	return $output;
+}
+add_filter( 'robots_txt', 'fenix_robots_txt', 10, 2 );
+
+/* BreadcrumbList JSON-LD เรียกจาก single.php / page.php ปิดถ้ามีปลั๊ก SEO */
+function fenix_breadcrumb_jsonld( $items ) {
+	if ( fenix_has_seo_plugin() || empty( $items ) ) {
+		return;
+	}
+	$list = array();
+	$pos  = 1;
+	foreach ( $items as $it ) {
+		$entry = array(
+			'@type'    => 'ListItem',
+			'position' => $pos,
+			'name'     => wp_strip_all_tags( $it['name'] ),
+		);
+		if ( ! empty( $it['url'] ) ) {
+			$entry['item'] = $it['url'];
+		}
+		$list[] = $entry;
+		$pos++;
+	}
+	$schema = array(
+		'@context'        => 'https://schema.org',
+		'@type'           => 'BreadcrumbList',
+		'itemListElement' => $list,
+	);
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
 }
 
 /* --------------------------------------------------------------

@@ -69,6 +69,20 @@ $fenix_is_elementor = fenix_is_elementor_page();
 				</div>
 			</div>
 
+			<?php
+			fenix_breadcrumb_jsonld(
+				array_values(
+					array_filter(
+						array(
+							array( 'name' => 'หน้าแรก', 'url' => home_url( '/' ) ),
+							$post->post_parent ? array( 'name' => get_the_title( $post->post_parent ), 'url' => get_permalink( $post->post_parent ) ) : null,
+							array( 'name' => get_the_title(), 'url' => get_permalink() ),
+						)
+					)
+				)
+			);
+			?>
+
 		<?php endwhile; ?>
 
 	<?php endif; ?>
