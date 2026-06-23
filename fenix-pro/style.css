@@ -2802,19 +2802,19 @@ h3 {
 }
 
 .entry-content .table-scroll th {
-	background: var(--coal-2);
-	color: var(--ink);
+	background: #17171F;
+	color: #F7F7FA;
 	font-weight: 700;
 	font-family: var(--font-display);
-	border-bottom: 2px solid var(--ember);
+	border-bottom: 2px solid #FF7A1A;
 }
 
 .entry-content .table-scroll td {
-	color: var(--ash);
+	color: #ABABBA;
 }
 
 .entry-content .table-scroll tbody td:first-child {
-	color: var(--ink);
+	color: #F7F7FA;
 	font-weight: 600;
 }
 
