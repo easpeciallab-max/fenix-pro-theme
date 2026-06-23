@@ -144,7 +144,7 @@ while ( have_posts() ) :
 									<?php endif; ?>
 									<div class="post-card-body">
 										<span class="post-meta"><?php echo esc_html( get_the_date() ); ?></span>
-										<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+										<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 									</div>
 								</article>
 								<?php

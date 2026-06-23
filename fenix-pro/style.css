@@ -2306,16 +2306,16 @@ h3 {
 	gap: 8px;
 }
 
-.post-card-body h2 {
+.post-card-body h3 {
 	font-size: 1.12rem;
 	margin: 0;
 }
 
-.post-card-body h2 a {
+.post-card-body h3 a {
 	color: var(--ink);
 }
 
-.post-card-body h2 a:hover {
+.post-card-body h3 a:hover {
 	color: var(--flare);
 }
 

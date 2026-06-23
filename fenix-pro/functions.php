@@ -1310,7 +1310,7 @@ function fenix_post_card() {
 		<?php endif; ?>
 		<div class="post-card-body">
 			<span class="post-meta"><?php echo esc_html( get_the_date() ); ?></span>
-			<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 			<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 22 ) ); ?></p>
 			<span class="post-card-more">อ่านต่อ <?php echo fenix_icon( 'arrow', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 		</div>
