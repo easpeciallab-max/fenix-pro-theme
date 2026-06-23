@@ -2769,6 +2769,60 @@ h3 {
 	font-weight: 700;
 }
 
+/* ตารางในเนื้อหาโพสต์ */
+.entry-content .table-scroll {
+	margin: 1.8em 0;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+}
+
+.entry-content table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+.entry-content th,
+.entry-content td {
+	padding: 13px 18px;
+	text-align: left;
+	vertical-align: top;
+	border-bottom: 1px solid var(--border);
+}
+
+.entry-content th {
+	background: linear-gradient(180deg, rgba(255, 122, 26, 0.14), rgba(255, 122, 26, 0.05));
+	color: var(--ink);
+	font-weight: 700;
+	font-family: var(--font-display);
+	border-bottom: 2px solid rgba(255, 122, 26, 0.45);
+}
+
+.entry-content td {
+	color: var(--ash);
+}
+
+.entry-content tbody td:first-child {
+	color: var(--ink);
+	font-weight: 600;
+}
+
+.entry-content tbody tr:nth-child(even) {
+	background: rgba(255, 255, 255, 0.018);
+}
+
+.entry-content tbody tr:hover {
+	background: rgba(255, 122, 26, 0.05);
+}
+
+.entry-content tbody tr:last-child td {
+	border-bottom: 0;
+}
+
 .entry-content img {
 	height: auto;
 	margin: 1.5em 0;

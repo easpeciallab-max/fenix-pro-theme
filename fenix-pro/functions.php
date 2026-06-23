@@ -1249,6 +1249,17 @@ function fenix_breadcrumb_jsonld( $items ) {
 	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
 }
 
+/* ห่อ <table> ในเนื้อหาโพสต์ด้วย div ที่เลื่อนแนวนอนได้ (กันตารางล้นจอมือถือ) */
+function fenix_wrap_content_tables( $content ) {
+	if ( ! is_singular() || false === strpos( $content, '<table' ) ) {
+		return $content;
+	}
+	$content = str_replace( '<table', '<div class="table-scroll"><table', $content );
+	$content = str_replace( '</table>', '</table></div>', $content );
+	return $content;
+}
+add_filter( 'the_content', 'fenix_wrap_content_tables', 20 );
+
 /* --------------------------------------------------------------
  * Table of Contents · เก็บหัวข้อ H2/H3 จากเนื้อหาบทความ + ใส่ id ให้ลิงก์
  * ($GLOBALS['fenix_toc'] ถูกเติมตอน the_content ถูกประมวลผล)
