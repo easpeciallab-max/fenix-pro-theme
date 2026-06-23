@@ -2769,7 +2769,7 @@ h3 {
 	font-weight: 700;
 }
 
-/* ตารางในเนื้อหาโพสต์ (สไตล์ A: เส้นกริดบาง หัวตารางพื้นเข้ม มุมเหลี่ยม) */
+/* ตารางในเนื้อหาโพสต์ (สไตล์ A) — scope ใต้ .table-scroll + รีเซ็ตเส้น เพื่อชนะ .wp-block-table ของ WordPress */
 .entry-content .table-scroll {
 	margin: 1.8em 0;
 	overflow-x: auto;
@@ -2777,29 +2777,31 @@ h3 {
 	border: 1px solid #2a2a36;
 }
 
-.entry-content table {
+.entry-content .table-scroll table {
 	width: 100%;
+	border: 0;
 	border-collapse: collapse;
 	margin: 0;
 	font-size: 0.95rem;
 	line-height: 1.6;
 }
 
-.entry-content th,
-.entry-content td {
+.entry-content .table-scroll th,
+.entry-content .table-scroll td {
 	padding: 13px 18px;
 	text-align: left;
 	vertical-align: top;
+	border: 0;
 	border-bottom: 1px solid #23232e;
 	border-right: 1px solid rgba(255, 255, 255, 0.045);
 }
 
-.entry-content th:last-child,
-.entry-content td:last-child {
+.entry-content .table-scroll th:last-child,
+.entry-content .table-scroll td:last-child {
 	border-right: 0;
 }
 
-.entry-content th {
+.entry-content .table-scroll th {
 	background: var(--coal-2);
 	color: var(--ink);
 	font-weight: 700;
@@ -2807,20 +2809,20 @@ h3 {
 	border-bottom: 2px solid var(--ember);
 }
 
-.entry-content td {
+.entry-content .table-scroll td {
 	color: var(--ash);
 }
 
-.entry-content tbody td:first-child {
+.entry-content .table-scroll tbody td:first-child {
 	color: var(--ink);
 	font-weight: 600;
 }
 
-.entry-content tbody tr:hover {
+.entry-content .table-scroll tbody tr:hover {
 	background: rgba(255, 122, 26, 0.05);
 }
 
-.entry-content tbody tr:last-child td {
+.entry-content .table-scroll tbody tr:last-child td {
 	border-bottom: 0;
 }
 
