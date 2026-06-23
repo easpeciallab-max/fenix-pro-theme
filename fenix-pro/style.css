@@ -2774,7 +2774,7 @@ h3 {
 	margin: 1.8em 0;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
-	border: 1px solid var(--border);
+	border: 1px solid #2a2a36;
 }
 
 .entry-content table {
@@ -2790,7 +2790,7 @@ h3 {
 	padding: 13px 18px;
 	text-align: left;
 	vertical-align: top;
-	border-bottom: 1px solid var(--border);
+	border-bottom: 1px solid #23232e;
 	border-right: 1px solid rgba(255, 255, 255, 0.045);
 }
 
