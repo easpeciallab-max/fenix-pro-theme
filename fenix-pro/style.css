@@ -2763,6 +2763,12 @@ h3 {
 	color: var(--gold);
 }
 
+.entry-content strong,
+.entry-content b {
+	color: var(--ink);
+	font-weight: 700;
+}
+
 .entry-content img {
 	height: auto;
 	margin: 1.5em 0;
