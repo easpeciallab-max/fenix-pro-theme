@@ -5403,9 +5403,9 @@ h1, h2, h3, h4,
 	gap: 12px;
 	width: 100%;
 	box-sizing: border-box;
-	padding: 15px 18px;
+	padding: 15px 22px;
 	margin: 0 0 12px;
-	border-radius: 14px;
+	border-radius: 999px;
 	font-family: var(--font-display);
 	font-size: 0.95rem;
 	font-weight: 700;
@@ -5455,7 +5455,7 @@ h1, h2, h3, h4,
 	font-size: 1.02rem;
 	font-weight: 800;
 	justify-content: center;
-	padding: 17px;
+	padding: 17px 22px;
 	box-shadow: 0 10px 24px rgba(6, 199, 85, 0.28);
 }
 
@@ -5509,4 +5509,14 @@ h1, h2, h3, h4,
 	font-size: 0.68rem;
 	line-height: 1.6;
 	color: #6E6E7C;
+}
+
+/* หน้านี้เป็น LP ยิงแอด · ซ่อนวิดเจ็ตแปลภาษา (GTranslate) + ตัวสลับภาษาที่ลอยมาทับ ให้สะอาดตรงดีไซน์ */
+.link-hub-page [class*="gtranslate"],
+.link-hub-page [id*="gtranslate"],
+.link-hub-page [class*="gt_float"],
+.link-hub-page [id*="gt_float"],
+.link-hub-page [class*="gt-translate"],
+.link-hub-page .language-switcher {
+	display: none !important;
 }
