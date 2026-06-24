@@ -69,6 +69,31 @@ $lh_socials = array(
 		</a>
 
 		<?php
+		$lh_feat_img = fenix_mod( 'links_feature_img' );
+		if ( $lh_feat_img ) :
+			$lh_feat_url     = trim( (string) fenix_mod( 'links_feature_url' ) );
+			$lh_feat_caption = fenix_mod( 'links_feature_caption' );
+			$lh_feat_has_url = ( '' !== $lh_feat_url );
+			?>
+			<div class="lh-feature">
+				<?php if ( $lh_feat_has_url ) : ?>
+				<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_feat_url ) ); ?>">
+				<?php else : ?>
+				<span class="lh-feature-frame">
+				<?php endif; ?>
+					<img src="<?php echo esc_url( $lh_feat_img ); ?>" alt="<?php echo esc_attr( $lh_feat_caption ? $lh_feat_caption : $lh_title ); ?>" loading="lazy">
+				<?php if ( $lh_feat_has_url ) : ?>
+				</a>
+				<?php else : ?>
+				</span>
+				<?php endif; ?>
+				<?php if ( $lh_feat_caption ) : ?>
+					<span class="lh-feature-cap"><?php echo esc_html( $lh_feat_caption ); ?></span>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
+
+		<?php
 		for ( $lh_i = 1; $lh_i <= 6; $lh_i++ ) :
 			$lh_label = trim( (string) fenix_mod( 'links_btn' . $lh_i . '_label' ) );
 			$lh_url   = trim( (string) fenix_mod( 'links_btn' . $lh_i . '_url' ) );

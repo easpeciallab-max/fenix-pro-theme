@@ -5479,6 +5479,43 @@ h1, h2, h3, h4,
 	color: #03240F;
 }
 
+/* รูปโชว์ใต้ปุ่ม LINE · กรอบรูปมินิมอลมืออาชีพ (รูป + คำบรรยาย แก้ได้ใน Customizer) */
+.lh-feature {
+	margin: 2px 0 13px;
+}
+
+.lh-feature-frame {
+	display: block;
+	overflow: hidden;
+	border-radius: 16px;
+	border: 1px solid #26262F;
+	background: #15151D;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.lh-feature-frame img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+a.lh-feature-frame {
+	transition: border-color 0.16s ease;
+}
+
+a.lh-feature-frame:hover {
+	border-color: rgba(255, 122, 26, 0.5);
+}
+
+.lh-feature-cap {
+	display: block;
+	margin-top: 10px;
+	font-family: var(--font-display);
+	font-size: 0.82rem;
+	font-weight: 600;
+	color: #ABABBA;
+}
+
 .lh-socials {
 	display: flex;
 	justify-content: center;
