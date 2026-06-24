@@ -5376,7 +5376,7 @@ h1, h2, h3, h4,
 }
 
 .lh-tagline {
-	margin: 7px auto 0;
+	margin: 7px auto 20px;
 	max-width: 26em;
 	font-size: 0.8rem;
 	line-height: 1.55;
@@ -5411,9 +5411,9 @@ h1, h2, h3, h4,
 	gap: 11px;
 	width: 100%;
 	box-sizing: border-box;
-	padding: 14px 16px;
+	padding: 14px 20px;
 	margin: 0 0 11px;
-	border-radius: 13px;
+	border-radius: 999px;
 	font-family: var(--font-display);
 	font-size: 0.9rem;
 	font-weight: 700;

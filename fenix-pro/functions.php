@@ -216,9 +216,9 @@ function fenix_defaults() {
 		/* หน้า Link Hub (template-links.php) · ปลายทางยิงแอด สไตล์ Linktree */
 		'links_title'      => 'FENIX PRO EA',
 		'links_tagline'    => 'ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5 เน้นบริหารความเสี่ยง มีทีมไทยดูแล',
-		'links_badges'     => "MT5 EA\nRISK-FIRST\nSUPPORT ไทย",
+		'links_badges'     => '',
 		'links_logo'       => '',
-		'links_line_label' => 'ทักไลน์ ปรึกษาฟรี ไม่มีข้อผูกมัด',
+		'links_line_label' => 'ทักไลน์ปรึกษาทีมงานฟรี 24 ชั่วโมง',
 		'links_btn1_label' => 'ดูผลเทรดจริง (Forward Test)',
 		'links_btn1_url'   => '/forward-test/',
 		'links_btn2_label' => 'แพ็กเกจ & ราคา',

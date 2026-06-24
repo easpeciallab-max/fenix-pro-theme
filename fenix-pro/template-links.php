@@ -85,22 +85,19 @@ $lh_socials = array(
 			<?php
 		endfor;
 
-		$lh_socials = array_filter(
-			$lh_socials,
-			function ( $lh_s ) {
-				return '' !== trim( (string) $lh_s[0] );
-			}
-		);
-		if ( $lh_socials ) :
-			?>
+		?>
 			<div class="lh-socials">
 				<?php foreach ( $lh_socials as $lh_name => $lh_s ) : ?>
-					<a class="lh-soc" href="<?php echo esc_url( $lh_s[0] ); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr( $lh_s[1] ); ?>">
+					<?php
+					$lh_surl   = trim( (string) $lh_s[0] );
+					$lh_shref  = '' !== $lh_surl ? $lh_surl : '#';
+					$lh_sblank = '' !== $lh_surl ? ' target="_blank" rel="noopener"' : '';
+					?>
+					<a class="lh-soc" href="<?php echo esc_url( $lh_shref ); ?>"<?php echo $lh_sblank; // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-label="<?php echo esc_attr( $lh_s[1] ); ?>">
 						<?php echo fenix_icon( $lh_name ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</a>
 				<?php endforeach; ?>
 			</div>
-		<?php endif; ?>
 
 		<?php if ( $lh_note ) : ?>
 			<p class="lh-note"><?php echo esc_html( $lh_note ); ?></p>
