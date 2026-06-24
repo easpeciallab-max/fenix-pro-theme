@@ -5425,9 +5425,9 @@ h1, h2, h3, h4,
 }
 
 .lh-btn:hover {
-	transform: translateY(-2px);
 	border-color: rgba(255, 122, 26, 0.55);
 	background: #1A1A23;
+	color: #F7F7FA;
 }
 
 .lh-ic {
@@ -5460,11 +5460,8 @@ h1, h2, h3, h4,
 	background: #06C755;
 	border-color: #06C755;
 	color: #03240F;
-	font-size: 1rem;
 	font-weight: 800;
 	justify-content: center;
-	padding: 16px;
-	box-shadow: 0 8px 22px rgba(6, 199, 85, 0.28);
 }
 
 .lh-btn-line .lh-ic {
@@ -5479,7 +5476,7 @@ h1, h2, h3, h4,
 .lh-btn-line:hover {
 	background: #05B34C;
 	border-color: #05B34C;
-	transform: translateY(-2px);
+	color: #03240F;
 }
 
 .lh-socials {
