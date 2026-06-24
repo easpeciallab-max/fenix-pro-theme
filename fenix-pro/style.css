@@ -5329,8 +5329,9 @@ h1, h2, h3, h4,
 	align-items: flex-start;
 	justify-content: center;
 	padding: 34px 16px 44px;
+	/* แสงเรืองขนาดคงที่ (px) · เป็นวงพอดีหลังโลโก้เท่ากันทุกความกว้างจอ ไม่บานฟุ้งบนจอใหญ่ */
 	background:
-		radial-gradient(120% 55% at 50% 0%, rgba(255, 122, 26, 0.16), transparent 60%),
+		radial-gradient(660px 380px at 50% -30px, rgba(255, 122, 26, 0.20), transparent 70%),
 		#0A0A0E;
 }
 
@@ -5371,10 +5372,11 @@ h1, h2, h3, h4,
 
 .lh-tagline {
 	margin: 9px auto 0;
-	max-width: 30em;
+	max-width: 26em;
 	font-size: 0.86rem;
 	line-height: 1.6;
 	color: #ABABBA;
+	text-wrap: balance;
 }
 
 .lh-badges {
@@ -5505,10 +5507,11 @@ h1, h2, h3, h4,
 
 .lh-note {
 	margin: 8px auto 0;
-	max-width: 34em;
+	max-width: 32em;
 	font-size: 0.68rem;
 	line-height: 1.6;
 	color: #6E6E7C;
+	text-wrap: balance;
 }
 
 /* หน้านี้เป็น LP ยิงแอด · ซ่อนวิดเจ็ตแปลภาษา (GTranslate) + ตัวสลับภาษาที่ลอยมาทับ ให้สะอาดตรงดีไซน์ */
