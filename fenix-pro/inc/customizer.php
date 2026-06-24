@@ -560,6 +560,31 @@ function fenix_customize_register( $wp_customize ) {
 		),
 	);
 
+	$sections['fenix_links'] = array(
+		'title'       => '28) หน้า Link Hub (สำหรับยิงแอด)',
+		'description' => 'หน้า "ลิงก์รวม" สไตล์ Linktree สำหรับใช้เป็นปลายทางยิงแอด: สร้างเพจใหม่ เลือกเทมเพลต "FENIX · หน้า Link Hub" แล้วตั้ง slug เช่น go ปุ่มที่เว้นว่าง (ทั้งข้อความและลิงก์) จะถูกซ่อนอัตโนมัติ',
+		'fields'      => array(
+			'links_logo'       => array( 'โลโก้ (ไม่ใส่ = ใช้โลโก้เว็บ)', 'image' ),
+			'links_title'      => array( 'ชื่อแบรนด์', 'text' ),
+			'links_tagline'    => array( 'คำโปรยใต้ชื่อ (เว้นบรรทัด = ขึ้นบรรทัดใหม่)', 'textarea' ),
+			'links_badges'     => array( 'ป้ายเล็ก (บรรทัดละ 1 ป้าย)', 'textarea' ),
+			'links_line_label' => array( 'ข้อความปุ่ม LINE (ปุ่มหลัก)', 'text', 'ลิงก์ใช้ค่า LINE OA จากหมวด 1 อัตโนมัติ' ),
+			'links_btn1_label' => array( 'ปุ่ม 1 · ข้อความ', 'text' ),
+			'links_btn1_url'   => array( 'ปุ่ม 1 · ลิงก์ (ใส่ slug เช่น /forward-test/ หรือ URL เต็ม)', 'text' ),
+			'links_btn2_label' => array( 'ปุ่ม 2 · ข้อความ', 'text' ),
+			'links_btn2_url'   => array( 'ปุ่ม 2 · ลิงก์', 'text' ),
+			'links_btn3_label' => array( 'ปุ่ม 3 · ข้อความ', 'text' ),
+			'links_btn3_url'   => array( 'ปุ่ม 3 · ลิงก์', 'text' ),
+			'links_btn4_label' => array( 'ปุ่ม 4 · ข้อความ', 'text' ),
+			'links_btn4_url'   => array( 'ปุ่ม 4 · ลิงก์', 'text' ),
+			'links_btn5_label' => array( 'ปุ่ม 5 · ข้อความ (เว้นว่าง = ซ่อน)', 'text' ),
+			'links_btn5_url'   => array( 'ปุ่ม 5 · ลิงก์', 'text' ),
+			'links_btn6_label' => array( 'ปุ่ม 6 · ข้อความ (เว้นว่าง = ซ่อน)', 'text' ),
+			'links_btn6_url'   => array( 'ปุ่ม 6 · ลิงก์', 'text' ),
+			'links_note'       => array( 'ข้อความเตือนความเสี่ยง (ด้านล่างสุด)', 'textarea' ),
+		),
+	);
+
 	$priority = 10;
 
 	foreach ( $sections as $section_id => $section ) {

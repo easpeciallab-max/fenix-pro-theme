@@ -213,6 +213,26 @@ function fenix_defaults() {
 		'search_console_verify'  => '',
 		'bing_verify'            => '',
 
+		/* หน้า Link Hub (template-links.php) · ปลายทางยิงแอด สไตล์ Linktree */
+		'links_title'      => 'FENIX PRO EA',
+		'links_tagline'    => 'ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5 เน้นบริหารความเสี่ยง มีทีมไทยดูแล',
+		'links_badges'     => "MT5 EA\nRISK-FIRST\nSUPPORT ไทย",
+		'links_logo'       => '',
+		'links_line_label' => 'ทักไลน์ ปรึกษาฟรี ไม่มีข้อผูกมัด',
+		'links_btn1_label' => 'ดูผลเทรดจริง (Forward Test)',
+		'links_btn1_url'   => '/forward-test/',
+		'links_btn2_label' => 'แพ็กเกจ & ราคา',
+		'links_btn2_url'   => '/pricing/',
+		'links_btn3_label' => 'วิธีติดตั้ง EA บน MT5',
+		'links_btn3_url'   => '/how-to-install/',
+		'links_btn4_label' => 'บทความ & ความรู้ EA',
+		'links_btn4_url'   => '/articles/',
+		'links_btn5_label' => '',
+		'links_btn5_url'   => '',
+		'links_btn6_label' => '',
+		'links_btn6_url'   => '',
+		'links_note'       => 'การเทรด Forex/CFD มีความเสี่ยงสูง อาจขาดทุนได้ · FENIX PRO EA เป็นเครื่องมือช่วยเทรด ไม่ใช่การรับประกันผลกำไร',
+
 		/* คุกกี้ / Consent + Tracking (โหลด tracking เฉพาะหลังกดยอมรับ) */
 		'show_cookie_consent' => false,
 		'cookie_consent_text' => 'เว็บไซต์นี้ใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานและวิเคราะห์การเข้าชม คุณเลือกยอมรับหรือปฏิเสธคุกกี้ที่ไม่จำเป็นได้',
