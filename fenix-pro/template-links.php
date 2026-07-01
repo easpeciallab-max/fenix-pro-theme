@@ -95,6 +95,8 @@ $lh_socials = array(
 		<?php endif; ?>
 
 		<?php
+		$lh_article_links = array();
+
 		for ( $lh_i = 1; $lh_i <= 6; $lh_i++ ) :
 			$lh_label = trim( (string) fenix_mod( 'links_btn' . $lh_i . '_label' ) );
 			$lh_url   = trim( (string) fenix_mod( 'links_btn' . $lh_i . '_url' ) );
@@ -108,6 +110,15 @@ $lh_socials = array(
 			}
 
 			$lh_icon = isset( $lh_btn_icons[ $lh_i ] ) ? $lh_btn_icons[ $lh_i ] : 'arrow';
+
+			if ( '/articles' === $lh_url_norm || false !== strpos( $lh_label, 'บทความ' ) ) {
+				$lh_article_links[] = array(
+					'label' => $lh_label,
+					'url'   => $lh_url,
+					'icon'  => $lh_icon,
+				);
+				continue;
+			}
 			?>
 			<a class="lh-btn" href="<?php echo esc_url( fenix_link_url( $lh_url ) ); ?>">
 				<span class="lh-ic"><?php echo fenix_icon( $lh_icon ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
@@ -139,6 +150,14 @@ $lh_socials = array(
 			<a class="lh-btn" href="<?php echo esc_url( fenix_link_url( $lh_guide['url'] ) ); ?>">
 				<span class="lh-ic"><?php echo fenix_icon( $lh_guide['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 				<span class="lh-lbl"><?php echo esc_html( $lh_guide['label'] ); ?></span>
+				<span class="lh-ar" aria-hidden="true">&rsaquo;</span>
+			</a>
+		<?php endforeach; ?>
+
+		<?php foreach ( $lh_article_links as $lh_article ) : ?>
+			<a class="lh-btn" href="<?php echo esc_url( fenix_link_url( $lh_article['url'] ) ); ?>">
+				<span class="lh-ic"><?php echo fenix_icon( $lh_article['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+				<span class="lh-lbl"><?php echo esc_html( $lh_article['label'] ); ?></span>
 				<span class="lh-ar" aria-hidden="true">&rsaquo;</span>
 			</a>
 		<?php endforeach; ?>
