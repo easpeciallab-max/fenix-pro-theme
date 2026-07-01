@@ -101,6 +101,12 @@ $lh_socials = array(
 			if ( '' === $lh_label || '' === $lh_url ) {
 				continue;
 			}
+
+			$lh_url_norm = strtolower( rtrim( $lh_url, '/' ) );
+			if ( 'วิธีติดตั้ง EA บน MT5' === $lh_label || '/how-to-install' === $lh_url_norm ) {
+				continue;
+			}
+
 			$lh_icon = isset( $lh_btn_icons[ $lh_i ] ) ? $lh_btn_icons[ $lh_i ] : 'arrow';
 			?>
 			<a class="lh-btn" href="<?php echo esc_url( fenix_link_url( $lh_url ) ); ?>">
