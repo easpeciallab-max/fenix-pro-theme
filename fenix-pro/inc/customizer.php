@@ -584,7 +584,6 @@ function fenix_customize_register( $wp_customize ) {
 			'links_btn5_url'   => array( 'ปุ่ม 5 · ลิงก์', 'text' ),
 			'links_btn6_label' => array( 'ปุ่ม 6 · ข้อความ (เว้นว่าง = ซ่อน)', 'text' ),
 			'links_btn6_url'   => array( 'ปุ่ม 6 · ลิงก์', 'text' ),
-			'links_guides_title' => array( 'หัวข้อกลุ่มคู่มือการใช้งาน', 'text' ),
 			'links_guide1_label' => array( 'คู่มือ 1 · ข้อความ', 'text' ),
 			'links_guide1_url'   => array( 'คู่มือ 1 · ลิงก์', 'text' ),
 			'links_guide2_label' => array( 'คู่มือ 2 · ข้อความ', 'text' ),

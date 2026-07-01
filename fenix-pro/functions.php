@@ -234,7 +234,6 @@ function fenix_defaults() {
 		'links_btn5_url'   => '',
 		'links_btn6_label' => '',
 		'links_btn6_url'   => '',
-		'links_guides_title' => 'คู่มือการใช้งาน',
 		'links_guide1_label' => 'คู่มือติดตั้ง FENIX PRO EA',
 		'links_guide1_url'   => '/fenix-pro-ea-install-guide/',
 		'links_guide2_label' => 'ใช้งาน VPS บน Windows',

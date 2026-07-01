@@ -117,8 +117,7 @@ $lh_socials = array(
 			<?php
 		endfor;
 
-		$lh_guides_title = trim( (string) fenix_mod( 'links_guides_title' ) );
-		$lh_guides       = array();
+		$lh_guides = array();
 
 		for ( $lh_i = 1; $lh_i <= 4; $lh_i++ ) {
 			$lh_label = trim( (string) fenix_mod( 'links_guide' . $lh_i . '_label' ) );
@@ -136,23 +135,13 @@ $lh_socials = array(
 		}
 
 		?>
-		<?php if ( $lh_guides ) : ?>
-			<section class="lh-guides" aria-label="<?php echo esc_attr( $lh_guides_title ? $lh_guides_title : 'คู่มือการใช้งาน' ); ?>">
-				<?php if ( $lh_guides_title ) : ?>
-					<h2 class="lh-guides-title"><?php echo esc_html( $lh_guides_title ); ?></h2>
-				<?php endif; ?>
-
-				<div class="lh-guide-list">
-					<?php foreach ( $lh_guides as $lh_guide ) : ?>
-						<a class="lh-btn lh-guide-btn" href="<?php echo esc_url( fenix_link_url( $lh_guide['url'] ) ); ?>">
-							<span class="lh-ic"><?php echo fenix_icon( $lh_guide['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-							<span class="lh-lbl"><?php echo esc_html( $lh_guide['label'] ); ?></span>
-							<span class="lh-ar" aria-hidden="true">&rsaquo;</span>
-						</a>
-					<?php endforeach; ?>
-				</div>
-			</section>
-		<?php endif; ?>
+		<?php foreach ( $lh_guides as $lh_guide ) : ?>
+			<a class="lh-btn" href="<?php echo esc_url( fenix_link_url( $lh_guide['url'] ) ); ?>">
+				<span class="lh-ic"><?php echo fenix_icon( $lh_guide['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+				<span class="lh-lbl"><?php echo esc_html( $lh_guide['label'] ); ?></span>
+				<span class="lh-ar" aria-hidden="true">&rsaquo;</span>
+			</a>
+		<?php endforeach; ?>
 
 			<div class="lh-socials">
 				<?php foreach ( $lh_socials as $lh_name => $lh_s ) : ?>
