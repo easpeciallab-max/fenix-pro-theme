@@ -234,6 +234,15 @@ function fenix_defaults() {
 		'links_btn5_url'   => '',
 		'links_btn6_label' => '',
 		'links_btn6_url'   => '',
+		'links_guides_title' => 'คู่มือการใช้งาน',
+		'links_guide1_label' => 'คู่มือติดตั้ง FENIX PRO EA',
+		'links_guide1_url'   => '/fenix-pro-ea-install-guide/',
+		'links_guide2_label' => 'ใช้งาน VPS บน Windows',
+		'links_guide2_url'   => '/vps-desktop-windows/',
+		'links_guide3_label' => 'ใช้งาน VPS ผ่าน Android',
+		'links_guide3_url'   => '/vps-android/',
+		'links_guide4_label' => 'ใช้งาน VPS ผ่าน iPhone / iOS',
+		'links_guide4_url'   => '/vps-iphone-ios/',
 		'links_note'       => 'การเทรด Forex/CFD มีความเสี่ยงสูง อาจขาดทุนได้ · FENIX PRO EA เป็นเครื่องมือช่วยเทรด ไม่ใช่การรับประกันผลกำไร',
 
 		/* คุกกี้ / Consent + Tracking (โหลด tracking เฉพาะหลังกดยอมรับ) */

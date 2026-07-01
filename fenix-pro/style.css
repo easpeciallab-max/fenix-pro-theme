@@ -5516,6 +5516,59 @@ a.lh-feature-frame:hover {
 	color: #ABABBA;
 }
 
+.lh-guides {
+	margin: 16px 0 0;
+	padding: 16px 0 0;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lh-guides-title {
+	margin: 0 0 10px;
+	font-family: var(--font-display);
+	font-size: 0.72rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	text-align: left;
+	color: #FFB347;
+}
+
+.lh-guide-list {
+	display: grid;
+	gap: 9px;
+}
+
+.lh-guide-list .lh-btn {
+	margin: 0;
+}
+
+.lh-guide-btn {
+	min-height: 52px;
+	padding: 12px 18px;
+	border-color: #24242E;
+	background: rgba(255, 255, 255, 0.035);
+}
+
+.lh-guide-btn .lh-ic {
+	width: 22px;
+	height: 22px;
+	color: #FFB347;
+}
+
+.lh-guide-btn .lh-ic svg {
+	width: 20px;
+	height: 20px;
+}
+
+.lh-guide-btn .lh-lbl {
+	font-size: 0.82rem;
+}
+
+.lh-guide-btn:hover {
+	transform: translateY(-1px);
+	border-color: rgba(255, 179, 71, 0.42);
+	background: rgba(255, 179, 71, 0.07);
+}
+
 .lh-socials {
 	display: flex;
 	justify-content: center;
