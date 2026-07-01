@@ -25,7 +25,8 @@
 		});
 
 		nav.addEventListener('click', function (e) {
-			if (e.target.closest('a')) {
+			var link = e.target.closest('a');
+			if (link && !link.parentNode.classList.contains('menu-item-has-children')) {
 				document.body.classList.remove('nav-open');
 				toggle.setAttribute('aria-expanded', 'false');
 			}

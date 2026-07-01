@@ -700,10 +700,8 @@ function fenix_logo_url() {
  */
 function fenix_fallback_menu() {
 	$items = array(
-		'/'                => 'หน้าแรก',
-		'/pricing/'        => 'แพ็กเกจ',
-		'/how-to-install/' => 'วิธีติดตั้ง',
-		'/articles/'       => 'บทความ',
+		'/pricing/'  => 'แพ็กเกจ',
+		'/articles/' => 'บทความ',
 	);
 	echo '<ul class="nav-list">';
 	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">หน้าแรก</a></li>';
@@ -712,10 +710,14 @@ function fenix_fallback_menu() {
 	echo '<li><a href="' . esc_url( home_url( '/backtest/' ) ) . '">Backtest</a></li>';
 	echo '<li><a href="' . esc_url( home_url( '/forward-test/' ) ) . '">Forward Test</a></li>';
 	echo '</ul></li>';
+	echo '<li class="menu-item-has-children"><a href="' . esc_url( home_url( '/fenix-pro-ea-install-guide/' ) ) . '">คู่มือการใช้งาน</a>';
+	echo '<ul class="sub-menu">';
+	echo '<li><a href="' . esc_url( home_url( '/fenix-pro-ea-install-guide/' ) ) . '">ติดตั้ง FENIX PRO EA บน MT5</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/vps-desktop-windows/' ) ) . '">ใช้งาน VPS บน Windows</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/vps-android/' ) ) . '">ใช้งาน VPS ผ่าน Android</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/vps-iphone-ios/' ) ) . '">ใช้งาน VPS ผ่าน iPhone / iOS</a></li>';
+	echo '</ul></li>';
 	foreach ( $items as $path => $label ) {
-		if ( '/' === $path ) {
-			continue;
-		}
 		echo '<li><a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $label ) . '</a></li>';
 	}
 	echo '</ul>';
