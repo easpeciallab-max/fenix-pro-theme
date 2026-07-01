@@ -70,10 +70,18 @@ $lh_socials = array(
 		</a>
 
 		<?php
-		$lh_feat_img = fenix_mod( 'links_feature_img' );
+		$lh_default_feat_img = get_template_directory_uri() . '/assets/img/link-download-fenix-pro-ea.png';
+		$lh_feat_img         = trim( (string) fenix_mod( 'links_feature_img' ) );
+		$lh_feat_placeholder = preg_match( '#(?:placehold|placeholder|dummyimage|1200[^/?#]*(?:x|×|-|_)[^/?#]*630)#i', $lh_feat_img );
+		if ( '' === $lh_feat_img || $lh_feat_placeholder ) {
+			$lh_feat_img = $lh_default_feat_img;
+		}
 		if ( $lh_feat_img ) :
 			$lh_feat_url     = trim( (string) fenix_mod( 'links_feature_url' ) );
 			$lh_feat_caption = fenix_mod( 'links_feature_caption' );
+			if ( '' === $lh_feat_url && $lh_default_feat_img === $lh_feat_img ) {
+				$lh_feat_url = fenix_mod( 'line_url' );
+			}
 			$lh_feat_has_url = ( '' !== $lh_feat_url );
 			?>
 			<div class="lh-feature">
