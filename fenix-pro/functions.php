@@ -726,8 +726,27 @@ function fenix_fallback_menu() {
 	foreach ( $items as $path => $label ) {
 		echo '<li><a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $label ) . '</a></li>';
 	}
+	echo '<li><a href="' . esc_url( home_url( '/go/' ) ) . '">ติดต่อ</a></li>';
 	echo '</ul>';
 }
+
+/**
+ * Keep the ad/contact link hub visible in the primary menu even when a custom
+ * WordPress menu is assigned and the fallback menu is not used.
+ */
+function fenix_add_contact_to_primary_menu( $items, $args ) {
+	if ( empty( $args->theme_location ) || 'primary' !== $args->theme_location ) {
+		return $items;
+	}
+
+	$go_url = home_url( '/go/' );
+	if ( false !== strpos( $items, $go_url ) || false !== strpos( $items, esc_url( $go_url ) ) || false !== strpos( $items, '/go/' ) ) {
+		return $items;
+	}
+
+	return $items . '<li class="menu-item menu-item-fenix-contact"><a href="' . esc_url( $go_url ) . '">ติดต่อ</a></li>';
+}
+add_filter( 'wp_nav_menu_items', 'fenix_add_contact_to_primary_menu', 10, 2 );
 
 /**
  * Language switcher slot.
