@@ -184,7 +184,7 @@ function fenix_defaults() {
 
 	$d = array(
 		/* ทั่วไป */
-		'line_url'        => '#',
+		'line_url'        => 'https://line.me/R/ti/p/@fenixpro',
 		'facebook_url'    => '',
 		'instagram_url'   => '',
 		'tiktok_url'      => '',
@@ -634,7 +634,13 @@ function fenix_defaults() {
 function fenix_mod( $key ) {
 	$defaults = fenix_defaults();
 	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
-	return get_theme_mod( $key, $default );
+	$value    = get_theme_mod( $key, $default );
+
+	if ( 'line_url' === $key && in_array( trim( (string) $value ), array( '', '#' ), true ) ) {
+		return $default;
+	}
+
+	return $value;
 }
 
 /**
