@@ -31,7 +31,7 @@ $lh_openchat_label = trim( (string) fenix_mod( 'links_openchat_label' ) );
 
 /* ไอคอนประกอบปุ่มตามลำดับ (ตกแต่ง · เปลี่ยนความหมายปุ่มได้โดยไม่ผูกกับไอคอน) */
 $lh_btn_icons = array( 1 => 'chart', 2 => 'tag', 3 => 'download', 4 => 'layout', 5 => 'arrow', 6 => 'arrow' );
-$lh_guide_icons = array( 1 => 'download', 2 => 'windows', 3 => 'android', 4 => 'apple', 5 => 'apple' );
+$lh_guide_icons = array( 1 => 'download', 2 => 'windows', 3 => 'android', 4 => 'apple', 5 => 'macos' );
 
 $lh_socials = array(
 	'facebook'  => array( fenix_mod( 'facebook_url' ), 'Facebook' ),
@@ -249,6 +249,7 @@ $lh_socials = array(
 							$lh_vps_label = 'iOS';
 						} elseif ( false !== stripos( $lh_vps_label, 'macOS' ) || false !== stripos( $lh_vps_label, 'Mac' ) ) {
 							$lh_vps_label = 'macOS';
+							$lh_guide['icon'] = 'macos';
 						}
 						$lh_vps_has_url = ( '' !== $lh_guide['url'] && '#' !== $lh_guide['url'] );
 						?>
