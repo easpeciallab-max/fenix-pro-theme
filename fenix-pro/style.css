@@ -5544,9 +5544,8 @@ a.lh-feature-frame:hover {
 }
 
 .lh-vps {
-	margin: 15px 0 16px;
-	padding: 15px 0 3px;
-	border-top: 1px solid rgba(255, 255, 255, 0.08);
+	margin: 16px 0 16px;
+	padding: 4px 0 3px;
 }
 
 .lh-section-title {
@@ -5555,8 +5554,8 @@ a.lh-feature-frame:hover {
 	font-size: 0.82rem;
 	font-weight: 800;
 	letter-spacing: 0.03em;
-	color: #F7F7FA;
-	text-align: left;
+	color: #FFB347;
+	text-align: center;
 }
 
 .lh-vps-grid {
@@ -5575,16 +5574,15 @@ a.lh-feature-frame:hover {
 	gap: 7px;
 	border-radius: 18px;
 	border: 1px solid #26262F;
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+	background: #15151D;
 	color: #F7F7FA;
 	text-decoration: none;
-	transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+	transition: border-color 0.14s ease, background 0.14s ease, color 0.14s ease;
 }
 
 .lh-vps-item:hover {
-	transform: translateY(-2px);
-	border-color: rgba(255, 122, 26, 0.46);
-	background: linear-gradient(180deg, rgba(255, 122, 26, 0.12), rgba(255, 255, 255, 0.02));
+	border-color: rgba(255, 122, 26, 0.55);
+	background: #1A1A23;
 	color: #FFFFFF;
 }
 
@@ -5594,7 +5592,12 @@ a.lh-feature-frame:hover {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: #FF9F2F;
+	color: #FF7A1A;
+	transition: color 0.14s ease;
+}
+
+.lh-vps-item:hover .lh-vps-ic {
+	color: #FFB347;
 }
 
 .lh-vps-ic svg {
@@ -5612,6 +5615,11 @@ a.lh-feature-frame:hover {
 	line-height: 1.1;
 	white-space: nowrap;
 	color: #D7D7E4;
+	transition: color 0.14s ease;
+}
+
+.lh-vps-item:hover .lh-vps-lbl {
+	color: #FFB347;
 }
 
 .lh-socials {
