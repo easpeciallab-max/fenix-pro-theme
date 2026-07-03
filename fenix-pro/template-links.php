@@ -239,8 +239,8 @@ $lh_socials = array(
 		<?php endforeach; ?>
 
 		<?php if ( $lh_vps_guides ) : ?>
-			<section class="lh-vps" aria-label="เลือกอ่านคู่มือ VPS">
-				<h2 class="lh-section-title">เลือกอ่านคู่มือ VPS</h2>
+			<section class="lh-vps" aria-label="เลือกอ่านคู่มือการใช้งาน VPS ตามระบบ">
+				<h2 class="lh-section-title">เลือกอ่านคู่มือการใช้งาน VPS ตามระบบ</h2>
 				<div class="lh-vps-grid">
 					<?php foreach ( $lh_vps_guides as $lh_guide ) : ?>
 						<?php
