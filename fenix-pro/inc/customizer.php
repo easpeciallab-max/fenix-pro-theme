@@ -569,7 +569,6 @@ function fenix_customize_register( $wp_customize ) {
 			'links_tagline'    => array( 'คำโปรยใต้ชื่อ (เว้นบรรทัด = ขึ้นบรรทัดใหม่)', 'textarea' ),
 			'links_badges'     => array( 'ป้ายเล็ก (บรรทัดละ 1 ป้าย)', 'textarea' ),
 			'links_signup_label' => array( 'ข้อความปุ่มสมัคร', 'text' ),
-			'links_signup_sub'   => array( 'ข้อความรองปุ่มสมัคร', 'text' ),
 			'links_signup_url'   => array( 'ลิงก์ปุ่มสมัคร (เช่น /pricing/ หรือ URL เต็ม)', 'text' ),
 			'links_line_label' => array( 'ข้อความปุ่ม LINE (ปุ่มหลัก)', 'text', 'ลิงก์ใช้ค่า LINE OA จากหมวด 1 อัตโนมัติ' ),
 			'links_openchat_label' => array( 'ข้อความปุ่ม LINE OpenChat', 'text' ),
