@@ -5590,16 +5590,14 @@ h1, h2, h3, h4,
 
 .lh-btn-openchat {
 	justify-content: center;
-	border-color: rgba(40, 190, 255, 0.38);
-	background:
-		linear-gradient(135deg, rgba(26, 111, 255, 0.22), rgba(10, 199, 185, 0.14)),
-		#111722;
-	color: #EAF8FF;
-	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 14px 34px rgba(0, 153, 255, 0.12);
+	border-color: #123B68;
+	background: #123B68;
+	color: #FFFFFF;
+	box-shadow: none;
 }
 
 .lh-btn-openchat .lh-ic {
-	color: #52D9FF;
+	color: #FFFFFF;
 }
 
 .lh-btn-openchat .lh-lbl {
@@ -5608,10 +5606,8 @@ h1, h2, h3, h4,
 }
 
 .lh-btn-openchat:hover {
-	border-color: rgba(82, 217, 255, 0.64);
-	background:
-		linear-gradient(135deg, rgba(26, 111, 255, 0.3), rgba(10, 199, 185, 0.2)),
-		#121B2A;
+	border-color: #174A7F;
+	background: #174A7F;
 	color: #FFFFFF;
 }
 
