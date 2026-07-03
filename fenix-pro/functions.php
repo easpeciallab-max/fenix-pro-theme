@@ -186,7 +186,7 @@ function fenix_defaults() {
 		/* ทั่วไป */
 		'line_url'        => 'https://line.me/R/ti/p/@fenixpro',
 		'facebook_url'    => 'https://www.facebook.com/fenixpro.ea',
-		'instagram_url'   => '',
+		'instagram_url'   => 'https://www.instagram.com/fenixpro.ea/',
 		'tiktok_url'      => 'https://www.tiktok.com/@fenixpro.ea',
 		'youtube_url'     => 'https://www.youtube.com/@FenixProExpertAdvisor',
 		'contact_email'   => '',
@@ -701,7 +701,7 @@ function fenix_mod( $key ) {
 		return $default;
 	}
 
-	if ( in_array( $key, array( 'facebook_url', 'tiktok_url', 'youtube_url' ), true ) && in_array( trim( (string) $value ), array( '', '#' ), true ) ) {
+	if ( in_array( $key, array( 'facebook_url', 'instagram_url', 'tiktok_url', 'youtube_url' ), true ) && in_array( trim( (string) $value ), array( '', '#' ), true ) ) {
 		return $default;
 	}
 
@@ -1194,6 +1194,9 @@ function fenix_schema_jsonld() {
 	$fenix_same = array();
 	if ( fenix_mod( 'facebook_url' ) ) {
 		$fenix_same[] = fenix_mod( 'facebook_url' );
+	}
+	if ( fenix_mod( 'instagram_url' ) ) {
+		$fenix_same[] = fenix_mod( 'instagram_url' );
 	}
 	$fenix_line_url = fenix_mod( 'line_url' );
 	if ( $fenix_line_url && preg_match( '#^https?://#i', $fenix_line_url ) ) {

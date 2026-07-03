@@ -6,8 +6,6 @@
  */
 
 $fenix_line  = fenix_mod( 'line_url' );
-$fenix_fb    = fenix_mod( 'facebook_url' );
-$fenix_email = fenix_mod( 'contact_email' );
 $fenix_intro = fenix_lines( fenix_mod( 'footer_tagline' ) );
 $fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
 $fenix_mobile_nav = array(
@@ -94,16 +92,6 @@ $fenix_mobile_nav = array(
 
 		<div class="footer-bottom">
 			<p class="footer-copy">&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> สงวนลิขสิทธิ์</p>
-			<?php if ( $fenix_fb || $fenix_email ) : ?>
-			<div class="footer-links-mini">
-				<?php if ( $fenix_fb ) : ?>
-				<a href="<?php echo esc_url( $fenix_fb ); ?>" target="_blank" rel="noopener"><?php echo esc_html( fenix_mod( 'footer_facebook_text' ) ); ?></a>
-				<?php endif; ?>
-				<?php if ( $fenix_email ) : ?>
-				<a class="keep-case" href="<?php echo esc_url( 'mailto:' . $fenix_email ); ?>"><?php echo esc_html( $fenix_email ); ?></a>
-				<?php endif; ?>
-			</div>
-			<?php endif; ?>
 			<nav class="footer-legal" aria-label="ลิงก์ทางกฎหมาย">
 				<?php
 				foreach ( array(
