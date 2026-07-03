@@ -76,7 +76,7 @@ $lh_socials = array(
 			<div class="lh-account-actions">
 				<?php if ( $lh_signup_url && $lh_signup_label ) : ?>
 					<a class="lh-btn lh-btn-signup" href="<?php echo esc_url( fenix_link_url( $lh_signup_url ) ); ?>">
-						<span class="lh-ic"><?php echo fenix_icon( 'account' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+						<span class="lh-ic lh-account-ic"><?php echo fenix_icon( 'account' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 						<span class="lh-signup-copy">
 							<span class="lh-lbl"><?php echo esc_html( $lh_signup_label ); ?></span>
 						</span>
@@ -88,7 +88,7 @@ $lh_socials = array(
 					<div class="lh-mini-actions">
 						<?php if ( $lh_account_guide_url && $lh_account_guide_label ) : ?>
 							<a class="lh-mini-btn" href="<?php echo esc_url( fenix_link_url( $lh_account_guide_url ) ); ?>">
-								<span class="lh-ic"><?php echo fenix_icon( 'account' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+								<span class="lh-ic lh-account-ic"><?php echo fenix_icon( 'account' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 								<span><?php echo esc_html( $lh_account_guide_label ); ?></span>
 							</a>
 						<?php endif; ?>

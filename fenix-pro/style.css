@@ -5478,15 +5478,16 @@ h1, h2, h3, h4,
 	box-shadow: none;
 }
 
-.lh-btn-signup .lh-ic {
+.lh-account-ic {
 	width: 30px;
 	height: 30px;
 	border-radius: 999px;
 	background: #0F0F15;
+	border: 1px solid rgba(255, 122, 26, 0.3);
 	color: #FFB347;
 }
 
-.lh-btn-signup .lh-ic svg {
+.lh-account-ic svg {
 	width: 19px;
 	height: 19px;
 }
@@ -5545,6 +5546,12 @@ h1, h2, h3, h4,
 	width: 20px;
 	height: 20px;
 	color: #FF7A1A;
+}
+
+.lh-mini-btn .lh-account-ic {
+	width: 30px;
+	height: 30px;
+	color: #FFB347;
 }
 
 .lh-mini-btn .lh-ic svg {
