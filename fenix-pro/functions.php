@@ -185,10 +185,10 @@ function fenix_defaults() {
 	$d = array(
 		/* ทั่วไป */
 		'line_url'        => 'https://line.me/R/ti/p/@fenixpro',
-		'facebook_url'    => '',
+		'facebook_url'    => 'https://www.facebook.com/fenixpro.ea',
 		'instagram_url'   => '',
-		'tiktok_url'      => '',
-		'youtube_url'     => '',
+		'tiktok_url'      => 'https://www.tiktok.com/@fenixpro.ea',
+		'youtube_url'     => 'https://www.youtube.com/@FenixProExpertAdvisor',
 		'contact_email'   => '',
 		'show_float_line' => false,
 		'float_line_text' => 'สอบถามทาง LINE',
@@ -685,6 +685,10 @@ function fenix_mod( $key ) {
 	}
 
 	if ( 'line_url' === $key && in_array( trim( (string) $value ), array( '', '#' ), true ) ) {
+		return $default;
+	}
+
+	if ( in_array( $key, array( 'facebook_url', 'tiktok_url', 'youtube_url' ), true ) && in_array( trim( (string) $value ), array( '', '#' ), true ) ) {
 		return $default;
 	}
 
