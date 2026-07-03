@@ -20,6 +20,9 @@ $lh_tag    = fenix_mod( 'links_tagline' );
 $lh_badges = fenix_lines( fenix_mod( 'links_badges' ) );
 $lh_note   = fenix_mod( 'links_note' );
 $lh_line   = fenix_mod( 'line_url' );
+$lh_signup_url   = trim( (string) fenix_mod( 'links_signup_url' ) );
+$lh_signup_label = trim( (string) fenix_mod( 'links_signup_label' ) );
+$lh_signup_sub   = trim( (string) fenix_mod( 'links_signup_sub' ) );
 $lh_openchat_url   = trim( (string) fenix_mod( 'links_openchat_url' ) );
 $lh_openchat_label = trim( (string) fenix_mod( 'links_openchat_label' ) );
 
@@ -64,6 +67,19 @@ $lh_socials = array(
 					<li><?php echo esc_html( $lh_b ); ?></li>
 				<?php endforeach; ?>
 			</ul>
+		<?php endif; ?>
+
+		<?php if ( $lh_signup_url && $lh_signup_label ) : ?>
+			<a class="lh-btn lh-btn-signup" href="<?php echo esc_url( fenix_link_url( $lh_signup_url ) ); ?>">
+				<span class="lh-ic"><?php echo fenix_icon( 'flame' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+				<span class="lh-signup-copy">
+					<span class="lh-lbl"><?php echo esc_html( $lh_signup_label ); ?></span>
+					<?php if ( $lh_signup_sub ) : ?>
+						<small><?php echo esc_html( $lh_signup_sub ); ?></small>
+					<?php endif; ?>
+				</span>
+				<span class="lh-ar" aria-hidden="true">&rsaquo;</span>
+			</a>
 		<?php endif; ?>
 
 		<a class="lh-btn lh-btn-line" href="<?php echo esc_url( $lh_line ); ?>" target="_blank" rel="noopener">
