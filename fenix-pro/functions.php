@@ -752,6 +752,40 @@ function fenix_link_url( $url ) {
 }
 
 /**
+ * Hotfix: แก้ลิงก์ภายในบทความที่เคยหลุดเป็นโดเมน chatgpt.com ตอน render
+ * ต้นฉบับใน WordPress editor ยังควรแก้ในฐานข้อมูลภายหลังเพื่อความสะอาด
+ */
+function fenix_fix_chatgpt_internal_links( $content ) {
+	if ( '' === (string) $content ) {
+		return $content;
+	}
+
+	$site_url = rtrim( home_url(), '/' );
+
+	return str_replace(
+		array(
+			'https://chatgpt.com',
+			'http://chatgpt.com',
+			'https:\/\/chatgpt.com',
+			'http:\/\/chatgpt.com',
+		),
+		array(
+			$site_url,
+			$site_url,
+			str_replace( '/', '\/', $site_url ),
+			str_replace( '/', '\/', $site_url ),
+		),
+		$content
+	);
+}
+add_filter( 'the_content', 'fenix_fix_chatgpt_internal_links', 1 );
+add_filter( 'the_excerpt', 'fenix_fix_chatgpt_internal_links', 1 );
+add_filter( 'the_content_feed', 'fenix_fix_chatgpt_internal_links', 1 );
+add_filter( 'the_excerpt_rss', 'fenix_fix_chatgpt_internal_links', 1 );
+add_filter( 'wp_nav_menu_items', 'fenix_fix_chatgpt_internal_links', 1 );
+add_filter( 'widget_text', 'fenix_fix_chatgpt_internal_links', 1 );
+
+/**
  * URL โลโก้ (ใช้โลโก้ที่อัปโหลดเอง ถ้าไม่มีใช้โลโก้ที่ฝังมากับธีม)
  */
 function fenix_logo_url() {
