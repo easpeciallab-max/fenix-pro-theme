@@ -5479,6 +5479,33 @@ h1, h2, h3, h4,
 	color: #03240F;
 }
 
+.lh-btn-openchat {
+	justify-content: center;
+	border-color: rgba(40, 190, 255, 0.38);
+	background:
+		linear-gradient(135deg, rgba(26, 111, 255, 0.22), rgba(10, 199, 185, 0.14)),
+		#111722;
+	color: #EAF8FF;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 14px 34px rgba(0, 153, 255, 0.12);
+}
+
+.lh-btn-openchat .lh-ic {
+	color: #52D9FF;
+}
+
+.lh-btn-openchat .lh-lbl {
+	flex: 0 1 auto;
+	text-align: center;
+}
+
+.lh-btn-openchat:hover {
+	border-color: rgba(82, 217, 255, 0.64);
+	background:
+		linear-gradient(135deg, rgba(26, 111, 255, 0.3), rgba(10, 199, 185, 0.2)),
+		#121B2A;
+	color: #FFFFFF;
+}
+
 /* รูปโชว์ใต้ปุ่ม LINE · กรอบรูปมินิมอลมืออาชีพ (รูป + คำบรรยาย แก้ได้ใน Customizer) */
 .lh-feature {
 	margin: 2px 0 13px;
@@ -5516,33 +5543,123 @@ a.lh-feature-frame:hover {
 	color: #ABABBA;
 }
 
+.lh-vps {
+	margin: 15px 0 16px;
+	padding: 15px 0 3px;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lh-section-title {
+	margin: 0 0 11px;
+	font-family: var(--font-display);
+	font-size: 0.82rem;
+	font-weight: 800;
+	letter-spacing: 0.03em;
+	color: #F7F7FA;
+	text-align: left;
+}
+
+.lh-vps-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+}
+
+.lh-vps-item {
+	min-width: 0;
+	min-height: 78px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 7px;
+	border-radius: 18px;
+	border: 1px solid #26262F;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+	color: #F7F7FA;
+	text-decoration: none;
+	transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.lh-vps-item:hover {
+	transform: translateY(-2px);
+	border-color: rgba(255, 122, 26, 0.46);
+	background: linear-gradient(180deg, rgba(255, 122, 26, 0.12), rgba(255, 255, 255, 0.02));
+	color: #FFFFFF;
+}
+
+.lh-vps-ic {
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #FF9F2F;
+}
+
+.lh-vps-ic svg {
+	width: 26px;
+	height: 26px;
+}
+
+.lh-vps-lbl {
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: var(--font-display);
+	font-size: 0.75rem;
+	font-weight: 800;
+	line-height: 1.1;
+	white-space: nowrap;
+	color: #D7D7E4;
+}
+
 .lh-socials {
 	display: flex;
 	justify-content: center;
-	gap: 13px;
-	margin: 18px 0 14px;
+	gap: 12px;
+	margin: 20px 0 4px;
 }
 
 .lh-soc {
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	border: 1px solid #2A2A36;
+	border: 1px solid transparent;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: #ABABBA;
-	transition: color 0.14s ease, border-color 0.14s ease;
+	color: #FFFFFF;
+	box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+	transition: transform 0.14s ease, filter 0.14s ease, box-shadow 0.14s ease;
 }
 
 .lh-soc:hover {
-	color: #FF7A1A;
-	border-color: rgba(255, 122, 26, 0.5);
+	transform: translateY(-2px);
+	filter: brightness(1.08);
+	box-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
 }
 
 .lh-soc svg {
 	width: 18px;
 	height: 18px;
+}
+
+.lh-soc--facebook {
+	background: #1877F2;
+}
+
+.lh-soc--instagram {
+	background: radial-gradient(circle at 30% 105%, #FCAF45 0 22%, #FD1D1D 42%, #E1306C 58%, #833AB4 100%);
+}
+
+.lh-soc--tiktok {
+	background: #010101;
+	box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28), -2px 0 0 rgba(37, 244, 238, 0.65), 2px 0 0 rgba(254, 44, 85, 0.65);
+}
+
+.lh-soc--youtube {
+	background: #FF0000;
 }
 
 .lh-note {

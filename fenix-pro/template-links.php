@@ -20,10 +20,12 @@ $lh_tag    = fenix_mod( 'links_tagline' );
 $lh_badges = fenix_lines( fenix_mod( 'links_badges' ) );
 $lh_note   = fenix_mod( 'links_note' );
 $lh_line   = fenix_mod( 'line_url' );
+$lh_openchat_url   = trim( (string) fenix_mod( 'links_openchat_url' ) );
+$lh_openchat_label = trim( (string) fenix_mod( 'links_openchat_label' ) );
 
 /* ไอคอนประกอบปุ่มตามลำดับ (ตกแต่ง · เปลี่ยนความหมายปุ่มได้โดยไม่ผูกกับไอคอน) */
 $lh_btn_icons = array( 1 => 'chart', 2 => 'tag', 3 => 'download', 4 => 'layout', 5 => 'arrow', 6 => 'arrow' );
-$lh_guide_icons = array( 1 => 'download', 2 => 'layout', 3 => 'cpu', 4 => 'arrow' );
+$lh_guide_icons = array( 1 => 'download', 2 => 'windows', 3 => 'android', 4 => 'apple' );
 
 $lh_socials = array(
 	'facebook'  => array( fenix_mod( 'facebook_url' ), 'Facebook' ),
@@ -69,6 +71,13 @@ $lh_socials = array(
 			<span class="lh-lbl"><?php echo esc_html( fenix_mod( 'links_line_label' ) ); ?></span>
 		</a>
 
+		<?php if ( $lh_openchat_url && $lh_openchat_label ) : ?>
+			<a class="lh-btn lh-btn-openchat" href="<?php echo esc_url( $lh_openchat_url ); ?>" target="_blank" rel="noopener">
+				<span class="lh-ic"><?php echo fenix_icon( 'users' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+				<span class="lh-lbl"><?php echo esc_html( $lh_openchat_label ); ?></span>
+			</a>
+		<?php endif; ?>
+
 		<?php
 		$lh_default_feat_img = get_template_directory_uri() . '/assets/img/link-download-fenix-pro-ea.png';
 		$lh_feat_img         = trim( (string) fenix_mod( 'links_feature_img' ) );
@@ -103,8 +112,6 @@ $lh_socials = array(
 		<?php endif; ?>
 
 		<?php
-		$lh_article_links = array();
-
 		for ( $lh_i = 1; $lh_i <= 6; $lh_i++ ) :
 			$lh_label = trim( (string) fenix_mod( 'links_btn' . $lh_i . '_label' ) );
 			$lh_url   = trim( (string) fenix_mod( 'links_btn' . $lh_i . '_url' ) );
@@ -117,16 +124,11 @@ $lh_socials = array(
 				continue;
 			}
 
-			$lh_icon = isset( $lh_btn_icons[ $lh_i ] ) ? $lh_btn_icons[ $lh_i ] : 'arrow';
-
 			if ( '/articles' === $lh_url_norm || false !== strpos( $lh_label, 'บทความ' ) ) {
-				$lh_article_links[] = array(
-					'label' => $lh_label,
-					'url'   => $lh_url,
-					'icon'  => $lh_icon,
-				);
 				continue;
 			}
+
+			$lh_icon = isset( $lh_btn_icons[ $lh_i ] ) ? $lh_btn_icons[ $lh_i ] : 'arrow';
 			?>
 			<a class="lh-btn" href="<?php echo esc_url( fenix_link_url( $lh_url ) ); ?>">
 				<span class="lh-ic"><?php echo fenix_icon( $lh_icon ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
@@ -153,8 +155,18 @@ $lh_socials = array(
 			);
 		}
 
+		$lh_setup_guides = array();
+		$lh_vps_guides   = array();
+		foreach ( $lh_guides as $lh_guide ) {
+			$lh_guide_url_norm = strtolower( rtrim( $lh_guide['url'], '/' ) );
+			if ( false !== strpos( $lh_guide_url_norm, 'vps-' ) ) {
+				$lh_vps_guides[] = $lh_guide;
+			} else {
+				$lh_setup_guides[] = $lh_guide;
+			}
+		}
 		?>
-		<?php foreach ( $lh_guides as $lh_guide ) : ?>
+		<?php foreach ( $lh_setup_guides as $lh_guide ) : ?>
 			<a class="lh-btn" href="<?php echo esc_url( fenix_link_url( $lh_guide['url'] ) ); ?>">
 				<span class="lh-ic"><?php echo fenix_icon( $lh_guide['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 				<span class="lh-lbl"><?php echo esc_html( $lh_guide['label'] ); ?></span>
@@ -162,13 +174,29 @@ $lh_socials = array(
 			</a>
 		<?php endforeach; ?>
 
-		<?php foreach ( $lh_article_links as $lh_article ) : ?>
-			<a class="lh-btn" href="<?php echo esc_url( fenix_link_url( $lh_article['url'] ) ); ?>">
-				<span class="lh-ic"><?php echo fenix_icon( $lh_article['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-				<span class="lh-lbl"><?php echo esc_html( $lh_article['label'] ); ?></span>
-				<span class="lh-ar" aria-hidden="true">&rsaquo;</span>
-			</a>
-		<?php endforeach; ?>
+		<?php if ( $lh_vps_guides ) : ?>
+			<section class="lh-vps" aria-label="คู่มือใช้งาน VPS">
+				<h2 class="lh-section-title">การใช้งาน VPS</h2>
+				<div class="lh-vps-grid">
+					<?php foreach ( $lh_vps_guides as $lh_guide ) : ?>
+						<?php
+						$lh_vps_label = $lh_guide['label'];
+						if ( false !== stripos( $lh_vps_label, 'Windows' ) ) {
+							$lh_vps_label = 'Windows';
+						} elseif ( false !== stripos( $lh_vps_label, 'Android' ) ) {
+							$lh_vps_label = 'Android';
+						} elseif ( false !== stripos( $lh_vps_label, 'iPhone' ) || false !== stripos( $lh_vps_label, 'iOS' ) ) {
+							$lh_vps_label = 'iOS';
+						}
+						?>
+						<a class="lh-vps-item" href="<?php echo esc_url( fenix_link_url( $lh_guide['url'] ) ); ?>">
+							<span class="lh-vps-ic"><?php echo fenix_icon( $lh_guide['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+							<span class="lh-vps-lbl"><?php echo esc_html( $lh_vps_label ); ?></span>
+						</a>
+					<?php endforeach; ?>
+				</div>
+			</section>
+		<?php endif; ?>
 
 			<div class="lh-socials">
 				<?php foreach ( $lh_socials as $lh_name => $lh_s ) : ?>
@@ -177,7 +205,7 @@ $lh_socials = array(
 					$lh_shref  = '' !== $lh_surl ? $lh_surl : '#';
 					$lh_sblank = '' !== $lh_surl ? ' target="_blank" rel="noopener"' : '';
 					?>
-					<a class="lh-soc" href="<?php echo esc_url( $lh_shref ); ?>"<?php echo $lh_sblank; // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-label="<?php echo esc_attr( $lh_s[1] ); ?>">
+					<a class="lh-soc lh-soc--<?php echo esc_attr( $lh_name ); ?>" href="<?php echo esc_url( $lh_shref ); ?>"<?php echo $lh_sblank; // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-label="<?php echo esc_attr( $lh_s[1] ); ?>">
 						<?php echo fenix_icon( $lh_name ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</a>
 				<?php endforeach; ?>

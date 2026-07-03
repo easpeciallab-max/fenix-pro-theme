@@ -219,6 +219,8 @@ function fenix_defaults() {
 		'links_badges'     => '',
 		'links_logo'       => '',
 		'links_line_label' => 'ทักไลน์ปรึกษาทีมงานฟรี 24 ชั่วโมง',
+		'links_openchat_label' => 'เข้ากลุ่ม FENIX OpenChat',
+		'links_openchat_url'   => 'https://line.me/ti/g2/6O9XyBBtatI9LF_Z7N1dpbw7aOgE0IAl39m3bw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default',
 		'links_feature_img'     => get_template_directory_uri() . '/assets/img/link-download-fenix-pro-ea.png',
 		'links_feature_url'     => 'https://line.me/R/ti/p/@fenixpro',
 		'links_feature_caption' => '',
@@ -228,8 +230,8 @@ function fenix_defaults() {
 		'links_btn2_url'   => '/pricing/',
 		'links_btn3_label' => '',
 		'links_btn3_url'   => '',
-		'links_btn4_label' => 'บทความ & ความรู้ EA',
-		'links_btn4_url'   => '/articles/',
+		'links_btn4_label' => '',
+		'links_btn4_url'   => '',
 		'links_btn5_label' => '',
 		'links_btn5_url'   => '',
 		'links_btn6_label' => '',
@@ -242,7 +244,7 @@ function fenix_defaults() {
 		'links_guide3_url'   => '/vps-android/',
 		'links_guide4_label' => 'ใช้งาน VPS ผ่าน iPhone / iOS',
 		'links_guide4_url'   => '/vps-iphone-ios/',
-		'links_note'       => 'การเทรด Forex/CFD มีความเสี่ยงสูง อาจขาดทุนได้ · FENIX PRO EA เป็นเครื่องมือช่วยเทรด ไม่ใช่การรับประกันผลกำไร',
+		'links_note'       => '',
 
 		/* คุกกี้ / Consent + Tracking (โหลด tracking เฉพาะหลังกดยอมรับ) */
 		'show_cookie_consent' => false,
@@ -665,6 +667,9 @@ function fenix_mod( $key ) {
 		'pkg3_price'       => 'X,XXX',
 		'pkg3_period'      => 'บาท / ปี',
 		'pkg3_features'    => "ทีมงานช่วยติดตั้งบนเครื่อง / VPS\nสอนตั้งค่าและแนวคิดบริหารความเสี่ยง\nติดตามผลในช่วงเริ่มต้นใช้งาน\nSupport ส่วนตัวแบบใกล้ชิด",
+		'links_btn4_label' => 'บทความ & ความรู้ EA',
+		'links_btn4_url'   => '/articles/',
+		'links_note'       => 'การเทรด Forex/CFD มีความเสี่ยงสูง อาจขาดทุนได้ · FENIX PRO EA เป็นเครื่องมือช่วยเทรด ไม่ใช่การรับประกันผลกำไร',
 		'risk_text'        => 'การเทรด Forex, Gold, CFD หรือสินทรัพย์ทางการเงินมีความเสี่ยงสูง ผู้ใช้งานอาจขาดทุนได้ ผลการทดสอบหรือผลลัพธ์ในอดีตไม่ได้รับประกันผลลัพธ์ในอนาคต FENIX PRO EA เป็นเครื่องมือช่วยเทรดตามเงื่อนไขที่กำหนด ไม่ใช่การรับประกันผลกำไร ผู้ใช้งานควรศึกษาข้อมูลและบริหารความเสี่ยงให้เหมาะสมกับตนเองก่อนใช้งานจริง',
 		'riskpage_intro'   => 'โปรดอ่านและทำความเข้าใจข้อมูลความเสี่ยงต่อไปนี้อย่างละเอียดก่อนตัดสินใจใช้งาน FENIX PRO EA หรือทำการเทรดใด ๆ',
 		'rp_block1_text'   => 'การเทรด Forex, ทองคำ, CFD และสินทรัพย์ทางการเงินอื่น ๆ มีความเสี่ยงสูงต่อเงินทุนของคุณ ราคาอาจเคลื่อนไหวผันผวนรุนแรง คุณอาจสูญเสียเงินลงทุนบางส่วนหรือทั้งหมด จึงควรใช้เฉพาะเงินเย็นที่พร้อมรับความเสี่ยงได้',
@@ -999,6 +1004,10 @@ function fenix_icon( $name, $class = 'icon' ) {
 		'mail'     => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
 		'download' => '<path d="M12 4v10M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/>',
 		'link'     => '<path d="M9.5 14.5l5-5"/><path d="M11.5 6.5l1-1a4 4 0 0 1 5.7 5.7l-2 2"/><path d="M12.5 17.5l-1 1a4 4 0 0 1-5.7-5.7l2-2"/>',
+		'windows'  => '<path d="M3.5 5.5 10.5 4.5v6.8h-7z"/><path d="M13 4.1 20.5 3v8.3H13z"/><path d="M3.5 12.7h7v6.8l-7-1z"/><path d="M13 12.7h7.5V21L13 19.9z"/>',
+		'android'  => '<path d="M8 8.5h8a3 3 0 0 1 3 3V17a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-5.5a3 3 0 0 1 3-3z"/><path d="M8.5 5 7 2.8M15.5 5 17 2.8"/><path d="M9 19v2M15 19v2M3 12v4M21 12v4"/><path d="M9.2 12h.01M14.8 12h.01"/>',
+		'apple'    => '<path d="M16.6 13.1c0-2.1 1.7-3.1 1.8-3.2-1-1.5-2.5-1.7-3-1.7-1.3-.1-2.5.7-3.1.7-.7 0-1.7-.7-2.8-.7-1.5 0-2.9.9-3.6 2.2-1.6 2.7-.4 6.6 1.1 8.8.7 1.1 1.6 2.3 2.8 2.2 1.1 0 1.5-.7 2.8-.7 1.3 0 1.7.7 2.8.7 1.2 0 1.9-1.1 2.6-2.2.8-1.2 1.1-2.3 1.2-2.4-.1 0-2.6-1-2.6-3.7z"/><path d="M14.7 5.9c.6-.8 1-1.8.9-2.9-.9.1-1.9.6-2.5 1.3-.6.7-1.1 1.7-.9 2.8.9.1 1.9-.5 2.5-1.2z"/>',
+		'users'    => '<path d="M16.5 19.5c0-2.1-1.8-3.8-4.5-3.8s-4.5 1.7-4.5 3.8"/><circle cx="12" cy="9" r="3.2"/><path d="M20.5 18.5c0-1.7-1.2-3-3-3.4"/><path d="M16.8 6.3a2.6 2.6 0 0 1 0 5.1"/><path d="M3.5 18.5c0-1.7 1.2-3 3-3.4"/><path d="M7.2 6.3a2.6 2.6 0 0 0 0 5.1"/>',
 	);
 
 	// แบรนด์ไอคอน LINE (โลโก้จริง) · เป็น path แบบ fill ไม่ใช่ stroke จึง render แยก.

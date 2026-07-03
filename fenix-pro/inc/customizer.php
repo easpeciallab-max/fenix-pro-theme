@@ -569,6 +569,8 @@ function fenix_customize_register( $wp_customize ) {
 			'links_tagline'    => array( 'คำโปรยใต้ชื่อ (เว้นบรรทัด = ขึ้นบรรทัดใหม่)', 'textarea' ),
 			'links_badges'     => array( 'ป้ายเล็ก (บรรทัดละ 1 ป้าย)', 'textarea' ),
 			'links_line_label' => array( 'ข้อความปุ่ม LINE (ปุ่มหลัก)', 'text', 'ลิงก์ใช้ค่า LINE OA จากหมวด 1 อัตโนมัติ' ),
+			'links_openchat_label' => array( 'ข้อความปุ่ม LINE OpenChat', 'text' ),
+			'links_openchat_url'   => array( 'ลิงก์ LINE OpenChat', 'url' ),
 			'links_feature_img'     => array( 'รูปโชว์ (ใต้ปุ่ม LINE) · ไม่ใส่ = ใช้รูปดาวน์โหลดค่าเริ่มต้น', 'image', 'แนะนำภาพแนวนอน 1200×630px สำหรับ Link Hub' ),
 			'links_feature_url'     => array( 'รูปโชว์ · ลิงก์เมื่อคลิก (ไม่ใส่ = รูปค่าเริ่มต้นจะไป LINE)', 'text' ),
 			'links_feature_caption' => array( 'รูปโชว์ · ข้อความใต้รูป (ถ้ามี)', 'text' ),
