@@ -5513,6 +5513,48 @@ h1, h2, h3, h4,
 		inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+.lh-mini-actions {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+	margin: -1px 0 11px;
+}
+
+.lh-mini-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	min-height: 48px;
+	padding: 10px 12px;
+	border-radius: 999px;
+	border: 1px solid rgba(255, 122, 26, 0.32);
+	background: rgba(255, 122, 26, 0.08);
+	color: #FFB347;
+	font-family: var(--font-display);
+	font-size: 0.82rem;
+	font-weight: 800;
+	text-decoration: none;
+	transition: border-color 0.14s ease, background 0.14s ease, color 0.14s ease;
+}
+
+.lh-mini-btn .lh-ic {
+	width: 20px;
+	height: 20px;
+	color: #FF7A1A;
+}
+
+.lh-mini-btn .lh-ic svg {
+	width: 19px;
+	height: 19px;
+}
+
+.lh-mini-btn:hover {
+	border-color: rgba(255, 179, 71, 0.62);
+	background: rgba(255, 122, 26, 0.14);
+	color: #FFD08A;
+}
+
 .lh-btn-line {
 	background: #06C755;
 	border-color: #06C755;
@@ -5575,6 +5617,25 @@ h1, h2, h3, h4,
 	border: 1px solid #26262F;
 	background: #15151D;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.lh-feature-secondary {
+	margin-top: -2px;
+}
+
+.lh-feature-placeholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	aspect-ratio: 1200 / 630;
+	width: 100%;
+	background:
+		linear-gradient(135deg, rgba(255, 122, 26, 0.12), rgba(255, 179, 71, 0.05)),
+		#101016;
+	color: rgba(255, 255, 255, 0.34);
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 7vw, 2.7rem);
+	font-weight: 800;
 }
 
 .lh-feature-frame img {

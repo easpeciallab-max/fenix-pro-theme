@@ -22,6 +22,10 @@ $lh_note   = fenix_mod( 'links_note' );
 $lh_line   = fenix_mod( 'line_url' );
 $lh_signup_url   = trim( (string) fenix_mod( 'links_signup_url' ) );
 $lh_signup_label = trim( (string) fenix_mod( 'links_signup_label' ) );
+$lh_account_guide_url   = trim( (string) fenix_mod( 'links_account_guide_url' ) );
+$lh_account_guide_label = trim( (string) fenix_mod( 'links_account_guide_label' ) );
+$lh_mt5_download_url    = trim( (string) fenix_mod( 'links_mt5_download_url' ) );
+$lh_mt5_download_label  = trim( (string) fenix_mod( 'links_mt5_download_label' ) );
 $lh_openchat_url   = trim( (string) fenix_mod( 'links_openchat_url' ) );
 $lh_openchat_label = trim( (string) fenix_mod( 'links_openchat_label' ) );
 
@@ -78,6 +82,23 @@ $lh_socials = array(
 			</a>
 		<?php endif; ?>
 
+		<?php if ( ( $lh_account_guide_url && $lh_account_guide_label ) || ( $lh_mt5_download_url && $lh_mt5_download_label ) ) : ?>
+			<div class="lh-mini-actions">
+				<?php if ( $lh_account_guide_url && $lh_account_guide_label ) : ?>
+					<a class="lh-mini-btn" href="<?php echo esc_url( fenix_link_url( $lh_account_guide_url ) ); ?>">
+						<span class="lh-ic"><?php echo fenix_icon( 'account' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+						<span><?php echo esc_html( $lh_account_guide_label ); ?></span>
+					</a>
+				<?php endif; ?>
+				<?php if ( $lh_mt5_download_url && $lh_mt5_download_label ) : ?>
+					<a class="lh-mini-btn" href="<?php echo esc_url( fenix_link_url( $lh_mt5_download_url ) ); ?>">
+						<span class="lh-ic"><?php echo fenix_icon( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+						<span><?php echo esc_html( $lh_mt5_download_label ); ?></span>
+					</a>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
+
 		<a class="lh-btn lh-btn-line" href="<?php echo esc_url( $lh_line ); ?>" target="_blank" rel="noopener">
 			<span class="lh-ic"><?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 			<span class="lh-lbl"><?php echo esc_html( fenix_mod( 'links_line_label' ) ); ?></span>
@@ -122,6 +143,33 @@ $lh_socials = array(
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
+
+		<?php
+		$lh_feat2_img     = trim( (string) fenix_mod( 'links_feature2_img' ) );
+		$lh_feat2_url     = trim( (string) fenix_mod( 'links_feature2_url' ) );
+		$lh_feat2_caption = fenix_mod( 'links_feature2_caption' );
+		$lh_feat2_has_url = ( '' !== $lh_feat2_url );
+		?>
+		<div class="lh-feature lh-feature-secondary">
+			<?php if ( $lh_feat2_has_url ) : ?>
+			<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_feat2_url ) ); ?>">
+			<?php else : ?>
+			<span class="lh-feature-frame">
+			<?php endif; ?>
+				<?php if ( $lh_feat2_img ) : ?>
+					<img src="<?php echo esc_url( $lh_feat2_img ); ?>" alt="<?php echo esc_attr( $lh_feat2_caption ? $lh_feat2_caption : $lh_title ); ?>" loading="lazy">
+				<?php else : ?>
+					<span class="lh-feature-placeholder"><?php echo esc_html( fenix_mod( 'links_feature2_placeholder' ) ); ?></span>
+				<?php endif; ?>
+			<?php if ( $lh_feat2_has_url ) : ?>
+			</a>
+			<?php else : ?>
+			</span>
+			<?php endif; ?>
+			<?php if ( $lh_feat2_caption ) : ?>
+				<span class="lh-feature-cap"><?php echo esc_html( $lh_feat2_caption ); ?></span>
+			<?php endif; ?>
+		</div>
 
 		<?php
 		for ( $lh_i = 1; $lh_i <= 6; $lh_i++ ) :
