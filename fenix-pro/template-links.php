@@ -31,7 +31,7 @@ $lh_openchat_label = trim( (string) fenix_mod( 'links_openchat_label' ) );
 
 /* ไอคอนประกอบปุ่มตามลำดับ (ตกแต่ง · เปลี่ยนความหมายปุ่มได้โดยไม่ผูกกับไอคอน) */
 $lh_btn_icons = array( 1 => 'chart', 2 => 'tag', 3 => 'download', 4 => 'layout', 5 => 'arrow', 6 => 'arrow' );
-$lh_guide_icons = array( 1 => 'download', 2 => 'windows', 3 => 'android', 4 => 'apple' );
+$lh_guide_icons = array( 1 => 'download', 2 => 'windows', 3 => 'android', 4 => 'apple', 5 => 'apple' );
 
 $lh_socials = array(
 	'facebook'  => array( fenix_mod( 'facebook_url' ), 'Facebook' ),
@@ -200,11 +200,11 @@ $lh_socials = array(
 
 		$lh_guides = array();
 
-		for ( $lh_i = 1; $lh_i <= 4; $lh_i++ ) {
+		for ( $lh_i = 1; $lh_i <= 5; $lh_i++ ) {
 			$lh_label = trim( (string) fenix_mod( 'links_guide' . $lh_i . '_label' ) );
 			$lh_url   = trim( (string) fenix_mod( 'links_guide' . $lh_i . '_url' ) );
 
-			if ( '' === $lh_label || '' === $lh_url ) {
+			if ( '' === $lh_label ) {
 				continue;
 			}
 
@@ -219,7 +219,7 @@ $lh_socials = array(
 		$lh_vps_guides   = array();
 		foreach ( $lh_guides as $lh_guide ) {
 			$lh_guide_url_norm = strtolower( rtrim( $lh_guide['url'], '/' ) );
-			if ( false !== strpos( $lh_guide_url_norm, 'vps-' ) ) {
+			if ( false !== strpos( $lh_guide_url_norm, 'vps-' ) || false !== stripos( $lh_guide['label'], 'VPS' ) ) {
 				$lh_vps_guides[] = $lh_guide;
 			} else {
 				$lh_setup_guides[] = $lh_guide;
@@ -247,12 +247,23 @@ $lh_socials = array(
 							$lh_vps_label = 'Android';
 						} elseif ( false !== stripos( $lh_vps_label, 'iPhone' ) || false !== stripos( $lh_vps_label, 'iOS' ) ) {
 							$lh_vps_label = 'iOS';
+						} elseif ( false !== stripos( $lh_vps_label, 'macOS' ) || false !== stripos( $lh_vps_label, 'Mac' ) ) {
+							$lh_vps_label = 'macOS';
 						}
+						$lh_vps_has_url = ( '' !== $lh_guide['url'] && '#' !== $lh_guide['url'] );
 						?>
+						<?php if ( $lh_vps_has_url ) : ?>
 						<a class="lh-vps-item" href="<?php echo esc_url( fenix_link_url( $lh_guide['url'] ) ); ?>">
+						<?php else : ?>
+						<span class="lh-vps-item lh-vps-item-pending" aria-disabled="true">
+						<?php endif; ?>
 							<span class="lh-vps-ic"><?php echo fenix_icon( $lh_guide['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 							<span class="lh-vps-lbl"><?php echo esc_html( $lh_vps_label ); ?></span>
+						<?php if ( $lh_vps_has_url ) : ?>
 						</a>
+						<?php else : ?>
+						</span>
+						<?php endif; ?>
 					<?php endforeach; ?>
 				</div>
 			</section>

@@ -604,6 +604,8 @@ function fenix_customize_register( $wp_customize ) {
 			'links_guide3_url'   => array( 'คู่มือ 3 · ลิงก์', 'text' ),
 			'links_guide4_label' => array( 'คู่มือ 4 · ข้อความ', 'text' ),
 			'links_guide4_url'   => array( 'คู่มือ 4 · ลิงก์', 'text' ),
+			'links_guide5_label' => array( 'คู่มือ 5 · ข้อความ', 'text' ),
+			'links_guide5_url'   => array( 'คู่มือ 5 · ลิงก์', 'text' ),
 			'links_note'       => array( 'ข้อความเตือนความเสี่ยง (ด้านล่างสุด)', 'textarea' ),
 		),
 	);

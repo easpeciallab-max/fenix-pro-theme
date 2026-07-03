@@ -254,6 +254,8 @@ function fenix_defaults() {
 		'links_guide3_url'   => '/vps-android/',
 		'links_guide4_label' => 'ใช้งาน VPS ผ่าน iPhone / iOS',
 		'links_guide4_url'   => '/vps-iphone-ios/',
+		'links_guide5_label' => 'ใช้งาน VPS บน macOS',
+		'links_guide5_url'   => '',
 		'links_note'       => '',
 
 		/* คุกกี้ / Consent + Tracking (โหลด tracking เฉพาะหลังกดยอมรับ) */
