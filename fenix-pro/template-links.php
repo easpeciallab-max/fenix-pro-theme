@@ -72,29 +72,33 @@ $lh_socials = array(
 			</ul>
 		<?php endif; ?>
 
-		<?php if ( $lh_signup_url && $lh_signup_label ) : ?>
-			<a class="lh-btn lh-btn-signup" href="<?php echo esc_url( fenix_link_url( $lh_signup_url ) ); ?>">
-				<span class="lh-ic"><?php echo fenix_icon( 'account' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-				<span class="lh-signup-copy">
-					<span class="lh-lbl"><?php echo esc_html( $lh_signup_label ); ?></span>
-				</span>
-				<span class="lh-ar" aria-hidden="true">&rsaquo;</span>
-			</a>
-		<?php endif; ?>
-
-		<?php if ( ( $lh_account_guide_url && $lh_account_guide_label ) || ( $lh_mt5_download_url && $lh_mt5_download_label ) ) : ?>
-			<div class="lh-mini-actions">
-				<?php if ( $lh_account_guide_url && $lh_account_guide_label ) : ?>
-					<a class="lh-mini-btn" href="<?php echo esc_url( fenix_link_url( $lh_account_guide_url ) ); ?>">
+		<?php if ( ( $lh_signup_url && $lh_signup_label ) || ( $lh_account_guide_url && $lh_account_guide_label ) || ( $lh_mt5_download_url && $lh_mt5_download_label ) ) : ?>
+			<div class="lh-account-actions">
+				<?php if ( $lh_signup_url && $lh_signup_label ) : ?>
+					<a class="lh-btn lh-btn-signup" href="<?php echo esc_url( fenix_link_url( $lh_signup_url ) ); ?>">
 						<span class="lh-ic"><?php echo fenix_icon( 'account' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-						<span><?php echo esc_html( $lh_account_guide_label ); ?></span>
+						<span class="lh-signup-copy">
+							<span class="lh-lbl"><?php echo esc_html( $lh_signup_label ); ?></span>
+						</span>
+						<span class="lh-ar" aria-hidden="true">&rsaquo;</span>
 					</a>
 				<?php endif; ?>
-				<?php if ( $lh_mt5_download_url && $lh_mt5_download_label ) : ?>
-					<a class="lh-mini-btn" href="<?php echo esc_url( fenix_link_url( $lh_mt5_download_url ) ); ?>">
-						<span class="lh-ic"><?php echo fenix_icon( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-						<span><?php echo esc_html( $lh_mt5_download_label ); ?></span>
-					</a>
+
+				<?php if ( ( $lh_account_guide_url && $lh_account_guide_label ) || ( $lh_mt5_download_url && $lh_mt5_download_label ) ) : ?>
+					<div class="lh-mini-actions">
+						<?php if ( $lh_account_guide_url && $lh_account_guide_label ) : ?>
+							<a class="lh-mini-btn" href="<?php echo esc_url( fenix_link_url( $lh_account_guide_url ) ); ?>">
+								<span class="lh-ic"><?php echo fenix_icon( 'account' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+								<span><?php echo esc_html( $lh_account_guide_label ); ?></span>
+							</a>
+						<?php endif; ?>
+						<?php if ( $lh_mt5_download_url && $lh_mt5_download_label ) : ?>
+							<a class="lh-mini-btn" href="<?php echo esc_url( fenix_link_url( $lh_mt5_download_url ) ); ?>">
+								<span class="lh-ic"><?php echo fenix_icon( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+								<span><?php echo esc_html( $lh_mt5_download_label ); ?></span>
+							</a>
+						<?php endif; ?>
+					</div>
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>

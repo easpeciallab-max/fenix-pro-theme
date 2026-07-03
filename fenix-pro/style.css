@@ -5456,27 +5456,34 @@ h1, h2, h3, h4,
 	line-height: 1;
 }
 
+.lh-account-actions {
+	display: grid;
+	gap: 8px;
+	margin: 0 0 12px;
+	padding: 10px;
+	border: 1px solid #26262F;
+	border-radius: 26px;
+	background: #0F0F15;
+}
+
 .lh-btn-signup {
 	display: grid;
 	grid-template-columns: 34px 1fr 18px;
 	min-height: 56px;
-	padding: 12px 18px;
-	border-color: rgba(255, 122, 26, 0.46);
-	background:
-		linear-gradient(135deg, rgba(255, 122, 26, 0.24), rgba(255, 122, 26, 0.06) 48%, rgba(255, 179, 71, 0.16)),
-		#151318;
-	color: #FFB347;
-	box-shadow:
-		0 12px 28px rgba(255, 122, 26, 0.13),
-		inset 0 1px 0 rgba(255, 255, 255, 0.08);
+	margin: 0;
+	padding: 12px 17px;
+	border-color: #FF7A1A;
+	background: #FF7A1A;
+	color: #130A02;
+	box-shadow: none;
 }
 
 .lh-btn-signup .lh-ic {
 	width: 30px;
 	height: 30px;
 	border-radius: 999px;
-	background: rgba(255, 122, 26, 0.16);
-	color: #FF9B2F;
+	background: #0F0F15;
+	color: #FFB347;
 }
 
 .lh-btn-signup .lh-ic svg {
@@ -5498,26 +5505,22 @@ h1, h2, h3, h4,
 }
 
 .lh-btn-signup .lh-ar {
-	color: rgba(255, 179, 71, 0.88);
+	color: #130A02;
 	font-size: 1.18rem;
 }
 
 .lh-btn-signup:hover {
-	border-color: rgba(255, 179, 71, 0.78);
-	background:
-		linear-gradient(135deg, rgba(255, 122, 26, 0.34), rgba(255, 122, 26, 0.1) 48%, rgba(255, 179, 71, 0.22)),
-		#18141A;
-	color: #FFD08A;
-	box-shadow:
-		0 14px 32px rgba(255, 122, 26, 0.18),
-		inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	border-color: #FFB347;
+	background: #FF8A24;
+	color: #130A02;
+	box-shadow: none;
 }
 
 .lh-mini-actions {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 10px;
-	margin: -1px 0 11px;
+	gap: 8px;
+	margin: 0;
 }
 
 .lh-mini-btn {
@@ -5528,9 +5531,9 @@ h1, h2, h3, h4,
 	min-height: 48px;
 	padding: 10px 12px;
 	border-radius: 999px;
-	border: 1px solid rgba(255, 122, 26, 0.32);
-	background: rgba(255, 122, 26, 0.08);
-	color: #FFB347;
+	border: 1px solid #32323D;
+	background: #171720;
+	color: #F7F7FA;
 	font-family: var(--font-display);
 	font-size: 0.82rem;
 	font-weight: 800;
@@ -5550,9 +5553,9 @@ h1, h2, h3, h4,
 }
 
 .lh-mini-btn:hover {
-	border-color: rgba(255, 179, 71, 0.62);
-	background: rgba(255, 122, 26, 0.14);
-	color: #FFD08A;
+	border-color: #FF7A1A;
+	background: #20202B;
+	color: #FFB347;
 }
 
 .lh-btn-line {
