@@ -221,9 +221,9 @@ function fenix_defaults() {
 		'links_signup_label' => 'เปิดบัญชี MT5',
 		'links_signup_url'   => '/pricing/',
 		'links_account_guide_label' => 'สอนเปิดบัญชี',
-		'links_account_guide_url'   => '#',
+		'links_account_guide_url'   => '/open-mt5-account/',
 		'links_mt5_download_label'  => 'โหลด MT5',
-		'links_mt5_download_url'    => '#',
+		'links_mt5_download_url'    => '/mt5-login-zaurix-server/',
 		'links_line_label' => 'ทักไลน์ปรึกษาทีมงานฟรี 24 ชั่วโมง',
 		'links_openchat_label' => 'เข้ากลุ่ม FENIX OpenChat',
 		'links_openchat_url'   => 'https://line.me/ti/g2/6O9XyBBtatI9LF_Z7N1dpbw7aOgE0IAl39m3bw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default',
@@ -818,6 +818,7 @@ function fenix_fallback_menu() {
 	echo '<li class="menu-item-has-children"><a href="' . esc_url( home_url( '/fenix-pro-ea-install-guide/' ) ) . '">คู่มือการใช้งาน</a>';
 	echo '<ul class="sub-menu">';
 	echo '<li><a href="' . esc_url( home_url( '/fenix-pro-ea-install-guide/' ) ) . '">ติดตั้ง FENIX PRO EA บน MT5</a></li>';
+	echo fenix_guide_menu_extra_items(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo '<li><a href="' . esc_url( home_url( '/vps-desktop-windows/' ) ) . '">ใช้งาน VPS บน Windows</a></li>';
 	echo '<li><a href="' . esc_url( home_url( '/vps-android/' ) ) . '">ใช้งาน VPS ผ่าน Android</a></li>';
 	echo '<li><a href="' . esc_url( home_url( '/vps-iphone-ios/' ) ) . '">ใช้งาน VPS ผ่าน iPhone / iOS</a></li>';
@@ -828,6 +829,53 @@ function fenix_fallback_menu() {
 	echo '<li><a href="' . esc_url( home_url( '/go/' ) ) . '">ติดต่อ</a></li>';
 	echo '</ul>';
 }
+
+function fenix_guide_menu_extra_items() {
+	$items  = '<li class="menu-item menu-item-fenix-open-account"><a href="' . esc_url( home_url( '/open-mt5-account/' ) ) . '">สอนเปิดบัญชี MT5</a></li>';
+	$items .= '<li class="menu-item menu-item-fenix-mt5-login"><a href="' . esc_url( home_url( '/mt5-login-zaurix-server/' ) ) . '">ติดตั้ง MT5 และ Login Zaurix-Server</a></li>';
+
+	return $items;
+}
+
+function fenix_add_guides_to_primary_menu( $items, $args ) {
+	if ( empty( $args->theme_location ) || 'primary' !== $args->theme_location ) {
+		return $items;
+	}
+
+	if ( false !== strpos( $items, '/open-mt5-account/' ) && false !== strpos( $items, '/mt5-login-zaurix-server/' ) ) {
+		return $items;
+	}
+
+	$guide_pos = stripos( $items, '/fenix-pro-ea-install-guide/' );
+	if ( false === $guide_pos ) {
+		return $items;
+	}
+
+	$submenu_pos = stripos( $items, '<ul class="sub-menu"', $guide_pos );
+	if ( false === $submenu_pos ) {
+		return $items;
+	}
+
+	$submenu_end = stripos( $items, '</ul>', $submenu_pos );
+	if ( false === $submenu_end ) {
+		return $items;
+	}
+
+	$extra = '';
+	if ( false === strpos( $items, '/open-mt5-account/' ) ) {
+		$extra .= '<li class="menu-item menu-item-fenix-open-account"><a href="' . esc_url( home_url( '/open-mt5-account/' ) ) . '">สอนเปิดบัญชี MT5</a></li>';
+	}
+	if ( false === strpos( $items, '/mt5-login-zaurix-server/' ) ) {
+		$extra .= '<li class="menu-item menu-item-fenix-mt5-login"><a href="' . esc_url( home_url( '/mt5-login-zaurix-server/' ) ) . '">ติดตั้ง MT5 และ Login Zaurix-Server</a></li>';
+	}
+
+	if ( '' === $extra ) {
+		return $items;
+	}
+
+	return substr( $items, 0, $submenu_end ) . $extra . substr( $items, $submenu_end );
+}
+add_filter( 'wp_nav_menu_items', 'fenix_add_guides_to_primary_menu', 9, 2 );
 
 /**
  * Keep the ad/contact link hub visible in the primary menu even when a custom
