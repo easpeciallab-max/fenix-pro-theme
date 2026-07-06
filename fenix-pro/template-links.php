@@ -36,6 +36,9 @@ if ( '' === $lh_account_guide_url || '#' === $lh_account_guide_url ) {
 if ( '' === $lh_mt5_download_url || '#' === $lh_mt5_download_url ) {
 	$lh_mt5_download_url = '/mt5-login-zaurix-server/';
 }
+if ( '' === $lh_mt5_download_label || 'โหลด MT5' === $lh_mt5_download_label ) {
+	$lh_mt5_download_label = 'คู่มือติดตั้งและเข้า MT5';
+}
 
 /* ไอคอนประกอบปุ่มตามลำดับ (ตกแต่ง · เปลี่ยนความหมายปุ่มได้โดยไม่ผูกกับไอคอน) */
 $lh_btn_icons = array( 1 => 'chart', 2 => 'tag', 3 => 'download', 4 => 'layout', 5 => 'arrow', 6 => 'arrow' );

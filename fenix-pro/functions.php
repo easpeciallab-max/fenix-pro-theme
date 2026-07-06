@@ -222,7 +222,7 @@ function fenix_defaults() {
 		'links_signup_url'   => '/pricing/',
 		'links_account_guide_label' => 'สอนเปิดบัญชี',
 		'links_account_guide_url'   => '/open-mt5-account/',
-		'links_mt5_download_label'  => 'โหลด MT5',
+		'links_mt5_download_label'  => 'คู่มือติดตั้งและเข้า MT5',
 		'links_mt5_download_url'    => '/mt5-login-zaurix-server/',
 		'links_line_label' => 'ทักไลน์ปรึกษาทีมงานฟรี 24 ชั่วโมง',
 		'links_openchat_label' => 'เข้ากลุ่ม FENIX OpenChat',
