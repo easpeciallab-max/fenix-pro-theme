@@ -118,6 +118,42 @@
 		}
 	}
 
+	/* Analytics · dedicated LINE click event for GA4/Site Kit */
+	document.addEventListener('click', function (e) {
+		var link = e.target.closest('a[href]');
+		if (!link) {
+			return;
+		}
+
+		var href = link.getAttribute('href') || '';
+		var absoluteUrl;
+		try {
+			absoluteUrl = new URL(href, window.location.href);
+		} catch (err) {
+			return;
+		}
+
+		var host = absoluteUrl.hostname.replace(/^www\./, '').toLowerCase();
+		var isLineLink = host === 'line.me' || host === 'lin.ee' || host === 'liff.line.me' || href.indexOf('line://') === 0;
+		if (!isLineLink) {
+			return;
+		}
+
+		var label = (link.textContent || link.getAttribute('aria-label') || 'LINE').replace(/\s+/g, ' ').trim();
+		var payload = {
+			link_url: absoluteUrl.href,
+			link_text: label,
+			page_path: window.location.pathname,
+			page_title: document.title
+		};
+
+		if (typeof window.gtag === 'function') {
+			window.gtag('event', 'line_click', payload);
+		} else if (Array.isArray(window.dataLayer)) {
+			window.dataLayer.push(Object.assign({ event: 'line_click' }, payload));
+		}
+	});
+
 	/* Reveal on scroll */
 	var items = document.querySelectorAll('.reveal');
 	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
