@@ -186,7 +186,7 @@ function fenix_defaults() {
 		/* ทั่วไป */
 		'line_url'        => 'https://line.me/R/ti/p/@fenixpro',
 		'facebook_url'    => 'https://www.facebook.com/fenixpro.ea',
-		'instagram_url'   => 'https://www.instagram.com/fenixpro.ea/',
+		'instagram_url'   => 'https://www.instagram.com/fenixpro.th/',
 		'tiktok_url'      => 'https://www.tiktok.com/@fenixpro.ea',
 		'youtube_url'     => 'https://www.youtube.com/@FenixProExpertAdvisor',
 		'contact_email'   => '',
@@ -666,6 +666,7 @@ function fenix_mod( $key ) {
 	 * custom values remain untouched.
 	 */
 	$stale_values = array(
+		'instagram_url'   => 'https://www.instagram.com/fenixpro.ea/',
 		'pricing_subtitle' => 'เลือกแพ็กเกจที่เหมาะกับการใช้งานของคุณ หรือทักมาปรึกษาก่อนตัดสินใจได้',
 		'pricing_mode'     => 'contact',
 		'pricing_note'     => 'ราคาและเงื่อนไขอาจมีการเปลี่ยนแปลง สอบถามรายละเอียดล่าสุดได้ทาง LINE',
