@@ -210,7 +210,7 @@ function fenix_defaults() {
 		/* SEO / แชร์ลิงก์ (Open Graph) */
 		'og_default_image'       => '',
 		'og_default_description' => 'FENIX PRO EA · ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5 เน้นวินัยและการบริหารความเสี่ยง',
-		'search_console_verify'  => '',
+		'search_console_verify'  => 'J1uZxPgUyDbO0lx3KNpfEfb8cpJ_zgpwMbcMOI-rzy8',
 		'bing_verify'            => '',
 
 		/* หน้า Link Hub (template-links.php) · ปลายทางยิงแอด สไตล์ Linktree */
@@ -695,6 +695,10 @@ function fenix_mod( $key ) {
 	);
 
 	if ( array_key_exists( $key, $stale_values ) && (string) $value === (string) $stale_values[ $key ] ) {
+		return $default;
+	}
+
+	if ( 'search_console_verify' === $key && '' === trim( (string) $value ) ) {
 		return $default;
 	}
 
