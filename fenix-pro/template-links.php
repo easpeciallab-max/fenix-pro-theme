@@ -137,7 +137,7 @@ $lh_socials = array(
 		if ( $lh_feat_img ) :
 			$lh_feat_url     = trim( (string) fenix_mod( 'links_feature_url' ) );
 			$lh_feat_caption = fenix_mod( 'links_feature_caption' );
-			if ( $lh_default_feat_img === $lh_feat_img && ( '' === $lh_feat_url || fenix_mod( 'line_url' ) === $lh_feat_url ) ) {
+			if ( '' === $lh_feat_url || fenix_mod( 'line_url' ) === $lh_feat_url ) {
 				$lh_feat_url = $lh_default_feat_url;
 			}
 			$lh_feat_has_url = ( '' !== $lh_feat_url );
