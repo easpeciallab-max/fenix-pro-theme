@@ -228,7 +228,7 @@ function fenix_defaults() {
 		'links_openchat_label' => 'เข้ากลุ่ม FENIX OpenChat',
 		'links_openchat_url'   => 'https://line.me/ti/g2/6O9XyBBtatI9LF_Z7N1dpbw7aOgE0IAl39m3bw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default',
 		'links_feature_img'     => get_template_directory_uri() . '/assets/img/link-download-fenix-pro-ea.png',
-		'links_feature_url'     => 'https://line.me/R/ti/p/@fenixpro',
+		'links_feature_url'     => get_template_directory_uri() . '/assets/downloads/fenix-pro-ea.zip',
 		'links_feature_caption' => '',
 		'links_feature2_img'     => '',
 		'links_feature2_url'     => '',
