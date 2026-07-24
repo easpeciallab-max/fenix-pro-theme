@@ -10,7 +10,7 @@
 <title>FENIX PRO EA</title>
 <link>https://fenixpro-th.com</link>
 <description>FENIX PRO EA scheduled SEO content</description>
-<pubDate>Fri, 24 Jul 2026 09:18:54 +0000</pubDate>
+<pubDate>Fri, 24 Jul 2026 10:08:22 +0000</pubDate>
 <language>th</language>
 <wp:wxr_version>1.2</wp:wxr_version>
 <wp:base_site_url>https://fenixpro-th.com</wp:base_site_url>
@@ -83,7 +83,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/types-of-ea-trading-strategies.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/types-of-ea-trading-strategies.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[เปรียบเทียบประเภท EA แบบ Trend, Grid, Martingale และ Scalping]]></wp:meta_value>
@@ -113,7 +113,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/grid-ea-risks.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/grid-ea-risks.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนภาพระดับออเดอร์ของ Grid EA และความเสี่ยงจากการสะสมสถานะ]]></wp:meta_value>
@@ -143,7 +143,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/martingale-ea-risks.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/martingale-ea-risks.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนภาพ Martingale EA ที่เพิ่มขนาด Lot หลังขาดทุน]]></wp:meta_value>
@@ -173,7 +173,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/scalping-ea-mt5.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/scalping-ea-mt5.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[หน้าจอ MT5 แสดง Scalping EA พร้อมค่า Spread, Slippage และ Latency]]></wp:meta_value>
@@ -203,7 +203,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/trend-following-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/trend-following-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[กราฟแนวโน้มพร้อมสัญญาณของ Trend Following EA บน MT5]]></wp:meta_value>
@@ -233,7 +233,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/xauusd-ea-guide.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/xauusd-ea-guide.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[กราฟทอง XAUUSD บน MT5 พร้อมข้อมูล Contract Size และความเสี่ยง]]></wp:meta_value>
@@ -263,7 +263,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/ea-news-filter-trading.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/ea-news-filter-trading.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[ปฏิทินข่าวเศรษฐกิจกับ News Filter ของ EA บน MT5]]></wp:meta_value>
@@ -293,7 +293,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/run-multiple-ea-mt5.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/run-multiple-ea-mt5.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[หน้าจอ MT5 หลายกราฟพร้อม EA และแผงสรุปความเสี่ยงรวม]]></wp:meta_value>
@@ -323,7 +323,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/mt4-vs-mt5-for-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/mt4-vs-mt5-for-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[เปรียบเทียบหน้าจอ MT4 และ MT5 สำหรับใช้งาน Expert Advisor]]></wp:meta_value>
@@ -353,7 +353,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/ex5-vs-mq5-files.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/ex5-vs-mq5-files.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[โฟลเดอร์ MQL5 Experts แสดงไฟล์ EA นามสกุล EX5 และ MQ5]]></wp:meta_value>
@@ -383,7 +383,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/mt5-experts-journal-logs.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-experts-journal-logs.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แท็บ Experts และ Journal ใน Toolbox ของ MT5 แสดงข้อความ Log ของ EA]]></wp:meta_value>
@@ -413,7 +413,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/magic-number-mt5-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/magic-number-mt5-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[หน้าจอ MT5 แสดง Position หลายรายการที่แยกด้วย Magic Number]]></wp:meta_value>
@@ -443,7 +443,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/mt5-ea-preset-set-file.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-ea-preset-set-file.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[หน้าต่าง Inputs ของ EA บน MT5 พร้อมปุ่ม Load และ Save ไฟล์ SET]]></wp:meta_value>
@@ -473,7 +473,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/update-ea-mt5-safely.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/update-ea-mt5-safely.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[ขั้นตอนสำรอง Preset และเปลี่ยนไฟล์ EX5 เพื่ออัปเดต EA บน MT5]]></wp:meta_value>
@@ -503,7 +503,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/mt5-no-connection-invalid-account.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-no-connection-invalid-account.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[หน้าจอ MT5 แสดงสถานะ No Connection และหน้าต่าง Login to Trade Account]]></wp:meta_value>
@@ -533,7 +533,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/mt5-broker-server-time-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-broker-server-time-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[กราฟ MT5 เปรียบเทียบ Broker Server Time กับเวลาไทยและเวลา UTC]]></wp:meta_value>
@@ -563,7 +563,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/multiple-mt5-terminals-accounts.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/multiple-mt5-terminals-accounts.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[Windows แสดง MT5 หลาย Terminal ที่ติดตั้งแยกโฟลเดอร์และเปิดหลายบัญชี]]></wp:meta_value>
@@ -593,7 +593,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/how-to-backtest-ea-mt5.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/how-to-backtest-ea-mt5.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[หน้าต่าง Strategy Tester ของ MT5 พร้อมค่าทดสอบ EA และรายงานผล]]></wp:meta_value>
@@ -623,7 +623,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/mt5-real-ticks-backtest.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-real-ticks-backtest.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[Strategy Tester บน MT5 แสดงตัวเลือก Every Tick Based on Real Ticks]]></wp:meta_value>
@@ -653,7 +653,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/in-sample-out-of-sample-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/in-sample-out-of-sample-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[เส้นเวลาแบ่งข้อมูลทดสอบ EA เป็น In-Sample และ Out-of-Sample]]></wp:meta_value>
@@ -683,7 +683,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/walk-forward-analysis-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/walk-forward-analysis-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนภาพ Walk-Forward Analysis ที่เลื่อนช่วง In-Sample และ Out-of-Sample ตามเวลา]]></wp:meta_value>
@@ -713,7 +713,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/monte-carlo-testing-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/monte-carlo-testing-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[กราฟ Monte Carlo หลายเส้นทางแสดงการกระจาย Drawdown ของ EA]]></wp:meta_value>
@@ -743,7 +743,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/backtest-spread-commission-slippage.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/backtest-spread-commission-slippage.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[รายงาน Backtest EA เปรียบเทียบผลก่อนและหลังรวม Spread Commission Slippage]]></wp:meta_value>
@@ -773,7 +773,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/how-long-to-backtest-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/how-long-to-backtest-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[เส้นเวลาหลายปีแสดงช่วงตลาด Trend Sideway และ Volatility สำหรับ Backtest EA]]></wp:meta_value>
@@ -803,7 +803,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/compare-backtest-forward-test.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/compare-backtest-forward-test.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[รายงาน Backtest และ Forward Test ของ EA วางเทียบ Metric และ Equity Curve]]></wp:meta_value>
@@ -833,7 +833,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/read-equity-curve-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/read-equity-curve-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[กราฟ Balance และ Equity Curve ของ EA พร้อมช่วง Drawdown และ Recovery]]></wp:meta_value>
@@ -863,7 +863,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/risk-of-ruin-ea-trading.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/risk-of-ruin-ea-trading.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนภาพ Risk of Ruin ของพอร์ต EA แสดงทุน ความเสี่ยงต่อครั้ง และช่วงขาดทุนต่อเนื่อง]]></wp:meta_value>
@@ -893,7 +893,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/leverage-margin-level-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/leverage-margin-level-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[หน้าจอ MT5 แสดง Leverage Margin Free Margin และ Margin Level สำหรับพอร์ต EA]]></wp:meta_value>
@@ -923,7 +923,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/equity-stop-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/equity-stop-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผงควบคุม Equity Stop ของพอร์ต EA แสดง Balance Equity และระดับหยุดระบบ]]></wp:meta_value>
@@ -953,7 +953,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/daily-loss-limit-ea.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/daily-loss-limit-ea.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผง Daily Loss Limit สำหรับ EA แสดงผลขาดทุนรายวัน เวลารีเซ็ต และสถานะหยุดระบบ]]></wp:meta_value>
@@ -983,7 +983,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/portfolio-exposure-multiple-orders.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/portfolio-exposure-multiple-orders.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนภาพ Portfolio Exposure ของ EA หลายออเดอร์และหลายคู่เงินพร้อมความเสี่ยงรวม]]></wp:meta_value>
@@ -1013,7 +1013,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/correlation-risk-ea-portfolio.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/correlation-risk-ea-portfolio.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนภาพ Correlation Risk ของคู่เงินและทองในพอร์ต EA แสดงการเคลื่อนไหวร่วมกัน]]></wp:meta_value>
@@ -1043,7 +1043,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/fixed-lot-vs-auto-lot.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/fixed-lot-vs-auto-lot.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[ตารางเปรียบเทียบ Fixed Lot กับ Auto Lot สำหรับ EA บน MT5]]></wp:meta_value>
@@ -1073,7 +1073,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/stop-loss-take-profit-trailing-stop.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/stop-loss-take-profit-trailing-stop.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนภาพเปรียบเทียบ Stop Loss Take Profit Trailing Stop และ Break Even บนกราฟ MT5]]></wp:meta_value>
@@ -1103,7 +1103,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/reduce-risk-after-drawdown.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/reduce-risk-after-drawdown.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนฟื้นฟูพอร์ต EA หลัง Drawdown แสดงขั้นหยุด ตรวจสอบ ลด Lot และกลับมาทดสอบ]]></wp:meta_value>
@@ -1133,7 +1133,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/choose-vps-specs-for-mt5.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/choose-vps-specs-for-mt5.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนเลือกสเปก VPS สำหรับ MT5 แสดง CPU RAM SSD Windows และจำนวน EA]]></wp:meta_value>
@@ -1163,7 +1163,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/mt5-vps-latency-ping.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-vps-latency-ping.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[หน้าจอวัด Latency Ping Jitter และ Packet Loss จาก VPS ไปยัง Server โบรกเกอร์ MT5]]></wp:meta_value>
@@ -1193,7 +1193,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/run-multiple-mt5-on-vps.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/run-multiple-mt5-on-vps.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[โครงสร้างติดตั้ง MT5 หลาย Terminal บน VPS แยกโฟลเดอร์ บัญชี และ EA]]></wp:meta_value>
@@ -1223,7 +1223,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/auto-start-mt5-on-vps.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/auto-start-mt5-on-vps.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[หน้าตั้ง Task Scheduler ให้ MT5 เปิดอัตโนมัติหลัง VPS Restart พร้อมรายการตรวจระบบ]]></wp:meta_value>
@@ -1253,7 +1253,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/does-ea-run-after-rdp-disconnect.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/does-ea-run-after-rdp-disconnect.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนภาพ Remote Desktop แบบ Disconnect กับ Sign out และสถานะการทำงานของ MT5 EA]]></wp:meta_value>
@@ -1283,7 +1283,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/vps-mt5-ea-troubleshooting.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/vps-mt5-ea-troubleshooting.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[ผัง Troubleshooting VPS MT5 ค้างและ EA หยุดทำงานแบบทีละชั้น]]></wp:meta_value>
@@ -1313,7 +1313,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/secure-vps-for-mt5.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/secure-vps-for-mt5.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[เกราะป้องกัน VPS สำหรับ MT5 แสดงรหัสผ่าน RDP Firewall Update Backup และ Monitoring]]></wp:meta_value>
@@ -1343,7 +1343,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/broker-vps-vs-rented-vps.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/broker-vps-vs-rented-vps.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[ตารางเปรียบเทียบ VPS ฟรีของโบรกเกอร์กับ Windows VPS เช่าสำหรับ MT5 EA]]></wp:meta_value>
@@ -1373,7 +1373,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/verify-ea-seller-before-buying.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/verify-ea-seller-before-buying.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[Checklist ตรวจสอบผู้ขาย EA ก่อนซื้อทั้งตัวตน หลักฐาน License การชำระเงิน และ Support]]></wp:meta_value>
@@ -1403,7 +1403,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/ea-license-account-device-lock.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/ea-license-account-device-lock.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แผนภาพ License EA ผูกบัญชี Broker เครื่อง VPS และ Activation สำหรับ MT5]]></wp:meta_value>
@@ -1433,7 +1433,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/ea-refund-license-support-terms.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/ea-refund-license-support-terms.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[เอกสารเงื่อนไขซื้อ EA แสดงหัวข้อ Refund License Activation Update และ Support]]></wp:meta_value>
@@ -1463,7 +1463,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/verify-ea-profit-screenshots.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/verify-ea-profit-screenshots.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[แว่นขยายตรวจ Screenshot ผลกำไร EA เทียบกับ Report Equity และ Trade History]]></wp:meta_value>
@@ -1493,7 +1493,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/ea-without-stop-loss-risks.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/ea-without-stop-loss-risks.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[ประวัติออเดอร์ EA ไม่มี Stop Loss พร้อมจุดตรวจ Hidden Stop Basket และ Floating Drawdown]]></wp:meta_value>
@@ -1523,7 +1523,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/detect-grid-martingale-ea-results.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/detect-grid-martingale-ea-results.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[ประวัติออเดอร์ EA แสดง Grid Step Lot Progression Basket Exit และ Equity Drawdown]]></wp:meta_value>
@@ -1553,7 +1553,7 @@
 <wp:post_mime_type><![CDATA[image/webp]]></wp:post_mime_type>
 <wp:post_password><![CDATA[]]></wp:post_password>
 <wp:is_sticky>0</wp:is_sticky>
-<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/themes/fenix-pro/assets/content/covers/after-buying-ea-checklist.webp]]></wp:attachment_url>
+<wp:attachment_url><![CDATA[https://fenixpro-th.com/wp-content/uploads/2026/07/after-buying-ea-checklist.webp]]></wp:attachment_url>
 <wp:postmeta>
 <wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
 <wp:meta_value><![CDATA[Checklist รับมอบ EA หลังซื้อแสดงไฟล์ License Preset คู่มือ ติดตั้ง ทดสอบ และ Support]]></wp:meta_value>

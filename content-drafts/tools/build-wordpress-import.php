@@ -8,7 +8,8 @@ $coverSourceDir = $draftRoot . DIRECTORY_SEPARATOR . 'generated' . DIRECTORY_SEP
 $themeCoverDir = $root . DIRECTORY_SEPARATOR . 'fenix-pro' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'content' . DIRECTORY_SEPARATOR . 'covers';
 $importDir = $draftRoot . DIRECTORY_SEPARATOR . 'generated' . DIRECTORY_SEPARATOR . 'imports';
 $siteUrl = 'https://fenixpro-th.com';
-$themeCoverUrl = $siteUrl . '/wp-content/themes/fenix-pro/assets/content/covers';
+$themeCoverUrl = getenv( 'FENIX_CONTENT_COVER_URL' )
+    ?: $siteUrl . '/wp-content/themes/fenix-pro/assets/content/covers';
 $author = 'adminwp';
 $minimumContentCharacters = 4500;
 
