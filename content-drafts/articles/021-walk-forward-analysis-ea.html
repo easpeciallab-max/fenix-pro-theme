@@ -1,0 +1,161 @@
+---
+seo_title: Walk-Forward Analysis คืออะไรและใช้ทดสอบ EA อย่างไร
+meta_description: อธิบาย Walk-Forward Analysis สำหรับ EA ตั้งแต่การเลื่อน In-Sample/Out-of-Sample เลือก Window อ่านผลรวม และข้อผิดพลาดที่ทำให้ Overfit
+excerpt: Walk-Forward ทดสอบการเลือกพารามิเตอร์ซ้ำตามลำดับเวลา ช่วยดูว่าระบบและกระบวนการปรับค่าคงทนเมื่อเดินไปข้างหน้าหรือไม่
+cover_alt: แผนภาพ Walk-Forward Analysis ที่เลื่อนช่วง In-Sample และ Out-of-Sample ตามเวลา
+---
+<p><strong>Walk-Forward Analysis (WFA)</strong> คือกระบวนการแบ่งข้อมูลตามลำดับเวลาเป็นหลายช่วง ใช้ช่วง In-Sample พัฒนา/เลือกพารามิเตอร์ แล้วนำค่าที่เลือกไปทดสอบใน Out-of-Sample ถัดไป จากนั้นเลื่อน Window ไปข้างหน้าและทำซ้ำ วิธีนี้ช่วยตรวจทั้งตัวกลยุทธ์และกระบวนการปรับค่า ไม่ใช่ดูผลจาก Holdout เพียงช่วงเดียว</p>
+
+<p>WFA ไม่ใช่ปุ่มวิเศษและไม่รับประกันว่า EA จะทำกำไร หาก Window สั้นเกินไป เกณฑ์เลือกค่าถูกเปลี่ยนภายหลัง หรือผู้ทดสอบลองรูปแบบ Window จำนวนมากแล้วรายงานเฉพาะแบบที่สวย ผล Walk-Forward ก็ Overfit ได้เช่นกัน</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#process">WFA ทำงานอย่างไร</a></li>
+<li><a href="#windows">Rolling กับ Anchored Window</a></li>
+<li><a href="#design">ออกแบบช่วงทดสอบ</a></li>
+<li><a href="#selection">เลือกพารามิเตอร์อย่างไร</a></li>
+<li><a href="#read">อ่านผลรวม Walk-Forward</a></li>
+<li><a href="#errors">ข้อผิดพลาดที่พบบ่อย</a></li>
+</ul>
+</nav>
+
+<h2 id="process">กระบวนการ Walk-Forward แบบเห็นภาพ</h2>
+
+<ol>
+<li>กำหนด In-Sample Window แรก เช่นช่วง A</li>
+<li>Optimize หรือเลือกพารามิเตอร์ด้วยกฎที่กำหนดล่วงหน้า</li>
+<li>ล็อกพารามิเตอร์และทดสอบใน Out-of-Sample ช่วง B</li>
+<li>บันทึกผล B โดยไม่แก้ค่าระหว่างช่วง</li>
+<li>เลื่อน Window: ใช้ข้อมูลช่วงถัดไปเป็น IS และทดสอบ OOS ใหม่</li>
+<li>เชื่อม OOS ทุกช่วงเป็น Walk-Forward Equity</li>
+<li>ประเมินความเสถียร ไม่เลือกดูเฉพาะ Window ที่กำไร</li>
+</ol>
+
+<p>ข้อมูล OOS ของแต่ละรอบต้องไม่ถูกใช้เลือกรอบนั้น หากเห็นผลแล้วเปลี่ยนกฎ Selection ควรถือว่าเริ่ม Research Version ใหม่และต้องมีข้อมูลใหม่สำหรับยืนยัน</p>
+
+<p>พื้นฐานเรื่องชุดข้อมูลอ่านที่ <a href="https://fenixpro-th.com/in-sample-out-of-sample-ea/">In-Sample และ Out-of-Sample ของ EA</a></p>
+
+<h2 id="windows">Rolling Window กับ Anchored Window</h2>
+
+<h3>Rolling Window</h3>
+<p>ความยาว IS คงที่และเลื่อนทั้งจุดเริ่ม/จุดจบ ข้อมูลเก่าที่สุดหลุดออกทุกครั้ง เหมาะเมื่อเชื่อว่าข้อมูลล่าสุดเกี่ยวข้องกับ Regime ปัจจุบันมากกว่า แต่ Sample อาจเล็กและ Parameter เปลี่ยนบ่อย</p>
+
+<h3>Anchored Window</h3>
+<p>จุดเริ่ม IS คงเดิม ส่วนปลายขยายไปข้างหน้า ใช้ข้อมูลสะสมมากขึ้นและ Parameter อาจนิ่งกว่า แต่ข้อมูลเก่าที่โครงสร้างตลาดเปลี่ยนไปยังมีน้ำหนักอยู่</p>
+
+<table>
+<thead>
+<tr>
+<th>ประเด็น</th>
+<th>Rolling</th>
+<th>Anchored</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ข้อมูลเก่า</td>
+<td>ตัดออกตาม Window</td>
+<td>คงไว้ทั้งหมด</td>
+</tr>
+<tr>
+<td>ตอบสนอง Regime</td>
+<td>เร็วกว่าแต่ Noise สูงขึ้นได้</td>
+<td>ช้ากว่าแต่ Sample ใหญ่ขึ้น</td>
+</tr>
+<tr>
+<td>ความถี่ Re-optimize</td>
+<td>มักใช้รอบคงที่</td>
+<td>ใช้รอบคงที่ได้เช่นกัน</td>
+</tr>
+</tbody>
+</table>
+
+<p>ไม่มีแบบที่ชนะเสมอ ต้องเลือกจากเหตุผลของกลยุทธ์และล็อกวิธีก่อนเห็นผล OOS</p>
+
+<h2 id="design">เลือกความยาว IS/OOS อย่างไร</h2>
+
+<p>อย่าเริ่มจากสัดส่วนตายตัวอย่าง 12 เดือน/3 เดือนโดยไม่ดู Trade Frequency และ Regime เกณฑ์ที่ควรพิจารณา:</p>
+
+<ul>
+<li>IS มี Trade พอให้ Optimization แยก Signal จาก Noise</li>
+<li>ครอบคลุม Cycle ที่กลยุทธ์อาศัย เช่น Trend/Volatility</li>
+<li>OOS ยาวพอให้เกิด Trade หลายชุด แต่ไม่ยาวจน Parameter ไม่มีโอกาสปรับตามแผน</li>
+<li>จำนวน Window มากพอเห็น Distribution ไม่ใช่ 2 รอบ</li>
+<li>ช่วงข่าว/วิกฤตไม่ถูกตัดออกโดยไม่มีเหตุผล</li>
+<li>ต้นทุนและ Symbol Specification สม่ำเสมอข้าม Window</li>
+</ul>
+
+<p>สำหรับ EA ที่เทรดน้อย อาจต้องใช้ IS หลายปีและ OOS ยาวขึ้นเพื่อให้ Sample มีความหมาย ส่วนระบบ Intraday ที่เทรดถี่อาจใช้ Window สั้นกว่า แต่ยังต้องครอบคลุม Regime และต้นทุนที่เปลี่ยน</p>
+
+<h2 id="selection">อย่าเลือกพารามิเตอร์จาก Net Profit สูงสุดอย่างเดียว</h2>
+
+<p>กฎ Selection ควรหาความเสถียร ไม่ใช่ Peak เดียว ตัวอย่างแนวทาง:</p>
+
+<ul>
+<li>ตัด Pass ที่จำนวน Trade ต่ำเกินไป</li>
+<li>กำหนดเพดาน Equity Drawdown</li>
+<li>ดู Recovery/Profit Factor ร่วมกับ Distribution</li>
+<li>เลือก Parameter Plateau ที่ค่าข้างเคียงให้ผลใกล้กัน</li>
+<li>Stress Test Spread/Delay ก่อนเลือก</li>
+<li>จำกัด Turnover และ Exposure ตามข้อกำหนดจริง</li>
+<li>บันทึกกฎ Tie-break เมื่อหลายชุดผ่าน</li>
+</ul>
+
+<p>การเปลี่ยนเกณฑ์ในแต่ละ Window ตามผลที่เห็นทำให้กระบวนการไม่ใช่ระบบเดียวกัน ควรเขียน Selection Algorithm หรือ Checklist ที่ผู้อื่นทำซ้ำได้</p>
+
+<h2>ทำ Walk-Forward ใน MT5 ได้อย่างไร</h2>
+
+<p>MT5 มี Forward Optimization สำหรับแบ่งส่วนท้ายของช่วงเป็น Forward และนำผลที่เลือกจาก Back Period ไปทดสอบ แต่ Walk-Forward หลาย Window ต้องรันกระบวนการซ้ำโดยเลื่อน Date หรือใช้เครื่องมือ/สคริปต์จัดชุดงานเพิ่มเติม</p>
+
+<ol>
+<li>บันทึกไฟล์ EA, SET และ Tester Settings</li>
+<li>กำหนด IS/OOS Calendar ทุก Window ล่วงหน้า</li>
+<li>Optimize IS ด้วย Range และ Criterion เดิม</li>
+<li>เลือก Pass ด้วยกฎเดิม</li>
+<li>Single Test บน OOS และ Export Report</li>
+<li>เชื่อม Deal/Equity OOS ตามเวลาโดยไม่รวม IS</li>
+<li>บันทึก Parameter ที่ถูกเลือกในแต่ละ Window</li>
+</ol>
+
+<h2 id="read">อ่านผล Walk-Forward จากอะไร</h2>
+
+<ul>
+<li><strong>OOS Net/Expectancy:</strong> รวมทุก Window ไม่เลือกเฉพาะกำไร</li>
+<li><strong>Window Pass Rate:</strong> กี่รอบอยู่ในเกณฑ์ที่กำหนด</li>
+<li><strong>Worst OOS Drawdown:</strong> ความเสียหายสูงสุดและ Recovery Time</li>
+<li><strong>Parameter Stability:</strong> ค่าเปลี่ยนรุนแรงทุก Windowหรือไม่</li>
+<li><strong>IS/OOS Degradation:</strong> ผล OOS ลดลงจาก IS มากแค่ไหน</li>
+<li><strong>Cost Sensitivity:</strong> เมื่อเพิ่มต้นทุนผลยังรับได้หรือไม่</li>
+<li><strong>Regime Dependence:</strong> Window ที่พังมีลักษณะร่วมอะไร</li>
+</ul>
+
+<p>Equity ที่เชื่อมต้องใช้เฉพาะ OOS และจัด Position ที่คาบข้ามรอยต่ออย่างสม่ำเสมอ หากทุกรอยต่อบังคับปิดออเดอร์แต่ระบบจริงไม่ทำ ต้องระบุผลกระทบดังกล่าว</p>
+
+<h2 id="errors">ข้อผิดพลาดที่ทำให้ WFA ดูดีกว่าความจริง</h2>
+
+<ul>
+<li>ลอง Window Length หลายสิบแบบแล้วเลือกเส้นดีที่สุด</li>
+<li>แก้ Selection Rule หลังเห็น OOS</li>
+<li>ใช้ Parameter Range กว้างมากโดยไม่มีสมมติฐาน</li>
+<li>ไม่รวม Commission/Slippage/Delay ในทุก Window</li>
+<li>รวม IS Equity เข้า Report เพื่อให้เส้นดูสวย</li>
+<li>ทิ้ง Window ที่ขาดทุนเพราะเรียกว่า Outlier ภายหลัง</li>
+<li>จำนวน Trade ต่อ Window ต่ำจนค่าผันผวนสูง</li>
+<li>ใช้ข้อมูลอนาคตในการจัด Regime หรือเลือก Symbol</li>
+</ul>
+
+<p>หลังผ่าน WFA ยังควรทำ Monte Carlo และ Forward Test ที่ไม่ใช้ข้อมูลในการปรับค่า อ่านภาพรวมการทดสอบจริงที่ <a href="https://fenixpro-th.com/forward-test-ea/">Forward Test EA</a> และปัญหา Parameter Fitting ที่ <a href="https://fenixpro-th.com/over-optimization-ea/">Over-Optimization</a></p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> Walk-Forward เป็นเครื่องมือประเมินความทนทานจากอดีต ไม่ยืนยันว่า Regime หรือความสัมพันธ์เดิมจะคงอยู่ ระบบที่ผ่านยังขาดทุนและล้มเหลวได้</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/strategy_optimization" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Forward Testing During Optimization</a></li>
+<li><a href="https://www.doc.ic.ac.uk/~wjk/publications/tsirimpas-2015.pdf" rel="nofollow noopener" target="_blank">Imperial College London: Walk-Forward Analysis in Trading System Research</a></li>
+<li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2308659" rel="nofollow noopener" target="_blank">Bailey et al.: The Probability of Backtest Overfitting</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

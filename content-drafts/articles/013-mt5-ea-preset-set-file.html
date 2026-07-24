@@ -1,0 +1,151 @@
+---
+seo_title: วิธีบันทึกและโหลดไฟล์ SET ของ EA บน MT5
+meta_description: คู่มือไฟล์ Preset SET บน MT5 ตั้งแต่บันทึก โหลด ตั้งชื่อ สำรอง ตรวจ Version และป้องกันการใช้ค่าผิด Symbol หรือผิด EA
+excerpt: ไฟล์ SET ช่วยเก็บค่า Input ของ EA แต่ไม่ได้เก็บทุกอย่างบนกราฟ เรียนรู้วิธีใช้และตรวจค่าก่อนเปิด Algo Trading
+cover_alt: หน้าต่าง Inputs ของ EA บน MT5 พร้อมปุ่ม Load และ Save ไฟล์ SET
+---
+<p>ไฟล์ SET บน MT5 คือไฟล์สำหรับบันทึกชุดค่า Input Parameters ของ EA หรือ Strategy Tester ช่วยให้โหลดค่าหลายสิบช่องกลับมาได้โดยไม่ต้องกรอกใหม่ทีละรายการ แต่ SET ไม่ใช่ไฟล์ EA ไม่ได้เก็บ Login และไม่ได้รับประกันว่าค่านั้นเหมาะกับทุก Symbol, Timeframe หรือ Version</p>
+
+<p>ความผิดพลาดที่พบบ่อยคือเห็นว่าโหลดไฟล์สำเร็จแล้วกด OK ทันที ทั้งที่ชื่อ Parameter เปลี่ยน ค่า Risk ไม่ตรงเงินทุน หรือ Preset ถูกสร้างสำหรับ Symbol อื่น ขั้นตอนสำคัญจึงไม่ใช่แค่ Load แต่ต้องตรวจค่าหลัง Load และเก็บหลักฐานว่าไฟล์ใดใช้กับระบบใด</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#contains">ไฟล์ SET เก็บอะไร</a></li>
+<li><a href="#save">วิธีบันทึก Preset</a></li>
+<li><a href="#load">วิธีโหลดอย่างปลอดภัย</a></li>
+<li><a href="#name">ตั้งชื่อและจัดโฟลเดอร์</a></li>
+<li><a href="#version">Preset กับ Version ของ EA</a></li>
+<li><a href="#trouble">ปัญหาที่พบบ่อย</a></li>
+</ul>
+</nav>
+
+<h2 id="contains">ไฟล์ SET เก็บและไม่เก็บอะไร</h2>
+
+<p>ไฟล์ SET เก็บชื่อ Parameter และค่าที่เลือกในแท็บ Inputs เช่น Lot, Risk, ช่วงเวลาเทรด, Stop Loss, Filter หรือ Magic Number ตามที่ EA เปิดให้ปรับ แต่สิ่งต่อไปนี้อาจไม่ได้อยู่ใน SET:</p>
+
+<ul>
+<li>ตัวไฟล์ EX5 และ License</li>
+<li>Symbol/Timeframe ของกราฟ เว้นแต่ EA มี Input กำหนดเอง</li>
+<li>สีกราฟ Indicator และ Object บางชนิด</li>
+<li>สถานะปุ่ม Algo Trading ของ Terminal</li>
+<li>Permission ระดับ Common เช่น DLL/WebRequest บางส่วน</li>
+<li>Position ที่เปิดอยู่และสถานะภายในที่ EA เก็บแยก</li>
+</ul>
+
+<p>หากต้องการเก็บทั้งหน้าตากราฟ EA และ Indicator ให้ใช้ Template หรือ Profile เพิ่ม เอกสาร MT5 ระบุว่า Chart Template สามารถเก็บ EA และ Parameters ที่ผูกกับกราฟได้ แต่การนำ Template ไปใช้ต้องระวังไม่ให้แทน EA/การตั้งค่าบนกราฟปลายทางโดยไม่ตั้งใจ</p>
+
+<h2 id="save">วิธีบันทึกไฟล์ SET</h2>
+
+<ol>
+<li>เปิดกราฟและ Properties ของ EA ด้วย F7 หรือคลิกขวา Expert List</li>
+<li>ไปแท็บ <strong>Inputs</strong></li>
+<li>ตรวจค่าทุกช่อง โดยเฉพาะ Risk, Lot, Magic, Symbol และ Session</li>
+<li>กด <strong>Save</strong></li>
+<li>ตั้งชื่อที่บอก EA, Version, Symbol, Timeframe และระดับความเสี่ยง</li>
+<li>บันทึกในโฟลเดอร์ที่ทีมสำรองได้ และเก็บสำเนานอก VPS</li>
+<li>จับ Screenshot หน้า Inputs หรือ Export รายการค่าเพื่อใช้ตรวจเทียบ</li>
+</ol>
+
+<p>ตัวอย่างชื่อที่อ่านย้อนหลังได้:</p>
+
+<p><code>fenix-pro-v1-3-xauusd-h1-low-20260724.set</code></p>
+
+<p>อย่าใช้ชื่ออย่าง <code>new.set</code>, <code>ล่าสุด.set</code> หรือ <code>ดีมาก.set</code> เพราะเมื่อมีหลายไฟล์จะไม่รู้ว่า “ล่าสุด” ของ Version ใดและใช้กับบัญชีแบบไหน</p>
+
+<h2 id="load">วิธีโหลด Preset โดยไม่ใช้ค่าผิด</h2>
+
+<ol>
+<li>ยืนยันชื่อและ Version ของ EA บนกราฟ</li>
+<li>ยืนยัน Symbol และ Timeframe ตามคู่มือ</li>
+<li>เปิด Properties &gt; Inputs แล้วกด <strong>Load</strong></li>
+<li>เลือกไฟล์ SET ที่ตรงกับ EA/Version</li>
+<li>ตรวจว่าค่าเปลี่ยนครบและไม่มี Parameter สำคัญหาย</li>
+<li>ตรวจ Lot/Risk ด้วยตนเอง ไม่เชื่อจากชื่อไฟล์อย่างเดียว</li>
+<li>ตรวจ Magic Number ไม่ซ้ำกับกราฟอื่น</li>
+<li>กด OK แล้วดู Experts Log ว่า Init สำเร็จ</li>
+<li>บันทึกชื่อ Preset ที่ใช้จริงลงตารางระบบ</li>
+</ol>
+
+<p>หากกำลังติดตั้ง FENIX PRO EA ให้ใช้ Preset ที่ทีมส่งให้ตามคู่มือ <a href="https://fenixpro-th.com/fenix-pro-ea-setup/">การตั้งค่า FENIX PRO EA</a> และตรวจขั้นตอนจาก <a href="https://fenixpro-th.com/fenix-pro-ea-install-guide/">คู่มือติดตั้งฉบับภาพ</a></p>
+
+<h2 id="name">ระบบตั้งชื่อและจัดเก็บที่แนะนำ</h2>
+
+<table>
+<thead>
+<tr>
+<th>ส่วนของชื่อ</th>
+<th>เหตุผล</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product/EA</td>
+<td>ป้องกันโหลดข้ามระบบ</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>รู้ว่า Parameter Schema ตรงกันหรือไม่</td>
+</tr>
+<tr>
+<td>Symbol/Timeframe</td>
+<td>ลดการใช้ค่าข้ามตลาด</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>แยก Low/Custom โดยต้องมีเอกสารนิยาม</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>ตรวจประวัติการเปลี่ยนแปลง</td>
+</tr>
+</tbody>
+</table>
+
+<p>ในแต่ละไฟล์ควรมี Change Log แยก เช่นวันที่แก้ ค่าใดเปลี่ยน เหตุผล ผู้อนุมัติ และผลทดสอบที่เกี่ยวข้อง ไม่แก้ Preset เดิมแล้วบันทึกทับโดยไม่มี Version เพราะจะย้อนกลับไม่ได้เมื่อผลต่างจากเดิม</p>
+
+<h2 id="version">ทำไม Preset ต้องตรง Version ของ EA</h2>
+
+<p>เมื่อผู้พัฒนาเพิ่ม ลบ หรือเปลี่ยนชื่อ Input ไฟล์ SET รุ่นเก่าอาจโหลดได้เพียงบางค่า ค่าใหม่อาจใช้ Default หรือค่าบางช่องอาจแมปไม่ตรง การที่หน้าต่างไม่แสดง Error ไม่ได้ยืนยันว่าค่าทั้งหมดถูกต้อง</p>
+
+<p>ก่อนอัปเดต EA:</p>
+
+<ul>
+<li>Save Preset ของ Version ปัจจุบัน</li>
+<li>บันทึก Screenshot และ Version</li>
+<li>อ่าน Release Notes ว่า Parameter ใดเปลี่ยน</li>
+<li>ทดสอบ SET เก่าบน Demo หรือ Terminal สำรอง</li>
+<li>สร้าง SET ชุดใหม่หาก Schema เปลี่ยน</li>
+<li>อย่าแทนไฟล์ EA ขณะมี Position หากไม่รู้กระบวนการ Migration</li>
+</ul>
+
+<p>ค่าที่ควรตรวจเป็นพิเศษหลังอัปเดตคือ Risk Mode, Lot, Magic Number, Trading Session, News Filter, Max Spread, Equity Stop และค่าที่มีหน่วยเป็น Points/Pips เพราะชื่อใกล้กันแต่ความหมายอาจเปลี่ยนได้</p>
+
+<h2 id="trouble">ปัญหาที่พบบ่อย</h2>
+
+<h3>กด Load แล้วค่าไม่เปลี่ยน</h3>
+<p>อาจเลือกไฟล์คนละ EA, SET เสีย หรือ Parameter Name ไม่ตรง Version เปิดด้วย Text Editor เพื่อดูโครงได้แต่ไม่ควรแก้สุ่ม ให้ขอไฟล์ที่ถูกต้องจากผู้พัฒนา</p>
+
+<h3>หาไฟล์ไม่เจอ</h3>
+<p>MT5 เปิด Dialog จากโฟลเดอร์ Presets/Tester ตามบริบท แต่ผู้ใช้สามารถเลือก Path อื่นได้ ควรเก็บ Master Copy ในโฟลเดอร์ที่สำรองและคัดลอกมาใช้ ไม่ฝากไฟล์เดียวไว้ใน VPS</p>
+
+<h3>โหลดแล้ว EA ไม่ทำงาน</h3>
+<p>ดู Experts/Journal ว่า Parameter Validation ผ่านหรือไม่ ตรวจ Permission และ Symbol/Timeframe การโหลด SET สำเร็จไม่ได้แปลว่าทุกเงื่อนไขพร้อม อ่าน <a href="https://fenixpro-th.com/mt5-experts-journal-logs/">วิธีอ่าน Experts และ Journal</a></p>
+
+<h3>ค่า Lot เปลี่ยนเอง</h3>
+<p>หาก EA ใช้ Auto Lot ค่าแสดงอาจเป็น Parameter ของสูตร ไม่ใช่ Lot สุดท้าย ต้องอ่านวิธีคำนวณและดู Volume ที่ส่งจริง ห้ามสรุปจากชื่อ Preset “Low” โดยไม่รู้ค่าความเสี่ยง</p>
+
+<p>ไฟล์ SET ช่วยลด Human Error ได้เมื่อมีระบบ Version Control ที่ชัดเจน แต่หากตั้งชื่อไม่ดีและไม่มีขั้นตรวจกลับ มันกลับทำให้โหลดค่าผิดได้เร็วกว่าเดิม</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> Preset เป็นชุดการตั้งค่า ไม่ใช่คำรับรองผลลัพธ์ ค่าที่เหมาะสมขึ้นกับเงินทุน Symbol, Contract Specification และระดับความเสี่ยงที่ผู้ใช้รับได้ ต้องตรวจทุกครั้งก่อนใช้เงินจริง</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/structure" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: MQL5 Presets and Folder Structure</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/charts_advanced/templates_profiles" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Templates and Profiles</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/start" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: ExpertParameters and Platform Start</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

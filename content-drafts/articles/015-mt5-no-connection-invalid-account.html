@@ -1,0 +1,154 @@
+---
+seo_title: MT5 ขึ้น No Connection หรือ Invalid Account แก้อย่างไร
+meta_description: แก้ MT5 No Connection และ Invalid Account แบบเป็นขั้นตอน ตรวจอินเทอร์เน็ต Login Password Server บัญชีหมดอายุ และ Log ก่อนติดตั้งใหม่
+excerpt: No Connection กับ Invalid Account ไม่ใช่ปัญหาเดียวกัน คู่มือนี้ช่วยแยกสาเหตุจากสถานะและ Journal เพื่อแก้ตรงจุด
+cover_alt: หน้าจอ MT5 แสดงสถานะ No Connection และหน้าต่าง Login to Trade Account
+---
+<p>MT5 ขึ้น <strong>No Connection</strong> หมายถึงแพลตฟอร์มยังเชื่อมต่อ Trade Server ไม่สำเร็จ ส่วน <strong>Invalid Account</strong> มักเกี่ยวกับข้อมูลบัญชีหรือบัญชีบน Server นั้นไม่สามารถใช้ได้ การแก้จึงต้องแยกอาการก่อน ไม่ควรเริ่มจากลบโปรแกรมหรือติดตั้ง EA ใหม่ เพราะ EA ไม่ใช่ตัวกำหนดสิทธิ์ Login ของบัญชี</p>
+
+<p>ก่อนแก้ ให้เปิดแท็บ Journal และบันทึกข้อความล่าสุด ชื่อ Server ที่เลือก และเวลาที่เกิดปัญหา โดยไม่ส่ง Password ให้ใคร จากนั้นตรวจจากเครือข่ายไปหาบัญชีตามลำดับด้านล่าง</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#meaning">แต่ละสถานะหมายถึงอะไร</a></li>
+<li><a href="#network">ตรวจ No Connection</a></li>
+<li><a href="#account">ตรวจ Invalid Account</a></li>
+<li><a href="#server">เลือก Server ให้ถูกต้อง</a></li>
+<li><a href="#journal">ใช้ Journal หาสาเหตุ</a></li>
+<li><a href="#avoid">สิ่งที่ไม่ควรทำ</a></li>
+</ul>
+</nav>
+
+<h2 id="meaning">แยก No Connection, Invalid Account และ Investor Login</h2>
+
+<table>
+<thead>
+<tr>
+<th>อาการ</th>
+<th>ความหมายที่ควรตรวจ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No Connection</td>
+<td>Terminal ติดต่อ Server ไม่สำเร็จ อาจมาจาก Internet, DNS, Firewall, Server หรือเลือก Server ผิด</td>
+</tr>
+<tr>
+<td>Invalid Account</td>
+<td>Login/Password/Server ไม่ตรง บัญชีหมดอายุ ถูกปิด หรือไม่มีบัญชีนี้บน Server ที่เลือก</td>
+</tr>
+<tr>
+<td>Authorization Failed</td>
+<td>ข้อมูลยืนยันตัวตนไม่ผ่าน ต้องอ่านรายละเอียดใน Journal</td>
+</tr>
+<tr>
+<td>เชื่อมต่อได้แต่เทรดไม่ได้</td>
+<td>อาจ Login ด้วย Investor Password, ตลาดปิด, Trade Disabled หรือสิทธิ์บัญชีมีข้อจำกัด</td>
+</tr>
+</tbody>
+</table>
+
+<p>Investor Password อนุญาตให้ดูบัญชีและวิเคราะห์ข้อมูล แต่ไม่มีสิทธิ์ส่งคำสั่งซื้อขาย หากเชื่อมต่อได้แต่ EA ส่งคำสั่งไม่ได้ ให้ยืนยันว่ากำลังใช้ Master/Trading Password โดยไม่ต้องส่งรหัสดังกล่าวให้ทีม Support</p>
+
+<h2 id="network">วิธีตรวจ MT5 No Connection</h2>
+
+<ol>
+<li><strong>ตรวจ Internet ของเครื่อง:</strong> เปิดเว็บไซต์อื่นและดูว่า Windows/VPS มี Network หรือไม่</li>
+<li><strong>ดูสถานะมุมขวาล่าง:</strong> คลิกเพื่อเปิดรายการ Server/Rescan หากมี แต่ไม่สลับ Server สุ่ม</li>
+<li><strong>เปิด Journal:</strong> หา Disconnect, Network Failed, Proxy หรือ Timeout ในเวลาปัจจุบัน</li>
+<li><strong>ตรวจ Firewall/Antivirus:</strong> ดูว่า terminal64.exe ถูกบล็อกหรือไม่ ไม่ปิดระบบป้องกันแบบถาวร</li>
+<li><strong>ตรวจ Proxy/VPN:</strong> หากองค์กรหรือ VPS ใช้ Proxy ให้ตรวจ Options ส่วน Server; VPN บางตัวอาจเปลี่ยนเส้นทางหรือบล็อก Port</li>
+<li><strong>ตรวจเวลา Windows:</strong> เวลา/วันที่ผิดมากอาจกระทบการเชื่อมต่อที่ใช้ Certificate</li>
+<li><strong>เช็กประกาศโบรกเกอร์:</strong> Server อาจ Maintenance หรือมีการเปลี่ยนชื่อ</li>
+<li><strong>ทดลองเครือข่ายอื่น:</strong> ใช้เพื่อแยกปัญหา ISP/Router โดยไม่เปลี่ยนบัญชีพร้อมกัน</li>
+</ol>
+
+<p>ถ้า MT5 ชุดอื่นบนเครื่องเดียวเชื่อมต่อได้ แต่ชุดนี้ไม่ได้ ให้เปรียบเทียบ Server, Proxy, Build และไฟล์ Config หากทุกชุดหลุดพร้อมกัน ปัญหามีแนวโน้มอยู่ที่ Network, Windows หรือฝั่ง Server มากกว่า EA</p>
+
+<h2 id="account">วิธีตรวจ Invalid Account</h2>
+
+<ol>
+<li>คัดลอก Login Number จากอีเมล/Portal ของโบรกเกอร์ ไม่พิมพ์จากความจำ</li>
+<li>ใช้ Trading Password ไม่ใช่รหัสเว็บไซต์ ไม่ใช่ MQL5.community Password และไม่ใช่ Investor Password</li>
+<li>เลือกชื่อ Server ให้ตรงทุกตัวอักษร เช่น Real, Live, Demo และหมายเลข Server</li>
+<li>ตรวจว่าบัญชีเป็น MT5 ไม่ใช่บัญชี MT4</li>
+<li>ตรวจสถานะบัญชีใน Client Portal ว่ายัง Active</li>
+<li>สำหรับ Demo ตรวจวันหมดอายุหรือการลบบัญชีที่ไม่มีการใช้งาน</li>
+<li>หากเพิ่งเปลี่ยน Password ให้ใช้รหัสใหม่และลบ Credential เก่าที่ Save ไว้</li>
+<li>หากยังไม่ได้ ติดต่อ Support ของโบรกเกอร์พร้อม Login Number และ Server แต่ไม่ส่ง Password</li>
+</ol>
+
+<p>เอกสาร MT5 ระบุว่าบัญชี Demo ที่หมดอายุอาจถูก Server ตอบกลับเป็น Invalid Account และแพลตฟอร์มบางกรณีสามารถสร้าง Demo ใหม่แทนได้ แต่บัญชีใหม่ไม่ใช่บัญชีเดิมและไม่มีประวัติ/การตั้งค่าที่เหมือนกัน จึงต้องตรวจให้ชัดก่อนใช้งาน EA ต่อ</p>
+
+<h2 id="server">ทำไมชื่อ Server ต้องตรง</h2>
+
+<p>Login Number ไม่ได้มีความหมายแบบสากล แต่ผูกกับ Trade Server ของโบรกเกอร์ บัญชีหมายเลขเดียวกันอาจไม่มีอยู่บน Server อื่น การเลือกชื่อโบรกเกอร์ถูกแต่ Server ผิดยังทำให้ Login ล้มเหลวได้</p>
+
+<p>ในหน้าต่าง <strong>File &gt; Login to Trade Account</strong> ต้องมีสามข้อมูล:</p>
+
+<ul>
+<li>Login: หมายเลขบัญชีเทรด</li>
+<li>Password: Master/Trading Password</li>
+<li>Server: ชื่อ Server หรือ Address ที่โบรกเกอร์กำหนด</li>
+</ul>
+
+<p>สำหรับบัญชี ZAURIX ใช้คู่มือเฉพาะที่ <a href="https://fenixpro-th.com/mt5-login-zaurix-server/">วิธีติดตั้งและ Login เข้า ZAURIX Server</a> และอย่าใช้ข้อมูลจาก Screenshot ของบุคคลอื่นแทนข้อมูลบัญชีของตนเอง</p>
+
+<h2 id="journal">ใช้ Journal แทนการเดา</h2>
+
+<p>เปิด Toolbox ด้วย Ctrl+T แล้วดู Journal ตามเวลาที่กด Login คัดลอกข้อความตั้งแต่เริ่ม Connecting จนถึงบรรทัดสรุป หากข้อความเร็วเกินไป ให้คลิกขวาเปิด Log Viewer หรือไฟล์รายวัน</p>
+
+<p>ตัวอย่างแนวคิดในการอ่าน:</p>
+
+<ul>
+<li>ไม่มีข้อความ Connecting เลย: ตรวจว่ากด Login ถูก Terminal และ Network Service ทำงานหรือไม่</li>
+<li>Connecting แล้ว Timeout: ตรวจเครือข่าย, Server, Firewall และสถานะผู้ให้บริการ</li>
+<li>Authorization Failed/Invalid Account: กลับไปตรวจ Credential และ Server</li>
+<li>Connected แล้วหลุดซ้ำ: ตรวจคุณภาพ Network, VPS และ Log รอบเวลาเดียวกัน</li>
+<li>Connected แต่ Trade Request ถูกปฏิเสธ: แยกไปตรวจ Permission, Market และ Account ไม่ใช่ Login</li>
+</ul>
+
+<p>รายละเอียดการเก็บหลักฐานอ่านต่อที่ <a href="https://fenixpro-th.com/mt5-experts-journal-logs/">วิธีอ่าน Experts และ Journal บน MT5</a></p>
+
+<h2>หลังเชื่อมต่อได้แล้วต้องตรวจ EA อีกครั้ง</h2>
+
+<p>การเชื่อมต่อกลับมาไม่ได้หมายความว่า EA เริ่มทำงานครบ ตรวจสิ่งต่อไปนี้:</p>
+
+<ul>
+<li>บัญชีและ Server ถูกตัว ไม่ได้เผลอเข้า Demo อื่น</li>
+<li>Symbol ในกราฟมีราคาอัปเดต</li>
+<li>Algo Trading เปิด และ EA มี Permission</li>
+<li>ชื่อ EA/Version/Preset ตรงกับก่อนหลุด</li>
+<li>EA เห็น Position เดิมและ Magic Number ถูกต้อง</li>
+<li>Experts/Journal ไม่มี Error หลัง Reconnect</li>
+</ul>
+
+<p>หาก Terminal Restart ระหว่างมี Position ให้ตรวจ Stop, Trailing, Basket และ State ของ EA ก่อนปล่อยระบบต่อ ไม่รีบเพิ่มออเดอร์ชดเชยเพียงเพราะเห็นว่าช่วงหลุด “พลาดสัญญาณ”</p>
+
+<h2 id="avoid">สิ่งที่ไม่ควรทำ</h2>
+
+<ul>
+<li>ส่ง Password หรือไฟล์ Credential ให้คนอื่นผ่านแชต</li>
+<li>ปิด Firewall/Antivirus ทั้งระบบแบบถาวร</li>
+<li>ดาวน์โหลด MT5 จากลิงก์ไม่ทราบแหล่งเพื่อแก้ Connection</li>
+<li>สร้างบัญชีใหม่ก่อนสำรองข้อมูลบัญชีเดิม</li>
+<li>ลบ Data Folder โดยยังไม่มี Backup Preset/Profile/Log</li>
+<li>เปลี่ยนหลายค่าในครั้งเดียวจนไม่รู้ว่าสาเหตุจริงคืออะไร</li>
+<li>เปิด EA ต่อทันทีโดยไม่ตรวจว่า Login ด้วย Master หรือ Investor</li>
+</ul>
+
+<p>ปัญหา Connection แก้ได้เร็วขึ้นเมื่อแยกเป็น Network, Server และ Credential ตามลำดับ หากต้องติดตั้ง MT5 ใหม่จริง ให้ใช้ไฟล์จากโบรกเกอร์หรือแหล่งทางการและทำตาม <a href="https://fenixpro-th.com/how-to-install-mt5/">คู่มือติดตั้ง MT5</a></p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> ในช่วงที่ MT5 หลุด ฟังก์ชันของ EA ที่ต้องทำงานใน Terminal อาจหยุด แม้ Stop/Take Profit ที่วางบน Server บางรายการยังคงอยู่ ห้ามสมมติว่าทุกระบบป้องกันยังทำงานครบโดยไม่ตรวจสถานะ</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/startworking/authorization" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Connect to an Account</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/account_manage" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Manage Trading Accounts</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/journal" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Platform Logs</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

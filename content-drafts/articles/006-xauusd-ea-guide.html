@@ -1,0 +1,138 @@
+---
+seo_title: ใช้ EA เทรดทอง XAUUSD ต้องรู้อะไรก่อนเริ่ม
+meta_description: คู่มือใช้ EA เทรดทอง XAUUSD บน MT5 ตั้งแต่ Contract Size, Tick Value, Spread, ข่าว, Lot และความเสี่ยงที่ต้องตรวจจากโบรกเกอร์
+excerpt: XAUUSD ผันผวนและสเปกต่างกันตามโบรกเกอร์ ก่อนใช้ EA ต้องตรวจ Contract Specification ต้นทุน ข่าว และขนาดความเสี่ยงให้ครบ
+cover_alt: กราฟทอง XAUUSD บน MT5 พร้อมข้อมูล Contract Size และความเสี่ยง
+---
+<p>XAUUSD เป็น Symbol ที่ใช้แสดงราคาทองคำเทียบกับดอลลาร์สหรัฐบนแพลตฟอร์มของโบรกเกอร์จำนวนมาก ความผันผวนและโอกาสที่ราคาเคลื่อนเร็วทำให้ทองเป็นสินทรัพย์ที่นิยมใช้กับ EA แต่ชื่อ XAUUSD ไม่ได้แปลว่าสเปกเหมือนกันทุกแห่ง Contract Size, Tick Value, Spread, Stops Level, Leverage และเวลาซื้อขายอาจต่างกัน จึงไม่ควรนำค่า Lot หรือ Preset จากบัญชีหนึ่งไปใช้กับอีกบัญชีโดยไม่ตรวจสอบ</p>
+
+<p>บทความนี้เน้นสิ่งที่ต้องเช็กก่อนเปิด EA บนกราฟทอง ไม่ให้ความหมายว่า XAUUSD เหมาะกับผู้ใช้ทุกคน และไม่กำหนด Lot หรือทุนตายตัว เพราะระดับที่เหมาะสมขึ้นอยู่กับสเปกบัญชี ระบบ และความเสี่ยงที่แต่ละคนยอมรับได้</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#symbol">XAUUSD ใน MT5 คืออะไร</a></li>
+<li><a href="#spec">Contract Specification ที่ต้องดู</a></li>
+<li><a href="#volatility">ความผันผวนและข่าว</a></li>
+<li><a href="#lot">การกำหนด Lot</a></li>
+<li><a href="#test">วิธีทดสอบ EA บนทอง</a></li>
+<li><a href="#checklist">เช็กลิสต์ก่อนรันจริง</a></li>
+</ul>
+</nav>
+
+<h2 id="symbol">XAUUSD ใน MT5 คืออะไร</h2>
+
+<p>XAU เป็นรหัสที่ใช้แทนทองคำ และ USD คือดอลลาร์สหรัฐ ในบัญชี Retail Forex หรือ CFD ผู้ใช้ไม่ได้ควรสรุปโดยอัตโนมัติว่ากำลังซื้อทองคำแท่งหรือ Gold Futures จริง รูปแบบผลิตภัณฑ์ คู่สัญญา การคำนวณ Margin และสิทธิของผู้ถือขึ้นอยู่กับโบรกเกอร์และเอกสารบัญชี</p>
+
+<p>ชื่อ Symbol อาจมีส่วนต่อท้าย เช่น XAUUSDm, GOLD หรือ XAUUSD.pro และ EA บางตัวตรวจชื่อ Symbol แบบตรงตัว หากผู้พัฒนาไม่ได้รองรับ Suffix ระบบอาจอ่านข้อมูลผิดหรือไม่ทำงาน จึงควรตรวจคู่มือและทดสอบบน Demo ก่อน</p>
+
+<h2 id="spec">Contract Specification ที่ต้องตรวจทุกบัญชี</h2>
+
+<p>ใน MT5 เปิด Market Watch คลิกขวาที่ Symbol แล้วเลือก Specification ข้อมูลสำคัญมีดังนี้</p>
+
+<table>
+<thead>
+<tr>
+<th>รายการ</th>
+<th>มีผลต่อ EA อย่างไร</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contract Size</td>
+<td>กำหนดมูลค่าของหนึ่ง Lot และเป็นฐานของการคำนวณ Margin หรือผลกำไรขาดทุน</td>
+</tr>
+<tr>
+<td>Tick Size / Tick Value</td>
+<td>ใช้คำนวณมูลค่าการเปลี่ยนราคาต่อ Tick และขนาดความเสี่ยง</td>
+</tr>
+<tr>
+<td>Digits / Point</td>
+<td>มีผลต่อการแปลงระยะ Stop Loss, Take Profit และ Grid จากจุดเป็นราคา</td>
+</tr>
+<tr>
+<td>Minimal Volume / Volume Step</td>
+<td>กำหนด Lot ต่ำสุดและขั้นการเพิ่ม Lot ที่ Server ยอมรับ</td>
+</tr>
+<tr>
+<td>Stops Level</td>
+<td>กำหนดระยะขั้นต่ำที่วาง Stop Loss, Take Profit หรือ Pending Order ได้</td>
+</tr>
+<tr>
+<td>Spread / Commission</td>
+<td>เป็นต้นทุนที่กระทบจุดคุ้มทุนและผลของระบบระยะสั้น</td>
+</tr>
+<tr>
+<td>Swap</td>
+<td>มีผลเมื่อ EA ถือสถานะข้ามคืนหรือหลายวัน</td>
+</tr>
+<tr>
+<td>Trading Sessions</td>
+<td>กำหนดช่วงที่ส่งคำสั่งได้และช่วงหยุดพักของ Symbol</td>
+</tr>
+</tbody>
+</table>
+
+<p>อย่าจำค่าจากบทความหรือ Screenshot เพราะโบรกเกอร์สามารถใช้สเปกต่างกันและปรับเงื่อนไขได้ การอ่านค่าจาก Specification ของบัญชีที่จะใช้จริงเป็นแหล่งข้อมูลที่ตรงที่สุด</p>
+
+<h2 id="volatility">ความผันผวน ข่าว และต้นทุนของทอง</h2>
+
+<p>ราคาทองตอบสนองต่อหลายปัจจัย เช่น ดอลลาร์ อัตราดอกเบี้ยจริง ความคาดหวังนโยบายการเงิน ความเสี่ยงทางภูมิรัฐศาสตร์ และสภาพคล่องในตลาด เหตุการณ์อย่างประกาศเงินเฟ้อ การประชุมธนาคารกลาง หรือข้อมูลแรงงานอาจทำให้ราคาและ Spread เปลี่ยนรวดเร็ว</p>
+
+<p>News Filter ช่วยกำหนดว่า EA จะงดเปิดออเดอร์รอบเหตุการณ์ที่ตั้งไว้ แต่ไม่สามารถรับประกันว่าจะไม่มี Gap, Slippage หรือ Spread ถ่าง เพราะออเดอร์เดิมยังได้รับผลจากตลาด และเหตุการณ์ที่ไม่อยู่ในปฏิทินก็เกิดได้ หากระบบถือสถานะอยู่ก่อนข่าว ต้องรู้ว่ามีกฎลดความเสี่ยง ปิดบางส่วน หรือปล่อยตาม Stop อย่างไร</p>
+
+<p>ระบบ Scalping บนทองยิ่งไวต่อต้นทุน ส่วน Grid หรือ Martingale จะไวต่อแนวโน้มยาวและการสะสม Exposure เปรียบเทียบกลยุทธ์ได้ที่ <a href="https://fenixpro-th.com/types-of-ea-trading-strategies/">ประเภทของ EA</a></p>
+
+<h2 id="lot">กำหนด Lot ของ XAUUSD อย่างไร</h2>
+
+<p>ไม่ควรเลือก Lot จากทุนเพียงตัวเลขเดียว วิธีที่ตรวจสอบได้มากกว่าคือเริ่มจากจำนวนเงินสูงสุดที่ยอมเสียต่อออเดอร์หรือชุดออเดอร์ แล้วคำนวณร่วมกับระยะ Stop Loss และ Tick Value ของ Symbol</p>
+
+<p>หลักคิดทั่วไปคือ:</p>
+
+<p><strong>Lot ที่รับได้ = เงินที่ยอมเสี่ยง ÷ มูลค่าขาดทุนต่อหนึ่ง Lot ตามระยะ Stop</strong></p>
+
+<p>แต่สูตรจริงต้องใช้ Tick Size, Tick Value, สกุลเงินบัญชี และวิธีคำนวณของ Symbol หากเป็นระบบหลายออเดอร์ ต้องรวม Lot และ Stop ของทั้ง Basket ไม่ใช่คำนวณเฉพาะไม้แรก MT5 มีฟังก์ชัน OrderCalcProfit และ OrderCalcMargin ให้โปรแกรมประเมินผลตามสเปกบัญชี แต่ผู้ใช้ยังควรตรวจผลกับเครื่องคำนวณและ Demo</p>
+
+<p>อ่านแนวทางทีละขั้นที่ <a href="https://fenixpro-th.com/calculate-lot-size/">วิธีคำนวณ Lot Size</a> และกำหนดกรอบด้วย <a href="https://fenixpro-th.com/risk-per-trade/">ความเสี่ยงต่อออเดอร์</a></p>
+
+<h2 id="test">วิธีทดสอบ EA บน XAUUSD ก่อนใช้จริง</h2>
+
+<ol>
+<li><strong>ใช้ข้อมูลจากโบรกเกอร์หรือ Server ที่เกี่ยวข้อง</strong> เพราะราคา Tick และ Spread อาจต่างกัน</li>
+<li><strong>ตรวจชื่อ Symbol และ Suffix</strong> ให้ตรงกับค่าที่ EA รองรับ</li>
+<li><strong>ใส่ Commission และ Swap</strong> ตามประเภทบัญชีที่จะใช้จริง</li>
+<li><strong>ทดสอบหลายระดับ Spread</strong> รวมช่วงที่ต้นทุนสูงกว่าปกติ</li>
+<li><strong>ครอบคลุมข่าวและช่วงผันผวน</strong> ไม่ตัดช่วงเสียหายออกเพียงเพื่อให้กราฟสวย</li>
+<li><strong>ตรวจทั้ง Balance และ Equity</strong> โดยเฉพาะระบบที่เปิดหลายออเดอร์</li>
+<li><strong>ทำ Forward Test บน Demo</strong> เพื่อดูการส่งคำสั่งและข้อผิดพลาดใน Journal</li>
+<li><strong>เริ่ม Lot ต่ำกว่าค่าที่รับได้สูงสุด</strong> เพื่อเผื่อ Slippage, Gap และความคลาดเคลื่อนจากแบบทดสอบ</li>
+</ol>
+
+<h2 id="checklist">เช็กลิสต์ก่อนเปิด EA เทรดทอง</h2>
+
+<ul>
+<li>EA รองรับชื่อ Symbol และสเปกของบัญชีนี้หรือไม่</li>
+<li>รู้ Contract Size, Tick Size, Tick Value และ Volume Step แล้วหรือยัง</li>
+<li>ระบบใช้ Fixed Lot, Auto Lot, Grid หรือ Martingale</li>
+<li>ขาดทุนสูงสุดต่อออเดอร์และต่อวันถูกจำกัดอย่างไร</li>
+<li>มี Stop Loss, Equity Stop หรือเงื่อนไขปิด Basket หรือไม่</li>
+<li>ทำงานช่วงข่าวหรือ Rollover หรือไม่</li>
+<li>VPS และ MT5 ใช้ Server Time ใด</li>
+<li>ผลทดสอบรวม Spread, Commission, Swap และ Slippage หรือยัง</li>
+<li>เงินที่ใช้เป็นเงินเย็นและยอมรับการขาดทุนได้หรือไม่</li>
+</ul>
+
+<p>หากคำตอบบางข้อยังไม่ชัด ควรหยุดที่ Demo และสอบถามผู้พัฒนาก่อน การตั้งค่าให้เหมาะกับบัญชีสำคัญกว่าการนำ Preset ของผู้อื่นมาใช้โดยไม่ตรวจสเปก</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> ทองคำและผลิตภัณฑ์ที่อ้างอิงทองมีความผันผวนสูง การใช้ EA และ Leverage อาจขยายทั้งกำไรและขาดทุน Stop Loss อาจถูกดำเนินการต่างจากราคาที่ตั้งไว้ในช่วง Gap หรือสภาพคล่องต่ำ ผลในอดีตไม่รับประกันผลในอนาคต</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/market_watch" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Market Watch and Symbol Specification</a></li>
+<li><a href="https://www.mql5.com/en/docs/trading" rel="nofollow noopener" target="_blank">MQL5 Reference: Trade Functions and calculation helpers</a></li>
+<li><a href="https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/CustomerAdvisory_MustKnowForex.html" rel="nofollow noopener" target="_blank">CFTC: Risks and due diligence for leveraged OTC trading</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

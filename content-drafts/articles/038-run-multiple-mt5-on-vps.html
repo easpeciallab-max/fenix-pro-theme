@@ -1,0 +1,148 @@
+---
+seo_title: วิธีติดตั้ง MT5 หลาย Terminal บน VPS เครื่องเดียว
+meta_description: ขั้นตอนติดตั้ง MT5 หลาย Terminal บน VPS ให้แยกโฟลเดอร์ Data Folder บัญชี Magic Number และ Startup พร้อม Checklist ป้องกันเปิด EA ซ้ำ
+excerpt: MT5 หลายชุดต้องแยก Installation และ Data ให้ชัด ตั้งชื่อบัญชีและตรวจ Process หลัง Restart เพื่อป้องกัน EA ซ้ำหรือแก้ไฟล์ผิด Terminal
+cover_alt: โครงสร้างติดตั้ง MT5 หลาย Terminal บน VPS แยกโฟลเดอร์ บัญชี และ EA
+---
+<p>MetaTrader 5 รองรับการเปิดหลายสำเนาพร้อมกันเมื่อ <strong>ติดตั้งแต่ละ Terminal ในคนละ Directory</strong> การทำบน VPS ช่วยจัดหลายบัญชีหรือหลายชุด EA แต่เพิ่มความเสี่ยงด้านทรัพยากร ไฟล์ซ้ำ Magic Number และการเปิด Process ซ้อน จึงต้องตั้งมาตรฐานชื่อและ Inventory ตั้งแต่ต้น</p>
+
+<p>แนวทางนี้เหมาะเมื่อมีเหตุผลต้องแยกบัญชีหรือ Environment จริง ไม่ควรเพิ่ม Terminal เพื่อแก้ปัญหาการจัดการที่ยังไม่ชัด และไม่ควรรัน Backtest หนักใน VPS Production เดียวกันโดยไม่มี Resource Limit</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#plan">วางแผนก่อนติดตั้ง</a></li>
+<li><a href="#install">ขั้นตอนติดตั้งแยก Directory</a></li>
+<li><a href="#data">Main Mode กับ Portable Mode</a></li>
+<li><a href="#identity">ตั้งชื่อและแยกออเดอร์</a></li>
+<li><a href="#resources">คุมทรัพยากร VPS</a></li>
+<li><a href="#restart">ตรวจหลัง Restart</a></li>
+</ul>
+</nav>
+
+<h2 id="plan">สร้าง Terminal Inventory</h2>
+
+<p>ก่อนดาวน์โหลด ให้ทำตารางหนึ่งแถวต่อ Terminal:</p>
+
+<table>
+<thead>
+<tr>
+<th>ข้อมูล</th>
+<th>ตัวอย่างรูปแบบ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terminal ID</td>
+<td>T01, T02, T03</td>
+</tr>
+<tr>
+<td>Broker/Server</td>
+<td>ชื่อ Server ตามหน้าล็อกอิน</td>
+</tr>
+<tr>
+<td>Account Role</td>
+<td>Demo, Small Live, Production</td>
+</tr>
+<tr>
+<td>Install Path</td>
+<td>C:\Trading\MT5-T01\</td>
+</tr>
+<tr>
+<td>EA/Version</td>
+<td>ชื่อไฟล์ Version และ Checksum</td>
+</tr>
+<tr>
+<td>Magic Range</td>
+<td>ช่วงเลขที่ไม่ชน Terminal/Strategy อื่น</td>
+</tr>
+</tbody>
+</table>
+
+<p>ห้ามบันทึกรหัสผ่านลง Spreadsheet ที่ไม่มีการป้องกัน Inventory ควรเก็บเฉพาะข้อมูลปฏิบัติการและอ้างอิง Password Manager/Secret Process ของทีม</p>
+
+<h2 id="install">ติดตั้งทีละชุดให้แยกกัน</h2>
+
+<ol>
+<li>ดาวน์โหลด Installer จาก Broker หรือ MetaTrader ที่เชื่อถือได้</li>
+<li>เปิด Settings ใน Installer และกำหนด Installation Folder เฉพาะ เช่น MT5-T01</li>
+<li>ตั้ง Program Group/Shortcut ให้มี Terminal ID</li>
+<li>ติดตั้งและเปิดครั้งแรก จากนั้นยืนยัน Help/About และ Data Folder</li>
+<li>ปิด Terminal ก่อนติดตั้งชุดถัดไปเพื่อลดความสับสน</li>
+<li>ทำซ้ำโดยใช้ Directory ใหม่ทุกครั้ง</li>
+<li>เปิด Task Manager ตรวจว่าแต่ละ Process มาจาก Path ที่ตั้งใจ</li>
+</ol>
+
+<p>เอกสาร MetaTrader ระบุว่าหากต้องการรันหลายสำเนาพร้อมกัน ให้ติดตั้งจำนวนที่ต้องการใน Directory ต่างกัน การ Copy Shortcut อย่างเดียวโดยชี้ executable เดิมไม่ได้สร้าง Installation แยก</p>
+
+<h2 id="data">Main Mode กับ Portable Mode</h2>
+
+<p>ใน Main Mode โปรแกรมมักเก็บข้อมูลผู้ใช้ใน Windows User Data Directory แยกจากโฟลเดอร์ติดตั้ง ส่วน Portable Mode ใช้พารามิเตอร์ <code>/portable</code> เพื่อเก็บข้อมูลใน Installation Folder แต่ต้องมีสิทธิ์เขียนที่เหมาะสม</p>
+
+<p>หลักเลือก:</p>
+<ul>
+<li><strong>Main Mode:</strong> สอดคล้องกับการใช้งาน Windows ปกติและ UAC แต่ต้องตรวจ Data Folder ของแต่ละ Instance</li>
+<li><strong>Portable Mode:</strong> โครงสร้างสำรอง/ย้ายง่ายขึ้นเมื่อ Folder แยกชัด แต่ต้องจัด Permission และ Shortcut Argument ถูกต้อง</li>
+</ul>
+
+<p>อย่าสลับ Mode หลังใช้งานโดยไม่วางแผน เพราะ EA, Preset, Profile และ History อาจอยู่คนละ Data Path ให้เปิด <strong>File &gt; Open Data Folder</strong> จาก Terminal แต่ละตัวและบันทึก Path จริงใน Inventory</p>
+
+<h2 id="identity">ป้องกันออเดอร์และไฟล์ชนกัน</h2>
+
+<h3>Magic Number</h3>
+<p>กำหนด Magic Number/Range ไม่ซ้ำตาม Strategy แม้อยู่คนละ Terminal หากเชื่อมบัญชีเดียวกัน ทุก Terminal เห็น Position ของบัญชีนั้นและอาจจัดการออเดอร์กันผิดหาก Filter ไม่รัดกุม</p>
+
+<h3>Account Duplication</h3>
+<p>ห้ามเปิด EA ชุดเดียวกันบนบัญชีเดียวกันสอง Terminal โดยไม่ตั้งใจ เพราะ Signal เดียวอาจส่งคำสั่งซ้ำ ตรวจ Login, Server, Chart, EA Name และ Magic ทุกครั้งหลัง Restart</p>
+
+<h3>Preset และ Version</h3>
+<p>ใช้ชื่อไฟล์ที่มี Strategy, Symbol, Timeframe, Risk Profile และ Version หลีกเลี่ยงชื่อ <code>final.set</code> หรือ <code>new2.set</code> ตรวจ Checksum ของ EA ก่อนกระจายไปหลาย Terminal</p>
+
+<p>รายละเอียดการดูแลหลาย EA อ่านที่ <a href="https://fenixpro-th.com/run-multiple-ea-mt5/">วิธีรัน EA หลายตัวบน MT5</a> และโครงสร้างไฟล์ที่ <a href="https://fenixpro-th.com/mt5-data-folder-ex5-mq5/">Data Folder, EX5 และ MQ5</a></p>
+
+<h2 id="resources">คุม CPU, RAM, Disk และ Network</h2>
+
+<p>ทุก Terminal มี Process และ Cache ของตนเอง การเพิ่ม Instance จึงเพิ่ม RAM/Disk/Connection แม้เปิดกราฟน้อย ใช้ <a href="https://fenixpro-th.com/choose-vps-specs-for-mt5/">วิธีเลือกสเปก VPS</a> และตั้ง Resource Budget ต่อ Terminal:</p>
+
+<ul>
+<li>จำนวน Chart/EA สูงสุด</li>
+<li>จำนวน Symbol ใน Market Watch</li>
+<li>ช่วงเวลาที่อนุญาตให้ Update/Backtest</li>
+<li>พื้นที่ Log/History และ Retention</li>
+<li>CPU/RAM Headroom ระดับ Warning/Critical</li>
+</ul>
+
+<p>เปิด Terminal เพิ่มทีละหนึ่งแล้ววัด Peak อย่าติดตั้งครบทั้งหมดก่อนดูทรัพยากร หาก CPU ตันเฉพาะ Tick Burst การดู Average รายชั่วโมงอาจไม่เห็น ต้องเก็บ Sample ที่ถี่และตรวจ Journal ว่ามี Queue/Delay หรือไม่</p>
+
+<h2 id="restart">Auto-start และการตรวจหลัง Restart</h2>
+
+<p>Shortcut แต่ละตัวต้องชี้ executable/argument ของ Terminal นั้น ใช้ Startup หรือ Task Scheduler ตามนโยบาย Windows และกำหนด Delay เพื่อไม่ให้ทุก Terminal เปิดพร้อมกันจน CPU/Disk พุ่ง</p>
+
+<p>Checklist หลัง Restart:</p>
+<ol>
+<li>จำนวน Process ตรงกับ Inventory ไม่มีซ้ำ/ขาด</li>
+<li>แต่ละ Terminal Login ถูก Account และ Server</li>
+<li>Connection เป็นปกติและเวลา Tick อัปเดต</li>
+<li>AutoTrading/Allow Algo Trading อยู่ตามนโยบาย</li>
+<li>Chart, EA, Preset, Magic และ Version ถูกต้อง</li>
+<li>ไม่มี Error ใน Expert/Journal</li>
+<li>Portfolio Exposure ไม่ซ้ำจาก Instance ที่เปิดเกิน</li>
+</ol>
+
+<p>หาก Auto-start เปิด EA ส่งคำสั่งทันทีหลัง Boot ควรมี Startup Guard รอ Connection, Sync Time/History และตรวจ State ก่อนอนุญาต Entry พร้อมบันทึก Runbook การเปิด Terminal และลำดับตรวจสอบไว้ให้ทีมใช้เหมือนกัน</p>
+
+<h2>การสำรองและกู้คืน</h2>
+
+<p>สำรอง Inventory, Install Package, EA, Preset, Profile และเอกสาร Version แยกจาก VPS ทดสอบ Restore ลงเครื่องใหม่เป็นรอบ ไม่ถือ Snapshot ที่ไม่เคยกู้เป็น Backup ที่เชื่อถือได้ และไม่คัดลอก Folder ขณะไฟล์กำลังถูกเขียนโดยไม่มีวิธี Consistent Snapshot</p>
+
+<p><strong>สรุป:</strong> การรัน MT5 หลาย Terminal ทำได้โดยติดตั้งคนละ Directory และจัด Data/Identity ให้ชัด ความสำเร็จไม่ได้อยู่ที่เปิดได้กี่หน้าต่าง แต่อยู่ที่ไม่มี Process ซ้ำ ออเดอร์ไม่ชน ทรัพยากรมี Headroom และกู้คืนได้ตาม Inventory</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> การใช้หลาย Terminal หรือหลาย EA อาจเพิ่ม Exposure และความผิดพลาดจากการตั้งค่าซ้ำ VPS/ระบบปฏิบัติการอาจขัดข้องได้ โปรดทดสอบในสภาพแวดล้อมที่ไม่ใช่เงินจริงและมีแผนสำรองก่อนใช้งาน Production อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/start" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Multiple Copies, Portable Mode and Command Line</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/structure" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Platform Data Structure</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 10 ตุลาคม 2026</small></p>

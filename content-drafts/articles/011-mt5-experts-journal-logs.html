@@ -1,0 +1,149 @@
+---
+seo_title: วิธีอ่าน Experts และ Journal บน MT5 เมื่อ EA มีปัญหา
+meta_description: แยกความต่างของแท็บ Experts และ Journal บน MT5 พร้อมขั้นตอนหา Error เก็บ Log และตรวจสาเหตุเมื่อ EA ไม่ทำงานหรือส่งคำสั่งไม่ได้
+excerpt: Experts บอกเหตุการณ์ของ EA ส่วน Journal บอกเหตุการณ์ระดับแพลตฟอร์ม การอ่านสองแท็บพร้อมเวลาเดียวกันช่วยหาสาเหตุได้เร็วกว่าการเดา
+cover_alt: แท็บ Experts และ Journal ใน Toolbox ของ MT5 แสดงข้อความ Log ของ EA
+---
+<p>เมื่อ EA ไม่เปิดออเดอร์ หยุดทำงาน หรือแสดงอาการผิดปกติ จุดเริ่มต้นที่มีประโยชน์ที่สุดไม่ใช่การติดตั้งใหม่ทันที แต่คือแท็บ <strong>Experts</strong> และ <strong>Journal</strong> ใน Toolbox ของ MT5 เพราะสองแท็บนี้บันทึกเหตุการณ์คนละระดับและช่วยบอกว่าปัญหาเกิดจากตัว EA, การตั้งค่า, บัญชี, เครือข่าย หรือแพลตฟอร์ม</p>
+
+<p>การอ่าน Log อย่างเป็นระบบช่วยลดการลองผิดลองถูก ก่อนติดต่อ Support ควรจดเวลาที่เกิดอาการ ชื่อ EA, Symbol, Timeframe, Version และคัดลอกข้อความที่เกี่ยวข้องจากทั้งสองแท็บ โดยปิดข้อมูล Login หรือข้อมูลส่วนตัวก่อนส่ง</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#difference">Experts กับ Journal ต่างกันอย่างไร</a></li>
+<li><a href="#fields">อ่าน Time, Source และ Message</a></li>
+<li><a href="#workflow">ขั้นตอนวิเคราะห์ปัญหา</a></li>
+<li><a href="#messages">กลุ่มข้อความที่พบบ่อย</a></li>
+<li><a href="#files">เปิดไฟล์ Log ย้อนหลัง</a></li>
+<li><a href="#support">ข้อมูลที่ควรส่งให้ Support</a></li>
+</ul>
+</nav>
+
+<h2 id="difference">แท็บ Experts กับ Journal ต่างกันอย่างไร</h2>
+
+<h3>Experts: เหตุการณ์จาก EA และ Indicator</h3>
+<p>Experts Journal แสดงข้อความจาก Expert Advisor และ Indicator ที่กำลังทำงาน เช่น การเริ่มต้น/หยุดโปรแกรม ค่าแจ้งเตือน การพยายามเปิดหรือแก้ไข Position และข้อความที่ผู้พัฒนาเขียนด้วยฟังก์ชัน Print หรือ Alert หาก EA ตรวจพบ License ไม่ถูกต้อง Symbol ไม่รองรับ หรือค่าพารามิเตอร์ไม่สมเหตุผล ข้อความมักปรากฏที่นี่</p>
+
+<h3>Journal: เหตุการณ์ระดับแพลตฟอร์ม</h3>
+<p>Journal แสดงเหตุการณ์ของ MT5 โดยรวม เช่นการเปิดโปรแกรม การเชื่อมต่อ Trade Server การ Login การโหลด History การส่งคำสั่ง และเหตุการณ์ Network หาก EA ส่งคำสั่งแล้ว Server ปฏิเสธหรือ Terminal ขาดการเชื่อมต่อ Journal จะช่วยยืนยันบริบทที่ Experts อย่างเดียวอาจไม่ครบ</p>
+
+<table>
+<thead>
+<tr>
+<th>อาการ</th>
+<th>ควรดูที่ใดก่อน</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EA ไม่ขึ้นชื่อบนกราฟ</td>
+<td>Experts และตำแหน่งไฟล์ใน Navigator</td>
+</tr>
+<tr>
+<td>มุมกราฟแสดง EA แต่ไม่เปิดออเดอร์</td>
+<td>Experts แล้วเทียบ Journal ในเวลาเดียวกัน</td>
+</tr>
+<tr>
+<td>MT5 ขึ้น No Connection</td>
+<td>Journal และสถานะมุมขวาล่าง</td>
+</tr>
+<tr>
+<td>คำสั่งถูกปฏิเสธ</td>
+<td>ทั้ง Experts และ Journal พร้อมรหัส/ข้อความตอบกลับ</td>
+</tr>
+<tr>
+<td>EA หยุดหลังเปลี่ยนบัญชีหรือ Profile</td>
+<td>Journal, Experts และ Options &gt; Expert Advisors</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="fields">อ่าน Time, Source และ Message ให้เป็น</h2>
+
+<p>Log ใน MT5 มีคอลัมน์หลักสามส่วน:</p>
+
+<ul>
+<li><strong>Time</strong> เวลาที่เกิดเหตุการณ์ ใช้จับคู่ข้อความจาก Experts และ Journal</li>
+<li><strong>Source</strong> แหล่งที่มาของข้อความ เช่น Network, HistoryBase, Experts หรือชื่อ EA</li>
+<li><strong>Message</strong> รายละเอียดเหตุการณ์ ควรอ่านทั้งบรรทัด ไม่ตัดเฉพาะคำว่า Error</li>
+</ul>
+
+<p>เวลาใน Log ของแพลตฟอร์มอ้างอิงเขตเวลาของคอมพิวเตอร์ตามเอกสาร MetaTrader ขณะที่เวลาแท่งราคาและฟังก์ชันบางอย่างใน EA อาจอิง Trade Server จึงควรบอก Timezone ของ VPS/Windows เมื่อส่งข้อมูลให้ผู้พัฒนา</p>
+
+<p>ไอคอนใน Journal แยก Informational, Warning และ Error แต่ข้อความ Informational ก็มีประโยชน์ เช่นบอกว่า EA ถูกถอดออกเพราะเปลี่ยน Chart หรือแพลตฟอร์มเชื่อมต่อ Server ใหม่ ไม่ควรกรองเฉพาะ Error ตั้งแต่ต้น</p>
+
+<h2 id="workflow">วิธีวิเคราะห์เมื่อ EA ไม่ทำงานทีละขั้น</h2>
+
+<ol>
+<li><strong>หยุดเปลี่ยนหลายอย่างพร้อมกัน:</strong> บันทึกสภาพเดิมก่อน ไม่สลับ Preset, Symbol และบัญชีในรอบเดียว</li>
+<li><strong>จดเวลาที่แน่นอน:</strong> ระบุวันที่และเวลาที่เห็นอาการ เพื่อค้นหา Log ช่วงสั้น ๆ</li>
+<li><strong>ตรวจสถานะพื้นฐาน:</strong> ดู Connection, Login, ปุ่ม Algo Trading และไอคอน/ชื่อ EA บนกราฟ</li>
+<li><strong>เปิด Toolbox:</strong> กด Ctrl+T แล้วเลือก Experts และ Journal</li>
+<li><strong>หา Source ที่เกี่ยวข้อง:</strong> ดูชื่อ EA และข้อความก่อน/หลังเวลาที่เกิดอาการ</li>
+<li><strong>จับคู่สองแท็บ:</strong> หาก Experts บอกว่าส่งคำสั่ง ให้ดู Journal ว่า Server ตอบกลับอย่างไร</li>
+<li><strong>คัดลอกข้อความเต็ม:</strong> คลิกขวา Copy หรือเปิดไฟล์ Log ย้อนหลัง</li>
+<li><strong>แก้ทีละสาเหตุ:</strong> เปลี่ยนหนึ่งจุดแล้วทำซ้ำเพื่อยืนยันผล</li>
+</ol>
+
+<p>หากยังไม่ได้ติดตั้งหรืออนุญาต EA ครบ ให้ย้อนตรวจ <a href="https://fenixpro-th.com/how-to-install-ea-mt5/">ขั้นตอนติดตั้ง EA บน MT5</a> และ <a href="https://fenixpro-th.com/enable-autotrading-mt5/">วิธีเปิด Algo Trading</a> ก่อน</p>
+
+<h2 id="messages">กลุ่มข้อความที่พบบ่อยและวิธีคิด</h2>
+
+<h3>Automated/Algo Trading ถูกปิด</h3>
+<p>ตรวจทั้งปุ่ม Algo Trading ระดับ Terminal และสิทธิ์ “Allow Algo Trading” ใน Properties ของ EA นอกจากนี้ MT5 มีตัวเลือกให้ปิด Automated Trading อัตโนมัติเมื่อเปลี่ยนบัญชี Profile, Symbol หรือ Timeframe ขึ้นกับการตั้งค่า</p>
+
+<h3>ไม่มีการเชื่อมต่อหรือ Login ผิด</h3>
+<p>ถ้า Journal แสดงการ Disconnect, Authorization Failed หรือ Invalid Account ให้ตรวจ Login, Password และชื่อ Server จากข้อมูลของโบรกเกอร์ ไม่ใช้รหัสผ่านหน้าเว็บไซต์แทน Trading Password และไม่เดา Server จากชื่อใกล้เคียง</p>
+
+<h3>คำสั่งซื้อขายถูกปฏิเสธ</h3>
+<p>อ่านข้อความและรหัสตอบกลับเต็ม สาเหตุอาจเป็น Market Closed, Trade Disabled, Volume ไม่ถูกต้อง, Margin ไม่พอ, Stop Level ไม่ผ่าน หรือราคาที่ส่งใช้ไม่ได้ ข้อความจริงขึ้นกับ Server และขั้นตอนของ EA จึงไม่ควรแก้ด้วยการเพิ่ม Lot หรือเอา Stop Loss ออกโดยไม่เข้าใจ</p>
+
+<h3>EA เริ่มทำงานแต่ไม่พบสัญญาณ</h3>
+<p>การไม่มีออเดอร์อาจเป็นพฤติกรรมปกติหากเงื่อนไขกลยุทธ์ยังไม่ครบ ตรวจ Session, Spread Filter, News Filter, วันเทรด, Symbol และ Timeframe จากคู่มือ หาก Experts ระบุว่า “waiting” หรือ “filter blocked” ต้องตีความตามเอกสารของ EA นั้น</p>
+
+<h3>ไฟล์หรือ Resource ไม่พบ</h3>
+<p>ข้อความ File not found, Cannot load indicator หรือ Library load failed มักชี้ว่าโครงไฟล์ไม่ครบหรือ Permission ไม่ตรง ตรวจ Data Folder ของ Terminal นั้นและหลีกเลี่ยงการคัดลอกทุกไฟล์ไว้โฟลเดอร์เดียว อ่านเพิ่มเรื่อง <a href="https://fenixpro-th.com/ex5-vs-mq5-files/">ไฟล์ EX5 และโครงสร้าง MQL5</a> หลังบทความดังกล่าวเผยแพร่</p>
+
+<h2 id="files">เปิดไฟล์ Log ย้อนหลังอย่างไร</h2>
+
+<p>แท็บบนหน้าจอเน้นรายการล่าสุด แต่ MT5 เก็บไฟล์ Log รายวัน เมนูคลิกขวาใน Experts หรือ Journal มีคำสั่ง Open สำหรับเปิดโฟลเดอร์ Log และบันทึกรายการปัจจุบันลงไฟล์</p>
+
+<ul>
+<li>Platform Log อยู่ในโฟลเดอร์ <code>Logs</code> ของ Data Folder</li>
+<li>Expert Log อยู่ใน <code>MQL5\Logs</code></li>
+<li>ชื่อไฟล์เป็นวันที่รูปแบบ <code>YYYYMMDD.log</code></li>
+<li>Strategy Tester มี Log แยกในโครง Tester/Agent</li>
+</ul>
+
+<p>ใช้ Log Viewer เพื่อค้นหาคำตามช่วงเวลา หรือเปิดด้วยโปรแกรมที่รองรับ Unicode อย่าแก้ไฟล์ต้นฉบับก่อนสำรอง เพราะลำดับเหตุการณ์มีประโยชน์ต่อการวิเคราะห์</p>
+
+<h2 id="support">ข้อมูลที่ควรส่งให้ทีม Support</h2>
+
+<ul>
+<li>ชื่อและ Version ของ EA</li>
+<li>MT5 Build และระบบปฏิบัติการ</li>
+<li>ประเภทบัญชี Demo/Real และชื่อ Server โดยไม่ส่ง Password</li>
+<li>Symbol, Timeframe และชื่อ Preset</li>
+<li>เวลาที่เกิดปัญหาพร้อม Timezone ของเครื่อง</li>
+<li>Screenshot กราฟที่เห็นชื่อ EA และสถานะ Algo Trading</li>
+<li>ข้อความ Experts/Journal ก่อนและหลังอาการ</li>
+<li>สิ่งที่เปลี่ยนล่าสุด เช่น Update, Restart, เปลี่ยนบัญชี หรือโหลด Preset</li>
+</ul>
+
+<p>ปิดบัง Login, ชื่อจริง, Email, IP, License Key และข้อมูล Credential ก่อนส่ง Log ในช่องสาธารณะ หาก Support ต้องการไฟล์เต็มให้ส่งผ่านช่องทางที่ยืนยันตัวตนได้</p>
+
+<p>การอ่าน Log เป็นทักษะพื้นฐานของผู้ใช้ระบบอัตโนมัติ เพราะช่วยแยก “EA ไม่ทำงาน” ออกจาก “EA ทำงานปกติแต่ยังไม่มีสัญญาณ” และป้องกันการแก้ค่าความเสี่ยงโดยไม่เกี่ยวกับสาเหตุจริง ดูรายการตรวจเพิ่มเติมที่ <a href="https://fenixpro-th.com/ea-not-working-mt5/">EA ไม่ทำงานบน MT5 ต้องเช็กอะไร</a></p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> หากระบบแสดง Error เกี่ยวกับคำสั่งซื้อขาย อย่าแก้ด้วยการเพิ่ม Lot, ลด Stop Loss หรือปิดระบบป้องกันโดยไม่มีข้อมูลรองรับ ควรหยุดการส่งคำสั่งใหม่จนกว่าจะระบุสาเหตุได้</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/journal" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Platform Logs</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/structure" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Files and Folders</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/startworking/settings" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Platform Settings for Expert Advisors</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

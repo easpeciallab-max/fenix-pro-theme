@@ -1,0 +1,153 @@
+---
+seo_title: Fixed Lot กับ Auto Lot ต่างกันอย่างไรสำหรับ EA
+meta_description: เปรียบเทียบ Fixed Lot และ Auto Lot สำหรับ EA ทั้งวิธีคำนวณ ความเสี่ยงเมื่อทุนเปลี่ยน ข้อจำกัดของ Symbol และ Checklist ก่อนเลือกใช้
+excerpt: Fixed Lot คงขนาดสัญญา ส่วน Auto Lot ปรับตามสูตรที่กำหนด ทั้งสองแบบปลอดภัยหรือเสี่ยงได้ขึ้นกับ Stop, Exposure Cap และการคำนวณจริง
+cover_alt: ตารางเปรียบเทียบ Fixed Lot กับ Auto Lot สำหรับ EA บน MT5
+---
+<p><strong>Fixed Lot</strong> คือการกำหนด Volume คงที่ตามค่าที่ตั้งไว้ ส่วน <strong>Auto Lot</strong> คือการให้ EA คำนวณ Volume จากทุน ความเสี่ยง ระยะ Stop หรือสูตรอื่นแบบอัตโนมัติ Auto Lot ไม่ได้แปลว่าบริหารความเสี่ยงได้ถูกต้องเสมอ เพราะบางระบบคำนวณจาก Balance อย่างเดียว บางระบบเพิ่ม Lot ตามกำไร และบางระบบใช้ชื่อ Auto Lot กับ Logic ที่ไม่อิง Stop Loss</p>
+
+<p>การเลือกจึงไม่ควรเริ่มจากคำถามว่าแบบไหนกำไรมากกว่า แต่ต้องตรวจว่า Lot ถูกคำนวณจากอะไร ขาดทุนโดยประมาณเมื่อถึง Stop เท่าไร และมี Maximum Exposure ป้องกันกรณีข้อมูลผิดหรือระบบเปิดหลาย Position หรือไม่</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#compare">ความต่างหลักของ Fixed และ Auto Lot</a></li>
+<li><a href="#fixed">Fixed Lot เหมาะเมื่อใด</a></li>
+<li><a href="#auto">Auto Lot ต้องมีองค์ประกอบอะไร</a></li>
+<li><a href="#calculation">หลักคำนวณ Risk-based Lot</a></li>
+<li><a href="#failures">กรณีที่ Auto Lot คำนวณพลาด</a></li>
+<li><a href="#choose">Checklist เลือกใช้</a></li>
+</ul>
+</nav>
+
+<h2 id="compare">เปรียบเทียบแบบไม่ตัดสินจากชื่อ</h2>
+
+<table>
+<thead>
+<tr>
+<th>ประเด็น</th>
+<th>Fixed Lot</th>
+<th>Auto Lot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Volume</td>
+<td>คงที่จนผู้ใช้เปลี่ยน</td>
+<td>เปลี่ยนตามสูตรและค่าฐาน</td>
+</tr>
+<tr>
+<td>Risk เมื่อทุนเปลี่ยน</td>
+<td>สัดส่วนลด/เพิ่มตาม Equity</td>
+<td>อาจรักษาสัดส่วน หากสูตรถูกต้อง</td>
+</tr>
+<tr>
+<td>ความโปร่งใส</td>
+<td>เข้าใจง่ายและตรวจซ้ำง่าย</td>
+<td>ต้องรู้สูตร การปัด และขอบเขต</td>
+</tr>
+<tr>
+<td>ความผิดพลาด</td>
+<td>ผู้ใช้อาจลืมปรับเมื่อทุน/Stop เปลี่ยน</td>
+<td>ข้อมูล Symbol หรือ Logic ผิดอาจสร้าง Lot ผิด</td>
+</tr>
+<tr>
+<td>การ Compounding</td>
+<td>ไม่เกิดเอง</td>
+<td>อาจเพิ่ม/ลด Lot ตามทุน</td>
+</tr>
+</tbody>
+</table>
+
+<p>ทั้งสองแบบต้องมี Lot Min/Max/Step, Margin Check และ Portfolio Limit เหมือนกัน Fixed Lot ไม่ได้ปลอดภัยเพียงเพราะตัวเลขไม่เปลี่ยน หากนำค่าเดียวไปใช้กับ Symbol ที่ Tick Value ต่างกันหรือเปิดหลายออเดอร์พร้อมกัน</p>
+
+<h2 id="fixed">Fixed Lot เหมาะกับการควบคุมและทดสอบ</h2>
+
+<p>Fixed Lot มีข้อดีเมื่อเริ่มทดสอบ EA เพราะแยกผลของ Strategy ออกจาก Position Sizing ได้ง่าย เห็นได้ชัดว่าการเปลี่ยนแปลงผลมาจาก Entry/Exit มากกว่าการ Compound และช่วยเปรียบเทียบ Broker/Parameter ด้วยฐาน Volume เดียวกัน</p>
+
+<p>กรณีที่ Fixed Lot อาจเหมาะ:</p>
+<ul>
+<li>บัญชี Demo หรือ Forward Test ที่ต้องการวัด Logic</li>
+<li>ระบบไม่มี Stop Distance ที่ทราบก่อนเปิด จึงยังคำนวณ Risk-based Lot ไม่ได้ตรง</li>
+<li>ผู้ใช้ต้องการควบคุม Volume สูงสุดแบบง่าย</li>
+<li>ทุนค่อนข้างคงที่และมีรอบทบทวน Lot ชัดเจน</li>
+</ul>
+
+<p>ข้อจำกัดคือเมื่อ Equity ลด Lot เดิมคิดเป็นสัดส่วนความเสี่ยงมากขึ้น ขณะที่เมื่อ Equity เพิ่ม Lot เดิมคิดเป็นสัดส่วนลดลง หาก Stop Distance เปลี่ยนตาม Volatility ความเสี่ยงต่อ Trade ยังเปลี่ยนแม้ Volume คงที่</p>
+
+<h2 id="auto">Auto Lot ที่ดีต้องเปิดเผยสูตร</h2>
+
+<p>ก่อนใช้ Auto Lot ต้องตอบได้ว่า:</p>
+
+<ul>
+<li>ใช้ Balance, Equity หรือ Free Margin เป็นฐาน</li>
+<li>Risk Input เป็นเปอร์เซ็นต์ของอะไร</li>
+<li>ใช้ Stop Price จริงหรือ Stop ระยะคงที่</li>
+<li>คำนวณ Tick Value/Profit Currency และการแปลงสกุลเงินอย่างไร</li>
+<li>ปัดตาม Volume Step แบบใด</li>
+<li>มี Minimum, Maximum และ Portfolio Cap หรือไม่</li>
+<li>หากคำนวณไม่ได้ ระบบปฏิเสธ Trade หรือใช้ค่า Fallback</li>
+</ul>
+
+<p>ระบบควร Fail Closed คือหากไม่มีราคา Stop, Tick Value ผิดปกติ หรือ OrderCalcProfit คืนค่าไม่สำเร็จ ให้หยุดและ Log ไม่ควรเปิดด้วย Default Lot ที่อาจใหญ่กว่าที่ตั้งใจ</p>
+
+<h2 id="calculation">หลักของ Risk-based Lot</h2>
+
+<p>แนวคิดคือกำหนด “จำนวนเงินที่ยอมเสียหากปิดที่ Stop” แล้วหารด้วยมูลค่าขาดทุนต่อหนึ่ง Lot จาก Entry ถึง Stop จากนั้นปัด Volume ลงตาม Step และตรวจ Margin ก่อนส่งคำสั่ง</p>
+
+<ol>
+<li>Risk Money = ค่าฐานที่เลือก × Risk Fraction</li>
+<li>ประมาณ Loss ของ 1 Lot ระหว่าง Entry และ Stop ในสกุลเงินบัญชี</li>
+<li>Raw Volume = Risk Money ÷ Loss per Lot</li>
+<li>จำกัดด้วย Symbol Min/Max, Volume Step และ Strategy Cap</li>
+<li>รวม Exposure ปัจจุบันและ Pending Orders</li>
+<li>ตรวจ Margin/Free Margin ภายใต้ราคาส่งคำสั่ง</li>
+</ol>
+
+<p>MQL5 มี OrderCalcProfit สำหรับประเมินผลของ Trade ในสกุลเงินบัญชีตามสภาวะปัจจุบัน และ OrderCalcMargin สำหรับประเมิน Margin แต่ค่าประเมินยังอาจต่างจาก Execution จริง จึงต้องเผื่อ Spread/Slippage และตรวจผลตอบกลับจาก Broker</p>
+
+<p>ดูรายละเอียดการคำนวณสำหรับผู้ใช้ที่ <a href="https://fenixpro-th.com/calculate-lot-size/">วิธีคำนวณ Lot Size</a> และกรอบรวมที่ <a href="https://fenixpro-th.com/risk-per-trade/">Risk per Trade</a></p>
+
+<h2 id="failures">Auto Lot พลาดได้อย่างไร</h2>
+
+<h3>ไม่มี Stop ก่อนเปิด</h3>
+<p>หาก EA ตั้ง Stop ภายหลังหรือใช้ Exit Signal โดยไม่มี Maximum Loss ที่ชัด การอ้างว่า Auto Lot ตาม Risk เปอร์เซ็นต์อาจไม่ตรงความจริง ต้องใช้ Stress Distance หรือ Fixed Exposure ที่โปร่งใสแทน</p>
+
+<h3>Tick Value/Contract แตกต่าง</h3>
+<p>ทอง ดัชนี CFD และ Symbol Suffix ของแต่ละ Broker มี Contract Specification ต่างกัน ห้ามใช้ Pip Value แบบ Forex คู่หลักเป็นค่าคงที่กับทุก Symbol</p>
+
+<h3>Lot รวมเกินเพดาน</h3>
+<p>แต่ละ Trade อาจอยู่ใน Risk Limit แต่หลาย Trade ที่สัมพันธ์กันทำให้ Portfolio Risk เกินงบ Auto Lot ต้องอ่าน Exposure ก่อนเปิด ไม่คำนวณออเดอร์ใหม่แบบแยกส่วน</p>
+
+<h3>Compounding หลัง Deposit/Withdrawal</h3>
+<p>หากฐานคือ Balance การเติมเงินทำให้ Lot เพิ่มทันที แม้ไม่ได้หมายความว่าผู้ใช้ต้องการเพิ่ม Risk ต้องมีกฎจัดการ Cash Flow และ Credit</p>
+
+<h3>Minimum Lot ใหญ่กว่างบ</h3>
+<p>หาก Lot ขั้นต่ำยังทำให้ขาดทุนเกิน Risk Money ระบบควร Skip Trade ไม่ควรบังคับเปิด Minimum Lot แล้วอ้างว่าอยู่ในเปอร์เซ็นต์เดิม</p>
+
+<h2 id="choose">Checklist ก่อนเลือก</h2>
+
+<ul>
+<li>ต้องการทดสอบ Strategy หรือใช้งาน Position Sizing จริง</li>
+<li>Stop Distance ทราบก่อนเปิดหรือไม่</li>
+<li>EA แสดงสูตรและค่าที่ใช้คำนวณหรือไม่</li>
+<li>ทดลองหลายทุน หลาย Symbol และหลาย Broker แล้วหรือยัง</li>
+<li>มี Maximum Lot, Maximum Orders และ Portfolio Exposure Cap หรือไม่</li>
+<li>เมื่อ Equity ลด ระบบลด Lot และหยุดที่ Ruin Threshold ตามแผนหรือไม่</li>
+<li>บันทึก Calculated Lot, Risk Money และเหตุผลที่ Skip ไว้ใน Log หรือไม่</li>
+</ul>
+
+<p>สำหรับการตั้งค่าระบบเฉพาะ โปรดอ่าน <a href="https://fenixpro-th.com/fenix-pro-ea-setup/">คู่มือตั้งค่า FENIX PRO EA</a> และเริ่มจากค่าที่สอดคล้องกับทุน/ความเสี่ยงของตน ไม่คัดลอก Lot จากบัญชีผู้อื่น</p>
+
+<p><strong>สรุป:</strong> Fixed Lot เด่นด้านความง่ายและการควบคุม ส่วน Auto Lot ช่วยรักษากฎตามทุนได้เมื่อสูตรอิง Stop และข้อมูล Symbol อย่างถูกต้อง สิ่งที่ตัดสินความเสี่ยงไม่ใช่ชื่อ Mode แต่คือ Loss ที่เป็นไปได้รวมและเพดานที่ระบบบังคับจริง</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> การคำนวณ Lot เป็นเพียงค่าประมาณ ผลจริงอาจต่างจาก Slippage, Gap, Spread, Commission และเงื่อนไข Broker การใช้ Auto Lot ไม่รับประกันว่าจะจำกัดขาดทุนได้ตรงเปอร์เซ็นต์ โปรดทดสอบและประเมินความเหมาะสมก่อนใช้เงินจริง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.mql5.com/en/docs/trading/ordercalcprofit" rel="nofollow noopener" target="_blank">MQL5 Reference: OrderCalcProfit</a></li>
+<li><a href="https://www.mql5.com/en/docs/trading/ordercalcmargin" rel="nofollow noopener" target="_blank">MQL5 Reference: OrderCalcMargin</a></li>
+<li><a href="https://www.mql5.com/en/docs/constants/environment_state/marketinfoconstants" rel="nofollow noopener" target="_blank">MQL5 Reference: Symbol Properties</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 30 กันยายน 2026</small></p>

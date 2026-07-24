@@ -1,0 +1,155 @@
+---
+seo_title: In-Sample และ Out-of-Sample ในการทดสอบ EA คืออะไร
+meta_description: เรียนรู้วิธีแบ่งข้อมูล In-Sample และ Out-of-Sample เพื่อพัฒนา EA ลด Overfitting กำหนดเกณฑ์ก่อนทดสอบ และอ่านผลโดยไม่เลือกช่วงสวย
+excerpt: In-Sample ใช้พัฒนาและเลือกค่า ส่วน Out-of-Sample เก็บไว้ตรวจความทนทาน หากย้อนกลับไปปรับจากผล OOS ซ้ำ ชุดนั้นจะไม่ใช่ข้อมูลใหม่อีกต่อไป
+cover_alt: เส้นเวลาแบ่งข้อมูลทดสอบ EA เป็น In-Sample และ Out-of-Sample
+---
+<p><strong>In-Sample (IS)</strong> คือข้อมูลที่ใช้พัฒนา ปรับ และเลือกพารามิเตอร์ของ EA ส่วน <strong>Out-of-Sample (OOS)</strong> คือข้อมูลที่กันไว้ไม่ให้ใช้ระหว่างเลือกค่า แล้วนำมาตรวจว่าระบบยังรักษาพฤติกรรมได้หรือไม่เมื่อเจอช่วงที่ไม่ได้ใช้สร้างโมเดล</p>
+
+<p>การแบ่ง OOS ไม่ได้ทำให้ระบบดีขึ้นโดยอัตโนมัติ หากผู้ทดสอบดูผล OOS แล้วกลับไปแก้พารามิเตอร์ซ้ำจนได้ผลสวย ชุด OOS นั้นได้กลายเป็นส่วนหนึ่งของกระบวนการพัฒนาและไม่ใช่หลักฐานอิสระอีกต่อไป ต้องมีกฎว่าจะใช้ข้อมูลแต่ละส่วนทำอะไรตั้งแต่ก่อนทดสอบ</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#purpose">ทำไมต้องแยกข้อมูล</a></li>
+<li><a href="#split">แบ่ง IS/OOS อย่างไร</a></li>
+<li><a href="#criteria">กำหนดเกณฑ์ก่อนเห็นผล</a></li>
+<li><a href="#compare">เปรียบเทียบผลแบบไหน</a></li>
+<li><a href="#leakage">Data Leakage และข้อผิดพลาด</a></li>
+<li><a href="#next">ขั้นตอนหลังผ่าน OOS</a></li>
+</ul>
+</nav>
+
+<h2 id="purpose">ทำไม Backtest ชุดเดียวไม่พอ</h2>
+
+<p>เมื่อปรับพารามิเตอร์หลายชุด ยิ่งลองมากยิ่งมีโอกาสพบค่าที่เข้ากับ Noise ในอดีตโดยบังเอิญ ผล IS จึงบอกได้ว่าพารามิเตอร์ “พอดีกับข้อมูลที่ใช้เลือก” แต่ยังไม่บอกว่าตรรกะมีความทนทานนอกช่วงนั้น</p>
+
+<p>OOS ช่วยตอบคำถาม:</p>
+
+<ul>
+<li>ระบบยังมี Expectancy ทิศทางเดิมหรือไม่</li>
+<li>Drawdown และความถี่ Trade เปลี่ยนมากแค่ไหน</li>
+<li>ผลกำไรพึ่งช่วงตลาดเฉพาะหรือไม่</li>
+<li>พารามิเตอร์ใกล้เคียงให้ผลสม่ำเสมอหรือมี Peak จุดเดียว</li>
+<li>ต้นทุนที่ต่างเล็กน้อยทำให้ระบบพังหรือไม่</li>
+</ul>
+
+<h2 id="split">วิธีแบ่งข้อมูล In-Sample และ Out-of-Sample</h2>
+
+<h3>Chronological Holdout</h3>
+<p>ใช้ช่วงเก่าเป็น IS และช่วงใหม่เป็น OOS เหมาะกับ Time Series เพราะรักษาลำดับเวลาและจำลองการพัฒนาระบบในอดีตแล้วนำไปใช้ช่วงถัดมา ตัวอย่างเชิงโครงสร้างคือ IS 70-80% แรก OOS 20-30% หลัง แต่สัดส่วนไม่ใช่กฎตายตัว ต้องให้แต่ละส่วนมี Trade และสภาวะตลาดพอวิเคราะห์</p>
+
+<h3>Multiple Holdout</h3>
+<p>แบ่งหลาย Window เพื่อไม่ให้ข้อสรุปขึ้นกับ OOS ช่วงเดียว เช่นทดสอบพารามิเตอร์ใน Window หนึ่งแล้วตรวจช่วงถัดไปหลายรอบ วิธีนี้ใกล้แนวคิด Walk-Forward และช่วยเห็น Parameter Decay</p>
+
+<h3>Market Regime Holdout</h3>
+<p>กันช่วงเหตุการณ์หรือ Regime บางแบบไว้ เช่น Trend แรง, Sideway, Volatility สูง แต่ต้องระวังการเลือกหลังเห็นผล ควรกำหนดกฎจำแนก Regime ล่วงหน้าและไม่ตัดช่วงเสียออกเพียงเพราะไม่สวย</p>
+
+<p>ไม่ควรสุ่ม Trade แต่ละรายการจากอนาคตกลับไป IS แบบข้อมูลตารางทั่วไป เพราะ Time Series มีลำดับและ Dependence อาจทำให้ข้อมูลอนาคตรั่วเข้าสู่การเลือกค่า</p>
+
+<h2 id="criteria">กำหนดเกณฑ์ผ่านก่อนเปิด OOS</h2>
+
+<p>เขียนเกณฑ์แบบ Range และพฤติกรรม ไม่ใช่เรียกร้องให้ OOS ได้กำไรเท่า IS ทุกค่า ตัวอย่างเกณฑ์ที่ควรพิจารณา:</p>
+
+<ul>
+<li>จำนวน Trade ขั้นต่ำเพื่อไม่สรุปจาก Sample เล็ก</li>
+<li>Equity Drawdown ไม่เกิน Risk Budget ที่กำหนด</li>
+<li>Profit Distribution ไม่พึ่ง Trade เดียวมากเกินไป</li>
+<li>พฤติกรรม Entry/Exit ตรงกับกลยุทธ์</li>
+<li>ต้นทุนเพิ่มแล้ว Expectancy ไม่พังทันที</li>
+<li>ไม่มี Error/Data Gap ที่ทำให้ช่วง OOS ใช้ไม่ได้</li>
+<li>ค่าพารามิเตอร์อยู่ใน Plateau ไม่ใช่จุด Peak แคบ</li>
+</ul>
+
+<p>หลีกเลี่ยงกฎ “OOS ต้องบวกเท่านั้น” แบบไร้บริบท เพราะช่วงสั้นอาจขาดทุนตาม Distribution ของระบบที่ยังถูกต้อง แต่หากทุก OOS ล้มเหลวหรือ Drawdown สูงกว่ากรอบอย่างเป็นระบบ ต้องยอมรับว่าสมมติฐานยังไม่ผ่าน ไม่ย้ายเส้นแบ่งเพื่อซ่อนผล</p>
+
+<h2 id="compare">อ่าน IS กับ OOS อย่างไร</h2>
+
+<table>
+<thead>
+<tr>
+<th>สิ่งที่เปรียบเทียบ</th>
+<th>คำถาม</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trade Frequency</td>
+<td>ลดลงเพราะ Regime หรือเพราะพารามิเตอร์เฉพาะเกินไป</td>
+</tr>
+<tr>
+<td>Average Trade</td>
+<td>ยังครอบคลุม Spread/Commission หรือไม่</td>
+</tr>
+<tr>
+<td>Drawdown</td>
+<td>สูงขึ้นเกิน Risk Budget หรืออยู่ใน Range ที่คาด</td>
+</tr>
+<tr>
+<td>Win/Loss Distribution</td>
+<td>โครงสร้างกำไรยังเหมือนเดิมหรือเปลี่ยนจากหลาย Trade เป็น Trade เดียว</td>
+</tr>
+<tr>
+<td>Parameter Stability</td>
+<td>ค่าข้างเคียงทำงานหรือมีเฉพาะเลขเดียวที่ดี</td>
+</tr>
+</tbody>
+</table>
+
+<p>ควร Normalize ผลตามเวลา/จำนวน Trade และดู Confidence ไม่เปรียบเทียบ Net Profit ตรง ๆ หาก IS ยาว 8 ปีแต่ OOS ยาว 1 ปี อ่าน Equity Curve, Monthly Distribution และ Exposure ร่วมกัน</p>
+
+<h2 id="leakage">ข้อผิดพลาดที่ทำให้ OOS ใช้ไม่ได้</h2>
+
+<ul>
+<li>เปิดดู OOS แล้วปรับค่าซ้ำหลายรอบ</li>
+<li>เลือกวันแบ่งหลังเห็นว่าเส้น Equity ตรงไหนสวย</li>
+<li>ใช้ Indicator/Feature ที่คำนวณจากข้อมูลอนาคต</li>
+<li>รวมข้อมูลช่วง OOS ใน Normalization หรือ Parameter Selection</li>
+<li>ตัดช่วงขาดทุนออกเพราะเรียกว่า “ตลาดผิดปกติ” โดยไม่มีกฎล่วงหน้า</li>
+<li>ทดสอบหลายแนวคิดบน OOS เดิมแล้วรายงานเฉพาะแนวคิดที่รอด</li>
+<li>เปลี่ยนต้นทุนหรือ Symbol เฉพาะ OOS เพื่อให้ผลดีขึ้น</li>
+</ul>
+
+<p>ทุกครั้งที่ใช้ผล OOS เป็น Feedback เพื่อแก้ระบบ ควรมีชุดข้อมูลใหม่หรือ Forward Window ถัดไปสำหรับยืนยัน ไม่เช่นนั้นคะแนน OOS จะค่อย ๆ ถูก Optimize โดยทางอ้อม</p>
+
+<h2>ทำ IS/OOS ใน MT5 อย่างไร</h2>
+
+<p>MT5 มี Forward Optimization โดยแบ่งส่วนท้ายของช่วงวันที่เป็น Forward 1/2, 1/3, 1/4 หรือกำหนด Custom Date การ Optimize ทำบนช่วงแรก แล้วนำชุดผลที่คัดเลือกไปทดสอบช่วง Forward ตามกระบวนการของแพลตฟอร์ม</p>
+
+<p>สำหรับ Single Test คุณสามารถรันสองช่วงแยกด้วย Preset เดียว:</p>
+
+<ol>
+<li>ล็อกไฟล์ EA และ SET</li>
+<li>รัน IS และ Export Report</li>
+<li>ไม่แก้ค่า จากนั้นเปลี่ยน Date เป็น OOS</li>
+<li>รัน OOS ด้วย Cost/Specification เดิม</li>
+<li>รวมผลด้วย Test ID ที่เชื่อมกัน</li>
+</ol>
+
+<p>เริ่มจาก <a href="https://fenixpro-th.com/how-to-backtest-ea-mt5/">วิธี Backtest EA บน MT5</a> และตรวจปัญหา Parameter Fitting ที่ <a href="https://fenixpro-th.com/over-optimization-ea/">Over-Optimization ของ EA คืออะไร</a></p>
+
+<h2 id="next">หลังผ่าน OOS ยังต้องทำอะไร</h2>
+
+<ul>
+<li>Walk-Forward หลาย Window</li>
+<li>Monte Carlo กับลำดับ Trade และต้นทุน</li>
+<li>Stress Test Spread/Commission/Delay</li>
+<li>Forward Test บน Demo/บัญชีสภาพแวดล้อมจริง</li>
+<li>กำหนด Kill Criteria ก่อนใช้เงินจริง</li>
+<li>Monitor Parameter Decay และ Regime Change</li>
+</ul>
+
+<p>OOS เป็นด่านตรวจ ไม่ใช่ใบรับรอง ระบบที่ผ่านยังสามารถขาดทุนได้ และระบบที่ไม่ผ่านไม่ควรถูกช่วยด้วยการเลื่อนช่วงหรือเพิ่มพารามิเตอร์จนผลสวย</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> การแบ่งข้อมูลช่วยลดความเสี่ยงจาก Overfitting แต่ไม่กำจัด Model Risk หรือการเปลี่ยนโครงสร้างตลาด ผลทดสอบทุกช่วงยังเป็นข้อมูลอดีต</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/strategy_optimization" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Forward Testing During Optimization</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Strategy Testing</a></li>
+<li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2308659" rel="nofollow noopener" target="_blank">Bailey et al.: The Probability of Backtest Overfitting</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

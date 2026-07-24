@@ -1,0 +1,142 @@
+---
+seo_title: MT5 Server Time คืออะไรและมีผลต่อ EA อย่างไร
+meta_description: เข้าใจเวลา Server ของโบรกเกอร์บน MT5 ความต่างจากเวลาไทยและเวลาเครื่อง ผลต่อ Session, News Filter, Daily Limit และ Backtest
+excerpt: EA มักอ้างอิงเวลา Trade Server ไม่ใช่เวลาบนมือถือหรือเวลาประเทศไทย ค่า Offset และ DST จึงต้องตรวจตามโบรกเกอร์
+cover_alt: กราฟ MT5 เปรียบเทียบ Broker Server Time กับเวลาไทยและเวลา UTC
+---
+<p>MT5 Server Time คือเวลาที่ Trade Server ของโบรกเกอร์ใช้ประทับข้อมูลราคาและเหตุการณ์ซื้อขาย ซึ่งอาจไม่ตรงกับเวลาประเทศไทย เวลา UTC หรือเวลาบน Windows/VPS EA ที่มี Session Filter, Daily Reset, News Filter หรือกฎปิดออเดอร์ตามเวลาจึงต้องรู้ว่าโค้ดอ้างอิงนาฬิกาใด</p>
+
+<p>การตั้งช่อง Start Hour เป็น 8 ไม่ได้แปลว่าเริ่ม 08:00 น. ประเทศไทยเสมอไป หาก EA อ่าน TimeCurrent หรือ TimeTradeServer ค่า 8 หมายถึง 08:00 ตามเวลาของ Server/ข้อมูลที่ฟังก์ชันนั้นคืน และ Offset อาจเปลี่ยนเมื่อโบรกเกอร์ปรับ Daylight Saving Time</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#clocks">นาฬิกาใน MT5 มีอะไรบ้าง</a></li>
+<li><a href="#effects">มีผลต่อ EA ตรงไหน</a></li>
+<li><a href="#check">วิธีตรวจ Server Time</a></li>
+<li><a href="#convert">วิธีแปลงเวลาอย่างปลอดภัย</a></li>
+<li><a href="#dst">ผลของ DST</a></li>
+<li><a href="#test">ผลต่อ Backtest และ News Filter</a></li>
+</ul>
+</nav>
+
+<h2 id="clocks">แยก Server Time, Local Time และ GMT</h2>
+
+<table>
+<thead>
+<tr>
+<th>เวลา</th>
+<th>ความหมาย</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trade Server Time</td>
+<td>เวลาที่เกี่ยวกับ Server และ Quote ซึ่ง EA มักใช้อ้างอิง Session</td>
+</tr>
+<tr>
+<td>Local Time</td>
+<td>เวลาของ Windows/VPS ที่รัน Terminal</td>
+</tr>
+<tr>
+<td>GMT/UTC</td>
+<td>เวลามาตรฐานที่ใช้เป็นฐานแปลงเขตเวลา</td>
+</tr>
+<tr>
+<td>เวลาไทย</td>
+<td>UTC+7 และไม่มี DST แต่ไม่ได้แปลว่า Server ของโบรกเกอร์เป็น UTC+7</td>
+</tr>
+</tbody>
+</table>
+
+<p>ใน MQL5 มีฟังก์ชันหลายตัว เช่น TimeCurrent, TimeTradeServer, TimeLocal และ TimeGMT ซึ่งให้ความหมายต่างกัน ผู้พัฒนาต้องระบุว่า Input ของ EA ใช้ฐานใด ผู้ใช้ไม่ควรเดาจากเวลาที่เห็นมุม Windows เท่านั้น</p>
+
+<p>เอกสาร MQL5 ระบุว่า TimeTradeServer เป็นเวลาปัจจุบันของ Trade Server ที่คำนวณใน Client Terminal และขึ้นกับการตั้งเวลาเครื่อง ส่วน TimeCurrent เกี่ยวกับเวลาของ Quote ล่าสุดใน Market Watch ใน Strategy Tester เวลาจะถูกจำลองจากข้อมูลประวัติ</p>
+
+<h2 id="effects">Server Time มีผลต่อ EA อย่างไร</h2>
+
+<ul>
+<li><strong>Trading Session:</strong> กำหนดช่วงอนุญาต Entry เช่น London/New York</li>
+<li><strong>Daily Reset:</strong> นับกำไรขาดทุนต่อวันและ Daily Loss Limit</li>
+<li><strong>Friday Close:</strong> ปิดหรือหยุดเปิดก่อนตลาดสุดสัปดาห์</li>
+<li><strong>News Filter:</strong> เปรียบเทียบเวลา Event กับเวลาที่ EA ใช้</li>
+<li><strong>Swap/Rollover:</strong> พฤติกรรมรอบวันใหม่ของ Server</li>
+<li><strong>Candle:</strong> จุดเริ่มแท่ง D1/H4 อาจต่างตาม Server</li>
+<li><strong>รายงาน:</strong> วันที่ของ Deal และการแบ่งผลลัพธ์รายวัน</li>
+</ul>
+
+<p>EA ที่ไม่ใช้เวลาเลยอาจได้รับผลน้อยกว่า แต่ระบบที่เทรดช่วงสั้นหรือหลีกเลี่ยงข่าวอาจเปลี่ยนพฤติกรรมชัดเจนเมื่อ Offset ผิดหนึ่งชั่วโมง</p>
+
+<h2 id="check">วิธีดูเวลา Server ของโบรกเกอร์</h2>
+
+<ol>
+<li>เปิด Market Watch และกราฟ Symbol ที่มี Tick วิ่ง</li>
+<li>ดูเวลาของแท่งล่าสุด/เวลาที่โบรกเกอร์แสดงในแพลตฟอร์ม</li>
+<li>เทียบกับ UTC จากแหล่งเวลามาตรฐานในขณะเดียวกัน</li>
+<li>คำนวณ Offset เช่น Server = UTC+2</li>
+<li>จดวันที่ตรวจ เพราะ Offset อาจเปลี่ยนตามฤดูกาล</li>
+<li>ยืนยันกับเอกสารหรือ Support ของโบรกเกอร์ โดยเฉพาะวันเปลี่ยน DST</li>
+</ol>
+
+<p>ควรตรวจในช่วงตลาดเปิดและมี Quote เพราะ TimeCurrent อาจสะท้อน Tick ล่าสุด ไม่ใช่นาฬิกาที่เดินอิสระเมื่อไม่มีราคา หาก EA มี Dashboard เวลา ให้ใช้เป็นข้อมูลช่วยแต่ยืนยันกับ Log/Quote ด้วย</p>
+
+<h2 id="convert">ตัวอย่างการแปลงเป็นเวลาไทย</h2>
+
+<p>สมมติ Server เป็น UTC+2 และไทยเป็น UTC+7 ไทยเร็วกว่า Server 5 ชั่วโมง ดังนั้น 09:00 Server เท่ากับ 14:00 ไทย แต่ถ้า Server เปลี่ยนเป็น UTC+3 ระยะต่างจะเหลือ 4 ชั่วโมง และ 09:00 Server เท่ากับ 13:00 ไทย</p>
+
+<p>สูตรทั่วไป:</p>
+
+<p><code>เวลาไทย = เวลา Server + (7 - Offset ของ Server)</code></p>
+
+<p>ตัวอย่างนี้ใช้ได้เมื่อรู้ Offset ที่ถูกต้อง ณ วันนั้น อย่าบันทึก “บวก 5 ชั่วโมงตลอดไป” เพราะ DST หรือการเปลี่ยนนโยบาย Server อาจทำให้ผิดในอนาคต</p>
+
+<h2 id="dst">Daylight Saving Time ทำให้ค่าเปลี่ยนอย่างไร</h2>
+
+<p>ประเทศไทยไม่มี DST แต่ Server หลายแห่งปรับ Offset ตามเขตเวลายุโรปหรือสหรัฐฯ ช่วงเปลี่ยนฤดูกาล Server อาจขยับหนึ่งชั่วโมง แม้เวลาประเทศไทยไม่เปลี่ยน ผลคือ Session Filter ที่เคยตรงกับตลาดอาจเลื่อนไป</p>
+
+<p>แนวทางจัดการ:</p>
+
+<ul>
+<li>จด Offset ปัจจุบันและวันที่เริ่มใช้</li>
+<li>ตั้ง Reminder ตรวจช่วงเดือนที่มักเปลี่ยน DST</li>
+<li>อ่านประกาศโบรกเกอร์เรื่อง Trading Hours</li>
+<li>ทดสอบ News Filter ด้วย Event ที่ทราบเวลา</li>
+<li>หาก EA มี Auto GMT/DST ให้ตรวจ Log ว่าตรวจได้จริง ไม่เชื่อจากชื่อฟังก์ชันอย่างเดียว</li>
+<li>เก็บ Preset แยก Summer/Winter เฉพาะเมื่อผู้พัฒนากำหนด</li>
+</ul>
+
+<p>อย่าแก้ Offset ระหว่างมี Position หากค่านั้นมีผลต่อ Exit/Session โดยไม่รู้ผลของ Version ปัจจุบัน ควรสอบถามผู้พัฒนาและทดสอบก่อน</p>
+
+<h2 id="test">ผลต่อ Backtest และ News Filter</h2>
+
+<p>ใน Strategy Tester เวลาถูกจำลองจากข้อมูลประวัติของ Symbol และ Trade Server ที่ข้อมูลนั้นสัมพันธ์อยู่ หากนำ Preset Session จากโบรกเกอร์ A ไปทดสอบข้อมูลของโบรกเกอร์ B เวลาแท่งและ Trading Session อาจไม่ตรง ทำให้จำนวน Trade และผลลัพธ์เปลี่ยน</p>
+
+<p>สำหรับ Economic Calendar ของ MQL5 เอกสารระบุว่าฟังก์ชัน Calendar ใช้ Trade Server Time ดังนั้น EA ที่เรียก Calendar โดยตรงควรประมวลผลเวลาในฐานเดียวกัน แต่ EA บางตัวดึงข้อมูลภายนอกเป็น UTC แล้วแปลงเอง ผู้ใช้ต้องอ่านคู่มือของระบบนั้น</p>
+
+<p>อ่านข้อจำกัดของตัวกรองข่าวได้ที่ <a href="https://fenixpro-th.com/ea-news-filter-trading/">EA ทำงานช่วงข่าวและ News Filter ช่วยอะไร</a> และตรวจเงื่อนไขโบรกเกอร์เพิ่มเติมที่ <a href="https://fenixpro-th.com/mt5-brokers/">เลือกโบรกเกอร์สำหรับใช้ EA ต้องดูอะไร</a></p>
+
+<h2>เช็กลิสต์ก่อนใช้งาน Session</h2>
+
+<ul>
+<li>รู้ว่า EA ใช้ Server, Local, GMT หรือ Timezone แบบกำหนดเอง</li>
+<li>ตรวจ Offset ของ Server ณ วันที่ตั้งค่า</li>
+<li>แปลงเป็นเวลาไทยด้วยสูตรและทดสอบ Event จริง</li>
+<li>ตรวจผลเมื่อไม่มี Tick/ตลาดปิด</li>
+<li>ตรวจวันเปลี่ยน DST และ Trading Holiday</li>
+<li>Backtest ด้วยข้อมูลและ Timezone ที่สอดคล้องกับ Preset</li>
+<li>ดู Experts Log ว่า EA โหลด Offset/Session เท่าไร</li>
+<li>บันทึกค่าในเอกสารระบบ ไม่พึ่งความจำ</li>
+</ul>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> เวลา Session หรือ News Filter ที่ผิดอาจทำให้ EA เปิดออเดอร์ในช่วงที่ตั้งใจหลีกเลี่ยง ตัวกรองเวลาไม่สามารถรับประกันว่าจะไม่มี Slippage หรือความผันผวนสูง</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.mql5.com/en/docs/dateandtime/timetradeserver" rel="nofollow noopener" target="_blank">MQL5 Reference: TimeTradeServer</a></li>
+<li><a href="https://www.mql5.com/en/docs/dateandtime/timecurrent" rel="nofollow noopener" target="_blank">MQL5 Reference: TimeCurrent</a></li>
+<li><a href="https://www.mql5.com/en/docs/calendar" rel="nofollow noopener" target="_blank">MQL5 Reference: Economic Calendar and Server Time</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

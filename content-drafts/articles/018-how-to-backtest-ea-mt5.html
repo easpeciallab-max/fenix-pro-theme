@@ -1,0 +1,170 @@
+---
+seo_title: วิธี Backtest EA บน MT5 ด้วย Strategy Tester
+meta_description: ขั้นตอน Backtest EA บน MT5 ตั้งแต่เลือกข้อมูล Tick, Symbol, เงินทุน, Leverage, Commission ไปจนถึงอ่าน Report และบันทึกผลให้ทดสอบซ้ำได้
+excerpt: Backtest ที่ดีไม่ใช่แค่กด Start ต้องทำเงื่อนไขให้ใกล้บัญชีจริง เก็บ Preset และอ่านความเสี่ยงร่วมกับกำไร
+cover_alt: หน้าต่าง Strategy Tester ของ MT5 พร้อมค่าทดสอบ EA และรายงานผล
+---
+<p>Backtest EA บน MT5 คือการนำ EA ที่มีค่ากำหนดแน่นอนไปรันกับข้อมูลราคาในอดีต เพื่อดูว่าตรรกะทำงานอย่างไรภายใต้เงื่อนไขที่ตั้งไว้ Backtest ช่วยค้นหา Bug, ตรวจพฤติกรรม และประเมินความเสี่ยงเบื้องต้น แต่ไม่ใช่คำทำนายและไม่รับประกันผลในอนาคต</p>
+
+<p>ผลทดสอบมีความหมายก็ต่อเมื่อระบุได้ว่าใช้ไฟล์ EA Version ใด Preset อะไร ข้อมูลจาก Server ไหน ค่า Spread/Commission เท่าไร และช่วงเวลาใด หากเปลี่ยนเงื่อนไขเพียงจุดเดียว ผลลัพธ์อาจเปลี่ยนมาก โดยเฉพาะระบบ Scalping, Grid หรือระบบที่ไวต่อเวลา</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#prepare">ข้อมูลที่ต้องเตรียม</a></li>
+<li><a href="#settings">ตั้ง Strategy Tester</a></li>
+<li><a href="#costs">จำลองต้นทุนและ Execution</a></li>
+<li><a href="#run">เริ่มทดสอบและตรวจ Log</a></li>
+<li><a href="#report">อ่านผลที่สำคัญ</a></li>
+<li><a href="#record">บันทึกให้ทดสอบซ้ำได้</a></li>
+</ul>
+</nav>
+
+<h2 id="prepare">ก่อนเปิด Strategy Tester ต้องเตรียมอะไร</h2>
+
+<ul>
+<li>ไฟล์ EX5 ที่ทราบชื่อและ Version</li>
+<li>Preset/SET ที่จะทดสอบ</li>
+<li>Symbol และ Timeframe ตามกลยุทธ์</li>
+<li>ประเภทบัญชี สกุลเงิน เงินเริ่มต้น และ Leverage</li>
+<li>ข้อมูล Contract Specification ของโบรกเกอร์เป้าหมาย</li>
+<li>ช่วงวันที่ที่ครอบคลุมตลาดหลายลักษณะ</li>
+<li>เกณฑ์ผ่าน/ไม่ผ่านที่กำหนดก่อนเห็นผล</li>
+</ul>
+
+<p>ควรกำหนดคำถามก่อน เช่น “ระบบรับ Spread สูงขึ้นได้แค่ไหน” หรือ “Drawdown เปลี่ยนอย่างไรเมื่อ Risk ลดลง” ไม่ควรเริ่มด้วยการลองค่าจำนวนมากแล้วเลือกเส้น Equity ที่สวยที่สุด เพราะเสี่ยงต่อ Data Mining และ Overfitting</p>
+
+<p>อ่านพื้นฐานการตีความได้ที่ <a href="https://fenixpro-th.com/read-ea-backtest/">วิธีอ่านผล Backtest EA</a> และเปรียบเทียบกับการใช้งานจริงที่ <a href="https://fenixpro-th.com/forward-test-ea/">Forward Test EA คืออะไร</a></p>
+
+<h2 id="settings">ขั้นตอนตั้ง Strategy Tester บน MT5</h2>
+
+<ol>
+<li>เปิด MT5 แล้วกด <strong>Ctrl+R</strong> เพื่อเปิด Strategy Tester</li>
+<li>เลือกงาน <strong>Test Expert</strong> หรือ Single Test ไม่เลือก Optimization หากยังต้องการตรวจ Preset เดียว</li>
+<li>เลือก EA ให้ตรงชื่อและ Version</li>
+<li>เลือก Symbol ของ Server ที่จะทดสอบ</li>
+<li>เลือก Timeframe ตามคู่มือ แม้ EA Multi-timeframe อาจเรียกข้อมูลช่วงอื่นเพิ่ม</li>
+<li>เลือก Modeling Mode ให้เหมาะกับตรรกะ EA</li>
+<li>กำหนดช่วงวันที่ Start/End</li>
+<li>กำหนด Initial Deposit, Currency และ Leverage</li>
+<li>โหลด SET ในแท็บ Inputs และตรวจค่าทุกช่อง</li>
+<li>ตั้ง Execution Delay/Commission/Specification ตามโจทย์ทดสอบ</li>
+<li>เปิด Visual Mode รอบสั้นเพื่อตรวจตรรกะก่อนรันช่วงยาว</li>
+<li>กด Start และรอให้ข้อมูล History/Tick ดาวน์โหลดครบ</li>
+</ol>
+
+<p>เอกสาร MT5 ระบุว่าวันเริ่มต้นรวมอยู่ในการทดสอบ แต่วิธีนับวันสิ้นสุดจะจบที่ Tick สุดท้ายของวันก่อนหน้าวัน End จึงต้องตรวจช่วงจริงใน Report ไม่สมมติจากช่องวันที่อย่างเดียว</p>
+
+<h2>เลือก Modeling Mode อย่างไร</h2>
+
+<table>
+<thead>
+<tr>
+<th>โหมด</th>
+<th>เหมาะกับ</th>
+<th>ข้อจำกัด</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every tick based on real ticks</td>
+<td>ตรวจละเอียดเมื่อ Server มีข้อมูล Tick จริง</td>
+<td>ช้าและข้อมูลมีขนาดใหญ่; ยังไม่จำลองทุกสภาพ Execution</td>
+</tr>
+<tr>
+<td>Every tick</td>
+<td>ทดสอบตรรกะที่ทำงานระหว่างแท่งด้วย Tick ที่สร้างจาก M1</td>
+<td>เส้นทาง Tick เป็นการจำลองเมื่อไม่มี Real Tick</td>
+</tr>
+<tr>
+<td>1 minute OHLC</td>
+<td>ประเมินระบบที่ไม่ไวต่อทุก Tick</td>
+<td>เรียก OnTick จำกัดที่ OHLC ของ M1</td>
+</tr>
+<tr>
+<td>Open prices only</td>
+<td>คัดกรองเร็วสำหรับ EA ที่ตัดสินใจเฉพาะเปิดแท่ง</td>
+<td>ไม่เหมาะกับ Intrabar, Trailing หรือเงื่อนไขย่อย</td>
+</tr>
+</tbody>
+</table>
+
+<p>อย่าเลือกโหมดเร็วเพียงเพราะผลสวยกว่า ต้องอธิบายได้ว่าตรรกะของ EA ใช้ข้อมูลระดับใด หากไม่ทราบให้ใช้โหมดละเอียดและเปรียบเทียบหลายโหมดเพื่อดูความไว</p>
+
+<h2 id="costs">ทำต้นทุนให้ใกล้บัญชีจริง</h2>
+
+<p>กำไรของ EA คือผลหลังต้นทุน หาก Tester ไม่รวมเงื่อนไขที่บัญชีจริงต้องจ่าย ผลจะสูงเกินจริงได้ ตรวจอย่างน้อย:</p>
+
+<ul>
+<li>Spread แบบคงที่หรือเปลี่ยนตาม Tick</li>
+<li>Commission ต่อ Lot/Side/Round Turn ตามนิยามของโบรกเกอร์</li>
+<li>Swap และวันคิด Swap เพิ่ม</li>
+<li>Execution Delay และ Slippage Scenario</li>
+<li>Minimum/Maximum Volume และ Volume Step</li>
+<li>Stops Level, Freeze Level และ Trading Session</li>
+<li>Margin Calculation และ Leverage</li>
+</ul>
+
+<p>MT5 มี Advanced Testing Settings และ Custom Symbol Specification สำหรับจำลองเงื่อนไข แต่ผู้ทดสอบต้องป้อนข้อมูลถูกหน่วย อย่าคัดเลข Commission จากหน้าโฆษณาโดยไม่ดูว่าเป็นต่อ Side หรือ Round Turn และสกุลใด</p>
+
+<h2 id="run">ระหว่างทดสอบต้องดูอะไร</h2>
+
+<p>เปิดแท็บ Journal ของ Strategy Tester ตรวจ Error, ข้อมูลไม่ครบ, Symbol ไม่พร้อม หรือการส่งคำสั่งถูกปฏิเสธ การมี Report ออกมาไม่ได้แปลว่ารันสมบูรณ์ หากมี Pass “tested with error” หรือ EA หยุดกลางช่วง ผลรวมไม่ควรนำไปเปรียบเทียบกับรอบปกติ</p>
+
+<p>Visual Mode ช่วยตรวจ:</p>
+
+<ul>
+<li>จุด Entry/Exit ตรงกับแนวคิด</li>
+<li>Stop Loss/Take Profit อยู่ฝั่งถูกต้อง</li>
+<li>Lot เปลี่ยนตาม Risk ที่ตั้ง</li>
+<li>News/Time Filter หยุดในช่วงที่กำหนด</li>
+<li>EA จัดการหลาย Position และ Pending Order ถูกชุด</li>
+<li>ไม่มี Look-ahead จาก Indicator หรือข้อมูลอนาคต</li>
+</ul>
+
+<p>หลังรอบสั้นผ่านจึงรันช่วงยาวโดยปิด Visualization เพื่อประหยัดเวลา</p>
+
+<h2 id="report">อ่าน Report โดยไม่ดูแค่ Net Profit</h2>
+
+<ul>
+<li><strong>History Quality/Ticks:</strong> ข้อมูลมี Gap หรือจำนวน Tick สมเหตุผลหรือไม่</li>
+<li><strong>Total Trades:</strong> Sample เพียงพอให้ตีความหรือยัง</li>
+<li><strong>Equity Drawdown:</strong> เห็น Floating Risk ที่ Balance อาจซ่อน</li>
+<li><strong>Profit Factor:</strong> Gross Profit เทียบ Gross Loss</li>
+<li><strong>Recovery Factor:</strong> Profit เทียบ Maximum Drawdown</li>
+<li><strong>Expected Payoff:</strong> ค่าเฉลี่ยต่อ Trade ก่อนสรุปต้องดู Distribution</li>
+<li><strong>Consecutive Losses:</strong> ใช้วางแผนความทนทานและพฤติกรรมผู้ใช้</li>
+<li><strong>Equity Curve:</strong> มีช่วงนิ่ง ขาดทุนยาว หรือกำไรจากช่วงเดียวหรือไม่</li>
+</ul>
+
+<p>ทดสอบ Sensitivity เพิ่มโดยเปลี่ยน Spread, Delay, Start Date และ Risk หากผลพังเมื่อเงื่อนไขขยับเล็กน้อย ระบบอาจไม่มี Margin of Safety เพียงพอ แม้รอบหลักดูดี</p>
+
+<h2 id="record">บันทึก Backtest ให้ผู้อื่นทำซ้ำได้</h2>
+
+<p>สร้าง Test ID ต่อหนึ่งรอบและเก็บ:</p>
+
+<ul>
+<li>EA Filename/Version และ Hash หากมี</li>
+<li>ไฟล์ SET</li>
+<li>Server/Symbol/Specification</li>
+<li>Date Range, Modeling Mode และ Execution Delay</li>
+<li>Deposit/Currency/Leverage/Commission</li>
+<li>MT5 Build และวันที่ดาวน์โหลดข้อมูล</li>
+<li>Report HTML/XML และ Screenshot Settings</li>
+<li>ข้อสรุปตามเกณฑ์ที่กำหนดไว้ก่อนทดสอบ</li>
+</ul>
+
+<p>จากนั้นทำ Out-of-Sample, Forward Test และ Demo เพื่อดูว่าพฤติกรรมออกนอกข้อมูลที่ใช้เลือกค่าหรือไม่ หน้า <a href="https://fenixpro-th.com/backtest/">ผล Backtest FENIX PRO</a> ควรอ่านร่วมกับเงื่อนไขการทดสอบและ <a href="https://fenixpro-th.com/forward-test/">ผล Forward Test</a> ไม่ใช้ภาพผลลัพธ์จุดเดียวแทนหลักฐานทั้งหมด</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> Backtest อาศัยข้อมูลและสมมติฐานในอดีต ไม่สามารถจำลอง Liquidity, Slippage, Outage และพฤติกรรมตลาดอนาคตได้ครบ ผลในอดีตไม่รับประกันผลในอนาคต</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Strategy Testing</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/tick_generation" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Real and Generated Ticks</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing_report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Testing Report</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

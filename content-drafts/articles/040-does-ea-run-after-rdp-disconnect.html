@@ -1,0 +1,143 @@
+---
+seo_title: ปิด Remote Desktop แล้ว EA ยังทำงานไหมบน VPS
+meta_description: แยก Disconnect, Sign out, Restart และปิดหน้าต่าง RDP ว่าแบบใดทำให้ MT5 กับ EA ทำงานต่อ พร้อมวิธีตรวจ Session Policy และ Heartbeat
+excerpt: ปิดหน้าต่าง RDP แบบ Disconnect โดยทั่วไปไม่ปิดแอปใน Session แต่ Sign out, Restart หรือ Session Timeout อาจหยุด MT5 และ EA
+cover_alt: แผนภาพ Remote Desktop แบบ Disconnect กับ Sign out และสถานะการทำงานของ MT5 EA
+---
+<p>คำตอบสั้นคือ <strong>เมื่อปิด Remote Desktop แบบ Disconnect แอปใน Session มักยังทำงานต่อ ตราบใดที่ VPS ยังเปิดและ Session ยังไม่ถูก Log off</strong> แต่ถ้ากด Sign out, Restart/Shut down, ผู้ให้บริการยุติ Session หรือมี Group Policy ตั้งเวลาปิด Disconnected Session โปรแกรม MT5 และ EA อาจหยุด</p>
+
+<p>ความสับสนเกิดจากคำว่า “ปิด RDP” ครอบคลุมหลายการกระทำที่ผลต่างกัน ผู้ใช้ต้องรู้ว่าตน Disconnect หรือ Log off และต้องตรวจ Process/Heartbeat จากหลักฐาน ไม่อาศัยเพียงสมมติฐานว่าหน้าต่างหายแล้วระบบยังทำงาน</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#states">สถานะ RDP ที่ต่างกัน</a></li>
+<li><a href="#continues">อะไรทำให้ EA ทำงานต่อ</a></li>
+<li><a href="#stops">กรณีที่ EA หยุด</a></li>
+<li><a href="#disconnect">วิธีออกจาก RDP อย่างถูกต้อง</a></li>
+<li><a href="#verify">วิธียืนยันว่า EA ยังทำงาน</a></li>
+<li><a href="#policy">ตรวจ Session Policy</a></li>
+</ul>
+</nav>
+
+<h2 id="states">Disconnect, Lock, Sign out และ Restart</h2>
+
+<table>
+<thead>
+<tr>
+<th>การกระทำ</th>
+<th>ผลโดยทั่วไป</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disconnect/ปิดหน้าต่าง RDP</td>
+<td>Session ยังอยู่บน VPS และแอปทำงานต่อ หาก Policy ไม่ Log off</td>
+</tr>
+<tr>
+<td>Lock</td>
+<td>Session ยัง Active/Locked แอปมักทำงานต่อ</td>
+</tr>
+<tr>
+<td>Sign out/Log off</td>
+<td>จบ User Session และปิดโปรแกรมใน Session</td>
+</tr>
+<tr>
+<td>Restart/Shut down</td>
+<td>หยุดระบบ/Process และต้อง Auto-start หลัง Boot</td>
+</tr>
+<tr>
+<td>Provider Rebuild/Terminate</td>
+<td>เครื่องหรือ Disk อาจถูกลบตามคำสั่ง ต้องมี Backup/Recovery</td>
+</tr>
+</tbody>
+</table>
+
+<p>Microsoft ระบุว่าเมื่อใช้ Disconnect แอปจะยัง Active ตราบใดที่ Session บน Remote PC ยังคง Active และคำสั่ง <code>tsdiscon</code> จะตัดการเชื่อมต่อโดยแอปที่กำลังรันยังอยู่เมื่อกลับมาเชื่อมใหม่ อย่างไรก็ตาม Group Policy สามารถกำหนด Time Limit ให้ Disconnected Session ถูก Log off ภายหลังได้</p>
+
+<h2 id="continues">เงื่อนไขที่ EA ต้องมีเพื่อทำงานต่อ</h2>
+
+<ul>
+<li>VPS Powered on และ Windows ไม่ Restart</li>
+<li>User Session ยังไม่ถูก Log off</li>
+<li>Process <code>terminal64.exe</code> ยังทำงาน</li>
+<li>MT5 เชื่อม Trading Server และรับ Tick</li>
+<li>AutoTrading/Allow Algo Trading เปิดตามนโยบาย</li>
+<li>EA ติดอยู่บน Chart และไม่มี Critical Error</li>
+<li>ระบบไม่ Sleep/Hibernate หรือถูก Provider Suspend</li>
+</ul>
+
+<p>RDP เป็นช่องทางแสดงผลและควบคุม Desktop ไม่ใช่สิ่งที่ EA ใช้ติดต่อ Broker โดยตรง เมื่อ Disconnect Client ที่บ้าน การประมวลผลยังอยู่บน VPS แต่หากผู้ใช้กด Sign out Windows จะปิด Process ที่ผูกกับ User Session</p>
+
+<h2 id="stops">เหตุการณ์ที่ดูเหมือน “ปิด RDP แล้ว EA หยุด”</h2>
+
+<h3>Session Timeout ถูกตั้งเป็น Log off</h3>
+<p>ผู้ให้บริการหรือ Group Policy อาจกำหนดให้ Disconnected Session ถูกจบหลังเวลาหนึ่ง ต้องตรวจ <strong>Remote Desktop Session Host &gt; Session Time Limits</strong> และข้อกำหนด Provider</p>
+
+<h3>ปิด MT5 ก่อนปิดหน้าต่าง</h3>
+<p>การกด X ที่หน้าต่าง MT5 หรือ Exit Platform ปิด EA จริง ต่างจากกด X ที่หน้าต่าง Remote Desktop Client ต้องอ่านชื่อหน้าต่างก่อนยืนยัน</p>
+
+<h3>VPS Restart ภายหลัง</h3>
+<p>Windows Update หรือ Maintenance อาจ Restart หลัง Disconnect หากไม่มี Auto-start ระบบจะหยุดจนผู้ใช้กลับมาเปิด อ่าน <a href="https://fenixpro-th.com/auto-start-mt5-on-vps/">วิธีตั้ง MT5 เปิดอัตโนมัติหลัง VPS Restart</a></p>
+
+<h3>Process ค้างแต่หน้าต่างยังอยู่</h3>
+<p>เมื่อกลับเข้า VPS เห็น MT5 ไม่ได้แปลว่ากำลังรับ Tick ตรวจ Connection, เวลา Market Watch และ Log หาก UI ค้างอาจต้องใช้ Monitoring ภายนอกแทนการดูภาพหน้าจอ</p>
+
+<h2 id="disconnect">วิธีออกจาก RDP โดยไม่ Log off</h2>
+
+<ol>
+<li>บันทึก/ตรวจ Setting ที่จำเป็น แต่ไม่กด Exit MT5</li>
+<li>ตรวจ Connection, AutoTrading และสถานะ EA</li>
+<li>ปิดหน้าต่าง Remote Desktop Client แล้วเลือก Disconnect หากมีคำถามยืนยัน</li>
+<li>หลีกเลี่ยงเมนู Start &gt; Sign out</li>
+<li>รอช่วงหนึ่งแล้วเชื่อมกลับ ตรวจว่า Uptime/Log เดินต่อเนื่อง</li>
+</ol>
+
+<p>ทีมที่ดูแลหลายเครื่องควรใช้คำว่า Disconnect และ Sign out ให้ตรงกันใน Runbook พร้อม Screenshot เมนูจริงของ Client ที่ใช้ เพราะ Windows App, Remote Desktop Connection และ Mobile Client อาจจัดวางปุ่มต่างกัน</p>
+
+<h2 id="verify">พิสูจน์จาก Heartbeat ไม่ใช่ความเชื่อ</h2>
+
+<p>วิธีตรวจที่ดีกว่าการกลับเข้า RDP ทุกชั่วโมง:</p>
+
+<ul>
+<li>EA เขียน Heartbeat พร้อม Server Time ลง Log/File ตามรอบ</li>
+<li>Monitoring ตรวจ Process, CPU และเวลาแก้ไข Log ล่าสุด</li>
+<li>Alert เมื่อไม่มี Tick/Heartbeat เกิน Threshold</li>
+<li>ตรวจ Expert/Journal ว่าไม่มี No Connection/Error</li>
+<li>ส่งสถานะไปช่องทางภายนอก VPS โดยไม่เผยข้อมูลบัญชีลับ</li>
+</ul>
+
+<p>แยก Heartbeat ของ “Process อยู่” จาก “Strategy Ready” Process อาจอยู่แต่ Account Logout หรือ Algo Trading ปิด สถานะพร้อมควรรวม Connection, Account, Symbol Sync, EA State และ Risk Lock</p>
+
+<h2 id="policy">ตรวจ Policy และทดสอบกับ Provider</h2>
+
+<p>บน Windows Server ให้ตรวจ Group Policy/Local Policy เรื่อง:</p>
+
+<ul>
+<li>Set time limit for disconnected sessions</li>
+<li>End session when time limits are reached</li>
+<li>Idle session limit</li>
+<li>Active session limit</li>
+<li>ผู้ให้บริการมี Automation ปิดเครื่องเมื่อ Idle หรือไม่</li>
+</ul>
+
+<p>อย่าแก้ Policy ที่ไม่เข้าใจบน Managed VPS ให้ถามผู้ให้บริการก่อน และทดสอบในช่วงที่ไม่มี Open Risk หาก Policy องค์กรบังคับ Log off อาจต้องเปลี่ยน Architecture/Service Hosting แทนการหลีกเลี่ยง Security Control</p>
+
+<h2>กรณีใช้หลาย User หรือเปิด Session ใหม่</h2>
+
+<p>หากกลับเข้า VPS แล้ว Windows สร้าง User Session ใหม่ Terminal ใน Session เก่าอาจยังทำงาน ทำให้ผู้ใช้เปิด MT5 ซ้ำใน Session ใหม่และส่งคำสั่งซ้ำได้ ตรวจ Task Manager แบบ All users, ใช้บัญชีเดียวตาม Runbook และกำหนด Process/Instance Guard</p>
+
+<p>อ่านพื้นฐาน VPS เพิ่มที่ <a href="https://fenixpro-th.com/vps-for-ea/">VPS สำหรับ EA</a> และขั้นตอนเชื่อมต่อที่ <a href="https://fenixpro-th.com/vps-desktop-windows/">คู่มือใช้งาน VPS บน Windows</a></p>
+
+<p><strong>สรุป:</strong> Disconnect โดยทั่วไปปล่อย Session และ EA ทำงานต่อ ส่วน Sign out และ Restart หยุด Process แต่ผลจริงขึ้นกับ Session Policy และ Provider ต้องยืนยันด้วย Heartbeat/Log และมี Auto-start/Alert รองรับเหตุ Restart</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> VPS และ RDP อาจขัดข้องหรือถูกยุติ Session ได้ การปล่อย EA ทำงานโดยไม่ Monitoring เพิ่มความเสี่ยง ผู้ใช้ต้องติดตาม Position และมีแผนฉุกเฉิน การเทรดมีความเสี่ยงสูง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/previous-versions/remote-desktop-client/remote-desktop-windows-urdc" rel="nofollow noopener" target="_blank">Microsoft Learn: Remote Desktop Disconnect Behavior</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tsdiscon" rel="nofollow noopener" target="_blank">Microsoft Learn: tsdiscon</a></li>
+<li><a href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/remote/troubleshoot-unexpected-rds-session-locks-or-disconnections" rel="nofollow noopener" target="_blank">Microsoft Learn: RDS Session States and Timeouts</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 14 ตุลาคม 2026</small></p>

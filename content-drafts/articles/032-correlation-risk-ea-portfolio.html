@@ -1,0 +1,128 @@
+---
+seo_title: Correlation Risk ของ EA คืออะไร? คู่เงินเสี่ยงซ้ำได้
+meta_description: เข้าใจ Correlation Risk เมื่อ EA เทรดหลายคู่เงินและทอง วิธีดูความเสี่ยงซ้ำ ความสัมพันธ์ที่เปลี่ยนตามตลาด และการทำ Stress Test ระดับพอร์ต
+excerpt: Symbol ต่างกันไม่ได้แปลว่ากระจายความเสี่ยง เพราะอาจตอบสนองต่อ Dollar ดอกเบี้ย หรือภาวะ Risk-on/Risk-off พร้อมกัน
+cover_alt: แผนภาพ Correlation Risk ของคู่เงินและทองในพอร์ต EA แสดงการเคลื่อนไหวร่วมกัน
+---
+<p><strong>Correlation Risk</strong> คือความเสี่ยงที่ Position หรือ EA หลายชุดเคลื่อนไหวไปในทิศทางที่ทำให้ขาดทุนพร้อมกัน แม้ชื่อ Symbol และ Strategy จะต่างกัน การกระจายเงินไปหลายกราฟจึงไม่เท่ากับการกระจายแหล่งความเสี่ยง หากทุกระบบตอบสนองต่อปัจจัยเดียวกัน</p>
+
+<p>ค่า Correlation เป็นสถิติของข้อมูลและช่วงเวลาที่เลือก ไม่ใช่กฎถาวร คู่ที่เคยเคลื่อนสวนกันอาจเคลื่อนไปทางเดียวกันในช่วงข่าวหรือภาวะตลาดเครียด การบริหารพอร์ต EA จึงต้องดูทั้ง Correlation ปกติ, Tail Scenario และ Currency/Factor Exposure</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#meaning">Correlation บอกอะไร</a></li>
+<li><a href="#hidden">ความเสี่ยงซ้ำที่ซ่อนในคู่เงิน</a></li>
+<li><a href="#changes">ทำไม Correlation เปลี่ยนได้</a></li>
+<li><a href="#measure">วิธีวัดให้ไม่หลอกตัวเอง</a></li>
+<li><a href="#stress">Stress Test สำหรับหลาย EA</a></li>
+<li><a href="#control">แนวทางควบคุม</a></li>
+</ul>
+</nav>
+
+<h2 id="meaning">Correlation บอกความสัมพันธ์ ไม่ได้บอกขนาดความเสียหาย</h2>
+
+<p>Correlation อยู่ในช่วง -1 ถึง +1 โดยค่าบวกสูงหมายถึง Return มักเคลื่อนทิศเดียวกัน ค่าลบหมายถึงมักสวนกัน และใกล้ศูนย์หมายถึงไม่มีความสัมพันธ์เชิงเส้นชัดใน Sample นั้น แต่ค่าเดียวไม่บอก Volatility, Tail Loss หรือ Notional Exposure</p>
+
+<p>ตัวอย่าง ระบบ A และ B มี Correlation สูง แต่ B ใช้ Lot เล็กมาก อาจมี Risk Contribution ต่ำ ในทางกลับกัน Correlation ปานกลางแต่ทั้งสองใช้ Lot สูงและ Stop กว้าง ความเสียหายร่วมอาจมากกว่า จึงต้องรวม Correlation กับ Position Size และ Distribution</p>
+
+<h2 id="hidden">คู่เงินต่างชื่อ แต่อาจถือ Currency เดียวกัน</h2>
+
+<p>การอ่าน Base/Quote ช่วยเห็นความเสี่ยงที่ซ่อนอยู่:</p>
+
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Exposure โดยย่อ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Buy EURUSD</td>
+<td>Long EUR / Short USD</td>
+</tr>
+<tr>
+<td>Buy GBPUSD</td>
+<td>Long GBP / Short USD</td>
+</tr>
+<tr>
+<td>Sell USDJPY</td>
+<td>Short USD / Long JPY</td>
+</tr>
+<tr>
+<td>Buy USDCHF</td>
+<td>Long USD / Short CHF</td>
+</tr>
+</tbody>
+</table>
+
+<p>สามรายการแรกมี Short USD ร่วมกัน แม้คู่เงินคนละชื่อ ขณะที่รายการสุดท้ายอาจช่วยหัก USD Exposure บางส่วน แต่ไม่ได้รับประกันว่าจะ Hedge สมบูรณ์ เพราะขนาด ความผันผวน เวลาเปิด และปัจจัยของสกุลเงินอีกด้านต่างกัน</p>
+
+<p>XAUUSD มี USD เป็น Quote และราคาทองยังตอบสนองต่อดอกเบี้ยจริง สภาพคล่อง และแรงซื้อเฉพาะสินทรัพย์ จึงไม่ควรสรุปว่าทองจะสวน Dollar ทุกครั้ง อ่านบริบทการใช้ระบบทองที่ <a href="https://fenixpro-th.com/xauusd-ea-guide/">คู่มือ EA XAUUSD</a></p>
+
+<h2 id="changes">เหตุผลที่ Correlation ไม่คงที่</h2>
+
+<ul>
+<li><strong>Market Regime:</strong> ช่วงเงินเฟ้อ นโยบายการเงิน หรือวิกฤตทำให้ปัจจัยหลักเปลี่ยน</li>
+<li><strong>Timeframe:</strong> Correlation ราย 5 นาทีอาจต่างจากรายวัน</li>
+<li><strong>Session:</strong> สภาพคล่องและผู้เล่นต่างกันระหว่าง Asia, London และ New York</li>
+<li><strong>Volatility:</strong> ความสัมพันธ์ในวันปกติอาจเปลี่ยนเมื่อ Volatility พุ่ง</li>
+<li><strong>Sample Window:</strong> หน้าต่างสั้นตอบสนองเร็วแต่ผันผวน หน้าต่างยาวอาจตาม Regime ไม่ทัน</li>
+<li><strong>Nonlinear/Tail Dependence:</strong> ค่า Linear Correlation ต่ำไม่ได้แปลว่าไม่ขาดทุนร่วมในเหตุการณ์รุนแรง</li>
+</ul>
+
+<p>การใช้ Matrix จากช่วงเดียวแล้วถือว่าใช้ได้ตลอดอายุระบบจึงไม่พอ ควรดู Rolling Correlation และแยกช่วงตลาดสงบ/เครียด รวมถึงตรวจเหตุการณ์ที่ระบบหลายตัวทำ Maximum Adverse Excursion พร้อมกัน</p>
+
+<h2 id="measure">วิธีวัด Correlation ให้เหมาะกับพอร์ต EA</h2>
+
+<ol>
+<li><strong>ใช้ Return ไม่ใช้ระดับราคา:</strong> ระดับราคาที่มี Trend อาจให้ความสัมพันธ์หลอก</li>
+<li><strong>เลือก Sampling ให้ตรง Holding Period:</strong> EA Intraday กับ Swing ไม่ควรใช้หน้าต่างเดียวโดยอัตโนมัติ</li>
+<li><strong>ใช้ผลกลยุทธ์สุทธิ:</strong> เปรียบเทียบ Return ของ EA หลังต้นทุน ไม่ใช่ดูแค่ Symbol Return</li>
+<li><strong>จัด Alignment:</strong> จัด Timestamp และ Missing Data ให้ตรงกัน ไม่เติมค่าที่สร้างความนิ่งเทียม</li>
+<li><strong>ดูหลาย Window:</strong> เปรียบเทียบระยะสั้น กลาง และช่วง Stress</li>
+<li><strong>Weight ด้วย Risk:</strong> รวม Lot, Stop Distance, Volatility และ Equity Allocation</li>
+</ol>
+
+<p>EA สองตัวบน Symbol เดียวอาจมี Correlation ต่ำหาก Logic และ Holding Period ต่างกัน ส่วน EA คนละ Symbol อาจ Correlation สูงเพราะเข้าออกจาก Signal Factor เดียวกัน ดังนั้นควรวัดที่ Strategy Return เพิ่มจากการดู Pair</p>
+
+<h2 id="stress">Stress Test ที่ควรทำ</h2>
+
+<h3>Correlation ไปทางเสียหายพร้อมกัน</h3>
+<p>บังคับ Scenario ให้ Position ที่คิดว่ากระจายกันขาดทุนพร้อมกัน แล้วประเมิน Equity, Margin Level และ Stop Execution โดยไม่ใช้ประโยชน์จาก Historical Hedge เต็มจำนวน</p>
+
+<h3>USD Shock / Gold Shock</h3>
+<p>รวมทุก Currency Leg และทอง แล้วจำลองการเคลื่อนไหวแบบ Gap/Spread Expansion ตรวจว่า Portfolio Limit ยังทำงานก่อน Stop Out หรือไม่</p>
+
+<h3>Signal Clustering</h3>
+<p>ตรวจวันที่ EA หลายตัวเปิดในช่วงเวลาใกล้กัน แม้ Return รายวันดูไม่สัมพันธ์ ความเสี่ยงระหว่างวันอาจกระจุกตอนข่าวหรือเปิด Session</p>
+
+<h3>Correlation Breakdown</h3>
+<p>สมมติคู่ Hedge แยกออกจากกันแทนที่จะหักล้าง และคำนวณ Gross Exposure/Execution Cost ของทั้งสองขา</p>
+
+<h2 id="control">แนวทางควบคุม Correlation Risk</h2>
+
+<ul>
+<li>กำหนด Currency และ Factor Exposure Limit เหนือ Limit ราย EA</li>
+<li>ลด Lot เมื่อหลาย Strategy ส่งสัญญาณทิศเดียวกัน</li>
+<li>ใช้ Portfolio Controller อนุมัติ/ปฏิเสธคำสั่งใหม่</li>
+<li>ตั้ง Maximum Gross Exposure แม้ Net Exposure ดูต่ำ</li>
+<li>ติดตาม Rolling Correlation และ Risk Contribution เป็นรอบ</li>
+<li>แยกบัญชีไม่ได้ช่วยหักความเสี่ยง หากเงินทุนทั้งหมดเป็น Risk Budget ก้อนเดียวกัน</li>
+<li>ทำ Stress Test โดยไม่สมมติว่า Hedge จะทำงานสมบูรณ์</li>
+</ul>
+
+<p>เริ่มจากการรวม Position ให้ครบตาม <a href="https://fenixpro-th.com/portfolio-exposure-multiple-orders/">วิธีดู Portfolio Exposure</a> ก่อน แล้วจึงประเมิน Correlation หากข้อมูลฐานไม่ครบ Matrix ที่ซับซ้อนก็ไม่ช่วยให้ตัดสินใจดีขึ้น</p>
+
+<p><strong>สรุป:</strong> Correlation ใช้ชี้ว่าความเสี่ยงอาจซ้ำกัน แต่ต้องตีความร่วมกับขนาด Position, Currency Leg, Volatility และ Tail Scenario การกระจายที่แท้จริงคือกระจายแหล่งกำไร/ขาดทุน ไม่ใช่เพียงเพิ่มจำนวน Symbol หรือ EA</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> Correlation จากอดีตเปลี่ยนแปลงได้และไม่รับประกันการหักล้างในอนาคต การซื้อขายหลาย Symbol หรือหลายระบบอาจเพิ่มความเสี่ยงรวม โปรดทำ Stress Test และกำหนด Limit ที่เหมาะสม อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/performing_deals" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Exposure and Account Assets</a></li>
+<li><a href="https://www.bis.org/publ/work1031.htm" rel="nofollow noopener" target="_blank">BIS Working Paper 1031: Risk Capacity, Portfolio Choice and Exchange Rates</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 28 กันยายน 2026</small></p>

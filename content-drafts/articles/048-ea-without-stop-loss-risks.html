@@ -1,0 +1,145 @@
+---
+seo_title: EA ไม่มี Stop Loss เสี่ยงอย่างไร ต้องตรวจอะไร
+meta_description: EA ไม่แสดง Stop Loss อาจใช้ Hidden Stop Basket Exit หรือไม่มีขีดจำกัด เรียนรู้วิธีตรวจ History, Floating Loss, Margin, Lot และ Worst Scenario
+excerpt: ช่อง Stop Loss ว่างไม่ได้บอก Logic ทั้งหมด แต่ผู้ซื้อจำเป็นต้องรู้ Maximum Loss และ Exit Fallback หาก Terminal หรือ License ขัดข้อง
+cover_alt: ประวัติออเดอร์ EA ไม่มี Stop Loss พร้อมจุดตรวจ Hidden Stop Basket และ Floating Drawdown
+---
+<p><strong>EA ไม่มี Stop Loss</strong> ที่แสดงบน Server อาจอยู่ได้หลายกรณี: ใช้ Hidden Stop ใน Code, ปิดด้วย Signal/Time, ใช้ Basket Equity Stop หรือไม่มี Hard Loss Limit เลย ความเสี่ยงต่างกันมาก จึงไม่ควรสรุปจากช่อง SL ว่างเพียงอย่างเดียว แต่ต้องตอบให้ได้ว่า “สถานะจะถูกปิดเมื่อใด ใครเป็นผู้สั่งปิด และขาดทุนสูงสุดถูกจำกัดอย่างไร”</p>
+
+<p>Stop ที่อยู่ฝั่ง EA พึ่ง Terminal, VPS, Connection และ License มากกว่า Stop Loss ที่ส่งและยอมรับบน Broker Server หากระบบหยุดในเวลาที่ Position เปิด Hidden Logic อาจไม่ทำงาน ความเสี่ยงด้าน Operations จึงเป็นส่วนหนึ่งของ Strategy Risk</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#cases">ไม่มี SL แปลว่าอะไรได้บ้าง</a></li>
+<li><a href="#server">Server Stop กับ Hidden Stop</a></li>
+<li><a href="#history">ตรวจจากประวัติออเดอร์</a></li>
+<li><a href="#risk">ความเสี่ยงที่มักถูกซ่อน</a></li>
+<li><a href="#testing">Stress Test ที่ต้องทำ</a></li>
+<li><a href="#questions">คำถามก่อนใช้งาน</a></li>
+</ul>
+</nav>
+
+<h2 id="cases">รูปแบบ Exit ที่ไม่มีค่า SL ใน Position</h2>
+
+<table>
+<thead>
+<tr>
+<th>รูปแบบ</th>
+<th>กลไก</th>
+<th>Dependency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hidden Stop</td>
+<td>EA ตรวจราคาแล้วส่ง Market Close</td>
+<td>Terminal, Tick, Connection, EA State</td>
+</tr>
+<tr>
+<td>Signal Exit</td>
+<td>ปิดเมื่อ Indicator/Model เปลี่ยน</td>
+<td>Logic และข้อมูลครบ</td>
+</tr>
+<tr>
+<td>Time Exit</td>
+<td>ปิดเมื่อครบเวลา/สิ้น Session</td>
+<td>Clock, Session, Terminal</td>
+</tr>
+<tr>
+<td>Basket Stop</td>
+<td>ปิดหลาย Position เมื่อ P/L รวมถึงเกณฑ์</td>
+<td>การระบุ Basket และ Execution หลายคำสั่ง</td>
+</tr>
+<tr>
+<td>No Hard Stop</td>
+<td>ถือจนกลับ/Manual/Emergency</td>
+<td>ความเสี่ยงอาจไม่จำกัดก่อน Margin/Stop Out</td>
+</tr>
+</tbody>
+</table>
+
+<p>การใช้ Signal Exit ไม่ผิดโดยอัตโนมัติ เช่น Trend Strategy อาจออกเมื่อโครงสร้างเปลี่ยน แต่ต้องมี Worst-case Guard สำหรับ Gap, Data Failure และ Signal ที่ไม่เกิดตามคาด หากไม่สามารถประมาณ Loss Tail ได้ ผู้ใช้ไม่สามารถกำหนด Lot จาก Risk ต่อ Trade ได้อย่างซื่อสัตย์</p>
+
+<h2 id="server">Stop ที่ Broker เห็นกับ Stop ที่ EA จำ</h2>
+
+<p>เอกสาร MetaTrader ระบุว่า Stop Loss/Take Profit ที่ผูกกับ Position และส่งไป Server จะทำงานโดยไม่พึ่ง Platform ที่เครื่องผู้ใช้ ส่วน Trailing Stop/Logic ใน Terminal ต้องให้ Platform ทำงานเพื่อส่งการแก้ไขหรือปิด</p>
+
+<p>Hidden Stop มีเหตุผลใช้งานบางแบบ เช่น ไม่เผยระดับให้ Server หรือใช้ Logic ซับซ้อน แต่เพิ่ม Failure Modes:</p>
+
+<ul>
+<li>VPS/Windows/MT5 ปิดหรือค้าง</li>
+<li>Connection หลุดและคำสั่ง Close ส่งไม่ได้</li>
+<li>EA ถูกถอด AutoTrading ปิด หรือ License หมด</li>
+<li>Tick ไม่มาในช่วง Market/Gateway ผิดปกติ</li>
+<li>หลาย Position ปิดไม่ครบหรือ Partial Fill</li>
+</ul>
+
+<p>จึงต้องมี Monitoring และ Fallback Stop/Account-level Protection ที่ไม่พึ่ง Module เดียว อ่านความต่างของคำสั่งที่ <a href="https://fenixpro-th.com/stop-loss-take-profit-trailing-stop/">Stop Loss, Take Profit และ Trailing Stop</a></p>
+
+<h2 id="history">ตรวจ Trade History หา Logic ที่ซ่อน</h2>
+
+<ol>
+<li><strong>MAE และ Holding Time:</strong> Position เคยลึกแค่ไหนก่อนปิด และถือ Loss นานกว่ากำไรหรือไม่</li>
+<li><strong>Lot Progression:</strong> เมื่อราคาสวน ระบบเพิ่ม Lot/จำนวนออเดอร์หรือไม่</li>
+<li><strong>Exit Price Pattern:</strong> ปิดที่ระยะคงที่ สัญญาณ เวลา หรือ P/L รวม</li>
+<li><strong>Open Positions ณ สิ้นช่วง:</strong> Backtest/Track Record จบพร้อม Basket ขาดทุนหรือไม่</li>
+<li><strong>Balance vs Equity:</strong> Balance เรียบแต่ Equity Drawdown มากหรือไม่</li>
+<li><strong>Gap/News Days:</strong> ระบบทำอย่างไรในวันที่ราคา/Spread เปลี่ยนแรง</li>
+</ol>
+
+<p>หากรายงานมี Closed Trades อย่างเดียว ขอ Equity Curve และ Open Position Snapshot เพราะระบบอาจปิด Winner สม่ำเสมอแต่ถือ Loser ค้าง การอ่าน Maximum Closed Loss อย่างเดียวประเมินต่ำกว่าความเสี่ยงจริง</p>
+
+<h2 id="risk">ความเสี่ยงสำคัญของระบบไม่มี Hard Stop</h2>
+
+<h3>Loss Tail ไม่ชัด</h3>
+<p>Average Loss เล็กอาจมาจาก Sample ที่ยังไม่เจอเหตุการณ์ซึ่ง Exit ล้มเหลว Maximum Drawdown ในอดีตไม่ใช่เพดานอนาคต</p>
+
+<h3>Position Sizing ไม่ตรงคำโฆษณา</h3>
+<p>หากไม่มีระยะ Stop ก่อนเปิด Auto Lot ที่เรียกว่า “Risk 1%” อาจคำนวณจากระยะสมมติหรือวิธีอื่น ต้องถาม Maximum Adverse Distance และ Account Stop ที่ใช้จริง</p>
+
+<h3>Margin กลายเป็น Stop สุดท้าย</h3>
+<p>ระบบที่รอราคา回กลับโดยไม่มีขีดจำกัดอาจสะสมจน Margin Call/Stop Out โดยเฉพาะ Grid/Martingale ความเสียหายไม่ได้จำกัดที่ออเดอร์แรก</p>
+
+<h3>Operational Dependency</h3>
+<p>Hidden Exit เพิ่มความสำคัญของ VPS, Connection, Update, License และ Monitoring หากผู้ขายบอกว่า “ไม่ต้องใช้ SL” แต่ไม่มีแผนกรณี EA หยุด ถือว่าข้อมูลยังไม่ครบ</p>
+
+<h2 id="testing">Stress Test ก่อนอนุมัติ</h2>
+
+<ul>
+<li>ปิด Terminal/ตัด Connection ขณะ Position เปิดใน Demo แล้วดู Fallback</li>
+<li>เพิ่ม Spread, Slippage และ Gap ใน Scenario</li>
+<li>ทดสอบ Trend ยาว/Mean Reversion ล้มเหลวและ Correlated Move</li>
+<li>ปล่อย Position ถึง Maximum Time/Price Boundary ที่ Logic อนุญาต</li>
+<li>ทดสอบหลาย Position ปิดพร้อมกันและคำสั่ง Reject</li>
+<li>ตรวจ Equity/Margin หลัง Worst Planned Basket</li>
+<li>ทดสอบ Restart แล้ว EA โหลด State/Ownership ถูกต้อง</li>
+</ul>
+
+<p>หาก Strategy Tester ไม่จำลอง Connection Failure ให้ทำ Operational Test แยกบน Demo ไม่ดัดแปลงผล Backtest ให้เหมือนครอบคลุมสิ่งที่ไม่ได้ทดสอบ</p>
+
+<h2 id="questions">คำถามที่ต้องได้คำตอบ</h2>
+
+<ul>
+<li>Position ปิดด้วย Signal, Hidden Price, Time หรือ Basket P/L</li>
+<li>มีระดับ Hard Stop ฝั่ง Server หรือ Account Equity Stop หรือไม่</li>
+<li>Maximum Positions/Lot/Distance/Time ถูกจำกัดเท่าไร</li>
+<li>VPS หรือ License หลุด ระบบจัดการ Position ที่เปิดอย่างไร</li>
+<li>เปิดใหม่แล้วกู้ State ของ Basket เดิมได้หรือไม่</li>
+<li>Backtest แสดง Equity และ Position ที่ยังเปิดปลายช่วงหรือไม่</li>
+<li>หาก Symbol Gap ผ่านระดับภายใน จะคำนวณ/ปิดอย่างไร</li>
+</ul>
+
+<p>ประเมินร่วมกับ <a href="https://fenixpro-th.com/how-to-choose-ea/">วิธีเลือก EA</a>, <a href="https://fenixpro-th.com/what-is-drawdown/">Drawdown คืออะไร</a> และ <a href="https://fenixpro-th.com/equity-stop-ea/">Equity Stop</a></p>
+
+<p><strong>สรุป:</strong> ช่อง SL ว่างไม่ใช่คำตัดสิน แต่เป็นเหตุให้ต้องถาม Exit Architecture และ Worst-case Loss ให้ลึกขึ้น หากไม่มีขีดจำกัดที่ทดสอบได้ ผู้ใช้ต้องถือว่าความเสี่ยงอาจมากกว่าที่ Closed Trade History แสดง</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> Hidden Stop, Basket Stop หรือ EA ไม่สามารถรับประกันการปิด Position เมื่อเกิด Gap, Connection Failure หรือคำสั่งถูกปฏิเสธ ระบบไม่มี Hard Stop อาจสูญเสียเงินทุนจำนวนมาก โปรดทดสอบและใช้ความเสี่ยงที่รับได้ อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/performing_deals" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Server-side Stop Loss and Take Profit</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/general_concept" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Trailing Stop and Platform Dependency</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 30 ตุลาคม 2026</small></p>

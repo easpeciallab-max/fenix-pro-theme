@@ -1,0 +1,144 @@
+---
+seo_title: วิธีเปิด MT5 หลาย Terminal และใช้หลายบัญชี
+meta_description: ขั้นตอนติดตั้ง MT5 หลายชุดบนเครื่องหรือ VPS แยกโฟลเดอร์ Data Folder Shortcut บัญชี EA และทรัพยากรไม่ให้ระบบปะปนกัน
+excerpt: MT5 เปิดหลาย Terminal พร้อมกันได้เมื่อแต่ละชุดติดตั้งคนละ Directory ต้องแยกไฟล์ Preset Profile และบัญชีให้ตรวจย้อนหลังได้
+cover_alt: Windows แสดง MT5 หลาย Terminal ที่ติดตั้งแยกโฟลเดอร์และเปิดหลายบัญชี
+---
+<p>การเปิด MT5 หลาย Terminal บนเครื่องเดียวเหมาะเมื่อจำเป็นต้องใช้หลายบัญชี หลายโบรกเกอร์ หรือแยก EA ให้เป็นอิสระ เอกสาร MetaTrader ระบุว่าสอง Instance ไม่สามารถรันจาก Directory เดียวกันพร้อมกันได้ หากต้องการเปิดหลายชุดต้องติดตั้งแพลตฟอร์มในคนละ Directory</p>
+
+<p>สิ่งที่ต้องแยกไม่ใช่เพียง Shortcut เพราะแต่ละ Terminal มี Data Folder, Config, Profile, Log และไฟล์ MQL5 ของตนเอง การคัดลอก EA ลงผิด Data Folder ทำให้เกิดอาการ “อีกหน้ามีไฟล์ แต่อีกหน้าไม่เห็น” และการ Login สลับบัญชีใน Terminal เดียวอาจกระทบ EA ที่เปิดอยู่ตามการตั้งค่า Disable Automated Trading</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#choose">หลายบัญชีใน Terminal เดียวหรือหลาย Terminal</a></li>
+<li><a href="#install">ขั้นตอนติดตั้งหลายชุด</a></li>
+<li><a href="#folders">แยก Data Folder อย่างไร</a></li>
+<li><a href="#ea">จัด EA, Preset และ Magic</a></li>
+<li><a href="#resources">ประเมินทรัพยากรเครื่อง</a></li>
+<li><a href="#operations">ระบบดูแลและ Restart</a></li>
+</ul>
+</nav>
+
+<h2 id="choose">ควรใช้รูปแบบไหน</h2>
+
+<h3>หลายบัญชีใน Terminal เดียว</h3>
+<p>MT5 สามารถบันทึกหลายบัญชีใน Navigator และสลับ Login ได้ เหมาะกับการตรวจบัญชีทีละบัญชี แต่ Terminal จะเชื่อมต่อ Active Account ได้ครั้งละหนึ่งบัญชี EA บนกราฟจึงทำงานกับบัญชีที่ Login อยู่ ไม่เหมาะกับการรันหลายบัญชีพร้อมกัน</p>
+
+<h3>หลาย Terminal บนเครื่องเดียว</h3>
+<p>แต่ละ Terminal Login คนละบัญชีและรันพร้อมกันได้ เหมาะกับ EA 24/7 หรือการแยก Production/Demo แต่ต้องมี RAM, CPU, Disk และขั้นตอนดูแลมากขึ้น</p>
+
+<h3>หลาย VPS</h3>
+<p>แยก Failure Domain และสิทธิ์เข้าถึงได้ชัดกว่า แต่มีค่าใช้จ่ายและงานบำรุงรักษาเพิ่ม ไม่จำเป็นต้องใช้ VPS แยกทุกบัญชีหากเครื่องเดียวมีทรัพยากรและความเสี่ยงการหยุดพร้อมกันอยู่ในระดับที่ยอมรับได้</p>
+
+<h2 id="install">วิธีติดตั้ง MT5 หลาย Terminal</h2>
+
+<ol>
+<li>ดาวน์โหลด Installer จากโบรกเกอร์หรือแหล่งทางการ</li>
+<li>เปิด Installer และเลือก Settings แทนการกด Next แบบ Default</li>
+<li>ตั้ง Installation Folder ให้ไม่ซ้ำ เช่น <code>C:\Trading\MT5-Account-A</code></li>
+<li>ตั้งชื่อ Program Group/Shortcut ที่ระบุบัญชีหรือหน้าที่</li>
+<li>ติดตั้งชุดถัดไปใน Directory ใหม่ เช่น <code>C:\Trading\MT5-Account-B</code></li>
+<li>เปิดแต่ละ Terminal แล้วใช้ <strong>File &gt; Open Data Folder</strong> จด Path</li>
+<li>Login บัญชีที่ถูกต้องและตั้งชื่อ Shortcut ให้แยกได้</li>
+<li>ติดตั้ง EA/Indicator/Preset ลง Data Folder ของแต่ละชุด</li>
+</ol>
+
+<p>หลีกเลี่ยงชื่อโฟลเดอร์ที่มีเพียงเลขลำดับโดยไม่มี Mapping ควรมีตารางว่า Terminal A ใช้ Account/Server/EA ใด แต่ไม่บันทึก Password เป็นข้อความธรรมดาในตาราง</p>
+
+<p>พื้นฐานการเตรียมโปรแกรมอ่านที่ <a href="https://fenixpro-th.com/how-to-install-mt5/">วิธีติดตั้ง MT5</a> และตำแหน่ง EA ที่ <a href="https://fenixpro-th.com/how-to-install-ea-mt5/">คู่มือติดตั้ง EA บน MT5</a></p>
+
+<h2 id="folders">เข้าใจ Installation Folder กับ Data Folder</h2>
+
+<p>Installation Folder เก็บไฟล์โปรแกรม เช่น terminal64.exe ส่วน Data Folder เก็บข้อมูลที่แก้ไขได้ เช่น MQL5, Config, Logs, Profiles และ Bases ใน Main Mode แต่ละ Installation Path จะสัมพันธ์กับ Instance ID ของ Data Folder</p>
+
+<p>วิธีไม่ให้สับสน:</p>
+
+<ul>
+<li>เปิด Data Folder จากเมนูของ Terminal ที่กำลังใช้อยู่เสมอ</li>
+<li>สร้างไฟล์ข้อความ <code>terminal-map.txt</code> ในโฟลเดอร์เอกสารกลาง ระบุ Shortcut → Installation → Data Folder</li>
+<li>ตั้งสี Chart Background หรือ Profile Label แยก Demo/Real</li>
+<li>Pin Shortcut ด้วยชื่อบัญชีที่ปิดบังบางส่วน เช่น <code>MT5-A-Live-01</code></li>
+<li>อย่าคัดลอกทั้ง Data Folder ระหว่าง Terminal โดยไม่ตรวจ Config/Account</li>
+</ul>
+
+<p>Portable Mode ทำให้ข้อมูลอยู่ใกล้ Installation Folder แต่มีเงื่อนไข Permission และ UAC ตามเอกสาร MT5 บน RDP/Main Mode มักใช้ Data Folder ใต้ User Profile อย่าเปิด /portable เพียงเพื่อให้ Path ดูง่ายหากยังไม่เข้าใจสิทธิ์ Windows</p>
+
+<h2 id="ea">จัด EA และ Preset ระหว่างหลาย Terminal</h2>
+
+<ul>
+<li>เก็บ Master Copy ของ EX5/SET แยกจากโฟลเดอร์ที่รันจริง</li>
+<li>ติดตั้งไฟล์ตาม Version เดียวกันเฉพาะ Terminal ที่อนุมัติ</li>
+<li>ใช้ Magic Number ไม่ซ้ำเมื่อหลาย EA อยู่ในบัญชีเดียว</li>
+<li>ถ้าแยกบัญชีแล้ว Magic ซ้ำอาจไม่รบกวนข้ามบัญชี แต่ยังควรบันทึกเพื่อวิเคราะห์</li>
+<li>ตั้งชื่อ SET ให้มี EA, Version, Symbol, Timeframe และ Risk Profile</li>
+<li>เก็บ Screenshot ของกราฟและ Inputs ต่อ Terminal</li>
+<li>ตรวจ License ว่าจำกัดจำนวน Instance/บัญชี/เครื่องหรือไม่</li>
+</ul>
+
+<p>อ่านแนวทาง ID ของออเดอร์ได้ที่ <a href="https://fenixpro-th.com/magic-number-mt5-ea/">Magic Number บน MT5</a> และภาพรวมการรวมความเสี่ยงที่ <a href="https://fenixpro-th.com/run-multiple-ea-mt5/">เปิด EA หลายตัวพร้อมกันได้ไหม</a></p>
+
+<h2 id="resources">ประเมิน CPU, RAM, Disk และ Network</h2>
+
+<p>จำนวน Terminal สูงสุดไม่มีเลขเดียว เพราะขึ้นกับ EA, จำนวนกราฟ, Indicator, History และความถี่ของ Tick วิธีที่ถูกต้องคือวัด Resource จริงในช่วงตลาดเคลื่อนไหว ไม่ใช่ดูเฉพาะตอนสุดสัปดาห์</p>
+
+<table>
+<thead>
+<tr>
+<th>ทรัพยากร</th>
+<th>สิ่งที่ควรดู</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>การใช้งานต่อเนื่องและ Spike เมื่อหลาย EA คำนวณพร้อมกัน</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>Committed Memory, Paging และพื้นที่เผื่อ Update/Restart</td>
+</tr>
+<tr>
+<td>Disk</td>
+<td>พื้นที่ History/Logs, IOPS และ Free Space</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>ความเสถียร Packet Loss และ Latency ไป Trade Server</td>
+</tr>
+</tbody>
+</table>
+
+<p>เพิ่ม Terminal ทีละชุด เฝ้าดู Task Manager และ Experts/Journal หาก CPU/RAM สูงต่อเนื่องหรือ Terminal ตอบสนองช้า ให้ลดกราฟ/Indicator ที่ไม่จำเป็นหรือเพิ่มทรัพยากร ก่อนเพิ่มบัญชีใหม่ อ่านแนวทางที่ <a href="https://fenixpro-th.com/vps-for-ea/">เลือก VPS สำหรับ EA</a></p>
+
+<h2 id="operations">ระบบดูแลหลาย Terminal ไม่ให้พลาด</h2>
+
+<h3>ใช้ Inventory กลาง</h3>
+<p>เก็บรายการ Terminal, Account, Server, EA Version, Preset, Magic, Shortcut และเจ้าของงาน อัปเดตเมื่อเปลี่ยนจริงทุกครั้ง</p>
+
+<h3>กำหนดลำดับ Start/Stop</h3>
+<p>หลัง Windows Restart ให้เปิด Terminal ตามลำดับ ตรวจ Connection และ Log ทีละชุด ไม่เปิดทั้งหมดแล้วสรุปจากไอคอนบน Taskbar</p>
+
+<h3>ตั้ง Alert แยก</h3>
+<p>หาก EA/ระบบ Monitoring รองรับ ให้แยกชื่อบัญชีใน Notification เพื่อรู้ว่า Error มาจาก Terminal ใด ไม่ใช้ข้อความ “MT5 disconnected” แบบไม่มี Context</p>
+
+<h3>สำรองและทดสอบ Restore</h3>
+<p>Backup ไฟล์ EA, Preset, Profile และ Mapping นอก VPS ทดสอบเปิด Terminal สำรองโดยไม่เชื่อมต่อบัญชีจริงอัตโนมัติ</p>
+
+<h3>แยก Demo และ Real ชัดเจน</h3>
+<p>ใช้ Shortcut, Wallpaper/Profile และ Folder คนละชื่อ ป้องกันโหลด Preset หรือปิด Terminal ผิดบัญชี</p>
+
+<p>หลาย Terminal ช่วยแยกระบบ แต่เพิ่มจุดที่ต้องดูแล หากไม่มี Inventory และ Monitoring โครงสร้างที่แยกมากขึ้นอาจทำให้ทีมพลาดได้ง่ายกว่า Terminal เดียว</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> การรันหลายบัญชีบนเครื่องเดียวทำให้ทุกระบบพึ่งพา Windows, Disk, Network และไฟฟ้าชุดเดียวกัน หากเครื่องล้มทุกบัญชีอาจหยุดพร้อมกัน ต้องประเมินความเสี่ยงระดับโครงสร้างและระดับพอร์ต</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/start" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Multiple Platform Copies and Start Modes</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/structure" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Files and Data Folders</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/account_manage" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Manage Multiple Accounts</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

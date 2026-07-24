@@ -1,0 +1,155 @@
+---
+seo_title: ไฟล์ EX5 คืออะไร? ต่างจาก MQ5 อย่างไร
+meta_description: อธิบายไฟล์ EX5 และ MQ5 บน MetaTrader 5 ตำแหน่งติดตั้ง วิธี Compile การสำรองไฟล์ และสิ่งที่ควรตรวจเมื่อ EA ไม่แสดงใน Navigator
+excerpt: EX5 คือไฟล์โปรแกรมที่ MT5 เรียกใช้งาน ส่วน MQ5 คือ Source Code เรียนรู้ตำแหน่งไฟล์ วิธีติดตั้ง และข้อควรระวังก่อนนำ EA ลงเครื่อง
+cover_alt: โฟลเดอร์ MQL5 Experts แสดงไฟล์ EA นามสกุล EX5 และ MQ5
+---
+<p>ไฟล์ EX5 คือไฟล์โปรแกรมที่คอมไพล์แล้วสำหรับ MetaTrader 5 และเป็นไฟล์ที่แพลตฟอร์มเรียกใช้เมื่อติดตั้ง EA, Indicator หรือ Script ส่วนไฟล์ MQ5 คือ Source Code ภาษา MQL5 ที่มนุษย์สามารถเปิดอ่านและแก้ไขใน MetaEditor ได้ หากคอมไพล์ MQ5 สำเร็จ ระบบจะสร้าง EX5 สำหรับนำไปรัน</p>
+
+<p>ผู้ใช้ EA ทั่วไปมักได้รับเพียงไฟล์ EX5 ซึ่งเพียงพอสำหรับการใช้งาน หากผู้ขายไม่ได้ให้ Source Code นั่นไม่ได้แปลว่าไฟล์เสีย แต่ผู้ใช้จะไม่สามารถแก้ตรรกะหรือคอมไพล์เวอร์ชันใหม่ด้วยตนเอง ต้องพึ่งการอัปเดตจากผู้พัฒนาและปฏิบัติตาม License ที่กำหนด</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#difference">EX5 กับ MQ5 ต่างกันอย่างไร</a></li>
+<li><a href="#location">ต้องวางไฟล์ไว้ที่ไหน</a></li>
+<li><a href="#install">วิธีติดตั้งทีละขั้นตอน</a></li>
+<li><a href="#missing">ไฟล์ไม่แสดงใน Navigator แก้อย่างไร</a></li>
+<li><a href="#dependencies">Library และไฟล์ประกอบ</a></li>
+<li><a href="#safety">ความปลอดภัยและการสำรอง</a></li>
+</ul>
+</nav>
+
+<h2 id="difference">EX5 กับ MQ5 ต่างกันอย่างไร</h2>
+
+<table>
+<thead>
+<tr>
+<th>หัวข้อ</th>
+<th>EX5</th>
+<th>MQ5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>สถานะไฟล์</td>
+<td>Executable ที่คอมไพล์แล้ว</td>
+<td>Source Code ภาษา MQL5</td>
+</tr>
+<tr>
+<td>เปิดอ่านตรรกะ</td>
+<td>ไม่ได้ออกแบบให้เปิดอ่านหรือแก้ไข</td>
+<td>เปิดและแก้ไขผ่าน MetaEditor ได้เมื่อมีสิทธิ์</td>
+</tr>
+<tr>
+<td>ใช้งานบนกราฟ</td>
+<td>นำไปรันบน MT5 ได้</td>
+<td>ต้อง Compile ให้ได้ EX5 ก่อน</td>
+</tr>
+<tr>
+<td>การส่งต่อ</td>
+<td>ขึ้นกับ License ของผู้พัฒนา</td>
+<td>Source Code มีทรัพย์สินทางปัญญาและเงื่อนไขใช้งาน</td>
+</tr>
+</tbody>
+</table>
+
+<p>อย่าสับสน EX5 กับ EX4 เพราะ EX4 สร้างสำหรับ MetaTrader 4 การเปลี่ยนชื่อ `.ex4` เป็น `.ex5` ไม่ทำให้ไฟล์ทำงานบน MT5 หากระบบรองรับทั้งสองแพลตฟอร์มต้องได้รับไฟล์คนละชุด</p>
+
+<h2 id="location">ไฟล์ EA ต้องวางไว้ที่ไหน</h2>
+
+<p>เอกสาร MetaTrader ระบุว่าโปรแกรมประเภท Expert Advisor อยู่ในโฟลเดอร์ <code>MQL5\Experts</code> ภายใน Data Folder ของ Terminal วิธีที่แม่นที่สุดคือเปิด MT5 แล้วเลือก <strong>File &gt; Open Data Folder</strong> จากนั้นเข้า <strong>MQL5 &gt; Experts</strong></p>
+
+<p>ไม่ควรเดาตำแหน่งจากโฟลเดอร์ Program Files เพราะในโหมดปกติ Windows จะแยกไฟล์โปรแกรมแบบอ่านอย่างเดียวออกจากข้อมูลที่แก้ไขได้ MT5 แต่ละชุดอาจมี Data Folder คนละ Instance ID โดยเฉพาะเครื่องที่ติดตั้งหลาย Terminal</p>
+
+<p>โฟลเดอร์ที่มักเกี่ยวข้องมีดังนี้:</p>
+
+<ul>
+<li><code>MQL5\Experts</code> สำหรับ EA แบบ EX5/MQ5</li>
+<li><code>MQL5\Indicators</code> สำหรับ Custom Indicator</li>
+<li><code>MQL5\Libraries</code> สำหรับ Library ที่โปรแกรมเรียกใช้</li>
+<li><code>MQL5\Include</code> สำหรับไฟล์ Include ที่ใช้ตอน Compile</li>
+<li><code>MQL5\Presets</code> สำหรับไฟล์พารามิเตอร์ SET บาง Workflow</li>
+<li><code>MQL5\Logs</code> สำหรับ Log ของ EA</li>
+</ul>
+
+<h2 id="install">วิธีติดตั้งไฟล์ EX5 ลง MT5</h2>
+
+<ol>
+<li>ปิดหรือหยุด EA เดิมก่อน หากกำลังอัปเดตไฟล์ที่ใช้งานอยู่</li>
+<li>เปิด MT5 ชุดและบัญชีที่ต้องการใช้งาน</li>
+<li>เลือก <strong>File &gt; Open Data Folder</strong></li>
+<li>เข้าโฟลเดอร์ <strong>MQL5 &gt; Experts</strong></li>
+<li>คัดลอกไฟล์ EX5 และโฟลเดอร์ประกอบตามโครงที่ผู้พัฒนาให้มา</li>
+<li>กลับ MT5 คลิกขวาที่ Navigator แล้วเลือก Refresh หรือปิดเปิด Terminal ใหม่</li>
+<li>ตรวจว่า EA ปรากฏใต้ <strong>Expert Advisors</strong></li>
+<li>เปิดกราฟ Symbol/Timeframe ที่คู่มือกำหนด แล้วลาก EA ลงกราฟ</li>
+<li>โหลด Preset หากมี ตรวจค่าทุกช่อง และอนุญาต Algo Trading ตามความจำเป็น</li>
+<li>ดู Experts/Journal ว่าเริ่มทำงานโดยไม่มี Error</li>
+</ol>
+
+<p>ดูคู่มือภาพรวมได้ที่ <a href="https://fenixpro-th.com/fenix-pro-ea-install-guide/">คู่มือติดตั้ง FENIX PRO EA</a> และ <a href="https://fenixpro-th.com/how-to-install-ea-mt5/">วิธีลง EA บน MT5</a></p>
+
+<h2>ถ้ามีไฟล์ MQ5 ต้องทำอย่างไร</h2>
+
+<p>บันทึก MQ5 ในโฟลเดอร์ให้ตรงประเภท จากนั้นเปิด MetaEditor ด้วยปุ่ม F4 เลือกไฟล์จาก Navigator และกด F7 เพื่อ Compile ตรวจแท็บ Errors ด้านล่าง หากสำเร็จ MetaEditor จะสร้าง EX5 ในตำแหน่งเดียวกันหรือโครง Build ที่เกี่ยวข้อง</p>
+
+<p>Warning ไม่เท่ากับ Error แต่ไม่ควรมองข้ามโดยไม่เข้าใจ โดยเฉพาะ Warning เรื่อง Type Conversion, Loss of Data หรือการใช้ฟังก์ชันที่ล้าสมัย หากคุณไม่ใช่ผู้พัฒนา ไม่ควรแก้โค้ดสุ่มเพื่อให้ Compile ผ่าน เพราะอาจเปลี่ยนตรรกะการส่งคำสั่งและความเสี่ยง</p>
+
+<h2 id="missing">EA ไม่แสดงใน Navigator ต้องตรวจอะไร</h2>
+
+<ol>
+<li><strong>วางผิด Data Folder:</strong> เปิด Data Folder จาก MT5 ชุดนั้นโดยตรง อย่าคัดลอกจาก Path ที่จำไว้</li>
+<li><strong>วางผิดประเภท:</strong> EA ต้องอยู่ใน Experts ไม่ใช่ Indicators หรือ Scripts</li>
+<li><strong>ไฟล์อยู่ใน ZIP:</strong> ต้องแตกไฟล์ก่อน MT5 ไม่อ่าน EA จาก ZIP</li>
+<li><strong>เป็น EX4:</strong> ไฟล์ของ MT4 ไม่แสดงเป็น EA ที่ใช้งานได้บน MT5</li>
+<li><strong>Compile ไม่ผ่าน:</strong> ถ้ามีเฉพาะ MQ5 ต้องเปิด MetaEditor ดู Error</li>
+<li><strong>ไฟล์ถูก Antivirus กัก:</strong> ตรวจประวัติการป้องกัน แต่ไม่ควรปิดระบบรักษาความปลอดภัยแบบถาวร</li>
+<li><strong>Navigator ยังไม่ Refresh:</strong> คลิกขวา Refresh หรือ Restart Terminal</li>
+<li><strong>โครงโฟลเดอร์ไม่ครบ:</strong> บาง EA เรียก Library, Indicator หรือไฟล์ข้อมูลเพิ่มเติม</li>
+</ol>
+
+<p>หากชื่อ EA แสดงแล้วแต่ลากลงกราฟไม่ได้หรือไม่ส่งคำสั่ง ปัญหาอาจไม่ใช่ไฟล์อีกต่อไป ให้ตรวจ Algo Trading, Permission, Symbol, Account และข้อความใน Experts/Journal ตามคู่มือ <a href="https://fenixpro-th.com/ea-not-working-mt5/">EA ไม่ทำงานบน MT5 แก้อย่างไร</a></p>
+
+<h2 id="dependencies">ไฟล์ EX5 อาจต้องมีอะไรประกอบ</h2>
+
+<p>EA บางตัวเป็นไฟล์เดียวจบ แต่บางระบบพึ่ง Custom Indicator, Library, Image, Preset หรือข้อมูลในโฟลเดอร์ Files หากผู้พัฒนาให้ ZIP ที่มีหลายโฟลเดอร์ ต้องคงโครงสร้างเดิม ไม่รวบทุกไฟล์ไปไว้ใน Experts</p>
+
+<p>ก่อนติดตั้งให้ตรวจรายการส่งมอบ:</p>
+
+<ul>
+<li>ไฟล์ EA หลักและเลข Version</li>
+<li>Custom Indicator หรือ Library ที่จำเป็น</li>
+<li>Preset แยกตาม Symbol/Timeframe</li>
+<li>คู่มือการอนุญาต DLL หรือ WebRequest หากระบบต้องใช้จริง</li>
+<li>เงื่อนไข License เช่นผูกบัญชี ผูกเครื่อง หรือวันหมดอายุ</li>
+<li>Checksum หรือแหล่งดาวน์โหลดทางการเมื่อผู้พัฒนามีให้</li>
+</ul>
+
+<p>อย่าเปิด Allow DLL Imports หรือเพิ่ม URL ใน WebRequest เพียงเพราะ EA ไม่ทำงาน ต้องตรวจคู่มือและความน่าเชื่อถือของแหล่งไฟล์ก่อน เพราะ Permission เหล่านี้เพิ่มขอบเขตที่โปรแกรมเข้าถึงได้</p>
+
+<h2 id="safety">ความปลอดภัยและการสำรองไฟล์</h2>
+
+<ul>
+<li>ดาวน์โหลดจากเว็บไซต์หรือช่องทางที่ผู้พัฒนายืนยัน</li>
+<li>ไม่ใช้ไฟล์ Crack, Decompile หรือไฟล์ที่ถูกส่งต่อโดยไม่มีที่มา</li>
+<li>เก็บไฟล์ต้นฉบับแบบ Read-only พร้อมชื่อ Version และวันที่ได้รับ</li>
+<li>สำรอง Preset และบันทึกค่า Input ก่อนอัปเดต</li>
+<li>ทดสอบไฟล์ใหม่บน Demo หรือสภาพแวดล้อมแยกก่อนแทนของเดิม</li>
+<li>ไม่ส่ง Login, Password, License Key หรือข้อมูลส่วนตัวไปพร้อม Screenshot/Log สาธารณะ</li>
+</ul>
+
+<p>EX5 ไม่ใช่เอกสารที่เปิดอ่านรายละเอียดกลยุทธ์ได้ ผู้ใช้จึงต้องพึ่งคู่มือ Version History และหลักฐานการทดสอบจากผู้พัฒนาเพิ่ม การมีไฟล์เพียงอย่างเดียวไม่บอกว่า EA ปลอดภัย เหมาะกับบัญชี หรือมีความเสี่ยงระดับใด</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> การติดตั้งไฟล์สำเร็จไม่ได้รับประกันว่า EA เหมาะกับเงินทุนหรือสภาพบัญชี ควรตรวจการตั้งค่าและทดลองบน Demo ก่อนใช้เงินจริงทุกครั้ง</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/structure" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Files and Folders</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/autotrading" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Creating and Running MQL5 Applications</a></li>
+<li><a href="https://www.metatrader5.com/en/metaeditor/help/development/compile" rel="nofollow noopener" target="_blank">MetaEditor Help: Compiling a Program</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

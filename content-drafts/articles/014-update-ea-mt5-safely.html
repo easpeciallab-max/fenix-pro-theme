@@ -1,0 +1,128 @@
+---
+seo_title: วิธีอัปเดต EA บน MT5 โดยไม่ทำค่าหาย
+meta_description: ขั้นตอนอัปเดตไฟล์ EA บน MT5 อย่างปลอดภัย ตั้งแต่สำรอง Preset ตรวจ Version ทดลองบน Demo ไปจนถึง Rollback เมื่อไฟล์ใหม่มีปัญหา
+excerpt: การทับไฟล์ EX5 อย่างเดียวอาจทำให้ Preset หรือการจัดการ Position ไม่ตรง Version ควรมี Backup, Test และ Rollback ก่อนอัปเดตจริง
+cover_alt: ขั้นตอนสำรอง Preset และเปลี่ยนไฟล์ EX5 เพื่ออัปเดต EA บน MT5
+---
+<p>การอัปเดต EA บน MT5 ไม่ควรเริ่มด้วยการลากไฟล์ EX5 ใหม่ทับของเดิมทันที เพราะ EA อาจเปลี่ยน Input, วิธีอ่าน Position, License หรือไฟล์ประกอบ หากมี Position ค้างอยู่ การ Restart หรือถอด EA อาจทำให้ฟังก์ชันที่ทำงานใน Terminal เช่น Trailing Stop, Break Even หรือ Basket Exit หยุดชั่วคราว</p>
+
+<p>ขั้นตอนที่ดีต้องตอบได้สามคำถาม: ถ้าไฟล์ใหม่มีปัญหาจะย้อนกลับอย่างไร, Preset เดิมเข้ากันได้หรือไม่ และ Position ที่เปิดอยู่จะถูก Version ใหม่รับช่วงอย่างไร หากตอบไม่ได้ควรทดสอบในสภาพแวดล้อมแยกก่อน</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#before">สิ่งที่ต้องเช็กก่อนอัปเดต</a></li>
+<li><a href="#backup">รายการ Backup</a></li>
+<li><a href="#steps">ขั้นตอนอัปเดตทีละขั้น</a></li>
+<li><a href="#positions">กรณีมี Position ค้าง</a></li>
+<li><a href="#verify">ตรวจหลังอัปเดต</a></li>
+<li><a href="#rollback">วิธี Rollback</a></li>
+</ul>
+</nav>
+
+<h2 id="before">ก่อนอัปเดตต้องอ่านอะไร</h2>
+
+<ul>
+<li><strong>Release Notes:</strong> มีการแก้ Bug, เปลี่ยนกลยุทธ์ หรือเพิ่ม Parameter ใด</li>
+<li><strong>Minimum MT5 Build:</strong> ไฟล์ใหม่ต้องใช้แพลตฟอร์มรุ่นใด</li>
+<li><strong>Preset Compatibility:</strong> SET รุ่นเก่าโหลดต่อได้หรือจำเป็นต้องสร้างใหม่</li>
+<li><strong>Position Migration:</strong> EA ใหม่รับ Position ของ Version เดิมจาก Magic/Comment อย่างไร</li>
+<li><strong>License:</strong> ต้อง Activate ใหม่หรือผูกเครื่อง/บัญชีเดิมได้</li>
+<li><strong>Dependencies:</strong> มี Indicator, Library หรือ URL เพิ่มหรือไม่</li>
+</ul>
+
+<p>หาก Release Notes ไม่ชัดและมี Position จริงค้าง ให้ติดต่อผู้พัฒนาก่อน การรอจังหวะที่ไม่มี Position อาจง่ายและเสี่ยงน้อยกว่าการอัปเดตกลางรอบ แต่ต้องใช้วิธีหยุด Entry ที่ผู้พัฒนารองรับ ไม่ใช่ปิด Terminal แบบกะทันหัน</p>
+
+<h2 id="backup">ต้องสำรองอะไรบ้าง</h2>
+
+<ol>
+<li>ไฟล์ EX5 Version เดิมและไฟล์ประกอบ</li>
+<li>ไฟล์ SET ที่ใช้งานจริงทุกกราฟ</li>
+<li>Screenshot หน้า Inputs และ Common</li>
+<li>รายชื่อกราฟ Symbol, Timeframe และ Magic Number</li>
+<li>รายการ Position/Pending Order ที่ค้าง</li>
+<li>Experts/Journal ช่วงก่อนอัปเดต</li>
+<li>โฟลเดอร์ Profile หรือ Template หากใช้กู้ Workspace</li>
+<li>หมายเลข MT5 Build, EA Version และเวลาที่สำรอง</li>
+</ol>
+
+<p>เก็บ Backup นอก VPS อย่างน้อยหนึ่งชุด เพราะหาก Disk หรือ Windows มีปัญหา ไฟล์ที่วางอยู่เครื่องเดียวกันไม่ถือว่าเป็นสำเนาสำรองที่ใช้งานได้</p>
+
+<p>เรียนรู้การจัดไฟล์ Input จาก <a href="https://fenixpro-th.com/mt5-ea-preset-set-file/">วิธีบันทึกและโหลดไฟล์ SET</a> และตำแหน่งโปรแกรมจาก <a href="https://fenixpro-th.com/ex5-vs-mq5-files/">ไฟล์ EX5 กับ MQ5 ต่างกันอย่างไร</a></p>
+
+<h2 id="steps">ขั้นตอนอัปเดต EA บน MT5</h2>
+
+<h3>1. ทดสอบไฟล์ใหม่ใน Terminal สำรอง</h3>
+<p>ติดตั้ง MT5 แยก Directory หรือใช้เครื่องทดสอบ เปิด Demo ที่มีสเปกใกล้บัญชีจริง ติดตั้งไฟล์ใหม่และโหลด Preset สำเนา ตรวจว่าค่า Mapping ครบและไม่มี Error</p>
+
+<h3>2. หยุดการเปิดออเดอร์ใหม่</h3>
+<p>ใช้ Switch หรือ Schedule ที่ EA รองรับ หากไม่มีให้สอบถามผู้พัฒนา อย่าปิด Algo Trading โดยไม่เข้าใจผลต่อการจัดการ Position เพราะอาจหยุดทั้ง Entry และ Exit ที่ทำงานจาก EA</p>
+
+<h3>3. บันทึกสถานะปัจจุบัน</h3>
+<p>ทำ Backup ตามรายการ จดจำนวน Position, Equity, Margin และ Magic เพื่อเทียบหลังอัปเดต ไม่ใช้ความจำจากหน้าจออย่างเดียว</p>
+
+<h3>4. ปิด MT5 แล้วเปลี่ยนไฟล์</h3>
+<p>เปิด Data Folder ให้ถูก Terminal ปิดโปรแกรมเพื่อให้แน่ใจว่าไฟล์ไม่ถูกใช้งาน จากนั้นย้ายไฟล์เดิมไปโฟลเดอร์ Backup และคัดลอกไฟล์ใหม่พร้อม Dependencies ตามโครงเดิม</p>
+
+<h3>5. เปิด MT5 และโหลดค่าที่ตรวจแล้ว</h3>
+<p>ตรวจชื่อ/Version ของ EA เปิด Properties และโหลด Preset ที่ตรงรุ่น เปรียบเทียบค่าหลักกับ Screenshot ก่อนหน้า หาก Schema เปลี่ยนให้ใช้ Preset รุ่นใหม่ ไม่บังคับ SET เก่าทับ</p>
+
+<h3>6. ตรวจ Log ก่อนเปิด Entry</h3>
+<p>ดู Experts/Journal ว่า Initialize, License, Connection และการตรวจ Position ผ่าน ตรวจว่า EA เห็น Position เดิมจำนวนถูกต้อง แล้วจึงเปิดรับสัญญาณใหม่ตามขั้นตอน</p>
+
+<h2 id="positions">ถ้ามี Position ค้างควรทำอย่างไร</h2>
+
+<p>มีสามแนวทาง แต่ต้องเลือกตามการออกแบบของ EA:</p>
+
+<ul>
+<li><strong>รอให้รอบจบ:</strong> เหมาะเมื่อหยุด Entry ใหม่ได้และ Position เดิมยังถูกจัดการตามแผน</li>
+<li><strong>ให้ Version ใหม่รับช่วง:</strong> ใช้ได้เมื่อผู้พัฒนายืนยัน Compatibility ของ Magic/State และมีขั้นตอนชัดเจน</li>
+<li><strong>จัดการ Position ด้วยมือ:</strong> เป็นการเปลี่ยนแผนเทรด ต้องประเมินความเสี่ยงและไม่ควรทำเพียงเพื่อให้อัปเดตเร็วขึ้น</li>
+</ul>
+
+<p>Stop Loss/Take Profit ที่วางบน Server อาจยังทำงานเมื่อ EA ถูกปิด แต่ Trailing, Break Even, Time Exit, Basket Stop หรือ Equity Stop ที่คำนวณใน Terminal จะไม่ทำงานระหว่างที่ EA หยุด จึงต้องรู้ว่าแต่ละระบบใช้ส่วนใด</p>
+
+<h2 id="verify">เช็กลิสต์หลังอัปเดต</h2>
+
+<ul>
+<li>ชื่อ EA และ Version ตรง Release Notes</li>
+<li>Preset/Inputs ตรงกับค่าที่อนุมัติ</li>
+<li>Magic Number ไม่เปลี่ยนโดยไม่ตั้งใจ</li>
+<li>EA เห็น Position เดิมครบและไม่สร้างรายการซ้ำ</li>
+<li>Algo Trading และ Permission อยู่ในสถานะถูกต้อง</li>
+<li>Experts/Journal ไม่มี Error หรือ Warning ที่ไม่เข้าใจ</li>
+<li>Symbol, Timeframe, Server Time และ Trading Session ถูกต้อง</li>
+<li>Dashboard/สถานะบนกราฟแสดงค่าตรงบัญชี</li>
+<li>ทดสอบ Restart หนึ่งครั้งใน Demo ก่อน Production</li>
+</ul>
+
+<p>ควรเฝ้าดูอย่างน้อยหนึ่งรอบการทำงานจริงและเปรียบเทียบ Order Comment, Lot, Stop, Filter กับ Version เดิม หากพฤติกรรมต่าง ให้หยุดเพิ่มความเสี่ยงและตรวจ Release Notes/Log ก่อน</p>
+
+<h2 id="rollback">วางแผน Rollback อย่างไร</h2>
+
+<ol>
+<li>หยุด Entry ใหม่โดยไม่ทำให้ Position ถูกทิ้ง</li>
+<li>เก็บ Log ของ Version ใหม่ก่อนปิด</li>
+<li>ปิด Terminal และย้ายไฟล์ใหม่ออก</li>
+<li>คืน EX5, Dependencies และ Preset รุ่นเดิมจาก Backup</li>
+<li>เปิด Terminal ตรวจ Version และ Position Mapping</li>
+<li>ดู Experts/Journal ว่าระบบเดิมเริ่มทำงานครบ</li>
+<li>บันทึกสาเหตุและเงื่อนไขที่ทำให้ Rollback</li>
+</ol>
+
+<p>Rollback ไม่ควรหมายถึง “หาไฟล์เก่าจากแชต” เพราะอาจได้คนละรุ่น ต้องเก็บ Artifact ที่ระบุ Version และ Hash/วันที่ไว้ตั้งแต่ก่อนอัปเดต</p>
+
+<p>สำหรับข่าว Version ของ FENIX PRO ให้ติดตามเฉพาะประกาศจริงที่ <a href="https://fenixpro-th.com/fenix-pro-ea-updates/">อัปเดต FENIX PRO EA</a> และอย่าติดตั้งไฟล์จากลิงก์ส่งต่อที่ไม่สามารถยืนยันแหล่งได้</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> การอัปเดตกลางรอบอาจทำให้ฟังก์ชันจัดการ Position เปลี่ยนหรือหยุดชั่วคราว ทดสอบไฟล์และแผนย้อนกลับก่อนดำเนินการกับบัญชีเงินจริง</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/structure" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Files, Presets and Profiles</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/charts_advanced/templates_profiles" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Templates and Profiles</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/journal" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Platform and Expert Logs</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

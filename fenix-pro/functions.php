@@ -1602,3 +1602,8 @@ add_action( 'wp_ajax_nopriv_fenix_load_more', 'fenix_load_more' );
  * Customizer
  * -------------------------------------------------------------- */
 require get_template_directory() . '/inc/customizer.php';
+
+// Temporary administrator-only importer. Remove after the approved content batch is verified.
+if ( is_admin() ) {
+	require get_template_directory() . '/inc/content-importer.php';
+}

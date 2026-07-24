@@ -1,0 +1,154 @@
+---
+seo_title: Spread, Commission, Slippage มีผลต่อ Backtest อย่างไร
+meta_description: อธิบายต้นทุน Spread, Commission, Swap และ Slippage ใน Backtest EA พร้อมวิธีตั้ง MT5 และทำ Stress Test ไม่ให้ผลดูดีกว่าบัญชีจริง
+excerpt: ระบบที่กำไรต่อ Trade บางอาจพังจากต้นทุนเพียงเล็กน้อย ต้องจำลอง Bid/Ask, Commission และ Delay ตามหน่วยที่ถูกต้อง
+cover_alt: รายงาน Backtest EA เปรียบเทียบผลก่อนและหลังรวม Spread Commission Slippage
+---
+<p>Spread, Commission และ Slippage เป็นส่วนหนึ่งของผลตอบแทน ไม่ใช่รายละเอียดเล็ก ๆ ที่ใส่ภายหลัง EA ที่มี Gross Edge ต่ำหรือเทรดถี่อาจดูมีกำไรใน Backtest แบบต้นทุนอุดมคติ แต่กลายเป็นติดลบเมื่อใช้ Bid/Ask จริงและหักค่าธรรมเนียมครบ</p>
+
+<p>ก่อนเปรียบเทียบ EA หรือ Preset ต้องทำต้นทุนใน Tester ให้สอดคล้องกับบัญชีเป้าหมาย และทำ Stress Test มากกว่าหนึ่งระดับ เพราะค่าใช้จ่ายจริงเปลี่ยนตามเวลา ข่าว Liquidity, Symbol และขนาด Order</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#costs">ต้นทุนแต่ละชนิด</a></li>
+<li><a href="#spread">Spread ใน Real/Generated Ticks</a></li>
+<li><a href="#commission">ตั้ง Commission ให้ถูกหน่วย</a></li>
+<li><a href="#slippage">Slippage และ Delay</a></li>
+<li><a href="#stress">วิธีทำ Cost Stress Test</a></li>
+<li><a href="#read">อ่านผลว่าระบบเปราะหรือไม่</a></li>
+</ul>
+</nav>
+
+<h2 id="costs">ต้นทุนที่ Backtest ควรครอบคลุม</h2>
+
+<ul>
+<li><strong>Spread:</strong> ส่วนต่าง Bid/Ask ที่เกิดทุกการเข้าออก</li>
+<li><strong>Commission:</strong> ค่าธรรมเนียมตาม Lot, Deal หรือ Turnover</li>
+<li><strong>Swap/Financing:</strong> ค่าใช้จ่าย/เครดิตเมื่อถือข้ามวันตามเงื่อนไข Symbol</li>
+<li><strong>Slippage:</strong> ราคาที่ Fill ต่างจากราคาคาด</li>
+<li><strong>Execution Delay:</strong> เวลาระหว่างส่ง Request และ Process</li>
+<li><strong>Requote/Reject:</strong> คำสั่งไม่ Fill ในเงื่อนไขบางประเภท</li>
+<li><strong>Currency Conversion:</strong> การแปลงกำไร/Commission/Margin เป็นสกุลบัญชี</li>
+</ul>
+
+<p>นอกจากนี้ยังมีต้นทุนภายนอกเช่น VPS, License หรือค่า Data แต่ไม่อยู่ใน Trade Report โดยตรง ควรรวมเมื่อตัดสินความคุ้มค่าระดับธุรกิจ</p>
+
+<h2 id="spread">Spread ถูกคิดอย่างไร</h2>
+
+<p>คำสั่ง Buy เปิดที่ Ask ปิดที่ Bid ส่วน Sell เปิดที่ Bid ปิดที่ Ask ดังนั้นแม้กราฟแสดง Bid EA จะเริ่มติดลบประมาณ Spread เมื่อเปิด Position (ก่อน Commission/Slippage)</p>
+
+<p>ใน MT5:</p>
+
+<ul>
+<li>Real Ticks สามารถสะท้อน Spread ที่เปลี่ยนใน Tick History</li>
+<li>Every Tick ที่สร้างจาก M1 ใช้ Ask = Bid + Spread ของ Minute Bar ตามกฎแพลตฟอร์ม</li>
+<li>Fixed/Custom Specification ใช้ทดสอบ Scenario ที่กำหนดเองได้</li>
+</ul>
+
+<p>ค่าเฉลี่ย Spread ทั้งวันไม่เหมาะกับ EA ที่เทรดเฉพาะ Rollover หรือข่าว ควรวัด Distribution ใน Session เดียวกับกลยุทธ์และทดสอบ Tail เช่น Percentile สูง ไม่ใช้ Minimum Spread จากหน้าโฆษณา</p>
+
+<p>รายละเอียด Tick อ่านที่ <a href="https://fenixpro-th.com/mt5-real-ticks-backtest/">Every Tick Based on Real Ticks</a></p>
+
+<h2 id="commission">ตั้ง Commission ให้ถูกหน่วย</h2>
+
+<p>โบรกเกอร์อาจเสนอ Commission เป็นเงินต่อ Lot ต่อ Side, Round Turn, ต่อ Million หรือ Percent ของ Turnover หากตีความผิดสองเท่า Report จะผิดทันที</p>
+
+<p>ก่อนกรอกให้จด:</p>
+
+<ul>
+<li>สกุลเงินของ Commission</li>
+<li>คิดต่อ Lot หรือ Notional/Turnover</li>
+<li>คิดตอน Entry, Exit หรือทั้งคู่</li>
+<li>Minimum Fee ต่อ Deal หรือไม่</li>
+<li>Tier เปลี่ยนตาม Volume หรือไม่</li>
+<li>Symbol บางกลุ่มใช้อัตราต่างกันหรือไม่</li>
+</ul>
+
+<p>MT5 Advanced Testing Settings รองรับ Commission หลายรูปแบบและสามารถใช้ Predefined Commission ของบัญชีปัจจุบันได้ แต่ต้องตรวจว่า Server ส่งข้อมูลครบและตรงกับประเภทบัญชีจริง ไม่สมมติว่าเลือก Checkbox แล้วถูกทุกกรณี</p>
+
+<h2 id="slippage">Slippage กับ Execution Delay ต่างกันอย่างไร</h2>
+
+<p>Delay คือเวลาที่ผ่านไประหว่างส่ง Request กับ Execution Process ส่วน Slippage คือส่วนต่างราคา ผลของ Delay อาจนำไปสู่ Slippage แต่ไม่ใช่สิ่งเดียวกัน เพราะ Liquidity และ Execution Policy ก็มีผล</p>
+
+<p>Strategy Tester มี No Delay, Fixed Delay และ Random Delay เอกสาร MT5 ระบุว่า Delay ใช้กับ Action ที่ EA ส่ง เช่นวาง Order หรือแก้ Stop ส่วน Pending Order ที่ถูก Trigger บน Server ไม่ได้เพิ่ม Network Delay แบบเดียวกับตอนวาง</p>
+
+<p>การใช้ No Delay เหมาะกับ Debug “Ideal Case” ไม่ควรเป็น Report ตัดสิน Production เพียงรอบเดียว ทำอย่างน้อย:</p>
+
+<ol>
+<li>Baseline ด้วย Delay ใกล้ Ping จริง</li>
+<li>Stress ด้วย Delay สูงขึ้น</li>
+<li>เพิ่ม Spread/Commission แยกเพื่อหาตัวแปรหลัก</li>
+<li>สุ่ม Slippage ทั้งบวก/ลบตามข้อมูลจริงหากเครื่องมือรองรับ</li>
+<li>ตรวจ Reject/Requote Handling ใน EA</li>
+</ol>
+
+<h2 id="stress">ตัวอย่าง Cost Stress Matrix</h2>
+
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Spread</th>
+<th>Commission</th>
+<th>Delay</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ideal Debug</td>
+<td>ต่ำ/คงที่</td>
+<td>จริง</td>
+<td>No Delay</td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td>Median/Real Ticks</td>
+<td>จริง</td>
+<td>ใกล้ Ping จริง</td>
+</tr>
+<tr>
+<td>Busy Market</td>
+<td>Percentile สูง</td>
+<td>จริง</td>
+<td>สูงขึ้น</td>
+</tr>
+<tr>
+<td>Adverse</td>
+<td>สูงกว่าปกติ</td>
+<td>จริง + Safety Buffer</td>
+<td>Random/Fixed สูง</td>
+</tr>
+</tbody>
+</table>
+
+<p>ตัวเลขต้องมาจากบัญชี/ข้อมูลของคุณ ไม่ใช้ค่าตายตัวจากบทความทั่วไป เป้าหมายคือดู Curve ของผลลัพธ์เมื่อ Cost เพิ่ม ไม่ใช่หาค่า Scenario เดียวที่ EA ผ่าน</p>
+
+<h2 id="read">สัญญาณว่าระบบไวต่อต้นทุนเกินไป</h2>
+
+<ul>
+<li>Profit Factor ลดต่ำกว่า 1 เมื่อเพิ่ม Spread เล็กน้อย</li>
+<li>Average Trade ใกล้หรือต่ำกว่าต้นทุนรวม</li>
+<li>กำไรส่วนใหญ่มาจาก Fill ที่ดีผิดปกติ</li>
+<li>ผล Real Ticks ต่างจาก Open Prices มาก</li>
+<li>Trade Frequency สูงแต่ Gross Edge ต่อ Trade บาง</li>
+<li>เปลี่ยน Broker/Server แล้ว Distribution เปลี่ยนมาก</li>
+<li>Delay ทำให้ Stop/Entry คลาดจนกลยุทธ์เปลี่ยน</li>
+</ul>
+
+<p>ไม่ควรแก้ด้วยการเพิ่ม Lot เพราะ Lot ขยายทั้งกำไรและขาดทุน แต่ไม่เพิ่ม Edge ต่อหน่วยต้นทุน การลดจำนวน Trade หรือปรับตรรกะให้มี Margin ต่อ Cost มากขึ้นเป็นคนละเรื่องกับ Position Sizing</p>
+
+<p>เปรียบเทียบเงื่อนไขโบรกเกอร์ที่ <a href="https://fenixpro-th.com/mt5-brokers/">เลือกโบรกเกอร์สำหรับ EA</a> และบันทึกการทดสอบตาม <a href="https://fenixpro-th.com/how-to-backtest-ea-mt5/">วิธี Backtest EA บน MT5</a></p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> ต้นทุนและ Execution เปลี่ยนได้ตามสภาพตลาด Backtest ที่รวมค่าเฉลี่ยแล้วก็ยังประเมิน Tail Event ต่ำกว่าจริงได้ ผลในอดีตไม่รับประกันผลในอนาคต</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Execution Delay and Commission Settings</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/tick_generation" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Bid, Ask and Tick Generation</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/general_concept" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Order Execution Concepts</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

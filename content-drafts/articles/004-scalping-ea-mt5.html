@@ -1,0 +1,116 @@
+---
+seo_title: Scalping EA บน MT5 คืออะไร? ต้นทุนที่ต้องรู้
+meta_description: ทำความเข้าใจ Scalping EA บน MT5 พร้อมผลของ Spread, Commission, Slippage และ Latency ต่อระบบระยะสั้น และวิธีทดสอบก่อนใช้จริง
+excerpt: Scalping EA ไวต่อสภาพการส่งคำสั่งและต้นทุนมากกว่าระบบทั่วไป คู่มือนี้อธิบายสิ่งที่ควรตรวจทั้งใน Backtest และบัญชีจริง
+cover_alt: หน้าจอ MT5 แสดง Scalping EA พร้อมค่า Spread, Slippage และ Latency
+---
+<p>Scalping EA คือระบบที่เข้าและออกออเดอร์ในระยะค่อนข้างสั้น โดยมักคาดหวังกำไรต่อครั้งไม่มากเมื่อเทียบกับระบบที่ถือสถานะหลายชั่วโมงหรือหลายวัน จุดเด่นคือมีโอกาสเกิดธุรกรรมจำนวนมาก แต่ข้อแลกเปลี่ยนคือผลลัพธ์ไวต่อ Spread, Commission, Slippage, Latency และวิธีประมวลผลคำสั่งของโบรกเกอร์</p>
+
+<p>EA ที่ทำกำไรก่อนต้นทุนเพียงเล็กน้อยอาจเปลี่ยนเป็นขาดทุนเมื่อใช้เงื่อนไขบัญชีจริง ดังนั้นการดูเพียง Equity Curve จาก Backtest ยังไม่พอ ต้องตรวจคุณภาพข้อมูล Tick สเปก Symbol เวลาซื้อขาย และผลต่างระหว่างราคาที่ร้องขอกับราคาที่ได้รับจริง</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#definition">Scalping EA ทำงานแบบไหน</a></li>
+<li><a href="#costs">ต้นทุนที่กระทบผลลัพธ์</a></li>
+<li><a href="#latency">Latency และ VPS ช่วยอะไร</a></li>
+<li><a href="#backtest">วิธี Backtest Scalping EA</a></li>
+<li><a href="#broker">สิ่งที่ต้องตรวจจากโบรกเกอร์</a></li>
+<li><a href="#checklist">เช็กลิสต์ก่อนใช้จริง</a></li>
+</ul>
+</nav>
+
+<h2 id="definition">Scalping EA ทำงานแบบไหน</h2>
+
+<p>ไม่มีระยะเวลามาตรฐานเพียงค่าเดียวที่ทำให้ระบบกลายเป็น Scalping แต่โดยพฤติกรรมมักมีลักษณะร่วมกันดังนี้</p>
+
+<ul>
+<li>ถือออเดอร์สั้นและตั้งเป้ากำไรต่อครั้งค่อนข้างแคบ</li>
+<li>ใช้ข้อมูล Tick หรือการเปลี่ยนแปลงราคาภายในแท่งอย่างละเอียด</li>
+<li>มีจำนวนธุรกรรมมากกว่าระบบ Swing หรือ Trend Following</li>
+<li>ใช้เงื่อนไข Spread, ช่วงเวลา หรือความผันผวนเพื่อหลีกเลี่ยงตลาดที่ต้นทุนสูง</li>
+<li>อาจส่งคำสั่งหลายครั้งภายในเวลาสั้น จึงต้องจัดการ Retcode และสถานะการประมวลผลอย่างรัดกุม</li>
+</ul>
+
+<p>ระบบ Scalping ไม่จำเป็นต้องเป็น High-frequency Trading ในความหมายระดับสถาบัน แต่อาจใช้คำสั่งแบบ asynchronous ใน MQL5 เพื่อไม่ให้โปรแกรมหยุดรอ Server อย่างไรก็ตาม เอกสาร MQL5 ระบุชัดว่าการส่งคำขอสำเร็จไม่ได้รับประกันว่าคำสั่งถึง Server และถูกยอมรับแล้ว โปรแกรมยังต้องติดตาม Trade Transaction และผลตอบกลับจริง</p>
+
+<h2 id="costs">Spread, Commission และ Slippage กระทบอย่างไร</h2>
+
+<h3>Spread</h3>
+<p>Spread คือส่วนต่างระหว่างราคา Bid และ Ask เมื่อเปิด Buy จะเข้าที่ Ask และเมื่อปิดจะอ้างอิง Bid ส่วน Sell ทำในทิศทางกลับกัน ระบบที่ตั้ง Take Profit แคบจึงใช้สัดส่วนกำไรจำนวนมากไปกับ Spread หาก Spread ถ่างในช่วงข่าว เปิดตลาด หรือสภาพคล่องต่ำ ผลที่ได้อาจต่างจากช่วงปกติชัดเจน</p>
+
+<h3>Commission</h3>
+<p>บัญชีที่โฆษณา Spread ต่ำอาจคิด Commission แยกตาม Lot หรือรอบการเปิดปิด ต้องรวมต้นทุนนี้ทุกครั้งในการทดสอบ โดยเฉพาะระบบที่เปิดออเดอร์บ่อย การเปรียบเทียบบัญชีควรดู “ต้นทุนต่อรอบ” ไม่ใช่ดู Spread เพียงตัวเดียว</p>
+
+<h3>Slippage</h3>
+<p>Slippage คือผลต่างระหว่างราคาที่ระบบคาดหรือร้องขอกับราคาที่คำสั่งถูกดำเนินการจริง เกิดได้ทั้งทางบวกและลบ ขึ้นอยู่กับความเร็วตลาด สภาพคล่อง รูปแบบ Execution และตำแหน่งของราคาเมื่อคำสั่งถึง Server การตั้งค่า Deviation ไม่ได้ทำให้ Slippage หายไปในทุก Execution Mode</p>
+
+<h3>Swap และค่าถือข้ามคืน</h3>
+<p>Scalping ส่วนใหญ่ตั้งใจปิดภายในวัน แต่หากระบบค้างออเดอร์เมื่อผิดทางหรือมี Recovery Logic อาจถูกคิด Swap จึงต้องตรวจประวัติว่ามีสถานะข้ามคืนจริงหรือไม่ ไม่สรุปจากคำว่า Scalping ในชื่อระบบ</p>
+
+<h2 id="latency">Latency คืออะไร และ VPS ช่วยอะไรได้บ้าง</h2>
+
+<p>Latency คือเวลาที่ข้อมูลหรือคำสั่งเดินทางระหว่าง MT5 กับ Trade Server หากเครื่องอยู่ห่าง Server มากหรือเส้นทางเครือข่ายไม่เสถียร คำสั่งอาจใช้เวลานานขึ้น VPS ที่ตั้งอยู่ใกล้ Server โบรกเกอร์และมีเครือข่ายเสถียรสามารถลดส่วนของความหน่วงจากเครื่องผู้ใช้และอินเทอร์เน็ตภายในบ้านได้</p>
+
+<p>แต่ VPS ไม่สามารถควบคุมทุกส่วนของการส่งคำสั่ง เช่น Queue ภายใน Server, Liquidity, Execution Policy หรือการเปลี่ยนแปลงราคาระหว่างประมวลผล จึงไม่ควรใช้คำว่า “Ping ต่ำ” เป็นหลักฐานว่าผลจริงจะตรง Backtest หรือไม่มี Slippage</p>
+
+<p>ควรวัด Ping จาก MT5 ไปยัง Server บัญชีจริงในช่วงเวลาต่าง ๆ และติดตาม Journal ว่ามี Requote, Off Quotes, Invalid Price หรือ Retcode อื่นหรือไม่ อ่านพื้นฐานการเลือกเครื่องได้ที่ <a href="https://fenixpro-th.com/vps-for-ea/">VPS สำหรับรัน EA</a></p>
+
+<h2 id="backtest">วิธี Backtest Scalping EA ให้ใกล้เงื่อนไขจริงขึ้น</h2>
+
+<ol>
+<li><strong>ใช้ Real Ticks เมื่อมีข้อมูลเหมาะสม</strong> MetaTrader ระบุว่า Real Ticks สะท้อนการเปลี่ยน Spread ภายในนาทีได้ใกล้เงื่อนไขจริงกว่า Tick ที่สร้างจากข้อมูลหนึ่งนาที</li>
+<li><strong>ใส่ Commission ตามประเภทบัญชี</strong> ตรวจว่ารายงานรวมค่าใช้จ่ายทั้งขาเปิดและปิดแล้ว</li>
+<li><strong>ทดสอบ Spread หลายระดับ</strong> ไม่ใช้เฉพาะค่าต่ำสุดจากโฆษณาของบัญชี</li>
+<li><strong>ทำ Slippage Stress Test</strong> เพิ่มผลกระทบราคาทั้งด้านเข้าและออกเพื่อดูว่าความได้เปรียบยังเหลือหรือไม่</li>
+<li><strong>แยกช่วงเวลา</strong> ตรวจ Session ที่ระบบเทรดจริง รวมช่วง Rollover และข่าวสำคัญ</li>
+<li><strong>ทำ Out-of-Sample และ Forward Test</strong> ไม่ปรับพารามิเตอร์จากข้อมูลทั้งหมดแล้วใช้ข้อมูลเดิมตัดสิน</li>
+<li><strong>ดู Distribution ต่อ Trade</strong> หากกำไรเฉลี่ยต่อครั้งใกล้กับต้นทุนมาก ระบบจะเปราะบางต่อความคลาดเคลื่อนเล็กน้อย</li>
+</ol>
+
+<p>อ่านวิธีประเมินค่าต่าง ๆ เพิ่มเติมได้ใน <a href="https://fenixpro-th.com/ea-stats-explained/">คู่มือ Profit Factor, Drawdown และ Win Rate</a> และ <a href="https://fenixpro-th.com/read-ea-backtest/">คู่มืออ่านผล Backtest EA</a></p>
+
+<h2 id="broker">สิ่งที่ต้องตรวจจากโบรกเกอร์และ Symbol</h2>
+
+<p>ชื่อ Symbol เดียวกันไม่ได้แปลว่าสเปกเหมือนกันทุกโบรกเกอร์ ใน MT5 ให้เปิด Market Watch คลิกขวาที่ Symbol แล้วเลือก Specification เพื่อตรวจข้อมูลต่อไปนี้</p>
+
+<ul>
+<li>Spread แบบคงที่หรือลอยตัว</li>
+<li>Digits, Point, Tick Size และ Tick Value</li>
+<li>Contract Size และวิธีคำนวณ Margin</li>
+<li>Stops Level และ Freeze Level</li>
+<li>Execution Mode และ Filling Policy</li>
+<li>Volume ขั้นต่ำ ขั้นสูง และ Volume Step</li>
+<li>Trading Sessions และเวลาที่ Symbol เปิดให้ส่งคำสั่ง</li>
+<li>Commission และ Swap ที่ใช้กับประเภทบัญชี</li>
+</ul>
+
+<p>ก่อนเลือกบัญชีควรดูความน่าเชื่อถือและเงื่อนไขโดยรวม ไม่เลือกจาก Spread ต่ำเพียงอย่างเดียว ดูแนวทางได้ที่ <a href="https://fenixpro-th.com/mt5-brokers/">วิธีเลือกโบรกเกอร์ที่รองรับ MT5</a></p>
+
+<h2 id="checklist">เช็กลิสต์ก่อนใช้ Scalping EA ด้วยเงินจริง</h2>
+
+<ul>
+<li>ผล Backtest ใช้ Tick และต้นทุนจากแหล่งใด</li>
+<li>กำไรเฉลี่ยต่อ Trade มากกว่าต้นทุนรวมเพียงใด</li>
+<li>ระบบมี Maximum Spread Filter และทำอะไรเมื่อ Spread เกินค่า</li>
+<li>มีการจัดการคำสั่งที่ถูก Reject หรือ Fill บางส่วนอย่างไร</li>
+<li>ถือออเดอร์ข้ามคืนหรือช่วงข่าวหรือไม่</li>
+<li>ผล Forward Test ใช้โบรกเกอร์และประเภทบัญชีเดียวกับที่จะใช้จริงหรือไม่</li>
+<li>Journal มีข้อผิดพลาดหรือความหน่วงผิดปกติหรือไม่</li>
+<li>เมื่อเชื่อมต่อหลุด ระบบตรวจสถานะออเดอร์เดิมก่อนส่งคำสั่งใหม่หรือไม่</li>
+</ul>
+
+<p>เริ่มจาก Demo หรือ Lot ต่ำและเก็บข้อมูล Execution จริงก่อนเพิ่มความเสี่ยง การตัดสินใจควรอิงผลหลังต้นทุนและ Drawdown ไม่ใช่จำนวนออเดอร์ชนะเพียงอย่างเดียว</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> Scalping EA อาจได้รับผลกระทบจาก Spread, Commission, Slippage, Latency และเงื่อนไขของโบรกเกอร์ ผลทดสอบบนข้อมูลหรือบัญชีหนึ่งอาจไม่เกิดซ้ำบนอีกบัญชี การเทรดด้วย Leverage มีโอกาสขาดทุนสูงและไม่มีระบบใดรับประกันผลกำไร</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/tick_generation" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Real and Generated Ticks</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/market_watch" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Viewing Symbol Specification</a></li>
+<li><a href="https://www.mql5.com/en/docs/trading/OrderSendAsync" rel="nofollow noopener" target="_blank">MQL5 Reference: OrderSendAsync</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

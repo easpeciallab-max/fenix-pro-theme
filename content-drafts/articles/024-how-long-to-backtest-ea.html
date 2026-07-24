@@ -1,0 +1,151 @@
+---
+seo_title: ควร Backtest EA กี่ปีและครอบคลุมตลาดแบบไหน
+meta_description: วิธีเลือกช่วง Backtest EA จากจำนวน Trade, Market Regime, ข่าว, ต้นทุน และ Data Quality แทนการใช้กฎตายตัวว่าต้องทดสอบกี่ปี
+excerpt: จำนวนปีอย่างเดียวไม่บอกคุณภาพ Backtest ต้องมี Sample เพียงพอและครอบคลุมสภาวะที่กลยุทธ์อาจเจอจริง
+cover_alt: เส้นเวลาหลายปีแสดงช่วงตลาด Trend Sideway และ Volatility สำหรับ Backtest EA
+---
+<p>คำถามว่า “ควร Backtest EA กี่ปี” ไม่ควรตอบด้วยเลขเดียว เพราะ EA ที่เทรดวันละหลายครั้งกับ EA ที่เทรดเดือนละหนึ่งครั้งต้องใช้ช่วงเวลาไม่เท่ากัน สิ่งที่ต้องการไม่ใช่จำนวนปีสวย ๆ แต่คือจำนวนเหตุการณ์และ Market Regime ที่เพียงพอให้เห็นทั้งจุดแข็ง ข้อจำกัด และช่วงที่ระบบไม่เหมาะ</p>
+
+<p>ช่วงยาวขึ้นช่วยเพิ่มข้อมูลแต่ไม่ได้แก้ Data Quality, Overfitting หรือการเปลี่ยน Specification หากระบบถูก Optimize กับข้อมูลทั้งหมด 15 ปี ผลยัง Overfit ได้ และหากใช้ Symbol ที่ไม่มี Tick/Commission ตรงบัญชีจริง จำนวนปีก็ไม่ช่วยให้ผลแม่นขึ้น</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#drivers">อะไรเป็นตัวกำหนดความยาว</a></li>
+<li><a href="#regimes">สภาวะตลาดที่ต้องครอบคลุม</a></li>
+<li><a href="#sample">ดูจำนวน Trade แทนจำนวนปีอย่างเดียว</a></li>
+<li><a href="#changes">รับมือข้อมูลและโครงสร้างที่เปลี่ยน</a></li>
+<li><a href="#windows">แบ่งช่วงทดสอบ</a></li>
+<li><a href="#stop">เมื่อไรถือว่าทดสอบพอ</a></li>
+</ul>
+</nav>
+
+<h2 id="drivers">ปัจจัยกำหนดว่าต้อง Backtest ยาวแค่ไหน</h2>
+
+<ul>
+<li><strong>Trade Frequency:</strong> ระบบเทรดน้อยต้องใช้เวลานานเพื่อได้ Sample</li>
+<li><strong>Holding Period:</strong> ระบบถือหลายวันต้องเห็น Swap/Gap/Weekend หลายรอบ</li>
+<li><strong>Market Regime:</strong> Trend, Sideway, Volatility สูง/ต่ำ</li>
+<li><strong>Seasonality:</strong> Session, วันในสัปดาห์, เดือน หรือเหตุการณ์ตามฤดูกาล</li>
+<li><strong>Symbol:</strong> ประวัติ Listing และ Specification ที่เปลี่ยน</li>
+<li><strong>Parameter Count:</strong> พารามิเตอร์มากต้องใช้ข้อมูลมากเพื่อลด Overfit</li>
+<li><strong>Risk Horizon:</strong> ต้องเห็น Losing Streak และ Drawdown Cycle หลายรอบ</li>
+</ul>
+
+<p>หาก EA มีเงื่อนไขเปิดออเดอร์หายาก การทดสอบ 2 ปีอาจได้เพียงไม่กี่สิบ Trade ซึ่งยังทำให้ Metric ผันผวนสูง ในทางกลับกันระบบ High Frequency ที่ได้ Trade มากจากเดือนเดียวก็ยังอาจไม่เห็น Regime ที่ต่างพอ</p>
+
+<h2 id="regimes">ควรครอบคลุมตลาดแบบใด</h2>
+
+<h3>Trend และ Sideway</h3>
+<p>Trend Following มักได้ประโยชน์จากแนวโน้มยาว แต่ต้องเห็นช่วง False Break/Sideway ส่วน Mean Reversion ต้องเห็นช่วง Breakout ที่ราคาไม่กลับเฉลี่ย</p>
+
+<h3>Volatility สูงและต่ำ</h3>
+<p>Spread, Stop Distance และ Position Sizing อาจตอบสนองต่างกัน ระบบที่รอดเฉพาะ Volatility ระดับเดียวมี Regime Risk สูง</p>
+
+<h3>ข่าวและ Liquidity บาง</h3>
+<p>รวมช่วงประกาศเศรษฐกิจสำคัญ วันหยุด และ Rollover หาก EA มี Filter ให้ยืนยันว่ามันหยุดจริง ไม่ตัดช่วงเหล่านี้ออกจากข้อมูลทั้งหมด</p>
+
+<h3>Drawdown และ Recovery</h3>
+<p>ช่วงทดสอบต้องยาวพอเห็น Drawdown Cycle มากกว่าหนึ่งครั้ง หาก Backtest จบตรงจุดสูงสุดพอดี ควรเลื่อน End Date และเริ่มหลายจุดเพื่อดู Sensitivity</p>
+
+<p>ไม่จำเป็นต้องใช้เหตุการณ์ในอดีตเป็น “สถานการณ์ที่จะเกิดซ้ำเหมือนเดิม” แต่ใช้เพื่อดูว่าตรรกะตอบสนองต่อ Shock/Regime ที่แตกต่างอย่างไร</p>
+
+<h2 id="sample">จำนวน Trade เท่าไรจึงพอ</h2>
+
+<p>ไม่มี Threshold สากล เพราะ Distribution ของแต่ละกลยุทธ์ต่างกัน จำนวน Trade หลักร้อยอาจยังไม่พอสำหรับระบบที่มี Tail Risk แต่หลักสิบแทบไม่ควรใช้สรุป Metric ละเอียด เช่น Win Rate ต่างกันไม่กี่เปอร์เซ็นต์</p>
+
+<p>แทนการถามเลขเดียว ให้ดู:</p>
+
+<ul>
+<li>Confidence Interval ของ Win Rate/Average Trade</li>
+<li>จำนวน Winner ใหญ่ที่สร้างกำไรส่วนใหญ่</li>
+<li>จำนวน Losing Streak และความยาว</li>
+<li>Trade ต่อ Regime ไม่ใช่รวมทั้งหมด</li>
+<li>Sample ในแต่ละ Symbol หาก EA Multi-symbol</li>
+<li>ความเสถียรเมื่อเลื่อน Start/End Date</li>
+</ul>
+
+<p>หากลบ Trade ดีที่สุดไม่กี่รายการแล้วระบบติดลบ แปลว่าผลขึ้นกับ Tail Event มาก ต้องเข้าใจว่ากลยุทธ์ตั้งใจจับ Winner ใหญ่หรือเป็นความบังเอิญจาก Sample</p>
+
+<h2 id="changes">ข้อมูลเก่ามากอาจมีปัญหาอะไร</h2>
+
+<ul>
+<li>Symbol/Contract Size เปลี่ยน</li>
+<li>Digits, Tick Size หรือ Trading Session เปลี่ยน</li>
+<li>Commission/Spread Model ไม่เหมือนปัจจุบัน</li>
+<li>ตลาด/กฎ/โบรกเกอร์เปลี่ยนโครงสร้าง</li>
+<li>Tick History เก่ามี Gap มากกว่า</li>
+<li>EA ใช้ Indicator/Data ที่ไม่มีในช่วงต้น</li>
+</ul>
+
+<p>ข้อมูลเก่าไม่ควรถูกทิ้งอัตโนมัติ แต่ต้องตรวจความเข้ากันได้ อาจแบ่งเป็น “Recent Relevant Period” กับ “Long Stress Period” และรายงานทั้งสอง ไม่รวมทุกอย่างแล้วให้ค่าเฉลี่ยซ่อนความต่าง</p>
+
+<h2 id="windows">แบ่งช่วงอย่างไรไม่ให้ Overfit</h2>
+
+<ol>
+<li>กำหนดช่วง Development/In-Sample</li>
+<li>กัน Out-of-Sample ล่าสุดไว้ก่อน Optimize</li>
+<li>ทำ Walk-Forward หลาย Window หากมีการปรับค่าตามเวลา</li>
+<li>เก็บ Final Holdout ที่ทีมยังไม่เปิดดูจนเกณฑ์ล็อก</li>
+<li>Forward Test ต่อด้วยข้อมูลที่ไหลเข้าหลังพัฒนา</li>
+</ol>
+
+<p>อ่านวิธีแบ่งข้อมูลที่ <a href="https://fenixpro-th.com/in-sample-out-of-sample-ea/">In-Sample และ Out-of-Sample</a> และการเลื่อน Window ที่ <a href="https://fenixpro-th.com/walk-forward-analysis-ea/">Walk-Forward Analysis</a></p>
+
+<h2>ตัวอย่าง Framework ไม่ใช่สูตรตายตัว</h2>
+
+<table>
+<thead>
+<tr>
+<th>ประเภทระบบ</th>
+<th>สิ่งที่เน้นมากกว่าจำนวนปี</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scalping</td>
+<td>Real Ticks, Spread/Delay Distribution และ Sample ต่อ Session</td>
+</tr>
+<tr>
+<td>Trend Following</td>
+<td>หลาย Trend Cycle, Sideway ยาว และ Winner Distribution</td>
+</tr>
+<tr>
+<td>Grid/Martingale</td>
+<td>Long One-way Move, Floating Equity, Margin และ Tail Scenario</td>
+</tr>
+<tr>
+<td>News Strategy</td>
+<td>Event Sample, Revision, Spread Spike และ Execution</td>
+</tr>
+</tbody>
+</table>
+
+<p>ตัวอย่างนี้ใช้วางคำถาม ไม่ได้กำหนดว่าระบบใดปลอดภัย หากข้อมูลไม่มีสถานการณ์ที่ระบบแพ้รุนแรง ต้องสร้าง Stress Scenario เพิ่ม ไม่สรุปว่าความเสี่ยงนั้นไม่มี</p>
+
+<h2 id="stop">เมื่อไรถือว่าทดสอบเพียงพอสำหรับขั้นถัดไป</h2>
+
+<ul>
+<li>Data Quality และ Specification ผ่านการตรวจ</li>
+<li>Sample/Regime เพียงพอตามสมมติฐานที่เขียนไว้</li>
+<li>ต้นทุนและ Delay Stress ไม่ทำให้ Edge หายทันที</li>
+<li>OOS/Walk-Forward อยู่ในเกณฑ์ที่ล็อกไว้</li>
+<li>Metric ไม่ขึ้นกับ Start Date หรือ Trade เดียวเกินไป</li>
+<li>Monte Carlo/Tail Scenario อยู่ใน Risk Budget</li>
+<li>มีแผน Forward Test และ Kill Criteria</li>
+</ul>
+
+<p>คำว่า “พอ” หมายถึงพอไปด่านถัดไป ไม่ใช่พร้อมเพิ่มความเสี่ยงทันที เริ่มตั้งค่าตาม <a href="https://fenixpro-th.com/how-to-backtest-ea-mt5/">วิธี Backtest EA บน MT5</a> และอ่านข้อจำกัดจาก <a href="https://fenixpro-th.com/read-ea-backtest/">รายงาน Backtest</a></p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> ช่วงทดสอบยาวและ Sample ใหญ่ไม่สามารถรับประกันว่าโครงสร้างตลาดจะคงเดิม ต้องใช้การจำกัดความเสี่ยงและติดตามผลจริงต่อเนื่อง</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Testing Period and Settings</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/test_preparation" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Historical Data Preparation</a></li>
+<li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2308659" rel="nofollow noopener" target="_blank">Bailey et al.: Backtest Overfitting and Multiple Trials</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

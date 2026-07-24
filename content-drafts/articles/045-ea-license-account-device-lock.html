@@ -1,0 +1,154 @@
+---
+seo_title: License EA ผูกบัญชีหรือเครื่อง ต้องถามอะไรก่อนซื้อ
+meta_description: เข้าใจ License EA แบบผูกบัญชี Broker เครื่อง Hardware ID หรือ Activation พร้อมคำถามเรื่องย้าย VPS Reset Update Offline และสิทธิ์ใช้หลังหมดอายุ
+excerpt: ไฟล์ EX5 ที่เปิดได้ไม่ได้แปลว่าใช้ได้ทุกบัญชีหรือทุกเครื่อง ต้องรู้ License Scope จำนวน Activation และ Recovery Process ก่อนชำระเงิน
+cover_alt: แผนภาพ License EA ผูกบัญชี Broker เครื่อง VPS และ Activation สำหรับ MT5
+---
+<p><strong>License ของ EA</strong> คือเงื่อนไขอนุญาตให้ใช้ซอฟต์แวร์ ไม่ได้หมายความว่าผู้ซื้อเป็นเจ้าของ Source Code หรือมีสิทธิ์คัดลอก แจกต่อ และแก้ไขทุกอย่าง License อาจผูกกับ Trading Account, Broker, Device/Hardware ID, MQL5 Account, Subscription หรือ License Server ของผู้พัฒนา</p>
+
+<p>ก่อนซื้อควรขอเงื่อนไขเป็นลายลักษณ์อักษร เพราะการย้าย VPS, เปลี่ยน Windows, เปลี่ยน Broker หรือ Format เครื่องอาจใช้ Activation ใหม่ แม้ผู้ใช้เป็นคนเดิม การรู้เพียงว่า “ใช้ได้ 1 License” ไม่พอ ต้องรู้ว่า 1 License วัดจากอะไร</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#models">รูปแบบ License ที่พบบ่อย</a></li>
+<li><a href="#scope">Scope และ Activation ต่างกันอย่างไร</a></li>
+<li><a href="#migration">ย้าย VPS/บัญชีต้องทำอะไร</a></li>
+<li><a href="#availability">License Server และการใช้งาน Offline</a></li>
+<li><a href="#updates">Update, Expiry และสิทธิ์หลังหมดอายุ</a></li>
+<li><a href="#questions">Checklist คำถามก่อนซื้อ</a></li>
+</ul>
+</nav>
+
+<h2 id="models">รูปแบบ License ที่ต้องแยก</h2>
+
+<table>
+<thead>
+<tr>
+<th>รูปแบบ</th>
+<th>ผูกกับอะไร</th>
+<th>ผลเมื่อเปลี่ยนระบบ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Account Lock</td>
+<td>Login/Server/Broker ที่อนุญาต</td>
+<td>เปลี่ยนบัญชีอาจต้องแก้ License</td>
+</tr>
+<tr>
+<td>Device/Hardware Lock</td>
+<td>Hardware/OS Fingerprint</td>
+<td>ย้าย/Format/Update ใหญ่อาจเปลี่ยน ID</td>
+</tr>
+<tr>
+<td>Activation Count</td>
+<td>จำนวน Environment ที่เปิดใช้งาน</td>
+<td>การย้ายเครื่องอาจใช้ Activation เพิ่ม</td>
+</tr>
+<tr>
+<td>Subscription</td>
+<td>ช่วงเวลาที่ชำระ</td>
+<td>หมดอายุแล้วอาจหยุดทำงานหรือหยุด Update</td>
+</tr>
+<tr>
+<td>Online License Server</td>
+<td>Token/Account และการตรวจผ่าน Internet</td>
+<td>Server/Network ล่มอาจกระทบการเริ่มหรือใช้งาน</td>
+</tr>
+<tr>
+<td>Marketplace DRM</td>
+<td>บัญชี Marketplace และ Activation Rules</td>
+<td>เป็นไปตามกติกา Platform ที่ซื้อ</td>
+</tr>
+</tbody>
+</table>
+
+<p>EA หนึ่งตัวอาจใช้หลายแบบพร้อมกัน เช่น ผูก MQL5 Account และมี Activation ต่อ Hardware หรือผูก Trading Account แล้วต้องตรวจ License Server ทุกครั้งที่เริ่ม จึงต้องขอ Diagram/ขั้นตอนจริงจากผู้ขาย</p>
+
+<h2 id="scope">“ใช้ได้กี่เครื่อง” ไม่เท่ากับ “ใช้ได้กี่บัญชี”</h2>
+
+<p>ตัวอย่าง Scope ที่ต่างกัน:</p>
+<ul>
+<li>หนึ่งเครื่อง เปิดหลาย Terminal แต่ใช้บัญชีเดียว</li>
+<li>หนึ่งบัญชี เปิดได้บน Desktop และ VPS</li>
+<li>หนึ่ง License ใช้ได้หนึ่ง Real Account แต่ Demo ไม่จำกัด</li>
+<li>หนึ่ง Activation ผูก Windows Environment แม้มีหลายบัญชี</li>
+<li>หนึ่งแพ็กเกจให้หลาย Activation แต่ห้ามใช้พร้อมกัน</li>
+</ul>
+
+<p>ถามทั้ง Concurrent Use และ Total Activations การมี Activation ห้าครั้งอาจหมายถึงติดตั้งได้ห้า Environment ตลอดอายุ ไม่ใช่รันพร้อมกันห้าบัญชี และการลบโปรแกรมอาจไม่คืน Activation อัตโนมัติ</p>
+
+<h2 id="migration">ย้าย VPS อย่างไรไม่ให้ EA หยุด</h2>
+
+<ol>
+<li>แจ้งผู้ขาย/เปิด Ticket ก่อนย้าย พร้อม License ID ที่ไม่ใช่ Password</li>
+<li>ขอ Deactivate/Reset ตามกระบวนการ หากระบบรองรับ</li>
+<li>สำรอง Installer, EX5, Preset, Version และ Documentation</li>
+<li>ติดตั้งในเครื่องใหม่และทดสอบ Demo ก่อนตัดเครื่องเดิม</li>
+<li>ตรวจ Account/Server/Hardware Binding และ Journal</li>
+<li>ปิด Instance เก่าเพื่อป้องกัน License Conflict และออเดอร์ซ้ำ</li>
+<li>เก็บหลักฐานการย้ายและ Activation ที่เหลือ</li>
+</ol>
+
+<p>หากผู้ขายหายหรือตอบช้า การย้ายฉุกเฉินอาจทำไม่ได้ ควรถาม SLA และ Emergency Contact ก่อนซื้อ โดยเฉพาะ EA ที่ต้องออนไลน์ตลอด</p>
+
+<h2 id="availability">License Server เป็น Dependency ของการเทรด</h2>
+
+<p>ถ้า EA ต้องตรวจสิทธิ์ออนไลน์ ให้ถาม:</p>
+
+<ul>
+<li>ตรวจตอน Attach/Startup เป็นรอบ หรือทุกคำสั่ง</li>
+<li>เมื่อ Server ตอบไม่ได้ EA หยุด Entry ปิด Position หรือทำงานต่อช่วง Grace Period</li>
+<li>Domain/IP ใดต้อง Allow ใน Firewall/WebRequest</li>
+<li>มี Status Page, Redundancy และ Maintenance Notice หรือไม่</li>
+<li>ข้อมูลใดถูกส่งไปตรวจ License และเก็บนานเท่าไร</li>
+<li>มี Offline/Emergency Mode หรือไม่</li>
+</ul>
+
+<p>พฤติกรรม Fail-safe ต้องชัด ระบบที่ตรวจ License ไม่ผ่านไม่ควรเปิด Position ใหม่ แต่การหยุดจัดการ Position ที่มีอยู่โดยไม่แจ้งอาจสร้างความเสี่ยง ผู้ซื้อควรรู้ Lifecycle ของ EA เมื่อ License เปลี่ยนสถานะ</p>
+
+<h2 id="updates">ซื้อขาดอาจไม่ได้แปลว่า Update ตลอดชีพ</h2>
+
+<p>แยกสิทธิ์ต่อไปนี้:</p>
+<ul>
+<li>สิทธิ์ใช้ Version ที่ซื้อแบบถาวรหรือชั่วคราว</li>
+<li>สิทธิ์ดาวน์โหลดไฟล์เดิมหลัง Product ถูกถอด</li>
+<li>สิทธิ์รับ Bug Fix/Critical Compatibility Update</li>
+<li>สิทธิ์รับ Feature/Major Version ใหม่</li>
+<li>ระยะเวลา Support และค่า Renewal</li>
+</ul>
+
+<p>กติกาของ MQL5 Market ระบุรายละเอียดผู้ซื้อ/ผู้ขายและ Activation ตามบริการของตน แต่หากซื้อจากเว็บไซต์ผู้พัฒนา ต้องใช้ Terms ของผู้ขายนั้น ห้ามนำกติกา Marketplace หนึ่งไปสมมติว่าใช้กับการขายตรง</p>
+
+<h2>Source Code กับ Compiled File</h2>
+
+<p>ไฟล์ <code>.ex5</code> เป็นไฟล์ที่ Compile สำหรับรันบน MT5 ผู้ซื้อทั่วไปอาจไม่ได้ Source <code>.mq5</code> และไม่มีสิทธิ์แก้ไข/แจกต่อ การได้รับ Source เป็นข้อตกลงแยกที่ควรระบุสิทธิ์ใช้งาน ความลับ และการบำรุงรักษา ไม่ควรพยายาม Decompile หรือหลีกเลี่ยง License</p>
+
+<h2 id="questions">Checklist ก่อนชำระเงิน</h2>
+
+<ol>
+<li>License ผูก Account, Broker, Device, MQL5 Account หรืออะไร</li>
+<li>ใช้ได้กี่ Real/Demo Account และพร้อมกันกี่ Instance</li>
+<li>จำนวน Activation เท่าไร ลบ/ย้ายแล้วคืนได้หรือไม่</li>
+<li>เปลี่ยน VPS, Windows, Disk หรือ Broker ต้องทำอะไร</li>
+<li>License Server ล่ม/อินเทอร์เน็ตขาด EA ทำงานแบบใด</li>
+<li>หมด Subscription แล้ว Version เดิมยังจัดการ Position/ใช้งานได้หรือไม่</li>
+<li>Update, Bug Fix และ Support รวมถึงวันใด</li>
+<li>ผู้ขายยุติบริการ มีวิธี Exit/Migrate อย่างไร</li>
+<li>Refund ใช้กับ License ที่ Activated แล้วหรือไม่</li>
+</ol>
+
+<p>อ่านภาพรวมที่ <a href="https://fenixpro-th.com/how-to-choose-ea/">วิธีเลือก EA</a>, <a href="https://fenixpro-th.com/verify-ea-seller-before-buying/">วิธีตรวจผู้ขาย EA</a> และตรวจแพ็กเกจจริงที่ <a href="https://fenixpro-th.com/pricing/">ราคา FENIX PRO EA</a></p>
+
+<p><strong>สรุป:</strong> License คือข้อกำหนดสิทธิ์และ Dependency ของระบบ ผู้ซื้อควรรู้ Scope, Activation, Migration, Availability, Update และ Exit Plan ก่อนจ่ายเงิน เพื่อไม่ให้การย้าย VPS หรือเปลี่ยนบัญชีทำให้ระบบหยุดโดยไม่พร้อม</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> License ที่ใช้งานได้ไม่ได้รับประกันความถูกต้องหรือผลกำไรของ EA ระบบ License/Network อาจขัดข้อง ควรมี Monitoring และแผนจัดการ Position การเทรดมีความเสี่ยงสูง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.mql5.com/en/market/rules" rel="nofollow noopener" target="_blank">MQL5 Market: Product, Seller and Activation Rules</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/structure" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Files and Program Structure</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 24 ตุลาคม 2026</small></p>

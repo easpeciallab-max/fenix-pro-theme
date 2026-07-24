@@ -1,0 +1,137 @@
+---
+seo_title: Every Tick Based on Real Ticks ต่างจากโหมดอื่นอย่างไร
+meta_description: เปรียบเทียบ Real Ticks, Every Tick, 1 Minute OHLC และ Open Prices Only ใน MT5 พร้อมวิธีเลือกโหมด Backtest ให้ตรงกับตรรกะ EA
+excerpt: Real Ticks ใช้ Tick ที่โบรกเกอร์บันทึก ส่วน Every Tick อาจสร้างเส้นทางราคาจากข้อมูล M1 โหมดที่ละเอียดกว่าช่วยได้แต่ยังไม่เท่าบัญชีจริง
+cover_alt: Strategy Tester บน MT5 แสดงตัวเลือก Every Tick Based on Real Ticks
+---
+<p><strong>Every tick based on real ticks</strong> คือโหมด Strategy Tester ที่ใช้ข้อมูล Tick จริงซึ่งโบรกเกอร์บันทึกไว้ แทนการสร้าง Tick ระหว่างแท่งจากข้อมูลหนึ่งนาที เมื่อข้อมูลครบ โหมดนี้สะท้อนลำดับ Bid/Ask และ Spread ที่เปลี่ยนในอดีตได้ละเอียดกว่า แต่ยังไม่ใช่การจำลองบัญชีจริงแบบสมบูรณ์</p>
+
+<p>คำว่า “Real Ticks” บอกแหล่งข้อมูลราคา ไม่ได้หมายความว่า Tester รู้ Liquidity, Queue, Reject, VPS Outage หรือ Slippage ของคำสั่งคุณในอนาคต ผู้ทดสอบยังต้องกำหนด Commission, Delay, Specification และตรวจคุณภาพข้อมูลด้วย</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#modes">โหมด Tick แต่ละแบบ</a></li>
+<li><a href="#real">Real Ticks ให้ข้อมูลอะไร</a></li>
+<li><a href="#choose">EA แบบไหนต้องใช้โหมดใด</a></li>
+<li><a href="#spread">Bid, Ask และ Spread</a></li>
+<li><a href="#quality">ตรวจคุณภาพข้อมูล</a></li>
+<li><a href="#workflow">Workflow ทดสอบที่ประหยัดเวลา</a></li>
+</ul>
+</nav>
+
+<h2 id="modes">เปรียบเทียบโหมดสร้างราคาใน MT5</h2>
+
+<table>
+<thead>
+<tr>
+<th>โหมด</th>
+<th>ข้อมูลที่ใช้</th>
+<th>การใช้งาน</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every tick based on real ticks</td>
+<td>Tick จริงจาก Server เมื่อมีข้อมูล</td>
+<td>ตรวจละเอียดและระบบไวต่อ Spread/Intrabar</td>
+</tr>
+<tr>
+<td>Every tick</td>
+<td>Tick ที่สร้างจาก M1 พร้อมกฎการจำลอง</td>
+<td>ทดสอบ OnTick เมื่อต้องการช่วงข้อมูลกว้าง</td>
+</tr>
+<tr>
+<td>1 minute OHLC</td>
+<td>Open, High, Low, Close ของทุก M1</td>
+<td>ประเมินระบบที่ไม่ขึ้นกับเส้นทาง Tick ละเอียด</td>
+</tr>
+<tr>
+<td>Open prices only</td>
+<td>ราคาเปิดของแท่ง Timeframe ทดสอบ</td>
+<td>คัดกรองเร็วสำหรับระบบทำงานเฉพาะเปิดแท่ง</td>
+</tr>
+</tbody>
+</table>
+
+<p>โหมดเร็วมีประโยชน์สำหรับ Screening แต่ไม่ควรเป็น Report สุดท้ายหาก EA ใช้ Trailing, Stop/Pending Intrabar, Spread Filter, Scalping หรือเงื่อนไขที่ตรวจทุก Tick</p>
+
+<h2 id="real">Real Ticks ต่างจาก Tick ที่สร้างอย่างไร</h2>
+
+<p>ใน Real Ticks Tester เล่นลำดับ Tick ที่สะสมจาก Exchange/Liquidity Provider ผ่านโบรกเกอร์ Spread สามารถเปลี่ยนภายในนาทีได้ ส่วนโหมด Every Tick ที่สร้างจาก M1 จะใช้กฎสร้างจุดอ้างอิงระหว่าง Open, High, Low, Close และ Ask คำนวณจาก Bid + Spread ของ Bar ตามเอกสาร MT5</p>
+
+<p>ความต่างนี้สำคัญเมื่อ:</p>
+
+<ul>
+<li>EA เปิด/ปิดหลายครั้งภายใน M1</li>
+<li>ใช้ Tick Count หรือ Microstructure</li>
+<li>มี Stop/Pending ใกล้ราคา</li>
+<li>กรอง Spread ก่อน Entry</li>
+<li>ใช้ Trailing/Break Even ที่ขยับระหว่างแท่ง</li>
+<li>เทรดรอบข่าวหรือช่วง Spread ขยาย</li>
+</ul>
+
+<p>หากช่วงใดมี Minute Bar แต่ไม่มี Tick จริง Tester อาจสร้าง Tick เพื่อให้ทดสอบต่อได้ตามกฎของแพลตฟอร์ม จึงต้องอ่าน History Quality และจำนวน Tick ไม่สรุปว่าเลือกเมนู Real Ticks แล้วข้อมูลจริง 100% ทุกวินาที</p>
+
+<h2 id="choose">เลือกโหมดตามตรรกะ EA</h2>
+
+<h3>ระบบทำงานเฉพาะเปิดแท่ง</h3>
+<p>Open Prices Only ใช้ Screening ได้หากโค้ดอ่านสัญญาณเฉพาะ Bar ใหม่และไม่พึ่ง Stop/Trailing Intrabar แต่ควรยืนยันรอบสุดท้ายด้วยโหมดละเอียด เพราะการ Execution ของ Stop และ Pending อาจต่าง</p>
+
+<h3>ระบบอ่านค่า M1 OHLC</h3>
+<p>1 Minute OHLC เร็วกว่าทุก Tick และมีจุด OHLC ต่อ M1 แต่ลำดับ High/Low ที่จำลองอาจมีผลกับ Stop/Take Profit หากทั้งสองระดับอยู่ในแท่งเดียวกัน</p>
+
+<h3>Scalping/Grid/ข่าว</h3>
+<p>ควรทดสอบ Real Ticks เมื่อมีข้อมูล และทำ Stress Test Spread/Delay เพิ่ม เพราะระบบเหล่านี้ไวต่อเส้นทางราคาและต้นทุนมาก อ่านภาพรวมที่ <a href="https://fenixpro-th.com/scalping-ea-mt5/">Scalping EA บน MT5</a></p>
+
+<h3>Multi-symbol EA</h3>
+<p>ตรวจข้อมูล Tick ของทุก Symbol ที่ EA เรียก ไม่ใช่เฉพาะ Chart หลัก Strategy Tester จะโหลดข้อมูลที่จำเป็น แต่ Gap หรือ Time Alignment ของ Symbol รองยังมีผลได้</p>
+
+<h2 id="spread">ทำไมต้องสนใจ Bid และ Ask</h2>
+
+<p>กราฟจำนวนมากแสดง Bid เป็นหลัก แต่คำสั่ง Buy เปิดที่ Ask และปิดที่ Bid ส่วน Sell เปิดที่ Bid และปิดที่ Ask ดังนั้น Spread อยู่ในเส้นทางกำไรขาดทุนแม้มองไม่เห็นจาก Candle เดียว</p>
+
+<p>เอกสาร MT5 ระบุว่าแม้กราฟของบางตลาดสร้างจาก Last Price การเทรดยังดำเนินการผ่าน Bid/Ask โหมด Real Ticks จึงช่วยสะท้อน Spread ที่เปลี่ยนในอดีตได้ดีกว่า Fixed Spread แต่ผลทดสอบยังต้องรวม Commission และความหน่วง</p>
+
+<p>สำหรับ EA ที่กำไรเฉลี่ยต่อ Trade เล็ก ต้นทุนเพิ่มเพียงเล็กน้อยอาจเปลี่ยน Expectancy จากบวกเป็นลบ ต้องดู Distribution ของ Spread ในช่วงเวลาเทรด ไม่ใช้ค่าเฉลี่ยทั้งวันแทนช่วงข่าวหรือ Rollover</p>
+
+<h2 id="quality">วิธีตรวจข้อมูลก่อนเชื่อผล</h2>
+
+<ul>
+<li>ดู History Quality และช่วงสีที่บ่งบอก Gap</li>
+<li>ตรวจจำนวน Bars/Ticks เทียบกับช่วงวันที่</li>
+<li>เปิดกราฟดู Spike หรือ Gap ที่ผิดปกติ</li>
+<li>ตรวจ Symbol Specification และ Session</li>
+<li>ดู Journal ว่ามีการสร้าง Tick แทนช่วงข้อมูลขาดหรือไม่</li>
+<li>เปรียบเทียบผลจาก Server/โบรกเกอร์มากกว่าหนึ่งแหล่ง</li>
+<li>เก็บวันที่ดาวน์โหลดข้อมูล เพราะ History อาจถูกอัปเดตภายหลัง</li>
+</ul>
+
+<p>หากผลต่างมากระหว่าง Real Ticks และ Every Tick ให้หาสาเหตุก่อน ไม่เลือกผลที่ดีกว่า อาจมาจาก Spread, Tick Sequence, Gap หรือเงื่อนไข EA ที่ไวเกินไป</p>
+
+<h2 id="workflow">Workflow ทดสอบที่สมดุลความเร็วกับความละเอียด</h2>
+
+<ol>
+<li>รัน Visual ช่วงสั้นเพื่อตรวจตรรกะ</li>
+<li>ใช้ Open Prices/OHLC คัด Preset เฉพาะเมื่อ EA รองรับ</li>
+<li>รัน Every Tick หรือ Real Ticks กับตัวเลือกที่เหลือ</li>
+<li>ทำ Stress Test Spread, Commission และ Delay</li>
+<li>เปลี่ยน Start Date เพื่อดูความไว</li>
+<li>แยก Out-of-Sample และ Forward Test</li>
+<li>บันทึก Modeling Mode ในชื่อ Report ทุกครั้ง</li>
+</ol>
+
+<p>คู่มือการตั้งค่าทั้งหมดอยู่ที่ <a href="https://fenixpro-th.com/how-to-backtest-ea-mt5/">วิธี Backtest EA บน MT5</a> และหลักอ่านรายงานที่ <a href="https://fenixpro-th.com/read-ea-backtest/">อ่านผล Backtest EA อย่างไร</a></p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> Real Ticks เพิ่มความละเอียดของข้อมูลอดีต แต่ไม่จำลอง Market Impact, Liquidity และ Execution ในอนาคตครบ ต้องยืนยันด้วย Out-of-Sample, Forward Test และการใช้ความเสี่ยงที่จำกัด</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/tick_generation" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Real and Generated Ticks</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Strategy Testing Settings</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing_report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: History Quality and Testing Report</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

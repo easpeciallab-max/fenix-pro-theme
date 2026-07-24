@@ -1,0 +1,135 @@
+---
+seo_title: Magic Number บน MT5 คืออะไรและตั้งอย่างไร
+meta_description: เข้าใจ Magic Number ของ EA บน MT5 วิธีแยกออเดอร์หลายกราฟ หลายกลยุทธ์ และข้อผิดพลาดที่ทำให้ EA จัดการ Position ผิดชุด
+excerpt: Magic Number คือรหัสที่ EA ใช้ระบุคำสั่งของระบบตนเอง การตั้งเลขซ้ำหรือเปลี่ยนกลางทางอาจทำให้หลาย EA รบกวนกัน
+cover_alt: หน้าจอ MT5 แสดง Position หลายรายการที่แยกด้วย Magic Number
+---
+<p>Magic Number บน MT5 คือหมายเลขที่โปรแกรมใช้ติดตามว่าคำสั่ง Order, Deal หรือ Position เกี่ยวข้องกับ EA ใด เปรียบได้กับรหัสประจำชุดกลยุทธ์ ช่วยให้ EA แยกออเดอร์ของตนออกจากการเทรดมือหรือ EA ตัวอื่น แม้จะอยู่ในบัญชีเดียวกัน</p>
+
+<p>Magic Number ไม่ใช่รหัสลับ ไม่ได้เพิ่มความปลอดภัย และไม่ได้ทำให้ผลเทรดดีขึ้น ประโยชน์ของมันอยู่ที่การจัดระเบียบ หากโค้ดของ EA ใช้ Magic อย่างถูกต้อง การกำหนดเลขไม่ซ้ำจะลดโอกาสที่ระบบหนึ่งไปแก้ Stop Loss, ปิด Position หรือคำนวณ Basket ของอีกระบบโดยไม่ตั้งใจ</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#how">Magic Number ทำงานอย่างไร</a></li>
+<li><a href="#when">กรณีใดต้องแยกเลข</a></li>
+<li><a href="#setting">วิธีตั้งอย่างเป็นระบบ</a></li>
+<li><a href="#change">เปลี่ยนเลขตอนมีออเดอร์ได้ไหม</a></li>
+<li><a href="#netting">ข้อจำกัดในบัญชี Netting</a></li>
+<li><a href="#check">วิธีตรวจและแก้ปัญหา</a></li>
+</ul>
+</nav>
+
+<h2 id="how">Magic Number ทำงานอย่างไรใน MT5</h2>
+
+<p>ใน MQL5 มี Property สำหรับ Magic ของ Order, Deal และ Position นักพัฒนาสามารถกำหนดค่าเมื่อส่งคำสั่ง แล้วกรองรายการภายหลังเพื่อจัดการเฉพาะรายการที่ตรงกับ ID ของระบบ เช่น EA หมายเลข 12001 จะคำนวณกำไรขาดทุนหรือปิดเฉพาะ Position ที่มี Magic 12001</p>
+
+<p>อย่างไรก็ตาม Magic Number จะช่วยได้ก็ต่อเมื่อโค้ดใช้มันจริง EA บางตัวกรองจาก Symbol อย่างเดียว บางตัวใช้ทั้ง Symbol + Magic และบางตัวมีระบบ Mapping ภายใน ผู้ใช้จึงต้องอ่านคู่มือ ไม่ควรสรุปจากช่อง Input ว่าระบบแยกออเดอร์ครบทุกกรณี</p>
+
+<p>Comment ของ Order เป็นข้อมูลช่วยอ่าน แต่ไม่ควรใช้แทน Magic เพราะ Comment อาจถูกแก้ ย่อ หรือมีรูปแบบต่างกันตาม Trade Server และขั้นตอนของ EA</p>
+
+<h2 id="when">เมื่อไรต้องใช้ Magic Number ไม่ซ้ำกัน</h2>
+
+<ul>
+<li>เปิด EA หลายตัวในบัญชีเดียวกัน</li>
+<li>เปิด EA ตัวเดียวกันหลายกราฟหรือหลาย Symbol</li>
+<li>ใช้ Preset ต่างกันสำหรับกลยุทธ์คนละแบบ</li>
+<li>แบ่งบัญชีเป็นหลาย Basket ที่มี Equity/Profit Target แยกกัน</li>
+<li>มี Trade Copier หรือระบบบริหาร Position อื่นร่วมด้วย</li>
+<li>ต้องการแยกผลลัพธ์ตามระบบเพื่อวิเคราะห์ภายหลัง</li>
+</ul>
+
+<p>หากเปิด EA เดียวบนกราฟเดียวและไม่มีระบบอื่น Magic เริ่มต้นอาจเพียงพอ แต่ควรบันทึกไว้ เพราะเมื่อเพิ่มกราฟหรือย้าย Preset ภายหลังจะได้ไม่ใช้เลขชนกันโดยไม่รู้ตัว</p>
+
+<p>อ่านภาพรวมการจัดหลายระบบได้ที่ <a href="https://fenixpro-th.com/run-multiple-ea-mt5/">วิธีเปิด EA หลายตัวบน MT5 และคุมความเสี่ยงรวม</a></p>
+
+<h2 id="setting">วิธีตั้ง Magic Number แบบจัดการต่อได้</h2>
+
+<p>ไม่มีเลข “ดีที่สุด” และตัวเลขใหญ่ไม่ได้ปลอดภัยกว่าเลขเล็ก เป้าหมายคือความไม่ซ้ำและตรวจย้อนกลับได้ วิธีใช้งานจริงคือสร้าง Convention ที่ทีมเข้าใจตรงกัน เช่นแบ่งช่วงเลขตามระบบ บัญชี หรือ Symbol</p>
+
+<table>
+<thead>
+<tr>
+<th>Magic</th>
+<th>ตัวอย่างการบันทึก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>21001</td>
+<td>EA A / XAUUSD / Preset Low / H1</td>
+</tr>
+<tr>
+<td>21002</td>
+<td>EA A / EURUSD / Preset Low / H1</td>
+</tr>
+<tr>
+<td>22001</td>
+<td>EA B / XAUUSD / Preset Standard / M15</td>
+</tr>
+</tbody>
+</table>
+
+<p>นี่เป็นเพียงรูปแบบบันทึก ไม่ใช่เลขแนะนำสำหรับทุกระบบ ก่อนเปลี่ยนค่าให้ตรวจข้อกำหนดของ EA เพราะบางผลิตภัณฑ์กำหนดช่วงเลข สร้าง Magic อัตโนมัติ หรือใช้เลขเดียวกันเพื่อรวม Basket หลายกราฟ</p>
+
+<p>ตารางควรเก็บอย่างน้อย:</p>
+
+<ul>
+<li>เลข Magic</li>
+<li>ชื่อ EA และ Version</li>
+<li>ชื่อบัญชี/Server โดยไม่เก็บ Password</li>
+<li>Symbol และ Timeframe</li>
+<li>ชื่อไฟล์ SET</li>
+<li>วันที่เริ่มใช้และผู้แก้ไขล่าสุด</li>
+</ul>
+
+<h2 id="change">เปลี่ยน Magic Number ตอนมี Position ค้างได้ไหม</h2>
+
+<p>ไม่ควรเปลี่ยนโดยไม่ทราบตรรกะของ EA เพราะ Position เดิมยังเก็บ Magic เก่า ส่วน EA หลังโหลดค่าใหม่อาจมองหาเฉพาะ Magic ใหม่ ทำให้ไม่เห็น Position เดิมและไม่จัดการ Stop, Trailing, Basket Close หรือ Recovery ตามแผน</p>
+
+<p>แนวทางที่ปลอดภัยกว่า:</p>
+
+<ol>
+<li>หยุดเปิดออเดอร์ใหม่ตามวิธีที่คู่มือกำหนด</li>
+<li>บันทึก Screenshot, Preset และรายการ Position เดิม</li>
+<li>ติดต่อผู้พัฒนาว่า Version นี้ติดตาม Position หลังเปลี่ยน Magic อย่างไร</li>
+<li>หากต้องรอ Position เดิมจบ ให้คงกราฟเดิมและค่าเดิมไว้</li>
+<li>ทดสอบขั้นตอนเปลี่ยนเลขบน Demo ก่อนบัญชีจริง</li>
+</ol>
+
+<p>อย่าลบกราฟหรือวาง EA ชุดใหม่ทันทีโดยคิดว่า Stop Loss ที่ Server มีอยู่จะทดแทนตรรกะทั้งหมด เพราะฟังก์ชันที่ทำงานใน Terminal เช่น Trailing Stop หรือ Basket Exit อาจหยุดไป</p>
+
+<h2 id="netting">Magic Number กับบัญชี Netting</h2>
+
+<p>ในบัญชี Hedging สามารถมีหลาย Position ของ Symbol เดียวกันและแต่ละ Position อาจมีข้อมูล Magic แยกกันได้ แต่บัญชี Netting จะรวมสถานะของ Symbol เป็น Position สุทธิหนึ่งรายการ การเพิ่ม Deal จากหลายระบบอาจเปลี่ยน Position เดียวกัน ทำให้การแบ่ง Ownership ด้วย Magic ซับซ้อนขึ้น</p>
+
+<p>ดังนั้น EA หลายตัวที่เทรด Symbol เดียวกันบนบัญชี Netting ต้องถูกออกแบบให้ทำงานร่วมกันโดยเฉพาะ การตั้ง Magic ไม่ซ้ำอย่างเดียวอาจไม่เพียงพอ ควรถามผู้พัฒนาว่ารองรับ Netting, Hedging หรือทั้งสองแบบ และทดสอบการเปิด/ลด/กลับทิศ Position จริงใน Demo</p>
+
+<h2 id="check">ปัญหาที่พบบ่อยและวิธีตรวจ</h2>
+
+<h3>EA ปิดออเดอร์ของอีกตัว</h3>
+<p>ตรวจว่า Magic ซ้ำหรือไม่ จากนั้นดูว่า EA แยกด้วย Symbol + Magic หรือเลือก Position ทั้ง Symbol หากเกิดในบัญชี Netting ให้ตรวจ Compatibility เพิ่ม</p>
+
+<h3>EA ไม่จัดการ Position เดิมหลัง Restart</h3>
+<p>ตรวจว่า Preset, Magic และ Version หลัง Restart ตรงกับก่อนหน้า ดู Experts Log ว่า EA พบ Position จำนวนเท่าไรและมีข้อความ Init/Recovery หรือไม่</p>
+
+<h3>รายงานผลรวมหลายระบบปะปนกัน</h3>
+<p>Export History แล้วแยกด้วย Magic/Comment ตามข้อมูลที่มี หากผู้ให้บริการรายงานผลไม่แยก Magic ควรขอวิธีระบุ Trade ของแต่ละระบบก่อนสรุปประสิทธิภาพ</p>
+
+<h3>Magic ซ้ำแต่ยังไม่เกิดปัญหา</h3>
+<p>การไม่เกิดปัญหาในช่วงสั้นไม่ยืนยันว่าปลอดภัย อาจยังไม่มี Position ซ้อนกันหรือเงื่อนไขแก้ไขออเดอร์ยังไม่เกิด ควรแก้โครงตั้งแต่ก่อนเปิดหลายระบบจริง</p>
+
+<p>ใช้แท็บ Experts และ Journal เพื่อตรวจข้อความจากระบบตาม <a href="https://fenixpro-th.com/mt5-experts-journal-logs/">วิธีอ่าน Log ของ MT5</a> และจัดความเสี่ยงรวมผ่าน <a href="https://fenixpro-th.com/money-management/">หลัก Money Management สำหรับ EA</a></p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> Magic Number เป็นเครื่องมือแยกคำสั่ง ไม่ใช่ระบบจำกัดขาดทุน การเปิดหลาย EA ยังเพิ่ม Exposure, Margin Used และโอกาสขาดทุนพร้อมกัน ต้องกำหนดเพดานความเสี่ยงระดับพอร์ตแยกต่างหาก</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.mql5.com/en/docs/standardlibrary/tradeclasses/cpositioninfo/cpositioninfomagic" rel="nofollow noopener" target="_blank">MQL5 Reference: CPositionInfo Magic</a></li>
+<li><a href="https://www.mql5.com/en/docs/constants/tradingconstants/positionproperties" rel="nofollow noopener" target="_blank">MQL5 Reference: Position Properties</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/general_concept" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Netting and Hedging Systems</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

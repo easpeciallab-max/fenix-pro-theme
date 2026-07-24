@@ -1,0 +1,140 @@
+---
+seo_title: Latency และ Ping ของ VPS สำหรับ MT5 วัดอย่างไร
+meta_description: เข้าใจ Latency Ping Jitter Packet Loss และ Execution Time ของ VPS วิธีวัดเส้นทางไป Server โบรกเกอร์และเปรียบเทียบก่อนย้าย EA
+excerpt: Ping ต่ำอย่างเดียวไม่พอ ต้องวัดจาก VPS ไป Trading Server ดู Jitter Packet Loss และเวลา Order Round-trip ภายใต้หลายช่วงตลาด
+cover_alt: หน้าจอวัด Latency Ping Jitter และ Packet Loss จาก VPS ไปยัง Server โบรกเกอร์ MT5
+---
+<p><strong>Latency</strong> คือเวลาหน่วงของการสื่อสารระหว่างจุดสองจุด ส่วน <strong>Ping</strong> มักหมายถึงเครื่องมือหรือค่าระยะเวลา Round-trip ของ Packet ทดสอบ ค่า Ping ต่ำช่วยลดเวลาขนส่งข้อมูล แต่ไม่ได้เท่ากับ Execution Time ของ Order เพราะคำสั่งยังผ่าน Platform, Network, Gateway, Risk Check, Liquidity และนโยบาย Broker</p>
+
+<p>สำหรับ EA ควรวัดเส้นทางจาก VPS ที่รัน MT5 ไปยัง Trading Server จริงของบัญชี ไม่ใช้ Ping จากคอมที่บ้านหรือ Speed Test ไป Server ใกล้ที่สุด แล้วต้องดูความสม่ำเสมอ Jitter และ Packet Loss เพิ่มจากค่าเฉลี่ย</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#terms">Latency, Ping, Jitter ต่างกันอย่างไร</a></li>
+<li><a href="#target">หา Server เป้าหมายอย่างไร</a></li>
+<li><a href="#measure">วิธีวัดหลายชั้น</a></li>
+<li><a href="#execution">Ping ไม่เท่ากับ Execution</a></li>
+<li><a href="#compare">วิธีเปรียบเทียบ VPS</a></li>
+<li><a href="#improve">แนวทางลดความหน่วง</a></li>
+</ul>
+</nav>
+
+<h2 id="terms">ค่าที่ต้องอ่าน</h2>
+
+<table>
+<thead>
+<tr>
+<th>ค่า</th>
+<th>ความหมาย</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latency/RTT</td>
+<td>เวลาที่ Packet เดินทางไปกลับตามวิธีวัด</td>
+</tr>
+<tr>
+<td>Jitter</td>
+<td>ความแปรปรวนของ Latency ระหว่าง Sample</td>
+</tr>
+<tr>
+<td>Packet Loss</td>
+<td>สัดส่วน Packet ที่ไม่ถึงปลายทางหรือไม่มีคำตอบ</td>
+</tr>
+<tr>
+<td>Route/Hops</td>
+<td>เส้นทางและอุปกรณ์เครือข่ายระหว่างต้นทางกับปลายทาง</td>
+</tr>
+<tr>
+<td>Execution Time</td>
+<td>เวลาตั้งแต่ส่ง Request จนได้รับผลลัพธ์จากระบบซื้อขาย</td>
+</tr>
+</tbody>
+</table>
+
+<p>ค่าเฉลี่ยต่ำแต่มี Spike สูงอาจกระทบ EA ที่ไวต่อเวลา Jitter จึงสำคัญกับระบบ Scalping หรือ News Trading ขณะที่ระบบถือหลายวันอาจไวต่อ Latency น้อยกว่าแต่ยังต้องการ Connection ที่เสถียร</p>
+
+<h2 id="target">ระบุ Trading Server ให้ถูก</h2>
+
+<p>บัญชี Demo และ Real อาจอยู่คนละ Server แม้ใช้ Broker เดียวกัน ชื่อ Server ในหน้าล็อกอินเป็นจุดเริ่มต้น แต่ Host/IP อาจมีหลาย Node หรือเปลี่ยนตามโครงสร้างผู้ให้บริการ วิธีตรวจควรใช้ข้อมูลจาก MT5 และ Broker Support ไม่เดา Domain จากเว็บไซต์การตลาด</p>
+
+<ol>
+<li>เปิดบัญชีเป้าหมายใน MT5 และยืนยันชื่อ Server</li>
+<li>ดูค่าการเชื่อมต่อที่ Platform แสดง หรือข้อมูลจาก Network/Log ตามสิทธิ์</li>
+<li>ถาม Broker ว่า Location/Endpoint สำหรับบัญชีและประเภท Server นี้คืออะไร</li>
+<li>ทดสอบจาก VPS แต่ละ Location ไปยังปลายทางเดียวกัน</li>
+</ol>
+
+<p>หาก Server ปิดการตอบ ICMP คำสั่ง Ping อาจ Timeout ทั้งที่ TCP/Trading Connection ใช้งานได้ ต้องใช้เครื่องมือที่สอดคล้องกับ Protocol หรือดูค่าจาก Platform/ผู้ให้บริการแทน ไม่ตีความ Timeout ว่า Server ล่มทันที</p>
+
+<h2 id="measure">วัดหลายชั้นเพื่อหาคอขวด</h2>
+
+<h3>1. Network RTT</h3>
+<p>เก็บ Sample ต่อเนื่องหลายช่วง เช่น Session เปิด ข่าว และนอกเวลาหนาแน่น บันทึก Min, Median, P95/P99, Max, Jitter และ Loss ไม่ใช้ Screenshot หนึ่งครั้งเป็นตัวแทนทั้งเดือน</p>
+
+<h3>2. Route</h3>
+<p>Traceroute/Path Analysis ช่วยเห็นว่าเส้นทางอ้อมหรือเปลี่ยน แต่ Router บางตัวลด Priority ของ Packet ทดสอบ ค่าที่ Hop กลางสูงจึงไม่แปลว่าการจราจรจริงช้า หาก Hop ปลายทางยังปกติ</p>
+
+<h3>3. MT5 Connection</h3>
+<p>ดูสถานะ Connection, Journal และเวลาที่ขาด Tick ตรวจว่ามี Reconnect, Authorization Error หรือ Data Gap หรือไม่ การเชื่อมต่อหลาย Data Center ของ Broker อาจทำให้ปลายทางเปลี่ยนเมื่อ Failover</p>
+
+<h3>4. Order Round-trip</h3>
+<p>ในบัญชี Demo/สภาพแวดล้อมทดสอบ บันทึก Timestamp ก่อนส่งและหลังได้รับ Result พร้อม Retcode แยก Network Delay จาก Broker Processing และ Market Execution ห้ามใช้ผล Demo รับประกัน Real เพราะ Liquidity/กฎอาจต่างกัน</p>
+
+<h2 id="execution">เหตุผลที่ Ping ต่ำแต่คำสั่งยังช้า</h2>
+
+<ul>
+<li>CPU VPS ถูก Throttle หรือ Process MT5 ไม่ได้ Schedule ทัน</li>
+<li>EA ทำงานหนักใน OnTick ก่อนส่งคำสั่ง</li>
+<li>Broker Gateway/Risk Engine ใช้เวลาประมวลผล</li>
+<li>ตลาดมีสภาพคล่องต่ำหรือเกิด Partial Fill</li>
+<li>Price เปลี่ยนจน Request ถูกปฏิเสธ/ส่งใหม่</li>
+<li>Disk/Memory Pressure ทำให้ Terminal ค้าง</li>
+<li>Network Route มี Jitter แม้ Median ต่ำ</li>
+</ul>
+
+<p>ดังนั้น Performance Tuning ต้องดู End-to-end ไม่เลือก VPS จาก Ping ตัวเลขเดียว และต้องเก็บ Expert/Journal Log เพื่อแยกว่า Delay เกิดก่อนส่ง ระหว่างส่ง หรือหลัง Broker รับคำสั่ง</p>
+
+<h2 id="compare">แบบทดสอบเปรียบเทียบ VPS อย่างเป็นธรรม</h2>
+
+<ol>
+<li>สร้าง VPS Candidate ใน Region ต่างกัน</li>
+<li>ใช้ Windows/MT5/EA Version และ Workload เดียวกัน</li>
+<li>เชื่อมบัญชี Server เดียวกัน</li>
+<li>เก็บ Network Metrics ใน Timestamp เดียวกันอย่างน้อยหลาย Session</li>
+<li>ทดสอบ CPU/RAM/Disk Load พร้อมกัน</li>
+<li>เปรียบเทียบ Median, Tail, Loss, Uptime และเหตุขัดข้อง</li>
+<li>รวมราคา Support, Snapshot และ Recovery ไม่ดู Latency อย่างเดียว</li>
+</ol>
+
+<p>บันทึก Location และ Provider Network เพราะ Region ชื่อเดียวกันอาจ Route ต่างกัน อ่านการเลือกทรัพยากรเพิ่มที่ <a href="https://fenixpro-th.com/choose-vps-specs-for-mt5/">วิธีเลือกสเปก VPS สำหรับ MT5</a> และภาพรวมที่ <a href="https://fenixpro-th.com/vps-for-ea/">VPS สำหรับ EA</a></p>
+
+<h2 id="improve">ลด Latency โดยไม่สร้างความเสี่ยงใหม่</h2>
+
+<ul>
+<li>ย้าย Region ให้ใกล้ Trading Server ตามผลวัดจริง</li>
+<li>ลด Symbol/Chart/Indicator ที่ไม่ใช้ เพื่อลด CPU Event Queue</li>
+<li>ไม่รัน Backtest/Update หนักระหว่างช่วงส่งคำสั่งสำคัญ</li>
+<li>เลือก Provider ที่มี Network เสถียรและ Support ตอบเหตุ Route</li>
+<li>ตั้ง Monitoring แจ้ง Loss/Jitter/Disconnect ไม่พึ่งการเข้า RDP ดูเอง</li>
+<li>เก็บเส้นทางสำรองและ Runbook ย้ายเครื่องเมื่อ Region มีปัญหา</li>
+</ul>
+
+<p>อย่าปิด Firewall/Antivirus แบบกว้างเพื่อหวังลด Latency ความเสี่ยงด้าน Security สูงกว่าประโยชน์ที่ไม่แน่นอน ให้ปรับ Exclusion เฉพาะที่มีเหตุผลและทดสอบผลก่อน-หลัง</p>
+
+<h2>ตัวเลขเท่าไรจึงดี</h2>
+
+<p>ไม่มีเกณฑ์เดียวสำหรับทุก Strategy สิ่งที่ต้องตอบคือ Latency/Jitter ปัจจุบันมีผลต่อ Slippage, Fill Rate และ Expectancy ของระบบหรือไม่ กำหนด SLO จากผลทดสอบของ EA เอง เช่น Tail Latency และ Packet Loss สูงสุดที่ยอมรับได้ พร้อม Trigger สำหรับย้าย Region หรือหยุดระบบ</p>
+
+<p><strong>สรุป:</strong> วัดจาก VPS ไป Broker Server จริง เก็บ Distribution ไม่ใช่ค่าครั้งเดียว และเทียบกับ Order Round-trip/Execution Log ค่า Ping เป็นส่วนหนึ่งของเส้นทาง แต่ความเสถียรและเวลา End-to-end เป็นสิ่งที่กระทบ EA จริง</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> Latency ต่ำไม่รับประกันราคา Execution หรือผลกำไร การเชื่อมต่อและระบบผู้ให้บริการอาจขัดข้องได้ ผู้ใช้ต้องมี Monitoring และแผนสำรอง การเทรดด้วย EA และ Leverage มีความเสี่ยงสูง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.mql5.com/en/vps" rel="nofollow noopener" target="_blank">MQL5: MetaTrader VPS and Broker Server Ping</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/journal" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Journal</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 8 ตุลาคม 2026</small></p>

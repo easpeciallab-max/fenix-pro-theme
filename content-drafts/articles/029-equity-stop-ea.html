@@ -1,0 +1,145 @@
+---
+seo_title: Equity Stop คืออะไร? วิธีจำกัดความเสียหายของพอร์ต EA
+meta_description: Equity Stop ช่วยหยุดระบบหรือปิดสถานะเมื่อมูลค่าพอร์ตถึงเกณฑ์ เรียนรู้วิธีกำหนดฐาน เงื่อนไข การทดสอบ และข้อจำกัดก่อนใช้กับ EA
+excerpt: Equity Stop เป็นแนวป้องกันระดับบัญชีที่มองผลรวมของทุก Position แต่ต้องกำหนดฐาน เวลา Reset และพฤติกรรมหลังแตะเกณฑ์ให้ชัด
+cover_alt: แผงควบคุม Equity Stop ของพอร์ต EA แสดง Balance Equity และระดับหยุดระบบ
+---
+<p><strong>Equity Stop</strong> คือกฎระดับบัญชีหรือระดับชุดกลยุทธ์ที่ทำงานเมื่อ Equity ถึงเกณฑ์ที่กำหนด การทำงานอาจเป็นเพียงหยุดเปิดออเดอร์ใหม่ ปิด Position บางส่วน ปิดทั้งหมด หรือ Disable EA แล้วส่งการแจ้งเตือน ทั้งหมดนี้ไม่ใช่ความหมายเดียวกัน จึงต้องอ่าน Logic ของระบบก่อนใช้</p>
+
+<p>ข้อดีของ Equity Stop คือมองความเสียหายรวมของหลาย Position ขณะที่ Stop Loss รายออเดอร์ดูเฉพาะ Position นั้น แต่ Equity Stop ไม่ใช่หลักประกันว่าปิดได้ตรงตัวเลข เพราะราคาอาจ Gap, Spread ขยาย, Slippage เกิดขึ้น หรือ Terminal/VPS ขาดการเชื่อมต่อ</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#why">Equity Stop ใช้แก้ปัญหาอะไร</a></li>
+<li><a href="#types">รูปแบบของ Equity Stop</a></li>
+<li><a href="#define">ค่าที่ต้องกำหนดให้ครบ</a></li>
+<li><a href="#interaction">ทำงานร่วมกับ Stop อื่นอย่างไร</a></li>
+<li><a href="#test">วิธีทดสอบก่อนใช้จริง</a></li>
+<li><a href="#restart">หลัง Stop ทำงานควรทำอะไร</a></li>
+</ul>
+</nav>
+
+<h2 id="why">Equity Stop ใช้แก้ปัญหาอะไร</h2>
+
+<p>พอร์ต EA อาจมีหลาย Position, หลาย Symbol หรือหลายระบบทำงานพร้อมกัน ต่อให้ทุกออเดอร์มี Stop Loss ความเสียหายรวมอาจเกิน Risk Budget เมื่อ Position สัมพันธ์กัน ขณะเดียวกันระบบ Grid/Basket บางแบบอาจไม่มี Stop รายออเดอร์ในรูปแบบปกติ Equity Stop จึงทำหน้าที่เป็น Circuit Breaker ชั้นบน</p>
+
+<ul>
+<li>จำกัดความเสียหายรวมเมื่อหลาย Position ขาดทุนพร้อมกัน</li>
+<li>หยุดการเพิ่ม Exposure เมื่อ Logic เริ่มออกนอก Scenario ที่ทดสอบ</li>
+<li>แยกการตัดสินใจหยุดออกจากอารมณ์ ณ เวลาที่พอร์ตผันผวน</li>
+<li>ช่วยบังคับ Risk Budget ระดับบัญชี วัน หรือรอบการเทรด</li>
+</ul>
+
+<p>อย่างไรก็ตาม Equity Stop แก้ Strategy ที่ไม่มี Edge ไม่ได้ และไม่ควรถูกใช้แทนการกำหนด Lot ที่เหมาะสม อ่านกรอบใหญ่ที่ <a href="https://fenixpro-th.com/money-management/">Money Management สำหรับ EA</a></p>
+
+<h2 id="types">Equity Stop มีหลายรูปแบบ</h2>
+
+<table>
+<thead>
+<tr>
+<th>รูปแบบ</th>
+<th>ฐานที่ใช้</th>
+<th>จุดที่ต้องระวัง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fixed Money</td>
+<td>Equity ต่ำกว่าจำนวนเงินที่ระบุ</td>
+<td>ไม่ปรับตามขนาดบัญชีที่เปลี่ยน</td>
+</tr>
+<tr>
+<td>Percentage from Initial</td>
+<td>ลดจาก Equity/Balance จุดเริ่มต้น</td>
+<td>ต้องกำหนดเวลาเริ่มและ Deposit/Withdrawal</td>
+</tr>
+<tr>
+<td>Percentage from Peak</td>
+<td>ลดจาก High-water Mark</td>
+<td>Trailing Threshold ขยับตามกำไรและอาจเข้มขึ้น</td>
+</tr>
+<tr>
+<td>Daily Equity Stop</td>
+<td>ลดจากค่าอ้างอิงต้นวัน</td>
+<td>ต้องกำหนด Timezone และเวลา Reset</td>
+</tr>
+<tr>
+<td>Strategy-level Stop</td>
+<td>เฉพาะ Position ของ Magic Number/ชุดกลยุทธ์</td>
+<td>ต้องแยก Ownership ของออเดอร์ถูกต้อง</td>
+</tr>
+</tbody>
+</table>
+
+<p>การเขียนเพียง “Equity Stop 20%” จึงไม่ครบ ต้องรู้ว่า 20% จากอะไร Reset เมื่อใด รวม Credit หรือ Deposit หรือไม่ และปิดเฉพาะ EA นี้หรือทั้งบัญชี</p>
+
+<h2 id="define">ค่าที่ต้องกำหนดก่อนเปิดใช้</h2>
+
+<h3>1. Scope</h3>
+<p>เลือกว่าควบคุมทั้งบัญชี เฉพาะ Symbol หรือเฉพาะ Magic Number หากบัญชีมี Manual Trade หรือ EA หลายตัว การปิดทั้งหมดอาจกระทบ Position ที่ไม่ได้อยู่ในแผนเดียวกัน</p>
+
+<h3>2. Reference Equity</h3>
+<p>ระบุค่าฐานและเวลาที่ Snapshot เช่น Equity ตอนเริ่มวัน Balance หลังปิดรอบ หรือ High-water Mark ห้ามปล่อยให้ Deposit/Withdrawal เปลี่ยนฐานโดยไม่มีกฎ</p>
+
+<h3>3. Trigger และ Action</h3>
+<p>กำหนด Comparison, ระยะตรวจ และ Action ตามลำดับ เช่น Block New Orders ก่อน จากนั้น Cancel Pending และปิด Open Positions ต้องพิจารณาว่าคำสั่ง Close อาจถูก Reject หรือ Execute ไม่ครบ</p>
+
+<h3>4. Persistence</h3>
+<p>หาก Restart Terminal หรือ EA ถูกถอดแล้วใส่ใหม่ ระบบยังจำว่า Stop ถูก Trigger หรือไม่ ถ้า State อยู่แค่ในหน่วยความจำ การ Restart อาจเปิดระบบใหม่โดยไม่ตั้งใจ</p>
+
+<h3>5. Notification และ Audit Log</h3>
+<p>บันทึกเวลา Equity ค่า Threshold Position ที่ปิด ผลตอบกลับจาก Broker และ Error Code เพื่อให้ตรวจเหตุการณ์ย้อนหลังได้ การแจ้งเตือนควรเป็นส่วนเสริม ไม่ใช่เงื่อนไขเดียวในการควบคุม</p>
+
+<h2 id="interaction">Equity Stop ไม่แทน Stop Loss ทุกชั้น</h2>
+
+<p>โครงสร้างที่แข็งแรงมักมีหลายชั้น:</p>
+<ol>
+<li><strong>Trade Stop:</strong> จำกัด Thesis/Risk ของ Position เดี่ยว</li>
+<li><strong>Basket Stop:</strong> จำกัดกลุ่มออเดอร์ที่เป็นแนวคิดเดียวกัน</li>
+<li><strong>Daily/Session Limit:</strong> หยุดเมื่อผลรวมในช่วงเวลาถึงเกณฑ์</li>
+<li><strong>Account Equity Stop:</strong> แนวป้องกันสุดท้ายของบัญชี</li>
+</ol>
+
+<p>หากทุกชั้นใช้ Trigger จุดเดียวกัน อาจส่งคำสั่งปิดซ้ำและเกิด Race Condition ต้องกำหนดลำดับและ Flag ว่ากระบวนการปิดเริ่มแล้ว รวมถึงหยุด Logic ที่จะเปิดออเดอร์กลับทันที</p>
+
+<p>Threshold ต้องสัมพันธ์กับ Lot และ Margin Buffer ด้วย หากวาง Equity Stop ใกล้ Stop Out เกินไป ระบบอาจไม่มีพื้นที่พอให้ปิดตามแผน อ่าน <a href="https://fenixpro-th.com/leverage-margin-level-ea/">Leverage และ Margin Level มีผลต่อ EA อย่างไร</a> และ <a href="https://fenixpro-th.com/risk-of-ruin-ea-trading/">Risk of Ruin</a></p>
+
+<h2 id="test">วิธีทดสอบ Equity Stop</h2>
+
+<ul>
+<li>ทดสอบ Trigger เมื่อ Equity เท่ากับ ต่ำกว่า และแกว่งรอบ Threshold</li>
+<li>ทดสอบหลาย Position หลาย Symbol และ Partial Fill</li>
+<li>ทดสอบเมื่อ Market ปิด, Symbol หยุดเทรด หรือคำสั่งถูก Reject</li>
+<li>ทดสอบ Terminal Restart, VPS Restart และ Internet หลุด</li>
+<li>ทดสอบ Deposit/Withdrawal ระหว่างวัน</li>
+<li>ทดสอบว่า Pending Orders ถูกยกเลิกและ EA ไม่เปิดกลับ</li>
+<li>ตรวจ Log และ Alert ว่ามีข้อมูลพอวิเคราะห์</li>
+</ul>
+
+<p>ใน Backtest ต้องจำลอง Equity แบบถี่พอสำหรับ Holding Period ของระบบ หากใช้ข้อมูลปลายแท่งเพียงอย่างเดียว อาจไม่เห็น Threshold ที่ถูกแตะภายในแท่ง สำหรับการใช้งานจริงควรรันทดสอบในบัญชี Demo/ขนาดต่ำภายใต้เงื่อนไขใกล้เคียงบัญชีเป้าหมาย</p>
+
+<h2 id="restart">หลัง Equity Stop ทำงาน ห้ามเปิดใหม่ทันทีโดยอัตโนมัติ</h2>
+
+<p>Stop คือสัญญาณว่าความเสียหายถึงระดับที่ต้องตรวจ ไม่ใช่สัญญาณให้เพิ่ม Lot เพื่อเอาคืน ขั้นตอนหลัง Trigger ควรประกอบด้วย:</p>
+
+<ol>
+<li>เก็บ Statement, Expert Log, Journal และ Screenshot สถานะบัญชี</li>
+<li>แยกว่ามาจาก Market Loss ปกติ, Correlated Exposure, Execution หรือ Software Error</li>
+<li>เทียบเหตุการณ์กับ Backtest/Stress Scenario ที่อนุมัติไว้</li>
+<li>ทบทวน Lot, Exposure Cap และ Margin Buffer</li>
+<li>กำหนดผู้อนุมัติและเงื่อนไข Resume อย่างชัดเจน</li>
+<li>เริ่มใหม่ด้วยความเสี่ยงที่ลดลงเมื่อผ่านการตรวจแล้วเท่านั้น</li>
+</ol>
+
+<p><strong>สรุป:</strong> Equity Stop ที่ดีต้องมีนิยามครบทั้ง Scope, Reference, Trigger, Action, Persistence และ Resume Rule จึงจะเป็นระบบควบคุมความเสี่ยง ไม่ใช่เพียงช่อง Input ที่ดูเหมือนช่วยป้องกันบัญชี</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> Equity Stop และ EA ไม่สามารถรับประกันราคาปิดหรือป้องกันการขาดทุนได้ทุกกรณี โดยเฉพาะช่วง Gap, สภาพคล่องต่ำ, การเชื่อมต่อขัดข้อง หรือคำสั่งถูกปฏิเสธ การซื้อขายแบบใช้ Leverage มีความเสี่ยงสูง โปรดทดสอบและประเมินความเหมาะสมก่อนใช้งานจริง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.mql5.com/en/docs/constants/environment_state/accountinformation" rel="nofollow noopener" target="_blank">MQL5 Reference: Account Properties and Equity</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/performing_deals" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Account State and Exposure</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 22 กันยายน 2026</small></p>

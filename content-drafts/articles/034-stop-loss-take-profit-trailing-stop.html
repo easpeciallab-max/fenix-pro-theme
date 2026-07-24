@@ -1,0 +1,137 @@
+---
+seo_title: Stop Loss, Take Profit, Trailing Stop ต่างกันอย่างไร
+meta_description: เข้าใจ Stop Loss, Take Profit, Trailing Stop และ Break Even บน MT5 ทั้งหน้าที่ ตำแหน่งประมวลผล ข้อจำกัด และวิธีใช้ร่วมกับ EA
+excerpt: Stop Loss และ Take Profit เป็นระดับปิด Position ส่วน Trailing Stop กับ Break Even คือ Logic ที่ปรับ Stop ตามเงื่อนไข แต่ไม่ได้รับประกันราคาปิด
+cover_alt: แผนภาพเปรียบเทียบ Stop Loss Take Profit Trailing Stop และ Break Even บนกราฟ MT5
+---
+<p><strong>Stop Loss, Take Profit, Trailing Stop และ Break Even</strong> ล้วนเกี่ยวกับการออกจาก Position แต่ทำหน้าที่ต่างกัน Stop Loss จำกัดฝั่งขาดทุน Take Profit กำหนดเป้ากำไร ส่วน Trailing Stop และ Break Even เป็น Logic สำหรับเลื่อน Stop Loss เมื่อราคาเคลื่อนไปตามเงื่อนไข</p>
+
+<p>คำเหล่านี้ไม่ใช่การรับประกันผลลัพธ์ ราคาอาจถูก Execute ต่างจากระดับที่ตั้งเมื่อเกิด Gap, Slippage หรือสภาพคล่องต่ำ และ Logic ที่ทำงานใน Terminal/EA ต้องพึ่งการเชื่อมต่อ ต่างจากระดับ Stop Loss/Take Profit ที่ส่งสำเร็จและอยู่ฝั่ง Server ของ Broker</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#compare">เปรียบเทียบทั้งสี่แบบ</a></li>
+<li><a href="#sl">Stop Loss</a></li>
+<li><a href="#tp">Take Profit</a></li>
+<li><a href="#trail">Trailing Stop</a></li>
+<li><a href="#be">Break Even</a></li>
+<li><a href="#ea">วิธีใช้ร่วมกับ EA</a></li>
+</ul>
+</nav>
+
+<h2 id="compare">ตารางเปรียบเทียบ</h2>
+
+<table>
+<thead>
+<tr>
+<th>เครื่องมือ</th>
+<th>หน้าที่หลัก</th>
+<th>สิ่งที่ต้องพึ่ง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stop Loss</td>
+<td>ขอปิดเมื่อราคาเคลื่อนสวนถึงระดับ</td>
+<td>ระดับถูกส่งและยอมรับโดย Server</td>
+</tr>
+<tr>
+<td>Take Profit</td>
+<td>ขอปิดเมื่อราคาถึงเป้ากำไร</td>
+<td>ระดับถูกส่งและยอมรับโดย Server</td>
+</tr>
+<tr>
+<td>Trailing Stop</td>
+<td>เลื่อน Stop ตามราคาเมื่อกำไรเพิ่ม</td>
+<td>Terminal/EA ทำงานเพื่อส่งการแก้ไข</td>
+</tr>
+<tr>
+<td>Break Even</td>
+<td>ย้าย Stop ใกล้ Entry หลังถึง Trigger</td>
+<td>Logic ตรวจราคาและส่งการแก้ไข Stop</td>
+</tr>
+</tbody>
+</table>
+
+<p>ใน MetaTrader 5 Trailing Stop มาตรฐานทำงานฝั่ง Platform ไม่ใช่ Server หาก Platform ปิด Trailing จะไม่เลื่อนต่อ แต่ Stop Loss ล่าสุดที่ส่งสำเร็จยังคงทำงานตามเงื่อนไข Server</p>
+
+<h2 id="sl">Stop Loss: จำกัด Thesis ของ Trade</h2>
+
+<p>Stop Loss ควรวางในจุดที่เหตุผลของ Trade ไม่เป็นจริงหรือถึง Risk Budget ไม่ใช่เลือกจากจำนวนเงินอย่างเดียวแล้ววางในตำแหน่งที่ Market Noise แตะง่าย การกำหนด Lot ต้องใช้ระยะ Entry-to-Stop และมูลค่าต่อ Tick ร่วมกัน</p>
+
+<p>ข้อควรตรวจ:</p>
+<ul>
+<li>Stop Level และ Freeze Level ขั้นต่ำของ Symbol</li>
+<li>Trigger ใช้ Bid หรือ Ask ตามทิศทาง Position</li>
+<li>Stop ถูกส่งพร้อม Order หรือส่งภายหลัง</li>
+<li>เมื่อแก้ไขไม่สำเร็จ EA Retry/Alert อย่างไร</li>
+<li>บัญชี Netting หรือ Hedging มีผลต่อการสืบทอดระดับอย่างไร</li>
+<li>Gap ทำให้ราคาปิดต่างจาก Stop Price ได้เท่าใดใน Stress Test</li>
+</ul>
+
+<p>“มี Stop Loss” ไม่ได้แปลว่ารู้ Maximum Loss แน่นอน แต่ดีกว่าการปล่อย Loss ไม่จำกัดโดยไม่มี Exit Rule และช่วยให้คำนวณ Position Size ได้โปร่งใสขึ้น</p>
+
+<h2 id="tp">Take Profit: เป้าปิด ไม่ใช่เพดานกำไรที่ดีที่สุดเสมอ</h2>
+
+<p>Take Profit ปิด Position เมื่อถึงระดับที่กำหนดตามเงื่อนไขราคา ช่วยล็อก Exit แบบไม่ต้องเฝ้าจอ แต่การเลือก TP ต้องสัมพันธ์กับ Strategy, Volatility และต้นทุน หากตั้งใกล้เกินไป Average Win อาจเล็กเมื่อเทียบ Average Loss แม้ Win Rate ดูสูง</p>
+
+<p>ระบบบางแบบใช้ Fixed TP, Volatility-based TP, Time Exit หรือ Signal Exit ไม่มีแบบใดดีที่สุดทุกตลาด การเปรียบเทียบควรดู Expectancy, Distribution, Holding Time และ Sensitivity ไม่เลือกเพราะเส้น Backtest ช่วงเดียวสวยกว่า</p>
+
+<h2 id="trail">Trailing Stop: ปล่อยกำไรวิ่งพร้อมลด Open Risk</h2>
+
+<p>Trailing Stop มี Trigger และ Distance อย่างน้อยสองค่า บาง Logic เพิ่ม Step เพื่อไม่แก้ Stop ทุก Tick:</p>
+
+<ol>
+<li>Position ต้องมีกำไรถึง Trigger</li>
+<li>คำนวณ Stop ใหม่ห่างจากราคาปัจจุบันตาม Distance</li>
+<li>เลื่อนเฉพาะทิศทางที่ลด Risk ไม่เลื่อนย้อนกลับ</li>
+<li>ตรวจ Stop/Freeze Level และส่งคำสั่ง Modify</li>
+<li>บันทึกผลสำเร็จหรือ Error ใน Journal</li>
+</ol>
+
+<p>Trailing แคบอาจถูก Market Noise ปิดเร็ว ขณะที่กว้างอาจคืนกำไรจำนวนมาก ระยะคงที่ยังมีความหมายต่างกันในตลาด Volatility ต่ำและสูง จึงอาจใช้ ATR/โครงสร้างราคา แต่ต้องทดสอบโดยไม่ Overfit Parameter</p>
+
+<h2 id="be">Break Even ไม่ได้แปลว่าไม่ขาดทุน</h2>
+
+<p>Break Even มักหมายถึงย้าย Stop ไปที่ Entry หรือ Entry บวก Buffer หลังราคาเดินทางถึง Trigger แต่ผลสุทธิอาจยังติดลบจาก Spread, Commission, Swap และ Slippage หากต้องการ “คุ้มทุนหลังต้นทุน” ต้องคำนวณค่าเหล่านี้และทิศทาง Bid/Ask ให้ถูก</p>
+
+<p>Break Even เร็วเกินไปอาจตัด Trade ที่ยังอยู่ในโครงสร้างปกติและลด Average Win ส่วนช้าเกินไปอาจไม่มีผลต่อความเสี่ยง ต้องวิเคราะห์ MAE/MFE และทดสอบหลาย Regime ไม่เลือก Trigger จาก Trade ตัวอย่างไม่กี่ครั้ง</p>
+
+<h2 id="ea">ออกแบบ Exit หลายชั้นโดยไม่ชนกัน</h2>
+
+<p>EA อาจมี Stop Loss, Break Even, Trailing, Time Exit, Signal Exit และ Equity Stop พร้อมกัน ต้องกำหนด Priority เพื่อไม่ให้หลาย Module แก้ Position เดียวกันขัดแย้ง</p>
+
+<ul>
+<li>ระบุ Module Owner ของ Position ด้วย Magic Number</li>
+<li>ให้ Hard Risk Stop มี Priority สูงกว่าการ Optimize กำไร</li>
+<li>ใช้ State ป้องกันการส่ง Modify ซ้ำทุก Tick</li>
+<li>หลัง Partial Close คำนวณ Stop/Volume ใหม่ให้ถูก</li>
+<li>เมื่อ Server Reject ต้องไม่ลบค่า Stop เดิมโดยไม่ตั้งใจ</li>
+<li>แสดง Stop ปัจจุบันและเหตุผลการเปลี่ยนใน Log</li>
+</ul>
+
+<p>ตรวจผลด้วย Backtest ที่รวม Spread/Commission/Slippage และ Forward Test เพื่อดูการแก้ไขคำสั่งจริง เชื่อมกับ <a href="https://fenixpro-th.com/money-management/">Money Management</a>, <a href="https://fenixpro-th.com/risk-per-trade/">Risk per Trade</a> และ <a href="https://fenixpro-th.com/fixed-lot-vs-auto-lot/">Fixed Lot กับ Auto Lot</a></p>
+
+<h2>Checklist ก่อนใช้งาน</h2>
+
+<ul>
+<li>Stop/TP ถูกส่งไป Server และเห็นใน Trade Tab หรือไม่</li>
+<li>Trailing/Break Even ทำงานฝั่งใด และ VPS ต้องออนไลน์หรือไม่</li>
+<li>ระยะเป็น Point, Pip, ราคา หรือหน่วยเงิน</li>
+<li>รวม Spread/Commission/Swap ใน Break Even หรือยัง</li>
+<li>บัญชี Netting/Hedging และหลาย Position ถูกจัดการถูกหรือไม่</li>
+<li>ทดสอบ Gap, Reject, Requote/Slippage และ Restart แล้วหรือยัง</li>
+</ul>
+
+<p><strong>สรุป:</strong> Stop Loss และ Take Profit คือระดับ Exit ที่ผูกกับ Position ส่วน Trailing Stop และ Break Even คือกระบวนการเลื่อน Stop ตามเงื่อนไข การใช้งานที่แข็งแรงต้องรู้ว่าประมวลผลที่ใด มีต้นทุนอะไร และ Module ใดมีอำนาจตัดสินใจสุดท้าย</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> Stop Order ไม่รับประกันราคาปิด โดยเฉพาะช่วง Gap, ข่าวแรง และสภาพคล่องต่ำ Trailing/Break Even อาจหยุดทำงานเมื่อ Terminal หรือการเชื่อมต่อขัดข้อง การเทรดมีความเสี่ยงสูง โปรดทดสอบก่อนใช้เงินจริง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/general_concept" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Stop Loss, Take Profit and Trailing Stop</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/performing_deals" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Securing Positions and Stop Execution</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 2 ตุลาคม 2026</small></p>

@@ -1,0 +1,140 @@
+---
+seo_title: Portfolio Exposure ของ EA เมื่อเปิดหลายออเดอร์
+meta_description: วิธีรวมความเสี่ยงของ EA หลายออเดอร์ หลายคู่เงิน และหลายระบบ ดู Notional, Open Risk, Currency Exposure และ Margin ก่อนพอร์ตเสี่ยงซ้ำ
+excerpt: จำนวนออเดอร์ไม่ได้บอกความเสี่ยงรวม ต้องรวมทิศทาง ขนาด Stop ระยะห่าง ความสัมพันธ์ และ Exposure ของสกุลเงินที่ซ่อนอยู่
+cover_alt: แผนภาพ Portfolio Exposure ของ EA หลายออเดอร์และหลายคู่เงินพร้อมความเสี่ยงรวม
+---
+<p><strong>Portfolio Exposure</strong> คือภาพรวมว่าพอร์ตมีความเสี่ยงต่อราคา สกุลเงิน ทิศทาง และเหตุการณ์ตลาดมากเพียงใด หลังรวมทุก Position และ Pending Order ไม่ใช่เพียงนับจำนวนออเดอร์ EA สี่ตัวที่เปิดคนละ Symbol อาจสร้างความเสี่ยงเดียวกัน หากทั้งหมดพึ่ง Dollar อ่อนหรือ Risk-on เหมือนกัน</p>
+
+<p>การดูแต่ Lot ต่อออเดอร์จึงทำให้ประเมินต่ำกว่าความจริง ต้องแยกอย่างน้อย Notional Exposure, Open Risk ถึง Stop, Margin Used, Currency Exposure และ Correlated Scenario แล้วกำหนด Limit ระดับพอร์ตเหนือ Logic ของ EA แต่ละตัว</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#layers">Exposure มีหลายชั้น</a></li>
+<li><a href="#currency">ความเสี่ยงสกุลเงินที่ซ่อนอยู่</a></li>
+<li><a href="#orders">Pending และ Basket ต้องนับอย่างไร</a></li>
+<li><a href="#measure">วิธีสร้าง Exposure Dashboard</a></li>
+<li><a href="#limits">การตั้ง Portfolio Limit</a></li>
+<li><a href="#example">ตัวอย่างการตรวจทีละขั้น</a></li>
+</ul>
+</nav>
+
+<h2 id="layers">Exposure ไม่ใช่ตัวเลขเดียว</h2>
+
+<table>
+<thead>
+<tr>
+<th>มุมมอง</th>
+<th>ตอบคำถาม</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gross Notional</td>
+<td>มูลค่า Position รวมก่อนหักทิศทางตรงข้ามมากเท่าไร</td>
+</tr>
+<tr>
+<td>Net Directional</td>
+<td>หลังหัก Long/Short แล้วพอร์ตเอนทิศทางใด</td>
+</tr>
+<tr>
+<td>Open Risk</td>
+<td>หากทุก Stop ทำงานตามสมมติฐาน จะเสียหายรวมเท่าไร</td>
+</tr>
+<tr>
+<td>Margin Exposure</td>
+<td>ใช้ Margin เท่าไรและเหลือ Buffer สำหรับ Scenario แย่แค่ไหน</td>
+</tr>
+<tr>
+<td>Factor/Currency</td>
+<td>Position หลายตัวตอบสนองต่อปัจจัยหรือสกุลเงินเดียวกันหรือไม่</td>
+</tr>
+</tbody>
+</table>
+
+<p>Gross และ Net ต้องดูคู่กัน Position Long/Short ที่ Net ใกล้ศูนย์อาจยังมี Gross สูง ต้นทุนสูง และ Basis/Execution Risk ระหว่างสองขา ขณะเดียวกัน Stop ของแต่ละขาอาจทำงานคนละเวลา ทำให้ Net Exposure เปลี่ยนฉับพลัน</p>
+
+<h2 id="currency">คู่เงินซ่อน Exposure สองด้าน</h2>
+
+<p>คู่เงินหนึ่งประกอบด้วย Base และ Quote Currency ตัวอย่างเชิงทิศทาง Buy EURUSD คือ Long EUR และ Short USD ส่วน Buy GBPUSD คือ Long GBP และ Short USD แม้ Symbol ต่างกัน ทั้งสอง Position มี USD Short ร่วมกัน หาก Dollar แข็งพร้อมกันอาจขาดทุนทั้งคู่</p>
+
+<p>ตัวอย่างอื่น:</p>
+<ul>
+<li>Buy EURUSD + Sell USDJPY มีองค์ประกอบ Short USD ซ้ำ แต่ความไวไม่เท่ากัน</li>
+<li>Buy EURUSD + Sell EURGBP มี EUR Exposure บางส่วนหักกัน แต่เหลือ USD/GBP</li>
+<li>Gold และคู่เงินที่อ่อนไหวต่อ Dollar อาจเคลื่อนสัมพันธ์ในบาง Regime แต่ไม่คงที่</li>
+</ul>
+
+<p>MetaTrader 5 มีแท็บ Exposure/Assets ที่ช่วยรวมสถานะของสกุลเงินและเครื่องมือ แต่ผู้ใช้ยังต้องแปลผลร่วมกับ Stop, Volatility และ Correlation เพราะมูลค่า Exposure ไม่เท่ากับ Maximum Loss</p>
+
+<h2 id="orders">ออเดอร์ที่ยังไม่เปิดก็สร้างความเสี่ยงตามเงื่อนไข</h2>
+
+<p>Pending Order ยังไม่สร้าง P/L แบบ Position แต่มี Conditional Exposure เมื่อราคาแตะ Trigger ระบบ Grid อาจมี Order หลายชั้นที่ทำให้ Lot และ Margin เพิ่มตามตลาดสวนทาง Dashboard จึงควรแสดงทั้ง Current และ Potential Exposure</p>
+
+<ul>
+<li><strong>Current:</strong> Position ที่เปิดอยู่และ Stop ปัจจุบัน</li>
+<li><strong>Committed:</strong> Pending Order ที่พร้อมเปิดตาม Logic</li>
+<li><strong>Maximum Planned:</strong> จำนวนชั้น/Position สูงสุดที่ EA อนุญาต</li>
+<li><strong>Stress:</strong> Exposure หากหลายระบบ Trigger ในเหตุการณ์เดียวกัน</li>
+</ul>
+
+<p>การรัน EA หลายตัวควรมี Magic Number แยกและ Controller ระดับบัญชี อ่านการจัดโครงสร้างเพิ่มที่ <a href="https://fenixpro-th.com/run-multiple-ea-mt5/">วิธีรัน EA หลายตัวบน MT5</a></p>
+
+<h2 id="measure">ข้อมูลใน Portfolio Dashboard</h2>
+
+<p>Dashboard ที่ใช้ตัดสินใจควรตอบได้โดยไม่ต้องเปิดทุก Chart:</p>
+
+<ul>
+<li>Equity, Margin, Free Margin และ Margin Level</li>
+<li>Gross/Net Lot และ Notional แยกตาม Symbol</li>
+<li>Open Risk ถึง Stop เป็นเงินและเปอร์เซ็นต์ Equity</li>
+<li>Position/Pending Count แยกตาม Magic Number</li>
+<li>Long/Short Exposure แยกตามสกุลเงิน</li>
+<li>Risk Contribution ของ Strategy/Symbol</li>
+<li>Potential Exposure หาก Pending ทั้งหมดถูก Trigger</li>
+<li>Daily P/L และ Portfolio Drawdown</li>
+</ul>
+
+<p>หาก Position ไม่มี Stop ที่ชัด ไม่ควรใส่ Open Risk เป็นศูนย์ ควรใช้ Stress Price/Volatility Scenario หรือระบุว่า Risk ยังไม่ถูกจำกัด การแสดงตัวเลขเท็จว่าควบคุมได้อันตรายกว่าการแจ้งว่าไม่ทราบ</p>
+
+<h2 id="limits">ตั้ง Limit หลายระดับ</h2>
+
+<ol>
+<li><strong>Per Trade:</strong> ความเสี่ยงสูงสุดของ Position เดี่ยว</li>
+<li><strong>Per Strategy:</strong> รวมทุก Position ที่มาจาก Logic เดียวกัน</li>
+<li><strong>Per Symbol/Currency:</strong> ลดการทับซ้อนของ Pair และ Currency</li>
+<li><strong>Portfolio:</strong> Gross/Open Risk/Margin รวมของบัญชี</li>
+<li><strong>Event/Session:</strong> ลด Exposure ก่อนช่วงที่ Liquidity หรือ Gap Risk สูง</li>
+</ol>
+
+<p>เมื่อหลาย Limit ชนกัน กฎระดับพอร์ตควรมีสิทธิ์สูงกว่า EA รายตัว เช่น EA เห็นสัญญาณผ่านแต่ Portfolio Controller ปฏิเสธเพราะ USD Exposure เต็ม การ Reject ต้องถูก Log ชัดเจน ไม่ให้ EA Retry ไม่สิ้นสุด</p>
+
+<p>Limit ควรเชื่อมกับ <a href="https://fenixpro-th.com/money-management/">Money Management</a> และ <a href="https://fenixpro-th.com/risk-of-ruin-ea-trading/">Risk of Ruin</a> ไม่ใช้เพียงจำนวน Lot คงที่ทุก Symbol เพราะ Contract Size และ Volatility ต่างกัน</p>
+
+<h2 id="example">ตัวอย่างการตรวจพอร์ตโดยไม่หลงจำนวนออเดอร์</h2>
+
+<p>สมมติพอร์ตมี EA Trend เปิด Buy สองคู่เงิน, EA Gold เปิด Buy XAUUSD และอีกระบบมี Sell Limit รออยู่ ขั้นตรวจควรเป็น:</p>
+
+<ol>
+<li>แปลง Position ปัจจุบันเป็น Risk ถึง Stop และ Exposure สกุลเงิน</li>
+<li>รวม Position ที่ขาดทุนพร้อมกันภายใต้ Dollar Strength Scenario</li>
+<li>เพิ่ม Pending ที่มีโอกาส Trigger เมื่อ Volatility สูง</li>
+<li>คำนวณ Equity และ Margin Level หลัง Stress Loss</li>
+<li>เทียบกับ Currency, Strategy และ Portfolio Limit</li>
+<li>ลด/ปฏิเสธออเดอร์ใหม่ก่อนแตะ Hard Stop</li>
+</ol>
+
+<p>การหักล้างด้วย Correlation จากอดีตต้องระวัง เพราะความสัมพันธ์เปลี่ยนได้ในภาวะเครียด ควรทดสอบกรณีที่ Position ซึ่งเคยหักล้างกันกลับขาดทุนพร้อมกัน และไม่ใช้ Historical Correlation เป็นหลักประกันว่า Hedge จะทำงานเหมือนเดิม</p>
+
+<p><strong>สรุป:</strong> Portfolio Exposure คือการรวมความเสี่ยงที่อาจเกิดพร้อมกัน ไม่ใช่ผลบวก Lot แบบตรง ๆ ระบบที่มีหลาย EA ต้องมีข้อมูลและ Limit ระดับบัญชีเพื่อป้องกันแต่ละ Strategy ใช้ Risk Budget ก้อนเดียวกันโดยไม่รู้ตัว</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> การกระจาย Symbol หรือใช้หลาย EA ไม่รับประกันการกระจายความเสี่ยง ความสัมพันธ์และสภาพคล่องเปลี่ยนได้ การซื้อขายแบบใช้ Leverage อาจทำให้ขาดทุนรวดเร็ว โปรดทดสอบ Stress Scenario และประเมินความเหมาะสมก่อนใช้งาน อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/performing_deals" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Trading, Account State and Exposure</a></li>
+<li><a href="https://www.mql5.com/en/docs/constants/environment_state/accountinformation" rel="nofollow noopener" target="_blank">MQL5 Reference: Account Properties</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 26 กันยายน 2026</small></p>

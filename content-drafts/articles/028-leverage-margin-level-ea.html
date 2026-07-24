@@ -1,0 +1,130 @@
+---
+seo_title: Leverage และ Margin Level มีผลต่อ EA อย่างไร
+meta_description: อธิบาย Leverage, Margin, Free Margin, Margin Level และ Stop Out บน MT5 พร้อมวิธีวาง Buffer ก่อนรัน EA โดยไม่มอง Leverage เป็นวงเงินฟรี
+excerpt: Leverage ลดเงินประกันที่ใช้เปิด Position แต่ไม่ได้ลดความเสียหายจากการเคลื่อนไหวของราคา การรัน EA จึงต้องดู Exposure และ Free Margin ควบคู่กัน
+cover_alt: หน้าจอ MT5 แสดง Leverage Margin Free Margin และ Margin Level สำหรับพอร์ต EA
+---
+<p><strong>Leverage</strong> ช่วยให้ผู้ใช้ควบคุมมูลค่า Position ที่มากกว่าเงินประกันซึ่งถูกกันไว้ แต่ไม่ได้ทำให้ราคาเคลื่อนไหวเบาลง และไม่ได้ลดกำไรขาดทุนต่อ Point ของ Lot ที่เปิด หาก EA ใช้ Lot เท่าเดิม การเปลี่ยน Leverage จะเปลี่ยน Margin ที่ต้องใช้เป็นหลัก ไม่ได้เปลี่ยน Exposure ของ Position นั้น</p>
+
+<p>ความเข้าใจผิดที่พบบ่อยคือบัญชี Leverage สูง “ปลอดภัยกว่า” เพราะ Free Margin เหลือมาก หรือ “เสี่ยงกว่าเสมอ” เพราะเปิดได้ใหญ่กว่า ความจริงขึ้นกับว่าผู้ใช้และ EA นำวงเงินที่เพิ่มขึ้นไปเปิด Position เพิ่มหรือไม่ จึงต้องอ่าน Leverage พร้อม Margin Level, Free Margin, Stop Out และ Open Risk</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#terms">คำสำคัญบนหน้าจอ MT5</a></li>
+<li><a href="#leverage">Leverage เปลี่ยนอะไรและไม่เปลี่ยนอะไร</a></li>
+<li><a href="#marginlevel">Margin Level ลดลงได้อย่างไร</a></li>
+<li><a href="#ea">เหตุใด EA ต้องมี Margin Buffer</a></li>
+<li><a href="#plan">วิธีวางแผนก่อนเปิดระบบ</a></li>
+<li><a href="#mistakes">ข้อผิดพลาดที่พบบ่อย</a></li>
+</ul>
+</nav>
+
+<h2 id="terms">Balance, Equity, Margin และ Free Margin</h2>
+
+<p>เอกสาร MetaTrader 5 อธิบายค่าหลักดังนี้ โดยรายละเอียดการคำนวณจริงอาจต่างตามประเภท Symbol, Account และข้อกำหนดของ Broker</p>
+
+<table>
+<thead>
+<tr>
+<th>ค่า</th>
+<th>ความหมายสำหรับผู้ใช้ EA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Balance</td>
+<td>ยอดหลังรวมผลของรายการที่ปิดและรายการปรับยอดแล้ว</td>
+</tr>
+<tr>
+<td>Equity</td>
+<td>มูลค่าบัญชีปัจจุบันเมื่อรวม Floating Profit/Loss และองค์ประกอบตามเงื่อนไขบัญชี</td>
+</tr>
+<tr>
+<td>Margin</td>
+<td>เงินที่ถูกกันไว้เพื่อรองรับ Position และ Order ตามกฎของผู้ให้บริการ</td>
+</tr>
+<tr>
+<td>Free Margin</td>
+<td>ส่วนที่ยังพร้อมรองรับ Position/Order เพิ่ม โดยทั่วไปสัมพันธ์กับ Equity ลบ Margin</td>
+</tr>
+<tr>
+<td>Margin Level</td>
+<td>อัตราส่วน Equity ต่อ Margin คูณ 100 เมื่อมี Margin ถูกใช้</td>
+</tr>
+</tbody>
+</table>
+
+<p>Free Margin ไม่ใช่ “เงินที่ควรใช้ให้หมด” แต่เป็น Buffer สำหรับ Floating Loss, Spread ที่ขยาย และ Margin Requirement ที่อาจเปลี่ยน จุด Margin Call และ Stop Out ถูกกำหนดโดย Broker/Account จึงต้องดู Contract Specification และข้อตกลงจริง ไม่ใช้ตัวเลขจากบัญชีอื่นแทน</p>
+
+<h2 id="leverage">Leverage เปลี่ยนอะไร</h2>
+
+<p>ในกรณี Retail Forex ทั่วไป Margin อาจสัมพันธ์กับ Volume, Contract Size, ราคา/อัตราแปลง และ Leverage แต่ MetaTrader รองรับวิธีคำนวณหลายแบบ รวมถึง Fixed Margin, Futures และ Exchange Model ดังนั้นสูตรย่อเพียงบรรทัดเดียวไม่ครอบคลุมทุก Symbol</p>
+
+<p>สิ่งที่ Leverage สูงขึ้นมักเปลี่ยนคือ Margin ที่ต้องกันสำหรับ Position ขนาดเดิม ส่วนกำไรขาดทุนจากการเคลื่อนไหวของราคาเกิดจาก Lot และคุณสมบัติ Symbol หากเปิด 0.10 Lot เท่ากัน มูลค่าต่อ Tick ไม่ได้เล็กลงเพียงเพราะเลือก Leverage สูงขึ้น</p>
+
+<p>ความเสี่ยงเพิ่มเมื่อผู้ใช้เห็น Free Margin มากแล้วเพิ่ม Lot หรือเปิดหลาย Position จน Notional Exposure สูงขึ้น CFTC เตือนว่า Leverage ขยายได้ทั้งกำไรและขาดทุน และการเคลื่อนไหวสวนทางอาจทำให้ต้องเติมเงินหรือปิด Position</p>
+
+<h2 id="marginlevel">Margin Level ลดลงได้อย่างไร</h2>
+
+<p>Margin Level ลดลงได้จากสองทางหลัก: Equity ลดเพราะ Floating Loss หรือ Margin Used เพิ่มเพราะเปิด Position/Order เพิ่ม ในช่วงตลาดผันผวน ทั้งสองอย่างอาจเกิดพร้อมกัน โดยเฉพาะ EA ที่เฉลี่ยราคา เพิ่ม Lot หรือทำงานหลาย Symbol</p>
+
+<p>ตัวอย่างเชิงโครงสร้าง:</p>
+<ul>
+<li>EA เปิด Position แรก ทำให้ Margin ถูกกัน</li>
+<li>ราคาสวนทาง Equity ลดและ Free Margin หด</li>
+<li>EA เปิด Position เพิ่มตาม Logic ทำให้ Margin Used สูงขึ้นอีก</li>
+<li>Spread ขยายหรือราคา Gap ทำให้ Floating Loss เปลี่ยนเร็ว</li>
+<li>หากแตะ Stop Out Level ผู้ให้บริการอาจบังคับปิด Position ตามกฎของบัญชี</li>
+</ul>
+
+<p>ดังนั้น Stop Loss ที่คำนวณจากราคาปกติอาจไม่เพียงพอหากคำสั่งถูก Execute ต่างจากราคาเป้าหมาย หรือหลาย Position สร้าง Exposure ซ้ำ ควรประเมิน Scenario ก่อนรันจริง ไม่รอให้แถบสถานะเปลี่ยนสีแล้วค่อยตัดสินใจ</p>
+
+<h2 id="ea">ทำไม EA ต้องมี Margin Buffer</h2>
+
+<h3>Basket และ Pending Orders</h3>
+<p>ระบบบางแบบยังไม่ใช้ Margin เต็มตาม Maximum Scenario ในขณะเริ่มต้น การดู Free Margin ตอนมีออเดอร์เดียวจึงไม่บอกความต้องการสูงสุด ต้องจำลองจำนวน Position, Lot Step และ Pending Order ตาม Logic ทั้งชุด</p>
+
+<h3>Hedging ไม่ได้แปลว่า Margin เป็นศูนย์</h3>
+<p>การคำนวณ Margin ของ Position ฝั่งตรงข้ามขึ้นกับ Hedged Margin และวิธีที่ Broker ตั้งค่า บางกรณีคิดจากขาที่ใหญ่กว่า บางกรณีคิดส่วน Covered และ Uncovered แยกกัน ห้ามสมมติว่า Buy/Sell คู่กันจะคืน Margin ทั้งหมด</p>
+
+<h3>ทองและ CFD มี Specification ต่างกัน</h3>
+<p>Contract Size, Tick Size, Tick Value และ Margin Rate ของ XAUUSD หรือ CFD อาจต่างระหว่าง Broker แม้ชื่อ Symbol คล้ายกัน อ่านแนวทางเฉพาะเพิ่มเติมที่ <a href="https://fenixpro-th.com/xauusd-ea-guide/">คู่มือใช้ EA กับ XAUUSD</a></p>
+
+<h2 id="plan">วิธีวางแผน Margin ก่อนรัน EA</h2>
+
+<ol>
+<li><strong>เปิด Specification:</strong> จด Contract Size, Calculation Mode, Margin Rate, Tick Value และ Trading Hours</li>
+<li><strong>ตรวจ Account:</strong> ดู Leverage, Stop Out Mode/Level และบัญชีเป็น Netting หรือ Hedging</li>
+<li><strong>จำลอง Maximum Exposure:</strong> รวม Position และ Order ที่ Logic สามารถสร้างพร้อมกัน ไม่ใช่เฉพาะออเดอร์แรก</li>
+<li><strong>ทำ Adverse Scenario:</strong> ลด Equity ตาม Drawdown/Gap ที่ใช้ Stress Test แล้วคำนวณ Margin Level ใหม่</li>
+<li><strong>เพิ่ม Buffer:</strong> เผื่อ Spread, Slippage, Conversion Rate และ Margin Policy เปลี่ยน</li>
+<li><strong>ตั้งกฎหยุดก่อน Stop Out:</strong> ใช้ Equity/Exposure Limit ที่ตัดสินใจไว้ล่วงหน้า</li>
+</ol>
+
+<p>Lot ควรมาจาก Risk Budget ไม่ใช่มาจาก Lot สูงสุดที่ระบบยังอนุญาตให้เปิด อ่าน <a href="https://fenixpro-th.com/calculate-lot-size/">วิธีคำนวณ Lot Size</a>, <a href="https://fenixpro-th.com/money-management/">Money Management</a> และ <a href="https://fenixpro-th.com/risk-of-ruin-ea-trading/">Risk of Ruin</a> ประกอบกัน</p>
+
+<h2 id="mistakes">ข้อผิดพลาดที่พบบ่อย</h2>
+
+<ul>
+<li>เลือก Leverage สูงแล้วเพิ่ม Lot จน Buffer ที่ได้มาหายหมด</li>
+<li>ดู Balance แต่ไม่ดู Equity และ Open Risk</li>
+<li>คำนวณ Margin จาก EURUSD แล้วนำไปใช้กับทองหรือ CFD โดยไม่ตรวจ Specification</li>
+<li>คิดว่า Position ฝั่งตรงข้ามหักล้าง Margin และความเสี่ยงทั้งหมด</li>
+<li>อิง Stop Out ของ Demo โดยไม่ยืนยันบัญชีจริง</li>
+<li>เติมเงินเพื่อประคอง Basket โดยไม่มีจุดหยุดที่กำหนดไว้</li>
+</ul>
+
+<p><strong>สรุป:</strong> Leverage คือเงื่อนไขกำลังซื้อ ไม่ใช่ระบบควบคุมความเสี่ยง Margin Level เป็นสัญญาณสถานะบัญชี ณ ขณะหนึ่ง แต่การตัดสินใจต้องมอง Maximum Exposure, Floating Loss และกฎ Stop Out ภายใต้ Scenario ที่แย่กว่าปกติ</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> การซื้อขายผลิตภัณฑ์ที่ใช้ Margin และ Leverage อาจทำให้สูญเสียเงินอย่างรวดเร็ว ข้อมูลนี้เป็นความรู้ทั่วไป ไม่ใช่คำแนะนำการลงทุน ควรตรวจเงื่อนไขจากผู้ให้บริการบัญชีและประเมินความเหมาะสมด้วยตนเอง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/performing_deals" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Account State, Margin and Exposure</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading_advanced/margin_forex" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Margin Calculation for Retail Forex and Futures</a></li>
+<li><a href="https://www.mql5.com/en/docs/constants/environment_state/accountinformation" rel="nofollow noopener" target="_blank">MQL5 Reference: Account Properties</a></li>
+<li><a href="https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/CustomerAdvisory_MustKnowForex.html" rel="nofollow noopener" target="_blank">CFTC: Eight Things You Should Know Before Trading Forex</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 20 กันยายน 2026</small></p>

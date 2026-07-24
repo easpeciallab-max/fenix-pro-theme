@@ -1,0 +1,186 @@
+---
+seo_title: หลังซื้อ EA ต้องได้อะไรบ้าง? Checklist รับมอบ
+meta_description: Checklist หลังซื้อ EA ตั้งแต่ไฟล์ EX5 License Preset คู่มือ Version Checksum ติดตั้ง VPS ทดสอบ Demo Support Backup และหลักฐานการชำระเงิน
+excerpt: อย่าเริ่มเงินจริงทันทีหลังได้ไฟล์ ควรตรวจการส่งมอบ ยืนยัน Version/License ทดสอบ Demo และจัดเก็บเอกสารให้กู้ระบบได้
+cover_alt: Checklist รับมอบ EA หลังซื้อแสดงไฟล์ License Preset คู่มือ ติดตั้ง ทดสอบ และ Support
+---
+<p>หลังซื้อ EA การได้รับลิงก์ดาวน์โหลดไม่ใช่จุดจบของการส่งมอบ ผู้ซื้อควรมีชุดไฟล์ License คู่มือ Preset, Version, Support และหลักฐานที่เพียงพอให้ติดตั้ง ทดสอบ อัปเดต และกู้ระบบได้โดยไม่ต้องเดาทุกครั้ง จากนั้นต้องผ่าน Demo/Acceptance Test ก่อนใช้เงินจริง</p>
+
+<p>รายการที่ต้องได้รับขึ้นกับแพ็กเกจและ Terms ไม่ใช่ทุก EA ต้องให้ Source Code หรือ Preset ทุก Broker แต่สิ่งที่โฆษณา/ตกลงไว้ควรตรวจรับเป็นลายลักษณ์อักษรและจัดเก็บอย่างปลอดภัย</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#delivery">ตรวจไฟล์และ License</a></li>
+<li><a href="#docs">คู่มือที่ควรมี</a></li>
+<li><a href="#install">ติดตั้งและตรวจ Version</a></li>
+<li><a href="#acceptance">Acceptance Test ก่อนเงินจริง</a></li>
+<li><a href="#support">เตรียมข้อมูลสำหรับ Support</a></li>
+<li><a href="#backup">จัดเก็บและสำรอง</a></li>
+</ul>
+</nav>
+
+<h2 id="delivery">Checklist การส่งมอบ</h2>
+
+<table>
+<thead>
+<tr>
+<th>รายการ</th>
+<th>สิ่งที่ต้องตรวจ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ไฟล์ EA</td>
+<td>ชื่อไฟล์, .ex5/Installer, Version และแหล่งดาวน์โหลด</td>
+</tr>
+<tr>
+<td>Dependencies</td>
+<td>Indicator, Library, DLL, Font, WebRequest Domain ที่จำเป็น</td>
+</tr>
+<tr>
+<td>Preset</td>
+<td>Symbol/Timeframe/Broker/Risk Profile ที่รองรับ</td>
+</tr>
+<tr>
+<td>License</td>
+<td>License ID, Account/Device Lock, Activation เหลือและวันหมดอายุ</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>ติดตั้ง ตั้งค่า Update Backup Error และ Risk</td>
+</tr>
+<tr>
+<td>Proof of Purchase</td>
+<td>Invoice, Receipt, Package, Terms และช่องทาง Support</td>
+</tr>
+</tbody>
+</table>
+
+<p>ตรวจขนาดไฟล์และ Hash/Checksum หากผู้ขายให้ไว้ อย่า Rename/แก้ไฟล์ Original ให้เก็บสำเนาต้นฉบับ Read-only และใช้ Working Copy สำหรับติดตั้ง ดาวน์โหลดผ่าน HTTPS/บัญชีทางการ ไม่รับไฟล์ใหม่จากบัญชี Social ที่ยืนยันไม่ได้</p>
+
+<h2 id="docs">คู่มือควรตอบคำถามที่เกิดจริง</h2>
+
+<ul>
+<li>รองรับ MT5 Build, Windows, Account Type และ Broker/Symbol ใด</li>
+<li>วางไฟล์ใน Data Folder ตำแหน่งใดและ Refresh/Restart อย่างไร</li>
+<li>Attach กับ Symbol/Timeframe ใด และเปิด AutoTrading ที่ไหน</li>
+<li>แต่ละ Input มีหน่วย Default และขอบเขตอะไร</li>
+<li>Fixed/Auto Lot, Maximum Orders, Stop และ Equity Protection ทำงานอย่างไร</li>
+<li>สถานะ Ready/Error ดูจาก Dashboard, Experts หรือ Journal ตรงไหน</li>
+<li>Update/ย้าย VPS/เปลี่ยนบัญชีโดยไม่เสีย License อย่างไร</li>
+<li>หยุดระบบและจัดการ Position ที่เปิดอย่างไร</li>
+</ul>
+
+<p>เริ่มจาก <a href="https://fenixpro-th.com/how-to-install-ea-mt5/">วิธีติดตั้ง EA บน MT5</a> และใช้คู่มือเฉพาะ <a href="https://fenixpro-th.com/fenix-pro-ea-install-guide/">ติดตั้ง FENIX PRO EA</a> สำหรับไฟล์ของระบบนี้</p>
+
+<h2 id="install">ติดตั้งโดยบันทึก Baseline</h2>
+
+<ol>
+<li>ตรวจ Source/Checksum และ Scan ตามนโยบาย Security</li>
+<li>บันทึก EA Version, MT5 Build, Broker, Server, Account Type</li>
+<li>สำรอง Data/Preset ปัจจุบันก่อนเปลี่ยน</li>
+<li>คัดลอกไฟล์ไป Folder ตามคู่มือและ Restart/Refresh</li>
+<li>Activate License ด้วยข้อมูลที่จำเป็นเท่านั้น</li>
+<li>โหลด Preset ที่ตรง Environment แล้ว Review ทุก Input</li>
+<li>Attach บน Demo และตรวจ Init Message ใน Experts/Journal</li>
+<li>เก็บ Screenshot/Baseline ของ Setting ที่อนุมัติ</li>
+</ol>
+
+<p>อย่าคัดลอก Lot จาก Screenshot หรือ Preset ของผู้ขายมาใช้จริงโดยไม่คำนวณจากทุน, Symbol Specification และ Risk Budget ของตน อ่าน <a href="https://fenixpro-th.com/money-management/">Money Management</a> ก่อนตั้งค่า</p>
+
+<h2 id="acceptance">Acceptance Test ก่อน Production</h2>
+
+<h3>Functional</h3>
+<ul>
+<li>EA Initialize ผ่านและสถานะ Ready</li>
+<li>อ่านราคา/เวลา/Symbol ถูก</li>
+<li>เปิด แก้ และปิดออเดอร์บน Demo ตาม Logic</li>
+<li>Magic Number/Comment แยก Ownership ถูก</li>
+<li>Stop, TP, Trailing, Break Even และ Filter ทำงานตามคู่มือ</li>
+</ul>
+
+<h3>Risk</h3>
+<ul>
+<li>Fixed/Auto Lot คำนวณตรงกับ Expected Risk</li>
+<li>Maximum Order/Lot/Exposure ถูกบังคับจริง</li>
+<li>Daily Limit/Equity Stop และ Resume Rule ผ่าน Test</li>
+<li>Spread/News/Session Filter แสดงเหตุผลที่ไม่เปิด</li>
+</ul>
+
+<h3>Operations</h3>
+<ul>
+<li>Restart MT5/VPS แล้วโหลด State ถูก ไม่เปิดซ้ำ</li>
+<li>Disconnect RDP แล้ว Heartbeat/Log ยังเดิน</li>
+<li>Network ขาดแล้ว Reconnect โดยไม่ส่งคำสั่งซ้ำ</li>
+<li>Alert, Log, Backup และ Restore ใช้งานได้</li>
+</ul>
+
+<p>ใช้ Forward Test ระยะที่เหมาะกับความถี่ Trade ไม่เร่งเปิดเงินจริงเพราะ Demo มี Winner หนึ่งครั้ง เปรียบเทียบ Execution/Cost กับข้อมูลที่ผู้ขายให้และบันทึก Deviation</p>
+
+<h2>เมื่อจะเริ่มเงินจริง</h2>
+
+<ol>
+<li>เริ่มด้วย Risk ต่ำกว่าระดับเป้าหมาย</li>
+<li>จำกัด Symbol/Session ก่อน แล้วเพิ่มตาม Checkpoint</li>
+<li>ตรวจ Broker Contract Specification และ Stop Out</li>
+<li>ตั้ง Monitoring และผู้รับ Alert</li>
+<li>กำหนดระดับ Watch, Reduce, Pause, Emergency</li>
+<li>ทบทวนหลังจำนวน Trade/ช่วงเวลาที่กำหนด ไม่ปรับตามอารมณ์รายวัน</li>
+</ol>
+
+<p>VPS ช่วยความต่อเนื่องแต่ยังต้องดูแล อ่าน <a href="https://fenixpro-th.com/vps-for-ea/">VPS สำหรับ EA</a> และเลือกสเปก/แผนสำรองให้เหมาะกับจำนวน Terminal</p>
+
+<h2 id="support">ส่งข้อมูลให้ Support โดยไม่ส่ง Password</h2>
+
+<p>เตรียม Template Ticket:</p>
+
+<ul>
+<li>วันเวลาและ Timezone ที่เกิด</li>
+<li>EA Version, MT5 Build, Broker/Server, Account Type (ปกปิด Login)</li>
+<li>Symbol, Timeframe, Preset Name และ Input ที่เกี่ยวข้อง</li>
+<li>Expected Behavior กับ Actual Behavior</li>
+<li>Experts/Journal Log ช่วงก่อน-หลัง Error</li>
+<li>Screenshot ที่ปกปิด Balance/Login หากไม่จำเป็น</li>
+<li>ขั้นตอนที่ลองแล้วและผล</li>
+</ul>
+
+<p>ไม่ส่ง Main/Investor Password, OTP, Remote Credential หรือไฟล์ License สาธารณะ หากต้อง Remote ให้ยืนยันผู้ช่วย จำกัด Session และติดตามการเปลี่ยนแปลง</p>
+
+<h2 id="backup">โครงสร้างจัดเก็บที่กู้ได้</h2>
+
+<pre><code>FENIX-PRO/
+  00-purchase/
+  01-original-package/
+  02-approved-version/
+  03-presets/
+  04-documentation/
+  05-change-log/
+  06-support-cases/
+  07-backup-restore/
+</code></pre>
+
+<p>เก็บ Password ใน Password Manager แยกจาก Folder สำรอง ตั้งชื่อ Version/วันที่แบบสม่ำเสมอ และทดสอบกู้ลง Demo VPS ใหม่ ไม่ใช้เพียง Snapshot เครื่องเดิมเป็นสำเนาเดียว</p>
+
+<h2>ตรวจเงื่อนไขหลังซื้อ</h2>
+
+<ul>
+<li>บันทึกวันหมดอายุ License/Support และ Reminder</li>
+<li>ติดตาม Changelog ไม่อัปเดต Production ทันที</li>
+<li>รู้จำนวน Activation และขั้นตอนย้ายเครื่องจาก <a href="https://fenixpro-th.com/ea-license-account-device-lock/">คู่มือ License EA</a></li>
+<li>เก็บ Terms/Refund ตาม <a href="https://fenixpro-th.com/ea-refund-license-support-terms/">Checklist เงื่อนไขซื้อ EA</a></li>
+<li>ทบทวน Contact/Support Channel เมื่อข้อมูลเปลี่ยน</li>
+</ul>
+
+<p><strong>สรุป:</strong> การรับมอบที่ครบทำให้ผู้ซื้อรู้ว่ามีไฟล์อะไร ใช้สิทธิ์อย่างไร ติดตั้งจาก Baseline ไหน และกู้ระบบได้เมื่อ VPS/เครื่องเสีย อย่าข้าม Demo/Acceptance Test เพื่อรีบหากำไร เพราะข้อผิดพลาดด้าน Version, Preset และ License ป้องกันได้ก่อนเงินจริง</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> การติดตั้งและทดสอบผ่านไม่รับประกันผลกำไร EA, VPS, License และ Broker อาจขัดข้อง ผลในอดีตไม่รับประกันอนาคต โปรดใช้เงินที่พร้อมรับความเสี่ยงและติดตามระบบอย่างสม่ำเสมอ อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/structure" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Files and Folders</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/journal" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Experts and Platform Logs</a></li>
+<li><a href="https://www.mql5.com/en/market/rules" rel="nofollow noopener" target="_blank">MQL5 Market: Product and License Rules</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 4 พฤศจิกายน 2026</small></p>

@@ -1,0 +1,143 @@
+---
+seo_title: Monte Carlo Test สำหรับ EA คืออะไรและอ่านอย่างไร
+meta_description: เรียนรู้ Monte Carlo Test ของ EA ทั้งการสลับลำดับ Trade, Resampling และ Stress ต้นทุน เพื่อประเมิน Drawdown และ Path Risk ที่ Backtest เส้นเดียวไม่แสดง
+excerpt: Monte Carlo สร้างหลายเส้นทางจากสมมติฐานเดิมเพื่อดูช่วงผลลัพธ์ ไม่ได้พิสูจน์ว่า EA มี Edge หรือทำนายกำไรอนาคต
+cover_alt: กราฟ Monte Carlo หลายเส้นทางแสดงการกระจาย Drawdown ของ EA
+---
+<p><strong>Monte Carlo Test</strong> สำหรับ EA คือการสร้างผลลัพธ์จำลองหลายรอบโดยสุ่มองค์ประกอบบางอย่าง เช่นลำดับ Trade, ผลตอบแทนจาก Sample หรือ Slippage เพื่อดู Distribution ของกำไร Drawdown และโอกาสแตะ Risk Limit แทนการเชื่อ Equity Curve จาก Backtest เพียงเส้นเดียว</p>
+
+<p>สิ่งสำคัญคือระบุว่า “สุ่มอะไร” เพราะ Monte Carlo แต่ละแบบตอบคนละคำถาม การสลับลำดับ Trade ช่วยดู Path Risk แต่ไม่สร้าง Trade ที่ไม่เคยเกิด การ Resample Return อาศัยสมมติฐานว่าข้อมูลตัวอย่างเป็นตัวแทน และการสุ่ม Slippage ต้องใช้ Distribution ที่สมเหตุผล</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#why">ทำไม Equity Curve เส้นเดียวไม่พอ</a></li>
+<li><a href="#types">Monte Carlo แบบต่าง ๆ</a></li>
+<li><a href="#outputs">ควรอ่านผลอะไร</a></li>
+<li><a href="#assumptions">สมมติฐานและข้อจำกัด</a></li>
+<li><a href="#workflow">ขั้นตอนทดสอบ</a></li>
+<li><a href="#decisions">นำผลไปตัดสินใจอย่างไร</a></li>
+</ul>
+</nav>
+
+<h2 id="why">Backtest เดิมซ่อนความเสี่ยงจากลำดับ Trade</h2>
+
+<p>สมมติระบบมี Trade ชนะและแพ้ชุดเดียวกัน หากเรียงแพ้ติดกันช่วงต้น พอร์ตอาจเจอ Drawdown สูงและลด Lot จาก Equity ต่ำ แต่ถ้ากระจายแพ้ระหว่างชนะ เส้น Equity อาจเรียบกว่า แม้ผลรวม Trade แบบ Fixed Amount เท่ากัน</p>
+
+<p>เมื่อใช้ Position Sizing แบบ Percentage ลำดับยิ่งสำคัญเพราะ Compounding ทำให้ฐานเงินของ Trade ถัดไปเปลี่ยน Monte Carlo จึงช่วยเห็น:</p>
+
+<ul>
+<li>Worst Drawdown จากเส้นทางที่เป็นไปได้ภายใต้สมมติฐาน</li>
+<li>Longest Losing Streak</li>
+<li>เวลาฟื้นตัว</li>
+<li>โอกาสแตะ Equity Stop/Minimum Capital</li>
+<li>ช่วงปลายทางของ Balance/Equity</li>
+</ul>
+
+<h2 id="types">Monte Carlo สำหรับ EA มีแบบไหน</h2>
+
+<h3>1. Shuffle Trade Order</h3>
+<p>ใช้ Trade ชุดเดิมแต่สลับลำดับ เหมาะกับการดู Sequence Risk ข้อจำกัดคือจำนวน Trade ชนะ/แพ้และขนาดผลยังเท่าเดิม ไม่สร้าง Market Regime ใหม่ และอาจทำลาย Serial Dependence ที่มีจริง</p>
+
+<h3>2. Bootstrap/Resampling with Replacement</h3>
+<p>สุ่ม Trade จาก Sample เดิมแบบหยิบซ้ำได้ ทำให้สัดส่วนและขนาดผลในแต่ละรอบเปลี่ยน เห็น Sampling Uncertainty มากกว่า Shuffle แต่สมมติว่า Trade ที่สุ่มเป็นตัวแทนและ Independent ในระดับหนึ่ง</p>
+
+<h3>3. Block Bootstrap</h3>
+<p>สุ่มเป็น Block ต่อเนื่องเพื่อรักษาความสัมพันธ์ของ Trade ใกล้กัน เหมาะเมื่อกลยุทธ์มี Clustering ตาม Regime แต่ต้องเลือก Block Length และยังจำลองเฉพาะ Pattern ที่มีในข้อมูล</p>
+
+<h3>4. Parameter/Execution Perturbation</h3>
+<p>เปลี่ยน Spread, Commission, Slippage, Delay, Entry Price หรือ Parameter เล็กน้อย เพื่อดู Sensitivity วิธีนี้ตอบคำถามเรื่อง Robustness มากกว่าลำดับ Trade</p>
+
+<h3>5. Price Path Simulation</h3>
+<p>สร้างเส้นราคาจำลองจากโมเดลทางสถิติแล้วรันกลยุทธ์ใหม่ มีพลังแต่ Model Risk สูง หากโมเดลไม่สะท้อน Tail, Volatility Clustering หรือ Gap ผลอาจให้ความมั่นใจผิด</p>
+
+<h2 id="outputs">ผลลัพธ์ที่ควรอ่าน</h2>
+
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>วิธีใช้</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Max Drawdown Distribution</td>
+<td>ดู Median และ Percentile สูง ไม่ใช้แค่ค่าเฉลี่ย</td>
+</tr>
+<tr>
+<td>Ending Equity Distribution</td>
+<td>ดูช่วงผลลัพธ์และสัดส่วนที่ต่ำกว่าเงินเริ่มต้น</td>
+</tr>
+<tr>
+<td>Risk Limit Breach</td>
+<td>นับรอบที่แตะ Equity Stop/Margin/Risk Budget</td>
+</tr>
+<tr>
+<td>Losing Streak</td>
+<td>เตรียมทุนและแผนปฏิบัติเมื่อแพ้ติดกัน</td>
+</tr>
+<tr>
+<td>Recovery Time</td>
+<td>ดูระยะเวลาที่พอร์ตอยู่ใต้น้ำ</td>
+</tr>
+</tbody>
+</table>
+
+<p>Percentile ไม่ใช่ขอบเขตแน่นอน เช่น Drawdown ที่ 95th Percentile ไม่ได้แปลว่าความเสียหายหนักกว่านั้นเกิดไม่ได้ โดยเฉพาะถ้าข้อมูลมี Tail ไม่ครบหรือโครงสร้างตลาดเปลี่ยน</p>
+
+<h2 id="assumptions">ข้อจำกัดที่ต้องเปิดเผย</h2>
+
+<ul>
+<li>Sample Backtest อาจ Overfit ตั้งแต่ต้น Monte Carlo ไม่สร้าง Edge ให้ระบบ</li>
+<li>Shuffle ทำลายลำดับ/Correlation ที่อาจมีจริง</li>
+<li>Bootstrap ไม่สร้างเหตุการณ์นอก Sample ที่รุนแรงกว่าเดิม</li>
+<li>ผลขึ้นกับจำนวน Simulation และ Random Seed</li>
+<li>Position Sizing, Margin และ Stop Logic ต้องจำลองเหมือนระบบจริง</li>
+<li>Open Position/Floating Loss อาจไม่อยู่ใน Trade List ที่ใช้ Resample</li>
+<li>หลาย Symbol ต้องรักษา Correlation ข้ามสินทรัพย์ ไม่สุ่มแยกแบบอิสระโดยไม่พิจารณา</li>
+</ul>
+
+<p>สำหรับ Grid/Martingale การใช้เฉพาะ Closed Trade อาจซ่อน Basket Exposure และ Floating Drawdown ควรจำลองระดับ Equity/Position หรือ Scenario ของราคาเพิ่ม</p>
+
+<h2 id="workflow">ขั้นตอนทำ Monte Carlo ที่ตรวจสอบได้</h2>
+
+<ol>
+<li>ใช้ Backtest ที่ผ่าน Data/Cost Validation</li>
+<li>กำหนดคำถาม เช่น Sequence Risk หรือ Cost Sensitivity</li>
+<li>เลือกวิธีสุ่มที่ตรงคำถาม</li>
+<li>กำหนดจำนวนรอบและ Random Seed</li>
+<li>รวม Position Sizing, Margin และ Risk Stop</li>
+<li>บันทึก Distribution ไม่รายงานเฉพาะ Best/Worst เส้นเดียว</li>
+<li>ทำซ้ำบน OOS/Walk-Forward Trade Set</li>
+<li>เปรียบเทียบผลกับ Risk Budget ก่อนตัดสินใจ</li>
+</ol>
+
+<p>เริ่มจากข้อมูลที่เตรียมถูกต้องตาม <a href="https://fenixpro-th.com/how-to-backtest-ea-mt5/">วิธี Backtest EA บน MT5</a> และใช้ OOS ตาม <a href="https://fenixpro-th.com/in-sample-out-of-sample-ea/">การแบ่ง In-Sample/Out-of-Sample</a></p>
+
+<h2 id="decisions">นำผล Monte Carlo ไปใช้อย่างไร</h2>
+
+<h3>กำหนด Lot/Risk จาก Tail ไม่ใช่เส้นเฉลี่ย</h3>
+<p>หากหลาย Simulation แตะ Risk Limit ที่ Lot ปัจจุบัน ให้ลดความเสี่ยงหรือเปลี่ยนกฎ ไม่ควรเลือก Scenario กลางเพราะรู้สึกว่า Worst Case “ไม่น่าเกิด”</p>
+
+<h3>ตั้ง Kill Criteria</h3>
+<p>ใช้ Range ของ Drawdown, Losing Streak และ Execution Degradation เป็นฐานกำหนดว่าจุดใดต้องหยุดตรวจ ไม่ใช้เพื่อไล่แก้ระบบทุกครั้งที่ขาดทุนเล็กน้อย</p>
+
+<h3>เปรียบเทียบ Preset อย่างเป็นธรรม</h3>
+<p>ใช้ข้อมูล วิธีสุ่ม จำนวนรอบ และ Metric เดียวกัน เปรียบเทียบ Distribution ไม่เลือก Preset จากกำไรสูงสุดเพียงค่าเดียว</p>
+
+<h3>ยืนยันด้วยข้อมูลใหม่</h3>
+<p>Monte Carlo เป็นส่วนเสริม ต้องใช้ร่วมกับ Walk-Forward, Forward Test และ Monitoring จริง อ่านกระบวนการก่อนหน้าได้ที่ <a href="https://fenixpro-th.com/walk-forward-analysis-ea/">Walk-Forward Analysis สำหรับ EA</a></p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> Monte Carlo แสดงผลภายใต้ข้อมูลและสมมติฐานที่กำหนด ไม่ครอบคลุมเหตุการณ์ที่โมเดลไม่สร้างหรือข้อมูลไม่เคยมี ไม่ควรตีความเป็นความน่าจะเป็นแน่นอนของอนาคต</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://aaltodoc.aalto.fi/items/ae4ff2cf-ab7d-4986-b8a5-2110f3865a6d" rel="nofollow noopener" target="_blank">Aalto University: Monte Carlo Simulation in Backtesting Financial Strategies</a></li>
+<li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2308659" rel="nofollow noopener" target="_blank">Bailey et al.: The Probability of Backtest Overfitting</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing_report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Testing Metrics and Drawdown</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

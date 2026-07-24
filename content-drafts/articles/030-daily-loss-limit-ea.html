@@ -1,0 +1,136 @@
+---
+seo_title: Daily Loss Limit สำหรับ EA วางกฎอย่างไรให้ชัดเจน
+meta_description: วิธีตั้ง Daily Loss Limit สำหรับ EA ให้ระบุฐานคำนวณ เวลารีเซ็ต ผลขาดทุนที่นับ และการหยุดระบบครบ ลดการตัดสินใจแก้มือระหว่างวัน
+excerpt: Daily Loss Limit เป็น Circuit Breaker รายวันที่ต้องกำหนดฐาน เวลา และขอบเขตให้ชัด ไม่ใช่เพียงตัวเลขขาดทุนที่จำจากหน้าจอ
+cover_alt: แผง Daily Loss Limit สำหรับ EA แสดงผลขาดทุนรายวัน เวลารีเซ็ต และสถานะหยุดระบบ
+---
+<p><strong>Daily Loss Limit</strong> คือกฎหยุดความเสี่ยงเมื่อผลขาดทุนภายในวันถึงเกณฑ์ที่กำหนด จุดประสงค์ไม่ใช่ทำนายว่าหลังจากหยุดแล้วตลาดจะกลับตัวหรือไม่ แต่เพื่อจำกัดวันที่ผิดปกติ ป้องกันการเปิดซ้ำต่อเนื่อง และสร้างเวลาสำหรับตรวจระบบก่อนความเสียหายขยาย</p>
+
+<p>กฎที่เขียนเพียง “ขาดทุนรายวันถึง X แล้วหยุด” ยังใช้จริงไม่ได้ ต้องระบุว่าเริ่มนับวันเมื่อใด ใช้ Balance หรือ Equity รวม Floating Loss หรือไม่ รวม Manual Trade และ EA ตัวอื่นหรือไม่ และหลังแตะเกณฑ์จะปิด Position หรือหยุดเฉพาะออเดอร์ใหม่</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#purpose">Daily Loss Limit ช่วยอะไร</a></li>
+<li><a href="#definition">นิยามที่ต้องเขียนให้ครบ</a></li>
+<li><a href="#timezone">เวลารีเซ็ตสำคัญอย่างไร</a></li>
+<li><a href="#actions">ลำดับการทำงานเมื่อแตะ Limit</a></li>
+<li><a href="#setting">วิธีกำหนดเกณฑ์จากข้อมูล</a></li>
+<li><a href="#test">Checklist ทดสอบก่อนใช้จริง</a></li>
+</ul>
+</nav>
+
+<h2 id="purpose">ทำไม EA ต้องมี Limit ระดับวัน</h2>
+
+<p>Stop Loss รายออเดอร์ควบคุมความเสียหายของ Trade หนึ่ง แต่ไม่ได้จำกัดจำนวนครั้งที่ EA สามารถเปิดใหม่ในวันเดียว หากตลาดอยู่ในภาวะไม่เหมาะ ระบบอาจโดน Stop หลายครั้งติดต่อกัน ขณะที่หลาย EA อาจสร้าง Exposure ทิศทางเดียวกันโดยผู้ใช้ไม่ทันสังเกต</p>
+
+<p>Daily Loss Limit จึงเป็น Circuit Breaker ระหว่าง Stop ราย Trade กับ Equity Stop ระดับบัญชี ช่วยตัดวงจร “แพ้แล้วเปิดใหม่ตามสัญญาณเดิม” และกันพื้นที่ของ Risk Budget สำหรับวันถัดไป อย่างไรก็ตาม Limit ไม่ได้ทำให้ Strategy ดีขึ้น และไม่ควรถูกตั้งกว้างเพื่อให้ Backtest ดูผ่านง่าย</p>
+
+<h2 id="definition">คำจำกัดความที่ต้องระบุ</h2>
+
+<table>
+<thead>
+<tr>
+<th>หัวข้อ</th>
+<th>ตัวเลือกที่ต้องตัดสินใจ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reference</td>
+<td>Balance หรือ Equity ณ เวลาเริ่มวัน, High-water Mark หรือค่าคงที่</td>
+</tr>
+<tr>
+<td>P/L ที่นับ</td>
+<td>Realized อย่างเดียว หรือ Realized รวม Floating, Commission และ Swap</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>ทั้งบัญชี, Magic Number, Strategy, Symbol หรือกลุ่ม Symbol</td>
+</tr>
+<tr>
+<td>Threshold</td>
+<td>จำนวนเงิน เปอร์เซ็นต์ของฐาน หรือหน่วย R</td>
+</tr>
+<tr>
+<td>Action</td>
+<td>หยุดเปิดใหม่, ยกเลิก Pending, ปิดบางส่วน หรือปิดทั้งหมด</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>เวลาและเขตเวลาที่เริ่มวันใหม่ รวมวันหยุดและ DST</td>
+</tr>
+</tbody>
+</table>
+
+<p>หากนับเฉพาะ Closed P/L ระบบอาจยังถือ Floating Loss ขนาดใหญ่แต่แสดงว่ายังไม่แตะ Limit หากนับ Equity การแกว่งชั่วคราวอาจ Trigger ได้ก่อน Position ปิด ทั้งสองวิธีมี Trade-off จึงต้องเลือกตามลักษณะ Strategy และทดสอบจากข้อมูลระดับที่ละเอียดพอ</p>
+
+<h2 id="timezone">“หนึ่งวัน” ต้องอิงเวลาใด</h2>
+
+<p>เวลาเครื่องผู้ใช้ เวลา VPS เวลา Server ของ Broker และเวลาไทยอาจไม่ตรงกัน ฟังก์ชันเวลาของ MQL5 ยังแยก TimeLocal, TimeTradeServer และ TimeGMT หาก Logic ใช้คนละฐานกับรายงาน ผลขาดทุนอาจถูกแบ่งข้ามวันผิด และการเปลี่ยน Daylight Saving Time อาจเลื่อนเวลา Server</p>
+
+<p>แนวทางที่ตรวจสอบง่ายคือ:</p>
+<ul>
+<li>เลือกเขตเวลาหลักหนึ่งค่า เช่น Broker Server Time</li>
+<li>บันทึกค่า Reference พร้อม Timestamp ตอนเริ่มวัน</li>
+<li>ระบุว่าช่วง Weekend/Market Closed รีเซ็ตอย่างไร</li>
+<li>ทดสอบวันที่ Server เปลี่ยน Offset และสิ้นเดือน</li>
+<li>แสดง Current Daily P/L, Threshold และเวลา Reset ถัดไปบน Dashboard/Log</li>
+</ul>
+
+<p>อย่ารีเซ็ต Limit เพียงเพราะ Restart Terminal เพราะผู้ใช้อาจเปิดระบบใหม่แล้วได้ Risk Budget ซ้ำในวันเดียว State ควรถูกเก็บอย่างคงทนและตรวจสอบกับ Account History เมื่อเริ่มทำงาน</p>
+
+<h2 id="actions">ลำดับเมื่อแตะ Daily Loss Limit</h2>
+
+<ol>
+<li><strong>Lock Entry:</strong> ตั้งสถานะห้ามส่งคำสั่งเปิดใหม่ก่อน เพื่อไม่ให้ Signal Loop เพิ่ม Exposure ระหว่างปิด</li>
+<li><strong>Cancel Pending:</strong> ยกเลิก Order ที่ระบบเป็นเจ้าของตาม Scope</li>
+<li><strong>Manage Open Positions:</strong> ทำตามนโยบายที่กำหนด เช่น คง Stop เดิมหรือปิด Position โดยต้องรองรับคำสั่งล้มเหลว</li>
+<li><strong>Persist State:</strong> บันทึกว่า Limit ถูกใช้แล้วจนถึงรอบ Reset</li>
+<li><strong>Notify and Log:</strong> เก็บ Reference, Current Equity, Deal, Error และเหตุผล</li>
+</ol>
+
+<p>ควรป้องกัน Race Condition จากหลาย EA บัญชีเดียวกัน เช่น EA แต่ละ Chart อ่านสถานะพร้อมกันและส่งคำสั่งก่อนเห็น Lock กลาง หาก Limit เป็นระดับบัญชี ควรมี State/Controller กลางที่ทุก Instance ใช้ร่วมกัน</p>
+
+<h2 id="setting">กำหนด Daily Limit จากข้อมูล ไม่ใช่ความรู้สึก</h2>
+
+<p>ไม่มีเปอร์เซ็นต์มาตรฐานที่เหมาะกับทุกระบบ เพราะขึ้นกับ Risk per Trade, Trade Frequency, ความสัมพันธ์ของ Position และ Drawdown ที่ผู้ใช้รับได้ วิธีออกแบบควรเริ่มจาก Risk Budget ระดับบัญชีแล้วแบ่งลงมา:</p>
+
+<ol>
+<li>กำหนด Maximum Drawdown/Ruin Threshold ที่รับไม่ได้</li>
+<li>สำรวจ Distribution ของ Daily Return และ Worst Day จาก Backtest ที่รวมต้นทุน</li>
+<li>ทำ Stress Test โดยเพิ่ม Loss Streak, Spread และ Slippage</li>
+<li>ตรวจว่า Limit ตัดวันปกติบ่อยเกินไปหรือปล่อย Tail Event กว้างเกินไป</li>
+<li>ทดสอบ Out-of-sample/Forward และประเมินผลต่อ Expectancy</li>
+<li>กำหนดเกณฑ์ Review แยกจากเกณฑ์ Resume</li>
+</ol>
+
+<p>Limit ที่แคบมากอาจหยุดระบบในความผันผวนปกติและทำให้พลาด Recovery ส่วน Limit ที่กว้างมากไม่มีคุณค่าเชิงควบคุม ต้องประเมินเป็นส่วนหนึ่งของ Strategy ไม่ใช่เพิ่มหลังเห็นผลลัพธ์ที่ไม่ชอบ</p>
+
+<p>อ่านกรอบที่เกี่ยวข้องได้ที่ <a href="https://fenixpro-th.com/risk-per-trade/">Risk per Trade</a>, <a href="https://fenixpro-th.com/risk-of-ruin-ea-trading/">Risk of Ruin</a> และ <a href="https://fenixpro-th.com/equity-stop-ea/">Equity Stop</a></p>
+
+<h2 id="test">Checklist ทดสอบ</h2>
+
+<ul>
+<li>Closed P/L และ Floating P/L ถูกนับตามนิยามหรือไม่</li>
+<li>Commission, Swap, Credit, Deposit และ Withdrawal ถูกจัดการอย่างไร</li>
+<li>Magic Number/Symbol Scope แยกออเดอร์ถูกต้องหรือไม่</li>
+<li>การเปิดหลาย Chart พร้อมกันทำให้ Limit ซ้ำหรือไม่</li>
+<li>Restart Terminal/VPS แล้วสถานะยังอยู่หรือไม่</li>
+<li>เวลา Server เปลี่ยนหรือข้ามวันแล้ว Reference ถูกต้องหรือไม่</li>
+<li>คำสั่งปิดถูก Reject/Partial Fill แล้วระบบ Retry อย่างปลอดภัยหรือไม่</li>
+<li>หลัง Reset ระบบตรวจสาเหตุก่อน Resume หรือไม่</li>
+</ul>
+
+<p><strong>สรุป:</strong> Daily Loss Limit ที่ใช้ได้จริงต้องตอบให้ครบว่า “นับอะไร จากฐานไหน ช่วงเวลาใด ครอบคลุมออเดอร์ใด และทำอะไรเมื่อแตะเกณฑ์” เมื่อตรรกะครบจึงค่อยเลือก Threshold จากข้อมูลและ Stress Test</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> Limit เป็นกลไกควบคุม ไม่รับประกันว่าคำสั่งจะปิดที่ Threshold โดยเฉพาะช่วง Gap, Slippage, สภาพคล่องต่ำ หรือระบบเชื่อมต่อขัดข้อง การเทรดแบบใช้ Leverage มีความเสี่ยงสูง โปรดทดสอบและกำหนดความเสี่ยงให้เหมาะกับตนเอง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.mql5.com/en/docs/dateandtime/timetradeserver" rel="nofollow noopener" target="_blank">MQL5 Reference: TimeTradeServer</a></li>
+<li><a href="https://www.mql5.com/en/docs/constants/environment_state/accountinformation" rel="nofollow noopener" target="_blank">MQL5 Reference: Account Properties</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/journal" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Journal</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 24 กันยายน 2026</small></p>

@@ -1,0 +1,144 @@
+---
+seo_title: วิธีเปรียบเทียบ Backtest กับ Forward Test ของ EA
+meta_description: เปรียบเทียบ Backtest และ Forward Test ด้วยเงื่อนไขเดียวกัน ทั้ง Trade Frequency, Cost, Drawdown และพฤติกรรม โดยไม่เลือกเฉพาะช่วงสวย
+excerpt: ผลสองชุดเทียบกันได้เมื่อ EA Version, Preset, Symbol และความเสี่ยงตรงกัน ต้องดูความต่างเป็นสัดส่วนและหาเหตุผล ไม่คาดหวังให้เหมือนทุก Trade
+cover_alt: รายงาน Backtest และ Forward Test ของ EA วางเทียบ Metric และ Equity Curve
+---
+<p>การเปรียบเทียบ Backtest กับ Forward Test ไม่ใช่การเอา Net Profit สองตัวมาวางข้างกัน เพราะช่วงเวลา ความยาว Sample และสภาพ Execution ต่างกัน เป้าหมายคือดูว่า “พฤติกรรมที่คาดจากแบบจำลองยังปรากฏในข้อมูลใหม่หรือไม่” ภายใต้ EA Version, Preset และ Risk เดียวกัน</p>
+
+<p>Forward Test ไม่ควรตรงกับ Backtest ทุก Trade ราคาจริงมี Spread, Slippage, Delay และข้อมูล Tick ที่ต่าง แต่ถ้าความถี่ Trade, ทิศทาง Risk หรือ Drawdown แตกต่างมาก ต้องหาสาเหตุก่อนสรุปว่าเป็นความผันผวนปกติ</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#align">ทำสองชุดให้เทียบกันได้</a></li>
+<li><a href="#metrics">Metric ที่ควรเปรียบเทียบ</a></li>
+<li><a href="#differences">ความต่างที่เกิดได้ตามปกติ</a></li>
+<li><a href="#redflags">สัญญาณที่ต้องหยุดตรวจ</a></li>
+<li><a href="#bias">หลีกเลี่ยงการเลือกช่วงสวย</a></li>
+<li><a href="#process">กระบวนการตัดสินใจ</a></li>
+</ul>
+</nav>
+
+<h2 id="align">ล็อกเงื่อนไขก่อนเริ่ม Forward Test</h2>
+
+<ul>
+<li>ไฟล์ EA และ Version เดียวกัน</li>
+<li>Preset/Input เดียวกัน</li>
+<li>Symbol, Suffix, Contract Specification ใกล้กัน</li>
+<li>Account Type, Currency และ Leverage ที่บันทึกไว้</li>
+<li>Risk/Lot Formula เดียวกัน</li>
+<li>Timezone/Server Time และ Session ตรง</li>
+<li>Commission/Swap และต้นทุนที่ทราบ</li>
+<li>วันเริ่ม Forward ที่กำหนดก่อนเห็นผล</li>
+</ul>
+
+<p>หากเปลี่ยน Preset ระหว่าง Forward ต้องแบ่ง Version ของการทดสอบ ไม่รวมผลก่อนและหลังแล้วเรียกว่า Track Record เดียว เพราะระบบที่ทดสอบไม่เหมือนเดิม</p>
+
+<p>อ่านพื้นฐานที่ <a href="https://fenixpro-th.com/forward-test-ea/">Forward Test EA คืออะไร</a> และวิธีตั้งอดีตที่ <a href="https://fenixpro-th.com/how-to-backtest-ea-mt5/">วิธี Backtest EA บน MT5</a></p>
+
+<h2 id="metrics">Metric ที่ควรเทียบ</h2>
+
+<h3>Trade Frequency</h3>
+<p>Normalize เป็น Trade ต่อเดือน/Session และแยกตาม Symbol หาก Forward ไม่มี Trade ทั้งที่ Backtest คาดว่าจะมีจำนวนมาก ตรวจ Timezone, Symbol, Filter และ Data ก่อน</p>
+
+<h3>Average Trade หลังต้นทุน</h3>
+<p>ดูค่าเฉลี่ยและ Median ไม่ใช้ Net Profit รวม Forward สั้นอาจมี Trade น้อยและ Winner ใหญ่ยังไม่เกิด จึงต้องดู Distribution ประกอบ</p>
+
+<h3>Win Rate และ Payoff Ratio</h3>
+<p>Win Rate ต่างได้จาก Sample แต่หากทิศทางผิดมากให้ตรวจ Execution และ Logic ใช้ Win Rate คู่กับ Average Win/Loss ไม่แยกดูค่าเดียว</p>
+
+<h3>Drawdown และ Losing Streak</h3>
+<p>เปรียบเทียบกับ Distribution จาก Backtest/Monte Carlo ไม่ใช้ Maximum Backtest เป็นเพดานแน่นอน หาก Forward แตะ Risk Budget ให้ทำตาม Kill Criteria</p>
+
+<h3>Exposure และ Holding Time</h3>
+<p>ดูจำนวน Position พร้อมกัน Lot รวม ระยะถือ และเวลาที่เปิด หากต่างมากอาจมาจาก Spread/News/Session หรือ Symbol Specification</p>
+
+<h2 id="differences">ทำไมผลจึงไม่เหมือนกัน</h2>
+
+<ul>
+<li>Backtest ใช้ Tick History คนละ Server</li>
+<li>Spread/Commission/Swap จริงต่างจากค่าจำลอง</li>
+<li>Network Delay และ Slippage</li>
+<li>EA/MT5 หยุดจาก VPS Restart หรือ Connection</li>
+<li>ข่าว/Calendar Data เปลี่ยนหรือแก้ย้อนหลัง</li>
+<li>Symbol Suffix และ Trading Session ต่าง</li>
+<li>Forward Sample สั้นและอยู่คนละ Regime</li>
+<li>Manual Intervention หรือการเปลี่ยน Setting</li>
+</ul>
+
+<p>ความต่างแต่ละข้อควรมีหลักฐานจาก Experts/Journal, Deal History และ Test Setting ไม่ใช้คำว่า “ตลาดเปลี่ยน” ครอบทุกกรณีโดยไม่ตรวจระบบ</p>
+
+<h2 id="redflags">สัญญาณที่ไม่ควรปล่อยผ่าน</h2>
+
+<ul>
+<li>Forward เปิด Trade ที่ Backtest ไม่มีในเวลา/ข้อมูลเดียวกันจำนวนมาก</li>
+<li>Lot, Stop หรือ Magic ไม่ตรง Preset</li>
+<li>มี Gap จาก Terminal Offline แต่ Report ไม่ระบุ</li>
+<li>Forward Drawdown เกิน Risk Limit ที่กำหนด</li>
+<li>Average Trade ต่ำกว่าต้นทุนจริงอย่างต่อเนื่อง</li>
+<li>ระบบต้องเปลี่ยนค่าบ่อยเพื่อให้กลับมากำไร</li>
+<li>ผู้รายงานเปลี่ยน Account/EA Version โดยไม่เปิดเผย</li>
+<li>แสดงเฉพาะ Balance ไม่แสดง Equity/Open Positions</li>
+</ul>
+
+<p>กรณีเหล่านี้ไม่พิสูจน์ว่า EA “ไม่ดี” แต่ทำให้หลักฐานเดิมไม่พอ ต้องหยุดเพิ่มความเสี่ยงและตรวจ Root Cause</p>
+
+<h2 id="bias">อย่าเลือกเฉพาะช่วงสวย</h2>
+
+<p>ข้อผิดพลาดทั่วไปคือเริ่มนับ Forward หลัง Drawdown จบ หยุด Report ก่อนขาดทุน หรือสร้างบัญชีใหม่เมื่อผลไม่ดี วิธีลด Bias:</p>
+
+<ul>
+<li>ประกาศ Start Date และ Account ก่อนเริ่ม</li>
+<li>เก็บผลต่อเนื่องรวม Deposit/Withdrawal</li>
+<li>รายงาน Version/Preset Change</li>
+<li>แสดง Equity, Open Trades และ History</li>
+<li>ไม่ลบเดือนขาดทุนจากค่าเฉลี่ย</li>
+<li>ใช้ช่วงเวลาเดียวกันเมื่อเทียบ Preset</li>
+<li>เก็บ Screenshot/Report พร้อม Timestamp</li>
+</ul>
+
+<p>หากใช้บัญชีสาธารณะจากบริการ Track Record ให้ตรวจว่า Verified Track Record, Trading Privileges, Broker/Server และ History เริ่มเมื่อใดตามความสามารถของแพลตฟอร์มนั้น ไม่ใช้ Badge เดียวแทนการอ่านรายละเอียด</p>
+
+<h2>ทำ Trade Reconciliation เพื่อหาความต่าง</h2>
+
+<p>เมื่อมีข้อมูล Forward มากพอ ให้จับคู่ Trade กับ Backtest ในช่วงเวลาเดียวกันโดยใช้ Signal Time, Symbol, Direction และ Magic/Comment ไม่ควรจับคู่จากราคาอย่างเดียวเพราะ Slippage ทำให้ราคาต่างได้ จากนั้นแบ่งผลเป็นสี่กลุ่ม: พบทั้งสองชุด, มีเฉพาะ Backtest, มีเฉพาะ Forward และพบทั้งคู่แต่ Exit ต่างกัน</p>
+
+<p>กลุ่มที่หายไปช่วยชี้สาเหตุ เช่น Spread Filter ปิด Entry, Terminal Offline, News Data ต่าง หรือ Session Offset ผิด ส่วน Exit ต่างอาจมาจาก Tick Sequence, Delay, Trailing หรือ Manual Action การทำตารางนี้มีประโยชน์กว่าการบอกว่า Net Profit “ใกล้กัน” เพราะทำให้ตรวจพฤติกรรมระดับกฎได้</p>
+
+<ul>
+<li>บันทึก Timestamp ทั้ง Server Time และ UTC</li>
+<li>เก็บ Order/Deal Ticket โดยปิดข้อมูลส่วนตัวเมื่อเผยแพร่</li>
+<li>ระบุเหตุผลของรายการที่จับคู่ไม่ได้</li>
+<li>สรุปอัตราความสอดคล้องแยก Entry และ Exit</li>
+<li>เก็บ Log รอบรายการที่ผิดปกติเพื่อยืนยัน Root Cause</li>
+</ul>
+
+<h2 id="process">Framework ตัดสินใจหลังมี Forward Data</h2>
+
+<ol>
+<li>ตรวจ Integrity: Uptime, Version, Preset, Deposit/Withdrawal</li>
+<li>Normalize Metric ตามเวลาและจำนวน Trade</li>
+<li>เทียบกับ Backtest Range/Monte Carlo ไม่เทียบจุดเดียว</li>
+<li>อธิบายความต่างด้วย Log และต้นทุน</li>
+<li>ตรวจว่าผ่านเกณฑ์ที่กำหนดก่อนเริ่มหรือไม่</li>
+<li>หากแก้ระบบ ให้เริ่ม Validation Version ใหม่</li>
+<li>ตัดสินใจ Continue, Reduce Risk, Pause หรือ Retire ตามกฎ</li>
+</ol>
+
+<p>ใช้ <a href="https://fenixpro-th.com/evaluate-ea-checklist/">Checklist ประเมิน EA</a> เพื่อไม่ลืมด้าน License/Support และดูข้อมูล FENIX PRO ที่ <a href="https://fenixpro-th.com/forward-test/">หน้า Forward Test</a> โดยอ่านเงื่อนไขร่วมกับ <a href="https://fenixpro-th.com/backtest/">หน้า Backtest</a></p>
+
+<p>ระยะ Forward ที่เหมาะสมขึ้นกับความถี่ Trade และ Regime ไม่ใช่จำนวนวันอย่างเดียว หากระบบเทรดน้อย การเห็นกำไรหนึ่งเดือนอาจเกิดจาก Trade ไม่กี่รายการ ควรรอให้ Sample ถึงเกณฑ์ที่กำหนดล่วงหน้าและครอบคลุมทั้งช่วงที่ระบบได้เปรียบและเสียเปรียบก่อนเพิ่มความเสี่ยง</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> Forward Test ใกล้สภาพจริงกว่า Backtest บางด้าน แต่ยังอาจเป็น Demo, Sample สั้น หรือไม่สะท้อนเงินทุนของผู้ใช้ ผลทั้งสองแบบไม่รับประกันผลในอนาคต</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/strategy_optimization" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Comparing Back and Forward Results</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing_report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Testing Metrics</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Trading Report</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

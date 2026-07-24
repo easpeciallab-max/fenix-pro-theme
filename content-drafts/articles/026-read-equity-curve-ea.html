@@ -1,0 +1,156 @@
+---
+seo_title: วิธีอ่าน Equity Curve ของ EA ให้เห็นความเสี่ยงจริง
+meta_description: อ่าน Equity Curve ของ EA จากความชัน Drawdown ช่วงฟื้นตัว ความสม่ำเสมอ และความต่างจาก Balance Curve เพื่อไม่ถูกเส้นกำไรสวยหลอก
+excerpt: Equity รวมกำไรขาดทุนที่ยังไม่ปิด จึงเห็น Floating Risk ที่ Balance อาจซ่อน ต้องดู Distribution และเงื่อนไขร่วมกับรูปทรงเส้น
+cover_alt: กราฟ Balance และ Equity Curve ของ EA พร้อมช่วง Drawdown และ Recovery
+---
+<p><strong>Equity Curve</strong> คือเส้นมูลค่าบัญชีที่รวม Balance กับกำไร/ขาดทุนของ Position ที่ยังเปิดอยู่ ช่วยให้เห็น Floating Drawdown และความเสี่ยงระหว่างทางที่ Balance Curve อาจไม่แสดง โดยเฉพาะ EA ที่ถือขาดทุนไว้นาน ปิดกำไรทีละน้อย หรือบริหารหลายออเดอร์เป็น Basket</p>
+
+<p>เส้นที่ไต่ขึ้นเรียบไม่ได้แปลว่าปลอดภัยเสมอ ต้องรู้ว่า Plot จาก Balance หรือ Equity, Sampling ถี่แค่ไหน รวม Deposit/Withdrawal หรือไม่ และมี Open Position ณ จุดสิ้นสุดหรือเปล่า ภาพที่ครอปเฉพาะช่วงสวยไม่มีข้อมูลพอตัดสิน</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#balance">Balance กับ Equity ต่างกันอย่างไร</a></li>
+<li><a href="#shape">อ่านความชันและรูปทรง</a></li>
+<li><a href="#drawdown">อ่าน Drawdown และ Recovery</a></li>
+<li><a href="#distribution">ดู Distribution ใต้เส้น</a></li>
+<li><a href="#redflags">รูปแบบที่ต้องระวัง</a></li>
+<li><a href="#compare">เปรียบเทียบหลายเส้นอย่างเป็นธรรม</a></li>
+</ul>
+</nav>
+
+<h2 id="balance">Balance Curve กับ Equity Curve</h2>
+
+<table>
+<thead>
+<tr>
+<th>เส้น</th>
+<th>รวมอะไร</th>
+<th>ข้อจำกัด</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Balance</td>
+<td>ผลของ Deal/Position ที่ปิดแล้วและ Balance Operation</td>
+<td>ไม่เห็น Floating P/L ของ Position เปิด</td>
+</tr>
+<tr>
+<td>Equity</td>
+<td>Balance + Floating Profit/Loss ตามราคาปัจจุบัน</td>
+<td>ขึ้นกับ Sampling และราคาที่ใช้ Mark</td>
+</tr>
+</tbody>
+</table>
+
+<p>หาก Balance ขึ้นต่อเนื่องแต่ Equity อยู่ต่ำมาก แปลว่าระบบปิดกำไรแต่ถือขาดทุนค้าง ความต่างระหว่างสองเส้นคือข้อมูลสำคัญ ไม่ควรดู Balance เพียงเพราะเรียบกว่า</p>
+
+<p>อ่านนิยาม Drawdown เพิ่มที่ <a href="https://fenixpro-th.com/what-is-drawdown/">Drawdown คืออะไร</a> และค่า Report ที่ <a href="https://fenixpro-th.com/ea-stats-explained/">สถิติ EA อธิบายอย่างไร</a></p>
+
+<h2 id="shape">ความชันและความนิ่งบอกอะไร</h2>
+
+<h3>ความชัน</h3>
+<p>ความชันสูงอาจมาจาก Edge ที่ดีหรือ Risk/Leverage สูง ต้อง Normalize ด้วย Drawdown, Volatility และ Exposure ไม่เปรียบเทียบผลตอบแทนโดยไม่เทียบความเสี่ยง</p>
+
+<h3>ความเรียบ</h3>
+<p>เส้นเรียบอาจเกิดจาก Trade จำนวนมากที่กระจายดี หรือจาก Mark-to-market/Sampling ที่หยาบ รวมถึงกลยุทธ์เก็บกำไรเล็กและซ่อน Loss ใหญ่ การดูความเรียบด้วยตาอย่างเดียวจึงไม่พอ</p>
+
+<h3>ช่วงราบ</h3>
+<p>อาจหมายถึงไม่มีสัญญาณ ตลาดไม่เหมาะ Filter หยุด หรือ Edge เสื่อม ต้องดู Trade Count และ Regime ไม่เรียกทุกช่วงราบว่า “พักระบบตามแผน” โดยไม่มี Log</p>
+
+<h3>ขั้นบันได</h3>
+<p>Winner ใหญ่เป็นช่วงอาจเป็นธรรมชาติของ Trend Following แต่ต้องดูว่าหากพลาด Winner ไม่กี่ครั้งผลรวมเปลี่ยนอย่างไร</p>
+
+<h2 id="drawdown">อ่าน Drawdown และ Recovery</h2>
+
+<p>Drawdown วัดการลดลงจากจุดสูงก่อนหน้าไปจุดต่ำถัดไป มีทั้งจำนวนเงินและเปอร์เซ็นต์ ควรดู:</p>
+
+<ul>
+<li>Maximum Drawdown</li>
+<li>Average/Median Drawdown</li>
+<li>Drawdown Duration</li>
+<li>Time to Recovery</li>
+<li>Underwater Curve: เวลาที่ Equity ต่ำกว่าจุดสูงเดิม</li>
+<li>Drawdown Clustering ตาม Regime</li>
+</ul>
+
+<p>Maximum จาก Backtest เป็นค่าที่เคยเกิด ไม่ใช่เพดานในอนาคต ใช้ Monte Carlo/Stress Test เพื่อประเมิน Distribution เพิ่ม และกำหนด Risk Budget ต่ำกว่าจุดที่พอร์ต/ผู้ใช้รับไม่ไหว</p>
+
+<p>Recovery ที่เร็วในอดีตอาจพึ่ง Winner เดียว อย่าคำนวณเพียง Recovery Factor; ดู Trade ที่สร้างการฟื้นและความเป็นไปได้ที่ Winner นั้นจะไม่เกิดใน Sample ใหม่</p>
+
+<h2 id="distribution">ข้อมูลที่ควรเปิดใต้ Equity Curve</h2>
+
+<ul>
+<li>Trade-by-trade Return</li>
+<li>Monthly/Weekly Returns</li>
+<li>Average Win, Average Loss และ Payoff</li>
+<li>Maximum Consecutive Losses</li>
+<li>Holding Time และ MAE/MFE</li>
+<li>Lot/Exposure ตามเวลา</li>
+<li>Contribution ของ Top Winners</li>
+<li>Open Positions ณ วันสิ้นสุด</li>
+</ul>
+
+<p>เส้นเดียวกันอาจมาจากระบบต่างกันมาก เช่น Win Rate สูง/Payoff ต่ำ กับ Win Rate ต่ำ/Winner ใหญ่ การวางแผนทุนและพฤติกรรมผู้ใช้จึงต้องดู Distribution</p>
+
+<h2>Scale และความถี่ในการบันทึกทำให้เส้นดูต่างกัน</h2>
+
+<p>กราฟที่ใช้แกน Linear กับ Logarithmic ให้ภาพความชันต่างกัน เมื่อบัญชีโตมาก เส้น Linear อาจทำให้ Drawdown ช่วงต้นดูเล็ก ขณะที่ Log Scale ช่วยเปรียบเทียบการเปลี่ยนแปลงเชิงเปอร์เซ็นต์ได้ดีขึ้น ควรแสดงชื่อ Scale และไม่สลับโดยไม่บอก</p>
+
+<p>ความถี่การ Sampling ก็สำคัญ หากบันทึก Equity วันละครั้ง อาจพลาด Floating Drawdown ภายในวัน ระบบที่เปิด Basket ระยะสั้นอาจดูเรียบผิดจริง ควรใช้ข้อมูลระดับ Tick/Minute หรือความถี่ที่สอดคล้องกับ Holding Period และรายงาน Worst Intraday Equity แยกเมื่อทำได้</p>
+
+<ul>
+<li>ตรวจว่า Curve ใช้ Time หรือ Trade Number เป็นแกนนอน</li>
+<li>ดูว่า Equity Mark ด้วย Bid/Ask หรือราคาใด</li>
+<li>ยืนยันว่า Swap/Commission ถูกหักในจุดใด</li>
+<li>แยกผลจาก Deposit, Withdrawal และ Credit</li>
+<li>ใช้ความถี่เดียวกันเมื่อเปรียบเทียบหลายระบบ</li>
+</ul>
+
+<h2 id="redflags">รูปแบบที่ควรตรวจให้ลึก</h2>
+
+<h3>Balance ขึ้น แต่ Equity แยกลง</h3>
+<p>อาจเป็น Grid/Martingale หรือระบบถือ Loss ตรวจ Basket, Lot Growth, Margin และ Stop Logic</p>
+
+<h3>กำไรทั้งหมดเกิดปลายช่วง</h3>
+<p>อาจพึ่ง Regime เดียวหรือมี Parameter ที่เข้ากับช่วงล่าสุด ทำ OOS/Start-Date Sensitivity เพิ่ม</p>
+
+<h3>เส้นตรงผิดธรรมชาติ</h3>
+<p>ตรวจ Sampling, Deposit/Withdrawal, Missing Data และว่ารายงานรวม Floating หรือไม่ อย่าสรุปว่าเป็น Fraud จากรูปอย่างเดียว แต่ต้องขอข้อมูลต้นทาง</p>
+
+<h3>Drawdown ถูกตัดด้วย Deposit</h3>
+<p>การเติมเงินเพิ่ม Equity และเปลี่ยนเปอร์เซ็นต์ อาจทำให้ Curve ดูฟื้นทั้งที่กลยุทธ์ยังขาดทุน แยก Trading P/L ออกจาก Cash Flow</p>
+
+<h3>จบ Report ขณะมี Position ใหญ่</h3>
+<p>Net Profit ที่ปิดแล้วอาจไม่รวม Floating Loss ต้องดู Equity/Open Trades และขยาย End Date</p>
+
+<h2 id="compare">เปรียบเทียบ Equity Curve อย่างเป็นธรรม</h2>
+
+<ol>
+<li>ใช้ช่วงเวลาและ Currency เดียวกัน</li>
+<li>แยก Deposit/Withdrawal</li>
+<li>Normalize เป็น Return แต่รักษาข้อมูล Absolute Risk</li>
+<li>เทียบ Exposure/Leverage</li>
+<li>ใช้ต้นทุน/Specification เดียวกัน</li>
+<li>ดู OOS/Forward แยกจาก IS</li>
+<li>แสดงทั้ง Balance และ Equity</li>
+<li>เปิด Metric/Trade List ที่สร้างเส้น</li>
+</ol>
+
+<p>ใช้ <a href="https://fenixpro-th.com/compare-backtest-forward-test/">วิธีเปรียบเทียบ Backtest กับ Forward Test</a> เพื่อดูว่า Curve ในข้อมูลใหม่ยังมีโครงสร้างใกล้เดิมหรือไม่ และดูผลจริงของ FENIX PRO จาก <a href="https://fenixpro-th.com/backtest/">หน้า Backtest</a> โดยไม่แยกออกจากเงื่อนไขและคำเตือนความเสี่ยง</p>
+
+<p>หากได้รับเพียง Screenshot ให้ขอช่วงวันที่ เงินเริ่มต้น Deposit/Withdrawal, Open Positions, Balance/Equity และ Trade History เพิ่ม ภาพที่ไม่มีแกน ไม่มีหน่วย หรือไม่มีแหล่งข้อมูลใช้ยืนยันได้เพียงว่ามีภาพหนึ่งรูป ไม่เพียงพอสำหรับประเมินระบบหรือวางเงินทุน</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> Equity Curve เป็นข้อมูลอดีตและขึ้นกับวิธีคำนวณ/บันทึก เส้นที่สวยไม่รับประกันผลลัพธ์ในอนาคต และ Maximum Drawdown เดิมสามารถถูกทำลายได้</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing_report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Balance and Equity Drawdown Metrics</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Trading Report and Equity</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/strategy_optimization" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Forward and Optimization Results</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

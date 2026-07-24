@@ -1,0 +1,138 @@
+---
+seo_title: พอร์ต EA เข้า Drawdown ควรทำอย่างไรให้เป็นระบบ
+meta_description: แผนรับมือพอร์ต EA เข้า Drawdown ตั้งแต่หยุดเพิ่มความเสี่ยง ตรวจ Log แยกสาเหตุ ลด Lot และกำหนดเงื่อนไขกลับมารันโดยไม่แก้มือ
+excerpt: Drawdown ไม่ควรถูกแก้ด้วยการเพิ่ม Lot ทันที ต้องแยกความผันผวนปกติ Edge เสื่อม Execution ผิด และ Software Error ก่อนตัดสินใจ
+cover_alt: แผนฟื้นฟูพอร์ต EA หลัง Drawdown แสดงขั้นหยุด ตรวจสอบ ลด Lot และกลับมาทดสอบ
+---
+<p>เมื่อพอร์ต EA เข้า <strong>Drawdown</strong> สิ่งแรกไม่ใช่การเพิ่ม Lot เพื่อเอาคืนหรือเปลี่ยน Parameter จน Backtest รอบล่าสุดสวยขึ้น แต่คือหยุดความเสี่ยงที่ไม่จำเป็น เก็บหลักฐาน และจำแนกว่าความเสียหายอยู่ใน Distribution ที่เตรียมไว้หรือเป็นสัญญาณว่า Execution, Software หรือสมมติฐานของระบบเปลี่ยน</p>
+
+<p>Drawdown เป็นส่วนหนึ่งของระบบที่มีความเสี่ยง แต่ไม่ได้แปลว่าทุก Drawdown ต้องทนต่อไป การตัดสินใจที่ดีต้องมีกฎก่อนเกิดเหตุ: ระดับเตือน ระดับลดความเสี่ยง ระดับหยุด และหลักฐานที่ต้องผ่านก่อนกลับมารัน</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#first">สิ่งที่ต้องทำทันที</a></li>
+<li><a href="#diagnose">แยกสาเหตุ Drawdown</a></li>
+<li><a href="#lot">วิธีลด Lot โดยไม่หลอกตัวเอง</a></li>
+<li><a href="#restart">เกณฑ์กลับมารัน</a></li>
+<li><a href="#avoid">สิ่งที่ไม่ควรทำ</a></li>
+<li><a href="#playbook">ตัวอย่าง Drawdown Playbook</a></li>
+</ul>
+</nav>
+
+<h2 id="first">ขั้นแรก: ป้องกันไม่ให้ข้อมูลหายและความเสี่ยงเพิ่ม</h2>
+
+<ol>
+<li><strong>หยุดเปิด Position ใหม่:</strong> ใช้ Pause/Disable Entry ตามวิธีของ EA โดยไม่ลบข้อมูลก่อนเก็บหลักฐาน</li>
+<li><strong>ตรวจ Open Risk:</strong> รวม Stop, Basket, Pending, Margin และ Correlated Position ทั้งบัญชี</li>
+<li><strong>เก็บหลักฐาน:</strong> Export Statement/Report, Expert Log, Journal, Screenshot, Parameter และ Version</li>
+<li><strong>ยืนยันการทำงาน:</strong> ตรวจ VPS, Connection, AutoTrading, Symbol Specification และ Error Code</li>
+<li><strong>ทำตาม Exit Plan:</strong> ไม่ปิด/ถัวเฉลี่ยด้วยอารมณ์ ให้ใช้กฎที่อนุมัติไว้หรือ Escalate เมื่ออยู่นอก Scenario</li>
+</ol>
+
+<p>หาก Drawdown ใกล้ Risk Limit การป้องกันบัญชีมี Priority สูงกว่าการรักษา Position เพื่อหวังกลับมา การเปลี่ยน Stop หรือเพิ่มทุนโดยไม่มีแผนจะทำให้วิเคราะห์ภายหลังยากขึ้นและอาจเพิ่ม Risk of Ruin</p>
+
+<h2 id="diagnose">จำแนกสาเหตุออกเป็นสี่กลุ่ม</h2>
+
+<h3>1. Statistical Drawdown</h3>
+<p>ผลอยู่ในช่วงที่ Backtest, Out-of-sample และ Stress Test เคยแสดง ทั้ง Trade Pattern, Cost และ Execution ไม่ผิดปกติ กรณีนี้อาจเป็น Variance ปกติ แต่ยังต้องตรวจว่าความเสี่ยงปัจจุบันเหมาะกับผู้ใช้หรือไม่</p>
+
+<h3>2. Market Regime Shift</h3>
+<p>Volatility, Trend, Correlation หรือ Liquidity ต่างจาก Sample ที่ระบบได้เปรียบ เช่น Trend Following เจอ Whipsaw ต่อเนื่อง หรือ Scalping เจอ Spread/Execution เปลี่ยน ต้องทดสอบโดยแบ่ง Regime ไม่สรุปจากกำไรขาดทุนรวมอย่างเดียว</p>
+
+<h3>3. Execution/Environment Problem</h3>
+<p>Spread, Commission, Slippage, Latency, VPS, Contract Specification หรือ Trading Hours เปลี่ยน ทำให้ Live Result แย่กว่าทฤษฎี ตรวจ Expert/Journal Log และเปรียบเทียบ Deal-by-deal กับ Signal/Backtest</p>
+
+<h3>4. Software/Configuration Error</h3>
+<p>Version ผิด, Preset ผิด, Magic Number ซ้ำ, Auto Lot คำนวณผิด, Timezone หรือ News Filter ไม่ทำงาน กลุ่มนี้ต้องหยุดจนแก้และ Retest ไม่ควรลด Lotแล้วปล่อย Bug ทำงานต่อ</p>
+
+<p>ใช้คำอธิบายพื้นฐานที่ <a href="https://fenixpro-th.com/what-is-drawdown/">Drawdown คืออะไร</a> และอ่าน Equity/Balance เพิ่มที่ <a href="https://fenixpro-th.com/read-equity-curve-ea/">วิธีอ่าน Equity Curve</a></p>
+
+<h2 id="lot">ลด Lot อย่างไรให้มีเหตุผล</h2>
+
+<p>การลด Lot ลดความไวของ P/L ต่อการเคลื่อนไหวราคา แต่ไม่ได้แก้ Edge ที่เสียหรือ Bug การลดควรผูกกับ Risk Budget และ Validation State ไม่ใช่ลดแบบสุ่ม:</p>
+
+<ol>
+<li>คำนวณ Equity ปัจจุบันและ Open Risk หลังรวมทุกระบบ</li>
+<li>กำหนด Risk ต่อ Trade/Basket ใหม่จาก Equity ไม่ใช่ Initial Balance</li>
+<li>ลด Portfolio Exposure Cap และจำนวน Position พร้อมกัน</li>
+<li>ตรวจ Lot ขั้นต่ำ หากยังเสี่ยงเกินงบให้หยุดแทนการฝืนเปิด</li>
+<li>Forward Test ด้วย Lot ต่ำ/บัญชี Demo ก่อนเพิ่ม Scale</li>
+<li>เพิ่ม Lot กลับเป็นขั้นเมื่อ Metric และจำนวนตัวอย่างผ่านเกณฑ์</li>
+</ol>
+
+<p>ห้ามใช้ “ต้องเพิ่ม Lot เพราะทุนลด” เพื่อเร่ง Recovery เพราะเป็นการเพิ่มสัดส่วนความเสี่ยงในช่วงที่ความไม่แน่นอนสูง อ่าน <a href="https://fenixpro-th.com/fixed-lot-vs-auto-lot/">Fixed Lot กับ Auto Lot</a> และ <a href="https://fenixpro-th.com/money-management/">Money Management</a></p>
+
+<h2 id="restart">เงื่อนไขกลับมารันควรวัดได้</h2>
+
+<table>
+<thead>
+<tr>
+<th>ด้าน</th>
+<th>หลักฐานก่อน Resume</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Software</td>
+<td>Version/Checksum/Parameter ถูกต้องและทดสอบ Regression ผ่าน</td>
+</tr>
+<tr>
+<td>Execution</td>
+<td>Spread, Slippage, Latency และ Error อยู่ในเกณฑ์ที่กำหนด</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Live Deviation มีคำอธิบายและยังอยู่ใน Distribution/Scenario ที่รับได้</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Lot, Exposure, Equity Stop และ Daily Limit ถูกลด/ตั้งใหม่</td>
+</tr>
+<tr>
+<td>Operations</td>
+<td>VPS, Monitoring, Alert และผู้รับผิดชอบพร้อม</td>
+</tr>
+</tbody>
+</table>
+
+<p>การเปิดใหม่ควรเป็น Phased Restart เช่น Demo/Observation, Small Live, Limited Symbols แล้วจึง Scale ตาม Checkpoint ไม่เปิด Full Risk ทันทีเพียงเพราะมี Trade ชนะหนึ่งครั้ง</p>
+
+<h2 id="avoid">สิ่งที่ทำให้ Drawdown แย่ลง</h2>
+
+<ul>
+<li>เพิ่ม Lot หรือเปิดระบบใหม่เพื่อชดเชย Loss โดยไม่รวม Exposure</li>
+<li>เปลี่ยน Parameter หลายค่าพร้อมกันจนหาสาเหตุไม่ได้</li>
+<li>Optimize ด้วยช่วง Drawdown ล่าสุดแล้วเรียกว่าระบบได้รับการแก้ไข</li>
+<li>ลบ EA/Log หรือ Restart ก่อนเก็บหลักฐาน</li>
+<li>เติมเงินเพื่อยืด Basket โดยไม่มี Stop ใหม่</li>
+<li>หยุดระบบหลังแพ้และเปิดหลังชนะจากสัญญาณสั้น ๆ แบบไม่มีเกณฑ์</li>
+<li>ปกปิด Drawdown ด้วยการดู Balance โดยไม่ดู Equity</li>
+</ul>
+
+<h2 id="playbook">Drawdown Playbook ที่ควรเขียนไว้</h2>
+
+<p>เอกสารหนึ่งหน้าควรมีระดับและผู้ตัดสินใจ:</p>
+
+<ul>
+<li><strong>Watch:</strong> Drawdown ถึงระดับสังเกต ตรวจข้อมูลแต่ยังทำตามแผน</li>
+<li><strong>Reduce:</strong> ลด Lot/จำนวน Position และเพิ่ม Monitoring</li>
+<li><strong>Pause:</strong> หยุด Entry เก็บหลักฐานและ Root-cause Analysis</li>
+<li><strong>Emergency:</strong> ทำตาม Account Protection Rule เมื่อเกิด Bug/Execution Failure</li>
+<li><strong>Resume:</strong> ระบุ Test, Reviewer, Lot เริ่มต้น และ Checkpoint</li>
+</ul>
+
+<p>ระดับเหล่านี้ต้องมาจากความสามารถรับความเสี่ยงจริงและ Distribution ของระบบ ไม่คัดลอกเปอร์เซ็นต์จากผู้อื่น เชื่อมกับ <a href="https://fenixpro-th.com/risk-of-ruin-ea-trading/">Risk of Ruin</a>, <a href="https://fenixpro-th.com/daily-loss-limit-ea/">Daily Loss Limit</a> และ <a href="https://fenixpro-th.com/equity-stop-ea/">Equity Stop</a></p>
+
+<p><strong>สรุป:</strong> แผนรับมือ Drawdown ที่ดีแยกการป้องกันบัญชี การเก็บหลักฐาน การวิเคราะห์สาเหตุ และการกลับมารันออกจากกัน การลด Lot เป็นเพียงเครื่องมือหนึ่ง ไม่ใช่คำตอบหาก Strategy หรือระบบปฏิบัติการมีปัญหา</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> Drawdown ในอดีตไม่ใช่เพดานในอนาคต การลด Lot, Stop หรือการหยุดระบบไม่สามารถรับประกันว่าจะจำกัดผลขาดทุนได้ทุกสถานการณ์ การเทรดแบบใช้ Leverage มีความเสี่ยงสูง โปรดประเมินความเหมาะสมและใช้เงินที่พร้อมรับความเสี่ยงเท่านั้น อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Trading Report and Risk Metrics</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/journal" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Journal</a></li>
+<li><a href="https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/CustomerAdvisory_MustKnowForex.html" rel="nofollow noopener" target="_blank">CFTC: Forex Leverage and Risk Advisory</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 4 ตุลาคม 2026</small></p>

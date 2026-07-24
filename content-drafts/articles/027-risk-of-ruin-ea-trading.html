@@ -1,0 +1,128 @@
+---
+seo_title: Risk of Ruin คืออะไร? ประเมินความเสี่ยงก่อนรัน EA
+meta_description: เข้าใจ Risk of Ruin ของพอร์ต EA ปัจจัยที่ทำให้ความเสี่ยงสะสม วิธีประเมินจากผลทดสอบ และแนวทางลดโอกาสที่พอร์ตเสียหายจนเทรดต่อไม่ได้
+excerpt: Risk of Ruin ไม่ได้ถามเพียงว่าจะขาดทุนหรือไม่ แต่ถามว่าพอร์ตมีโอกาสเสียหายถึงจุดที่ระบบหรือผู้ใช้ไม่สามารถดำเนินแผนต่อได้มากเพียงใด
+cover_alt: แผนภาพ Risk of Ruin ของพอร์ต EA แสดงทุน ความเสี่ยงต่อครั้ง และช่วงขาดทุนต่อเนื่อง
+---
+<p><strong>Risk of Ruin</strong> คือความน่าจะเป็นที่พอร์ตจะเสียหายถึงระดับซึ่งกำหนดไว้ล่วงหน้า เช่น เงินทุนลดลงจน Margin ไม่พอ ระบบเดินต่อไม่ได้ หรือลดลงเกินระดับที่เจ้าของพอร์ตรับได้ คำว่า Ruin จึงไม่จำเป็นต้องหมายถึงยอดเงินเป็นศูนย์ แต่ต้องนิยามให้ชัดว่า “จุดล้มเหลว” ของแผนอยู่ตรงไหน</p>
+
+<p>สำหรับผู้ใช้ EA แนวคิดนี้สำคัญกว่าการถามเพียงว่าระบบทำกำไรเฉลี่ยเท่าไร เพราะระบบที่มีผลตอบแทนคาดหวังเป็นบวกก็ยังล้มเหลวก่อนเห็นผลระยะยาวได้ หาก Lot ใหญ่เกินทุน การขาดทุนกระจุกตัว หรือสมมติฐานจาก Backtest ไม่สอดคล้องกับการเทรดจริง</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#meaning">Risk of Ruin วัดอะไร</a></li>
+<li><a href="#drivers">ปัจจัยที่ทำให้ความเสี่ยงสูงขึ้น</a></li>
+<li><a href="#estimate">วิธีประเมินก่อนรัน EA</a></li>
+<li><a href="#sequence">ทำไมลำดับผลลัพธ์จึงสำคัญ</a></li>
+<li><a href="#reduce">แนวทางลด Risk of Ruin</a></li>
+<li><a href="#checklist">Checklist ก่อนใช้งานจริง</a></li>
+</ul>
+</nav>
+
+<h2 id="meaning">Risk of Ruin วัดอะไร</h2>
+
+<p>การประเมินต้องมีองค์ประกอบอย่างน้อยสามส่วน ได้แก่ จุดเริ่มต้นของทุน จุดที่ถือว่าแผนล้มเหลว และกระบวนการที่ทำให้ Equity เปลี่ยนแปลง หากเปลี่ยนองค์ประกอบใด ผลประเมินก็เปลี่ยนตาม จึงไม่มีตัวเลข Risk of Ruin ค่าเดียวที่ใช้ได้กับทุกบัญชี</p>
+
+<table>
+<thead>
+<tr>
+<th>องค์ประกอบ</th>
+<th>คำถามที่ต้องตอบ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ทุนและ Buffer</td>
+<td>มีเงินที่พร้อมรับความผันผวนจริงเท่าไร และมี Margin สำรองแค่ไหน</td>
+</tr>
+<tr>
+<td>Ruin Threshold</td>
+<td>จะหยุดเมื่อ Equity ลดลงกี่เปอร์เซ็นต์ หรือเมื่อเงื่อนไขใดเกิดขึ้น</td>
+</tr>
+<tr>
+<td>Position Sizing</td>
+<td>Lot คงที่หรือเปลี่ยนตาม Balance/Equity และมีเพดานหรือไม่</td>
+</tr>
+<tr>
+<td>ผลลัพธ์ของระบบ</td>
+<td>Win Rate, Payoff, Loss Tail และ Consecutive Losses เป็นอย่างไร</td>
+</tr>
+<tr>
+<td>ต้นทุนจริง</td>
+<td>Spread, Commission, Swap และ Slippage ถูกนับครบหรือยัง</td>
+</tr>
+</tbody>
+</table>
+
+<p>ควรแยก “โอกาสขาดทุนชั่วคราว” ออกจาก “โอกาสเสียหายถึงจุดหยุดระบบ” พอร์ตแทบทุกพอร์ตมีช่วง Drawdown แต่ไม่ใช่ทุก Drawdown จะเป็น Ruin อ่านพื้นฐานเพิ่มเติมที่ <a href="https://fenixpro-th.com/what-is-drawdown/">Drawdown คืออะไร</a></p>
+
+<h2 id="drivers">ปัจจัยที่ทำให้ Risk of Ruin สูงขึ้น</h2>
+
+<h3>ความเสี่ยงต่อออเดอร์หรือ Basket สูงเกินไป</h3>
+<p>เมื่อขนาด Position ใหญ่ การขาดทุนแต่ละครั้งกิน Buffer มากขึ้น การฟื้นจากการลดลงของทุนยังต้องใช้ผลตอบแทนเป็นเปอร์เซ็นต์ที่สูงขึ้นตามไปด้วย การตั้ง Lot จึงต้องอิง Equity, Stop Distance, Tick Value และจำนวน Position ที่อาจเปิดพร้อมกัน ไม่ใช่อิงเพียงยอดเงินฝาก</p>
+
+<h3>ผลลัพธ์ไม่ได้เป็นอิสระจากกัน</h3>
+<p>สูตรอย่างง่ายมักสมมติว่า Trade แต่ละครั้งมีโอกาสชนะและแพ้คงที่ แต่ตลาดมี Regime และ Loss สามารถเกิดเป็นกลุ่มได้ EA หลายตัวอาจตอบสนองต่อปัจจัยตลาดเดียวกัน ทำให้สิ่งที่ดูเหมือนกระจายความเสี่ยงกลับขาดทุนพร้อมกัน</p>
+
+<h3>Backtest ประเมินความเสี่ยงต่ำกว่าความจริง</h3>
+<p>ข้อมูลไม่ครบ การเลือก Parameter หลังเห็นผล ต้นทุนต่ำกว่าบัญชีจริง หรือไม่มี Slippage ล้วนทำให้ Distribution ในรายงานดูดีกว่าที่ควรเป็น ควรอ่าน <a href="https://fenixpro-th.com/read-ea-backtest/">วิธีอ่านผล Backtest</a> ควบคู่กับการทดสอบแบบ Out-of-sample และ Forward Test</p>
+
+<h3>ไม่มี Hard Stop ระดับบัญชี</h3>
+<p>Stop Loss รายออเดอร์ไม่สามารถควบคุมทุกสถานการณ์ เช่น หลาย Position ขาดทุนพร้อมกัน Gap การเชื่อมต่อขัดข้อง หรือ Logic ไม่ส่งคำสั่งปิดตามแผน จึงต้องมีกฎระดับวัน ระดับสัปดาห์ หรือระดับ Equity เพิ่มเติม</p>
+
+<h2 id="estimate">วิธีประเมินก่อนรัน EA</h2>
+
+<ol>
+<li><strong>กำหนด Ruin ให้ชัด:</strong> เขียนเป็นตัวเลขและเงื่อนไข เช่น Equity ลดลงถึง Risk Budget หรือ Margin Buffer ต่ำกว่าระดับที่กำหนด</li>
+<li><strong>ใช้ข้อมูลสุทธิ:</strong> รวม Spread, Commission, Swap และ Slippage ที่สอดคล้องกับ Broker/Account</li>
+<li><strong>รวบรวมผลแบบ Trade-by-trade:</strong> อย่าใช้เพียงกำไรรวม เพราะต้องรู้ขนาดและลำดับของกำไรขาดทุน</li>
+<li><strong>ทำ Stress Test:</strong> เพิ่มต้นทุน ลด Expectancy เลื่อนเวลาเข้าออก และทดสอบช่วงตลาดที่ระบบเสียเปรียบ</li>
+<li><strong>สุ่มลำดับหลายครั้ง:</strong> Monte Carlo ช่วยเห็น Distribution ของ Maximum Drawdown และโอกาสแตะ Ruin Threshold ภายใต้ลำดับที่ต่างกัน</li>
+<li><strong>ทดสอบหลาย Lot:</strong> เปรียบเทียบไม่ใช่แค่กำไร แต่ดู Probability of Ruin, Drawdown และ Recovery Time</li>
+</ol>
+
+<p>หากข้อมูลมี Trade น้อย ผลประเมินจะไม่แน่นอน ควรแสดงเป็นช่วงภายใต้หลาย Scenario มากกว่าตัวเลขทศนิยมที่ดูแม่นยำเกินข้อมูล และต้องเผื่อกรณีอนาคตแย่กว่าตัวอย่างในอดีต</p>
+
+<h2 id="sequence">Sequence Risk: ผลรวมเท่ากัน แต่เส้นทางต่างกัน</h2>
+
+<p>สมมติ Strategy สองชุดมีผลรวมสุดท้ายเท่ากัน ชุดแรกกระจาย Loss ตลอดช่วง ส่วนอีกชุดมี Loss ต่อเนื่องตั้งแต่ต้น หากใช้ Fixed Lot ผลกระทบอาจยังต่างกันด้านจิตใจและ Margin แต่หากใช้ Lot ตาม Equity ลำดับ Trade จะเปลี่ยนฐานคำนวณทุกครั้งและทำให้ผลปลายทางต่างกันได้มากขึ้น</p>
+
+<p>เหตุนี้ Maximum Consecutive Losses จากประวัติไม่ควรถูกใช้เป็นเพดานอนาคต ควรเผื่อ Streak ที่ยาวกว่า และตรวจว่า EA เพิ่ม Lot หลังแพ้หรือเพิ่มจำนวน Position ใน Basket หรือไม่ ระบบ Grid/Martingale ต้องวิเคราะห์ Tail Risk แยกจากระบบที่ขาดทุนจำกัดต่อ Trade</p>
+
+<h2 id="reduce">แนวทางลด Risk of Ruin</h2>
+
+<ul>
+<li>ลด Risk ต่อ Trade/Basket และกำหนด Maximum Total Exposure</li>
+<li>ตั้ง Equity Stop และ Daily Loss Limit แยกจาก Stop Loss ราย Position</li>
+<li>จำกัดจำนวนออเดอร์และ Lot สูงสุด แม้ Auto Lot จะคำนวณได้มากกว่านั้น</li>
+<li>เผื่อ Margin สำหรับ Volatility, Spread Expansion และ Position ที่สัมพันธ์กัน</li>
+<li>หยุดเพิ่มทุนเพื่อไล่แก้ระบบที่หลุดเงื่อนไขโดยไม่มีการตรวจสอบ</li>
+<li>ทบทวนผลจริงเทียบกับ Distribution จาก Backtest เป็นรอบ</li>
+<li>แยกทุนที่พร้อมรับความเสี่ยงออกจากเงินจำเป็นต่อชีวิต</li>
+</ul>
+
+<p>รายละเอียดการวาง Lot และ Risk Budget อ่านต่อที่ <a href="https://fenixpro-th.com/money-management/">Money Management สำหรับ EA</a> และ <a href="https://fenixpro-th.com/risk-per-trade/">Risk per Trade ควรกำหนดอย่างไร</a></p>
+
+<h2 id="checklist">Checklist ที่ต้องตอบได้</h2>
+
+<ul>
+<li>นิยาม Ruin ของบัญชีนี้คืออะไร</li>
+<li>ตัวเลขประเมินใช้ Balance หรือ Equity</li>
+<li>รวม Open Risk ของทุก Position แล้วหรือยัง</li>
+<li>มี Loss Streak และ Drawdown Duration ที่ยาวกว่าประวัติไว้ทดสอบหรือไม่</li>
+<li>หาก Spread/Slippage แย่ลง ระบบยังอยู่ใน Risk Budget หรือไม่</li>
+<li>ใครเป็นผู้ตัดสินใจหยุด และใช้ข้อมูลใดยืนยันก่อนเปิดใหม่</li>
+</ul>
+
+<p><strong>สรุป:</strong> Risk of Ruin เป็นกรอบตัดสินใจ ไม่ใช่คำทำนายที่รับประกันได้ เป้าหมายคือออกแบบ Position Size, Stop Rules และ Margin Buffer ให้พอร์ตมีโอกาสอยู่รอดเมื่อเจอลำดับผลลัพธ์ที่เลวร้ายกว่าค่าเฉลี่ย</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> การซื้อขาย Forex, CFD และผลิตภัณฑ์ที่ใช้ Leverage มีความเสี่ยงสูง อาจสูญเสียเงินลงทุนทั้งหมดหรือมากกว่าตามเงื่อนไขผู้ให้บริการ EA เป็นเพียงเครื่องมือช่วยดำเนินกลยุทธ์ ไม่รับประกันผลกำไร โปรดศึกษาข้อมูล เงื่อนไขบัญชี และประเมินความเหมาะสมด้วยตนเองก่อนใช้งาน อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/CustomerAdvisory_MustKnowForex.html" rel="nofollow noopener" target="_blank">CFTC: Eight Things You Should Know Before Trading Forex</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/testing_report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Testing Report</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 18 กันยายน 2026</small></p>

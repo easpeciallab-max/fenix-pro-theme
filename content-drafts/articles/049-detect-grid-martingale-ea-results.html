@@ -1,0 +1,155 @@
+---
+seo_title: วิธีดูว่า EA ใช้ Grid หรือ Martingale จากผลเทรด
+meta_description: ตรวจ Grid และ Martingale จาก Trade List ระยะเปิดออเดอร์ Lot Progression Basket Exit Equity Drawdown และ Margin โดยไม่ตัดสินจาก Win Rate อย่างเดียว
+excerpt: Grid ดูจากการวางตำแหน่งหลายระดับ ส่วน Martingale ดูจากการเพิ่มขนาดหลังผลลัพธ์ไม่ดี ระบบหนึ่งอาจใช้ทั้งสองอย่างพร้อมกัน
+cover_alt: ประวัติออเดอร์ EA แสดง Grid Step Lot Progression Basket Exit และ Equity Drawdown
+---
+<p>การดูว่า EA ใช้ <strong>Grid หรือ Martingale</strong> ต้องตรวจลำดับออเดอร์ ไม่ใช่ดูชื่อผลิตภัณฑ์หรือ Win Rate อย่างเดียว Grid คือรูปแบบวาง Position หลายระดับราคา ส่วน Martingale โดยทั่วไปคือการเพิ่มขนาดความเสี่ยงหลังขาดทุนหรือเมื่อสถานการณ์สวนทาง ระบบหนึ่งอาจใช้ Grid โดย Lot เท่ากัน, Martingale โดยไม่ใช้ Grid หรือผสมทั้งสองแบบ</p>
+
+<p>ผู้ขายอาจใช้คำอื่น เช่น Recovery, Averaging, Basket หรือ Smart Money Management คำเรียกไม่สำคัญเท่า Logic จริง: เปิดเพิ่มเมื่อใด Lot เปลี่ยนอย่างไร และมีจุดหยุดตรงไหน</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#definitions">แยก Grid กับ Martingale</a></li>
+<li><a href="#tradelist">อ่าน Trade List ทีละคอลัมน์</a></li>
+<li><a href="#equity">ดู Balance และ Equity</a></li>
+<li><a href="#patterns">รูปแบบที่พบบ่อย</a></li>
+<li><a href="#questions">ข้อมูลที่ต้องขอเพิ่ม</a></li>
+<li><a href="#stress">วิธี Stress Test</a></li>
+</ul>
+</nav>
+
+<h2 id="definitions">Grid และ Martingale ไม่ใช่คำเดียวกัน</h2>
+
+<table>
+<thead>
+<tr>
+<th>ระบบ</th>
+<th>สิ่งที่สังเกต</th>
+<th>ความเสี่ยงหลัก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grid Fixed Lot</td>
+<td>เปิดหลายระดับด้วย Lot ใกล้เคียงกัน</td>
+<td>จำนวน Position/Exposure สะสม</td>
+</tr>
+<tr>
+<td>Grid Progressive Lot</td>
+<td>เปิดหลายระดับและ Lot เพิ่มตามชั้น</td>
+<td>Exposure โตเร็วกว่าจำนวนออเดอร์</td>
+</tr>
+<tr>
+<td>Martingale by Loss</td>
+<td>Lot รอบถัดไปเพิ่มหลัง Trade แพ้</td>
+<td>Loss Streak ทำให้ Risk โต</td>
+</tr>
+<tr>
+<td>Basket Recovery</td>
+<td>เพิ่ม/เฉลี่ยแล้วปิดหลายออเดอร์พร้อมกัน</td>
+<td>Floating Drawdown และ Margin Tail</td>
+</tr>
+</tbody>
+</table>
+
+<p>อ่านพื้นฐานแยกที่ <a href="https://fenixpro-th.com/grid-ea-risks/">Grid EA เสี่ยงอย่างไร</a> และ <a href="https://fenixpro-th.com/martingale-ea-risks/">Martingale EA เสี่ยงอย่างไร</a></p>
+
+<h2 id="tradelist">คอลัมน์ที่ต้องเรียงตามเวลา</h2>
+
+<h3>Open Time และ Price</h3>
+<p>หากออเดอร์ทิศเดียวกันเปิดเมื่อราคาห่างเป็นช่วงใกล้เคียงกัน อาจเป็น Grid Step ตรวจว่าระยะคงที่หรือขยายตาม ATR/Volatility และมีออเดอร์สูงสุดหรือไม่</p>
+
+<h3>Volume/Lot</h3>
+<p>คำนวณอัตราส่วน Lot ระหว่างชั้น ไม่ดูเลขด้วยตาอย่างเดียว Lot อาจเพิ่มแบบคูณ บวกคงที่ หรือปรับตาม Equity หาก Lot เพิ่มหลัง Loss/Basket ลึก ต้องหาขีดจำกัดและ Worst-case Sequence</p>
+
+<h3>Direction และ Symbol</h3>
+<p>Grid อาจเปิดฝั่งเดียว เฮดจ์สองฝั่ง หรือกระจายหลาย Symbol การเปิด Buy/Sell พร้อมกันไม่ได้ลบ Gross Exposure/ต้นทุน และอาจเป็นคนละ Basket</p>
+
+<h3>Close Time/Price</h3>
+<p>หากหลาย Ticket ปิดเวลาเดียวกันหรือราคาใกล้กัน แสดงว่าใช้ Basket Exit ตรวจว่าปิดจากกำไรรวม, Average Price + Target, Equity หรือ Emergency Stop</p>
+
+<h3>Comment/Magic</h3>
+<p>ใช้แบ่ง Strategy/Basket แต่ Comment อาจเปลี่ยนโดย Broker และผู้ขายอาจไม่แสดง Magic ใน Report ต้องขอ Export/Log หากจำเป็น</p>
+
+<h2 id="equity">Balance สวย แต่ Equity อาจบอกอีกเรื่อง</h2>
+
+<p>Grid/Martingale ที่ปิดกำไรเล็กบ่อยอาจทำให้ Balance Curve ไต่ขึ้นต่อเนื่อง ขณะที่ Equity ลดลึกระหว่างถือ Basket เมื่อราคากลับ ระบบปิดทั้งหมดแล้ว Balance กระโดดขึ้น ภาพ Balance อย่างเดียวจึงซ่อนระยะเวลาและขนาด Floating Loss</p>
+
+<p>ตรวจ:</p>
+<ul>
+<li>ช่องว่างสูงสุดระหว่าง Balance กับ Equity</li>
+<li>Equity Drawdown และ Drawdown Duration</li>
+<li>Maximum Deposit Load/Margin Level</li>
+<li>Open Positions ณ จุดจบ Backtest</li>
+<li>Worst Basket Loss เทียบ Average Basket Profit</li>
+<li>จำนวนชั้นและ Lot รวม ณ จุด Equity ต่ำสุด</li>
+</ul>
+
+<p>ใช้ <a href="https://fenixpro-th.com/read-equity-curve-ea/">วิธีอ่าน Equity Curve</a> และ <a href="https://fenixpro-th.com/read-ea-backtest/">วิธีอ่านผล Backtest</a> เพื่อไม่ตัดสินจาก Total Net Profit</p>
+
+<h2 id="patterns">Pattern ที่ชี้ว่าต้องตรวจลึก</h2>
+
+<ul>
+<li>Win Rate สูงมาก แต่ Largest Loss ใหญ่กว่า Average Win หลายเท่า</li>
+<li>Trade ปิดกำไรจำนวนมาก แต่มี Basket ถือยาว/Swap สูง</li>
+<li>Lot เพิ่มเป็น 0.01, 0.02, 0.04 หรือ Pattern ที่โตตามชั้น</li>
+<li>ระยะเวลาเปิดออเดอร์ใหม่ถี่ขึ้นเมื่อราคา Trend สวนทาง</li>
+<li>Trade หลายใบปิดพร้อมกันที่กำไรรวมเล็ก</li>
+<li>Maximum Consecutive Loss ต่ำ แต่ Equity Drawdown สูง</li>
+<li>Backtest จบก่อนช่วง Trend/Crash สำคัญหรือมี Position ค้าง</li>
+</ul>
+
+<p>Pattern เหล่านี้ไม่พิสูจน์ว่าเป็นระบบไม่ดีหรือหลอกลวง แต่บอกว่า Average Metric ไม่พอ ต้องขอ Logic Limit และ Stress Test Tail Event</p>
+
+<h2 id="questions">ขีดจำกัดที่ต้องรู้</h2>
+
+<ol>
+<li>Grid Step คงที่หรือ Dynamic และ Minimum Distance เท่าไร</li>
+<li>Maximum Layers/Positions ต่อ Basket, Symbol และบัญชี</li>
+<li>Lot Progression Formula และ Maximum Lot</li>
+<li>Basket Stop, Equity Stop และ Margin Guard อยู่ที่ใด</li>
+<li>ระบบทำอย่างไรเมื่อ Spread ขยาย, Gap หรือปิดออเดอร์ไม่ครบ</li>
+<li>Restart/License ขาดแล้วกู้ Basket State อย่างไร</li>
+<li>ผู้ใช้ปิดบาง Ticket เอง ระบบเปิดทดแทนหรือคำนวณ Average ใหม่อย่างไร</li>
+</ol>
+
+<p>หากไม่มี Maximum Layers/Lot/Stop ให้ถือว่า Maximum Exposure ยังไม่ถูกนิยาม ไม่ควรประมาณจากจำนวนชั้นสูงสุดที่บังเอิญเกิดใน Backtest</p>
+
+<h2 id="stress">Stress Test ให้เห็น Tail Risk</h2>
+
+<ul>
+<li>เลือกช่วง Trend ยาวและ Mean Reversion ไม่เกิดตามระยะปกติ</li>
+<li>เพิ่ม Spread/Slippage/Swap และจำลอง Gap</li>
+<li>เริ่ม Backtest หลายวันเพื่อไม่ให้ Initial Timing ช่วยระบบ</li>
+<li>ทดสอบทุน/Leverage ต่ำลงและ Specification หลาย Broker</li>
+<li>ขยายจำนวนชั้นตาม Logic จนถึง Hard Limit</li>
+<li>ทำ Monte Carlo/Trade Sequence เมื่อ Martingale อิง Loss Streak</li>
+<li>ตรวจ Stop Out/Margin Level ก่อน Exit ของระบบ</li>
+</ul>
+
+<p>งานวิจัย/การจำลองที่กล่าวถึง Grid/Martingale ชี้ให้เห็นว่าผลตอบแทนที่เรียบในสภาวะหนึ่งอาจแลกกับ Drawdown Tail เมื่อราคาเคลื่อนทิศเดียวเป็นเวลานาน จึงต้องรายงาน Worst Scenario ไม่ใช้ Win Rate เป็น Risk Metric</p>
+
+<h2>ขั้นตอนตรวจภายใน 15 นาที</h2>
+
+<ol>
+<li>Export Trade List และ Sort ตาม Symbol/Open Time</li>
+<li>Group ออเดอร์ที่เปิดใกล้เวลา/ทิศเดียวกันเป็น Basket</li>
+<li>คำนวณ Price Step และ Lot Ratio</li>
+<li>จับเวลา Basket Start-to-Close และ Floating Drawdown</li>
+<li>ดู Maximum Layer, Gross Lot และ Margin ที่จุดแย่สุด</li>
+<li>เทียบกับ Limit ที่ผู้ขายอธิบาย</li>
+</ol>
+
+<p><strong>สรุป:</strong> Grid ตรวจจากการเพิ่มตำแหน่งตามระดับราคา Martingale ตรวจจากการเพิ่มขนาดหลัง Loss/Adverse Move และระบบผสมต้องวัดทั้งจำนวนชั้นกับ Lot Progression สิ่งสำคัญที่สุดคือ Hard Limit และ Equity Tail ไม่ใช่ชื่อ Strategy</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> Grid และ Martingale สามารถสะสม Exposure, Floating Loss และ Margin Usage อย่างรวดเร็ว ผลกำไรสม่ำเสมอในอดีตไม่รับประกันว่าจะทน Trend, Gap หรือ Loss Streak ในอนาคตได้ โปรดทดสอบและใช้ทุนที่พร้อมรับความเสี่ยง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading/report" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Trading Report and Risk Metrics</a></li>
+<li><a href="https://doi.org/10.3390/a19060442" rel="nofollow noopener" target="_blank">Algorithms: Grid/Martingale Exposure and Drawdown Analysis</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 2 พฤศจิกายน 2026</small></p>

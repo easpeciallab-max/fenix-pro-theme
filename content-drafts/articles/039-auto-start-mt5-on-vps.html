@@ -1,0 +1,146 @@
+---
+seo_title: วิธีตั้ง MT5 เปิดอัตโนมัติหลัง VPS Restart
+meta_description: ตั้ง Auto Start MT5 บน VPS ด้วย Startup หรือ Task Scheduler พร้อมลำดับเปิดหลาย Terminal ตรวจ Connection EA Preset และป้องกันส่งออเดอร์ซ้ำ
+excerpt: การเปิด MT5 อัตโนมัติเป็นเพียงขั้นแรก ระบบต้องรอ User Session, Connection และ State พร้อมก่อนอนุญาต EA ส่งคำสั่ง
+cover_alt: หน้าตั้ง Task Scheduler ให้ MT5 เปิดอัตโนมัติหลัง VPS Restart พร้อมรายการตรวจระบบ
+---
+<p>VPS อาจ Restart จาก Windows Update, Maintenance หรือเหตุขัดข้อง หาก MT5 ไม่เปิดกลับ EA จะหยุดรับ Tick และจัดการ Logic ที่ทำงานฝั่ง Terminal การตั้ง <strong>Auto Start MT5</strong> จึงควรเป็นส่วนหนึ่งของ Recovery Runbook แต่การเห็นหน้าต่าง Terminal เปิดไม่ได้แปลว่าระบบพร้อมส่งคำสั่งแล้ว</p>
+
+<p>ต้องแยกสองเหตุการณ์: <strong>System Startup</strong> เกิดเมื่อ Windows Boot และ <strong>User Logon</strong> เกิดเมื่อบัญชีผู้ใช้เข้าสู่ Session โปรแกรมแบบ Desktop เช่น MT5 อาจต้องทำงานใน User Session ที่เหมาะสม จึงต้องเลือก Trigger, User Account และสิทธิ์ตาม Environment แล้วทดสอบ Reboot จริง</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#methods">วิธีเปิดอัตโนมัติที่ใช้บ่อย</a></li>
+<li><a href="#task">ตั้ง Task Scheduler อย่างเป็นระบบ</a></li>
+<li><a href="#multiple">เปิดหลาย Terminal โดยไม่ชนกัน</a></li>
+<li><a href="#guard">Startup Guard ของ EA</a></li>
+<li><a href="#test">วิธีทดสอบหลัง Reboot</a></li>
+<li><a href="#failures">สาเหตุที่ Task ทำงานแต่ MT5 ไม่พร้อม</a></li>
+</ul>
+</nav>
+
+<h2 id="methods">Startup Folder, Run Key และ Task Scheduler</h2>
+
+<table>
+<thead>
+<tr>
+<th>วิธี</th>
+<th>ข้อดี</th>
+<th>ข้อจำกัด</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Startup Folder</td>
+<td>ตั้งง่าย เห็น Shortcut ชัด</td>
+<td>เริ่มเมื่อ User Logon และควบคุม Delay/Retry จำกัด</td>
+</tr>
+<tr>
+<td>Run Registry</td>
+<td>ทำงานเมื่อ User Logon</td>
+<td>ลำดับเปิดหลายโปรแกรมไม่แน่นอนและดูแลยากกว่า Shortcut</td>
+</tr>
+<tr>
+<td>Task Scheduler</td>
+<td>กำหนด User, Trigger, Delay, Retry และ History ได้</td>
+<td>ต้องตั้ง Session/Permission/Path ให้ถูกและทดสอบ UI Application</td>
+</tr>
+</tbody>
+</table>
+
+<p>สำหรับ MT5 หลาย Terminal มักใช้ Task Scheduler เพราะตั้ง Delay แยกและดู Last Run Result ได้ แต่ไม่ควรเลือก “Run whether user is logged on or not” โดยไม่ทดสอบ เพราะ Task อาจอยู่ใน Non-interactive Session และโปรแกรม Desktop/Automation บางแบบทำงานไม่เหมือนตอนผู้ใช้ล็อกอิน</p>
+
+<h2 id="task">ขั้นตอนวาง Task Scheduler</h2>
+
+<ol>
+<li>ยืนยัน Path ของ <code>terminal64.exe</code> และ Shortcut Argument ของ Terminal เป้าหมาย</li>
+<li>เปิด Task Scheduler ด้วยสิทธิ์ที่อนุญาตและเลือก Create Task</li>
+<li>ตั้งชื่อที่มี Terminal ID เช่น <code>MT5-T01-START</code></li>
+<li>เลือก User Account เดียวกับที่ติดตั้ง/มี Data Folder และ Credential ตามนโยบาย</li>
+<li>สร้าง Trigger แบบ At log on สำหรับ User นั้น หรือ At startup ตามวิธีที่ทดสอบผ่าน</li>
+<li>ตั้ง Delay เพื่อรอ Network/Service และลด Load Spike</li>
+<li>Action เลือก Start a program ใส่ Program, Argument และ Start in Directory ให้ครบ</li>
+<li>กำหนด Retry หาก Task ล้มเหลว แต่จำกัดจำนวนครั้งเพื่อป้องกัน Process ซ้ำ</li>
+<li>เปิด Task History/Logging และ Export XML เก็บไว้กับ Runbook</li>
+</ol>
+
+<p>Windows ระบุว่า Logon Trigger จะเริ่ม Action เมื่อ User ที่กำหนดเข้าสู่ระบบ ส่วน On-start เริ่มเมื่อระบบ Boot การเลือกต้องสอดคล้องกับวิธีรักษา Session ของ VPS ไม่ควรเปิด Auto Logon แบบไม่มีการควบคุมเพียงเพื่อให้ MT5 เริ่มง่ายขึ้น</p>
+
+<h2 id="multiple">หลาย Terminal ต้องเปิดแบบ Staggered</h2>
+
+<p>หากเปิดห้า Terminal พร้อมกัน ทุก Process อาจ Sync History, Login และอ่านไฟล์ในเวลาเดียวกัน ทำให้ CPU/Disk/Network พุ่ง ตั้ง Delay เช่น Terminal ถัดไปรอหลังตัวก่อนตามช่วงที่ทีมทดสอบ ไม่ใช้ค่าตายตัวจากเครื่องอื่น</p>
+
+<p>แต่ละ Task ต้องมี:</p>
+<ul>
+<li>Executable Path เฉพาะ Terminal</li>
+<li>Argument เช่น <code>/portable</code> หรือ Config ที่ถูกต้อง</li>
+<li>Working Directory ถูกชุด</li>
+<li>Terminal ID ในชื่อ Task/Shortcut</li>
+<li>เงื่อนไข “ห้ามเปิดถ้ามี Process ชุดนี้อยู่แล้ว” หรือ Script Guard</li>
+</ul>
+
+<p>ดูการแยกโฟลเดอร์ที่ <a href="https://fenixpro-th.com/run-multiple-mt5-on-vps/">วิธีติดตั้ง MT5 หลาย Terminal บน VPS</a> การเปิด executable ผิด Path อาจพาไป Data Folder/Account คนละชุดแม้หน้าตาเหมือนกัน</p>
+
+<h2 id="guard">Startup Guard ก่อน EA เทรด</h2>
+
+<p>เมื่อ Terminal เปิด EA อาจได้รับ Tick และสัญญาณทันที ควรมีเงื่อนไข Readiness ก่อน Entry:</p>
+
+<ul>
+<li>Account Login และ Server ตรงกับ Allowlist</li>
+<li>Connection พร้อมและ Symbol Synchronization เสร็จ</li>
+<li>เวลา Server/Local อยู่ในช่วงสมเหตุสมผล</li>
+<li>EA Version, Preset, Magic Number และ License ถูกต้อง</li>
+<li>ไม่มี Position/Order ซ้ำจาก Instance อื่น</li>
+<li>Daily Loss/Equity Stop State ถูกโหลดกลับ</li>
+<li>Indicator/History ที่ Logic ต้องใช้มีข้อมูลพอ</li>
+</ul>
+
+<p>ถ้าเงื่อนไขไม่ผ่าน ให้ EA อยู่ใน Safe State: ไม่เปิดออเดอร์ใหม่ แสดงเหตุผลและแจ้งเตือน ไม่ใช้วิธีรอเวลาคงที่อย่างเดียว เพราะ Network/History Sync อาจใช้เวลาต่างกันแต่ละครั้ง</p>
+
+<h2 id="test">ทดสอบ Reboot แบบ Acceptance Test</h2>
+
+<ol>
+<li>เก็บรายการ Position/Pending/State ก่อนทดสอบใน Demo หรือ Maintenance Window</li>
+<li>Restart VPS จริง ไม่ทดสอบเพียง Sign out/Disconnect</li>
+<li>จับเวลาตั้งแต่ Boot ถึงแต่ละ Terminal เริ่มทำงาน</li>
+<li>ตรวจ Task History และ Windows Event Log</li>
+<li>ยืนยัน Account, Server, Chart, EA, Magic, Preset ทุก Terminal</li>
+<li>ตรวจ Expert/Journal ว่า Connection และ History Sync ไม่มี Error</li>
+<li>ยืนยันว่า EA ไม่ส่งออเดอร์ซ้ำจาก State เก่า</li>
+<li>Disconnect RDP แล้วกลับมาตรวจ Log/Process ภายหลัง</li>
+</ol>
+
+<p>ทำ Test ซ้ำหลัง Windows/MT5 Update และเมื่อเปลี่ยน Password/User Policy เพราะ Credential ของ Scheduled Task อาจหมดอายุหรือสิทธิ์เปลี่ยน</p>
+
+<h2 id="failures">Task ขึ้น Running/Success แต่ระบบยังไม่พร้อม</h2>
+
+<ul>
+<li>Task เปิด executable แต่ Process ปิดทันทีเพราะ Path/Permission</li>
+<li>เปิด MT5 อีก Installation หรือ Data Folder ผิด</li>
+<li>Task รันใน Session ที่มองไม่เห็นและ EA/UI ทำงานไม่ครบ</li>
+<li>ไม่มี Network ตอนเริ่ม ทำให้ Login ไม่สำเร็จและไม่มี Retry</li>
+<li>หลาย Task เปิด Process ซ้ำเพราะ Retry ไม่ตรวจ Instance</li>
+<li>Password บัญชี Windows เปลี่ยนแต่ Credential ใน Task ยังเก่า</li>
+<li>Terminal Update แสดง Dialog รอการตอบรับ</li>
+<li>AutoTrading ปิดหรือ EA ไม่ถูก Attach หลัง Profile เสีย</li>
+</ul>
+
+<p>ตรวจจาก Process Path, Task History, Event Viewer และ <a href="https://fenixpro-th.com/mt5-experts-journal-logs/">Experts/Journal Log ของ MT5</a> ไม่สรุปจาก Last Run Result เพียงค่าเดียว</p>
+
+<h2>Monitoring ที่ควรมีหลังตั้ง Auto-start</h2>
+
+<p>Auto-start ที่ไม่มี Monitoring อาจล้มเงียบ ควรตรวจ Heartbeat ของ Terminal/EA, เวลา Tick ล่าสุด, Connection, Process Count และสถานะ AutoTrading พร้อม Alert เมื่อไม่เปลี่ยนตามรอบ ระบบแจ้งเตือนต้องอยู่นอก VPS อย่างน้อยหนึ่งช่องทาง เพื่อให้ยังส่งได้เมื่อเครื่องเป้าหมายล่ม</p>
+
+<p><strong>สรุป:</strong> ตั้ง Task ให้เปิด MT5 เป็นงานหนึ่ง แต่ระบบ Production ต้องมี User Session ที่ถูกต้อง ลำดับเปิดหลาย Terminal, Readiness Guard, Persistent State, Monitoring และ Reboot Test จึงจะกลับมาทำงานได้โดยไม่ส่งคำสั่งซ้ำ</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> Auto-start ไม่รับประกันว่า VPS, MT5 หรือ EA จะกลับมาทำงานสมบูรณ์หลัง Restart ผู้ใช้ต้องตรวจสอบและมีแผนฉุกเฉิน การเทรดด้วย EA มีความเสี่ยงสูง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/taskschd/starting-an-executable-when-a-user-logs-on" rel="nofollow noopener" target="_blank">Microsoft Learn: Starting an Executable at User Logon</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/schtasks-create" rel="nofollow noopener" target="_blank">Microsoft Learn: Create Scheduled Tasks</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/start" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Platform Start and Command Line</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 12 ตุลาคม 2026</small></p>

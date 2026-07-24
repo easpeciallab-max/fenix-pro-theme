@@ -1,0 +1,169 @@
+---
+seo_title: VPS หลุด MT5 ค้าง EA หยุด แก้ทีละจุดอย่างไร
+meta_description: Runbook ตรวจ VPS MT5 และ EA จาก Power Session Process Network Account AutoTrading Chart และ Log ช่วยหาสาเหตุโดยไม่ Restart หรือลบหลักฐานทันที
+excerpt: ตรวจจากชั้นล่างขึ้นบนและเก็บหลักฐานก่อน Restart จะช่วยแยกว่าเครื่องล่ม Network ขาด MT5 ค้าง หรือ EA ถูกปิดจากการตั้งค่า
+cover_alt: ผัง Troubleshooting VPS MT5 ค้างและ EA หยุดทำงานแบบทีละชั้น
+---
+<p>เมื่อ <strong>VPS หลุด, MT5 ค้าง หรือ EA หยุดทำงาน</strong> การ Restart ทุกอย่างทันทีอาจทำให้ระบบกลับมา แต่ลบหลักฐานและไม่แก้ต้นเหตุ วิธีที่ดีกว่าคือแยกชั้น Power, Windows Session, Process, Resource, Network, Account, Platform และ EA แล้วเก็บเวลา/Log ก่อนเปลี่ยนแปลง</p>
+
+<p>หากมี Open Position ให้ทำตาม Emergency/Risk Runbook ก่อนงานวิเคราะห์ ความสำคัญแรกคือทราบ Exposure และควบคุมบัญชีผ่านช่องทางที่ได้รับอนุญาต ไม่ทดลองแก้หลายอย่างพร้อมกันบน Production</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#triage">Triage 5 นาทีแรก</a></li>
+<li><a href="#layers">ตรวจทีละชั้น</a></li>
+<li><a href="#logs">อ่าน Experts และ Journal</a></li>
+<li><a href="#symptoms">อาการยอดนิยมและสาเหตุ</a></li>
+<li><a href="#restart">Restart อย่างมีหลักฐาน</a></li>
+<li><a href="#prevent">ป้องกันเกิดซ้ำ</a></li>
+</ul>
+</nav>
+
+<h2 id="triage">Triage: หยุดความเสียหายและบันทึกเวลา</h2>
+
+<ol>
+<li>บันทึกเวลาไทย เวลา VPS และเวลา Broker Server</li>
+<li>ตรวจ Open Position/Pending/Equity/Margin ผ่านช่องทางที่เชื่อถือได้</li>
+<li>หากต้องหยุด Entry ใช้วิธีที่ Runbook กำหนด ไม่ลบ EA โดยไม่เก็บ State</li>
+<li>ตรวจหน้า Status ของ VPS Provider และ Broker</li>
+<li>เก็บ Screenshot, Error, Process List และ Resource Metric</li>
+<li>ระบุการเปลี่ยนแปลงล่าสุด เช่น Update, Preset, Password หรือ Terminal ใหม่</li>
+</ol>
+
+<p>แยก “เข้า RDP ไม่ได้” ออกจาก “VPS ล่ม” เพราะ RDP Service/Firewall อาจมีปัญหาแต่ MT5 ยังทำงาน ขณะเดียวกัน RDP เข้าได้ไม่ได้แปลว่า EA พร้อมเทรด ต้องตรวจแต่ละชั้น</p>
+
+<h2 id="layers">ตรวจจากโครงสร้างพื้นฐานขึ้นไป</h2>
+
+<h3>1. Power และ Provider</h3>
+<ul>
+<li>Instance Running, Stopped, Rebooting หรือ Suspended</li>
+<li>มี Maintenance/Incident หรือ Billing Hold หรือไม่</li>
+<li>Console/Serial Console เข้าได้หรือไม่</li>
+<li>Uptime ของ Windows เปลี่ยนหรือไม่</li>
+</ul>
+
+<h3>2. Windows Session</h3>
+<ul>
+<li>User ถูก Sign out หรือเพียง Disconnected</li>
+<li>มี Session ซ้ำทำให้เปิด MT5 สองชุดหรือไม่</li>
+<li>Scheduled Task/Startup ทำงานหลัง Boot หรือไม่</li>
+<li>Event Viewer มี Update, Crash, Disk หรือ Network Event หรือไม่</li>
+</ul>
+
+<h3>3. Process และ Resource</h3>
+<ul>
+<li><code>terminal64.exe</code> อยู่หรือไม่ และ Path ถูก Terminal</li>
+<li>CPU 100%, Memory Pressure, Disk เต็ม/Queue สูงหรือไม่</li>
+<li>มี Backtest, Antivirus Scan หรือ Update แย่งทรัพยากรหรือไม่</li>
+<li>Process Not Responding นานกว่ารอบปกติหรือไม่</li>
+</ul>
+
+<h3>4. Network และ Broker</h3>
+<ul>
+<li>VPS ออก Internet/DNS ได้หรือไม่</li>
+<li>MT5 แสดง No Connection, Invalid Account หรือ Authorization Error</li>
+<li>ชื่อ Account Server ถูกต้องและ Credential ยังใช้ได้หรือไม่</li>
+<li>มี Packet Loss/Route เปลี่ยนหรือ Broker Maintenance หรือไม่</li>
+</ul>
+
+<h3>5. Platform และ EA</h3>
+<ul>
+<li>AutoTrading/Algo Trading เปิดตามนโยบายหรือไม่</li>
+<li>EA ยัง Attach กับ Chart และมีชื่อ/สัญลักษณ์สถานะหรือไม่</li>
+<li>Allow Algo Trading, DLL/WebRequest ตามที่ระบบต้องใช้ถูกต้องหรือไม่</li>
+<li>Market เปิด Symbol Trade Enabled และมี Tick ใหม่หรือไม่</li>
+<li>Daily Limit, Equity Stop หรือ License Lock หยุดระบบตามแผนหรือไม่</li>
+</ul>
+
+<p>บทความ <a href="https://fenixpro-th.com/ea-not-working-mt5/">EA ไม่ทำงานบน MT5</a> ช่วยไล่ตรวจระดับ Platform/EA ส่วน <a href="https://fenixpro-th.com/mt5-no-connection-invalid-account/">No Connection และ Invalid Account</a> เน้นปัญหา Login/Server</p>
+
+<h2 id="logs">Experts และ Journal บอกคนละส่วน</h2>
+
+<p>MetaTrader 5 แยก:</p>
+<ul>
+<li><strong>Experts:</strong> ข้อความจาก EA/Indicator เช่น Initialization, Signal, Order และ Error ของ Logic</li>
+<li><strong>Journal:</strong> Platform Start, Network, Authorization, Trade Operation และเหตุการณ์ระบบ</li>
+</ul>
+
+<p>ก่อน Clear หรือ Restart ให้เปิด Context Menu &gt; Open/บันทึกไฟล์ Log ตามวันที่ จด Timestamp และค้นคำ เช่น <code>error</code>, <code>failed</code>, <code>no connection</code>, <code>invalid</code>, <code>disabled</code> แต่ต้องอ่านบรรทัดก่อน-หลัง ไม่ตัด Error Code เดี่ยวออกจากบริบท</p>
+
+<p>ใช้คู่มือ <a href="https://fenixpro-th.com/mt5-experts-journal-logs/">วิธีอ่าน Experts และ Journal Log</a> และส่งเฉพาะข้อมูลที่ไม่เปิดเผย Login/ข้อมูลส่วนตัวให้ Support</p>
+
+<h2 id="symptoms">จับคู่ “อาการ” กับจุดตรวจ</h2>
+
+<table>
+<thead>
+<tr>
+<th>อาการ</th>
+<th>จุดตรวจแรก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>เข้า RDP ไม่ได้</td>
+<td>Provider Status, Power, Console, RDP Service/Firewall</td>
+</tr>
+<tr>
+<td>RDP ได้แต่ MT5 หาย</td>
+<td>Uptime, Session, Task Scheduler, Process Crash</td>
+</tr>
+<tr>
+<td>MT5 เปิดแต่ราคาไม่เดิน</td>
+<td>Market Hours, Connection, Server, Symbol Tick</td>
+</tr>
+<tr>
+<td>ราคาเดินแต่ EA ไม่เปิด</td>
+<td>AutoTrading, EA State, Signal Filter, Risk Lock, Log</td>
+</tr>
+<tr>
+<td>EA เปิดซ้ำ</td>
+<td>Session/Process ซ้ำ, Magic, Chart ซ้ำ, Auto-start Retry</td>
+</tr>
+<tr>
+<td>MT5 ช้ามาก</td>
+<td>CPU, RAM, Disk, Chart/Symbol Count, Tester/Update</td>
+</tr>
+</tbody>
+</table>
+
+<p>“EA ไม่เปิดออเดอร์” อาจเป็นพฤติกรรมถูกต้องเมื่อไม่มี Signal หรือ Risk Limit ทำงาน จึงต้องแยก Not Trading by Design จาก Failure โดยให้ EA Log Reason Code เช่น No Signal, Spread Filter, Session Filter, Limit Locked หรือ Trade Disabled</p>
+
+<h2 id="restart">Restart เมื่อจำเป็นโดยไม่ทำลายข้อมูล</h2>
+
+<p>ก่อน Restart:</p>
+<ol>
+<li>บันทึก Position/Pending/Risk State</li>
+<li>Copy/Archive Log และ Event ที่เกี่ยวข้อง</li>
+<li>บันทึก Process/Resource/Network Snapshot</li>
+<li>ตรวจว่ามี State File หรือการปิดแบบ Graceful หรือไม่</li>
+<li>แจ้งผู้รับผิดชอบและกำหนด Rollback</li>
+</ol>
+
+<p>หลัง Restart ให้ใช้ Checklist จาก <a href="https://fenixpro-th.com/auto-start-mt5-on-vps/">Auto-start MT5 หลัง VPS Restart</a> ตรวจ Process Count, Account, Server, EA, Preset, Magic, Connection และ Pending ก่อนเปิด Entry หาก Root Cause ยังไม่ทราบ ให้รัน Risk ลดลงหรือ Demo ตามนโยบาย</p>
+
+<h2 id="prevent">เปลี่ยน Incident เป็นระบบป้องกัน</h2>
+
+<ul>
+<li>สร้าง Monitoring CPU/RAM/Disk/Network/Process/Heartbeat</li>
+<li>ตั้ง Alert ภายนอก VPS และกำหนดผู้รับผิดชอบ</li>
+<li>เก็บ Log ตาม Retention และรวม Timestamp/Terminal ID</li>
+<li>ทำ Change Log ของ Windows, MT5, EA และ Preset</li>
+<li>กำหนด Maintenance Window และ Reboot Test</li>
+<li>มี Backup/Restore Test และ VPS Replacement Runbook</li>
+<li>ทำ Post-incident Review โดยไม่แก้หลายอย่างจนหาสาเหตุไม่ได้</li>
+</ul>
+
+<p>เลือกสเปกและ Headroom ตาม <a href="https://fenixpro-th.com/choose-vps-specs-for-mt5/">คู่มือเลือก VPS สำหรับ MT5</a> และวัด Network ตาม <a href="https://fenixpro-th.com/mt5-vps-latency-ping/">Latency/Ping ของ VPS</a></p>
+
+<p><strong>สรุป:</strong> Troubleshooting ที่เร็วไม่ใช่ Restart เร็วที่สุด แต่คือแยกชั้นได้เร็ว เก็บหลักฐานครบ และมี Runbook ควบคุม Exposure ก่อนเปลี่ยนระบบ เมื่อรู้ชั้นที่เสียจึงแก้จุดเดียวและยืนยันผล</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> ระหว่างระบบขัดข้อง Position อาจยังเคลื่อนไหวและเกิดความเสียหาย VPS/MT5/EA ไม่รับประกันความต่อเนื่อง ผู้ใช้ต้องมี Monitoring และช่องทางจัดการฉุกเฉิน การเทรดมีความเสี่ยงสูง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/journal" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Platform and Experts Logs</a></li>
+<li><a href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/remote/troubleshoot-remote-desktop-disconnected-errors" rel="nofollow noopener" target="_blank">Microsoft Learn: Troubleshoot Remote Desktop Disconnections</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 16 ตุลาคม 2026</small></p>

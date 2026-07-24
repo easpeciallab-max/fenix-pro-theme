@@ -1,0 +1,158 @@
+---
+seo_title: วิธีเลือกสเปก VPS สำหรับ MT5 และ EA ให้เหมาะกับงาน
+meta_description: เลือก CPU RAM SSD Windows และที่ตั้ง VPS สำหรับ MT5 จากจำนวน Terminal กราฟ EA และความถี่ข้อมูล พร้อมวิธี Load Test ก่อนใช้งานจริง
+excerpt: สเปก VPS ที่พอสำหรับ MT5 หนึ่ง Terminal อาจไม่พอเมื่อเพิ่มกราฟหรือ EA ควรเลือกจาก Workload จริงและมี Headroom แทนการยึดตัวเลขชุดเดียว
+cover_alt: แผนเลือกสเปก VPS สำหรับ MT5 แสดง CPU RAM SSD Windows และจำนวน EA
+---
+<p>การเลือก <strong>สเปก VPS สำหรับ MT5</strong> ไม่ควรเริ่มจากแพ็กเกจที่เขียนว่า “รองรับ EA” เพียงอย่างเดียว เพราะ Workload ต่างกันมากตามจำนวน Terminal, Chart, Symbol, Indicator, ความถี่ Tick, EA Logic และงาน Backtest สเปกที่เพียงพอกับ EA หนึ่งตัวอาจค้างเมื่อรันหลายบัญชีหรือเปิด Market Watch จำนวนมาก</p>
+
+<p>วิธีที่แม่นกว่าคือกำหนด Workload เป้าหมาย เลือกเครื่องที่มี Headroom แล้ว Load Test ด้วยชุดงานจริงก่อนย้ายเงินทุน ทั้ง CPU, RAM, Disk, Network และระบบปฏิบัติการต้องผ่านพร้อมกัน เพราะคอขวดเพียงจุดเดียวทำให้ EA รับ Tick หรือส่งคำสั่งไม่ทันได้</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#workload">เริ่มจากรายการ Workload</a></li>
+<li><a href="#cpu">เลือก CPU อย่างไร</a></li>
+<li><a href="#ram">วาง RAM และ Page File</a></li>
+<li><a href="#storage">SSD และพื้นที่เก็บข้อมูล</a></li>
+<li><a href="#network">Network และ Location</a></li>
+<li><a href="#windows">Windows และสิทธิ์ใช้งาน</a></li>
+<li><a href="#test">Load Test ก่อนใช้งานจริง</a></li>
+</ul>
+</nav>
+
+<h2 id="workload">เขียนรายการ Workload ก่อนเทียบราคา</h2>
+
+<table>
+<thead>
+<tr>
+<th>ข้อมูล</th>
+<th>สิ่งที่ต้องจด</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terminal</td>
+<td>จำนวน MT5 ที่เปิดพร้อมกันและจำนวนบัญชี</td>
+</tr>
+<tr>
+<td>Charts</td>
+<td>จำนวนกราฟ, Symbol, Timeframe และ Indicator ต่อกราฟ</td>
+</tr>
+<tr>
+<td>EA</td>
+<td>จำนวน Instance, ความถี่คำนวณ, File/Network I/O และ Dashboard</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>จำนวน Symbol ใน Market Watch, History/Tick ที่ต้องเก็บ</td>
+</tr>
+<tr>
+<td>Operations</td>
+<td>Antivirus, Monitoring, Backup และการ Remote เข้าเครื่อง</td>
+</tr>
+</tbody>
+</table>
+
+<p>แยก Production Trading ออกจาก Backtest/Optimization หากทำได้ Strategy Tester แบบหลาย Agent สามารถใช้ CPU และ RAM สูงเป็นช่วงยาว การรันพร้อม Terminal ที่ส่งคำสั่งจริงทำให้ Latency และความเสถียรแย่โดยไม่จำเป็น</p>
+
+<h2 id="cpu">CPU: ดูความเร็วต่อ Core และโหลดพร้อมกัน</h2>
+
+<p>EA บน Chart หนึ่งมักประมวลผล Event ตามลำดับของ Instance นั้น จึงไม่ควรดูจำนวน vCPU อย่างเดียว ความเร็วต่อ Core, CPU Generation, Steal/Ready Time ในระบบ Virtualization และการ Oversubscribe ของผู้ให้บริการมีผลต่อเวลาประมวลผล</p>
+
+<p>คำถามที่ควรถามผู้ให้บริการ:</p>
+<ul>
+<li>vCPU เป็น Shared, Burstable หรือ Dedicated</li>
+<li>มี Fair-use/CPU Throttling หลังใช้ต่อเนื่องหรือไม่</li>
+<li>แจ้งรุ่นหรืออย่างน้อย Generation ของ CPU หรือไม่</li>
+<li>ปรับขนาดเครื่องโดยไม่เปลี่ยน IP/ล้าง Disk ได้หรือไม่</li>
+<li>มีกราฟ CPU ต่อเนื่องและ Alert หรือไม่</li>
+</ul>
+
+<p>ถ้า Terminal หลายตัวทำงานพร้อมกัน Multi-core ช่วยกระจาย Process ได้ แต่ EA หนักหนึ่ง Instance ไม่ได้เร็วขึ้นเป็นสัดส่วนกับจำนวน Core เสมอ ต้องวัด Peak CPU ตอน Session เปิด ข่าวแรง และตอน Terminal Sync History</p>
+
+<h2 id="ram">RAM: เผื่อ Working Set ไม่ใช่ดูตอนเปิดใหม่</h2>
+
+<p>MT5 ใช้ RAM เพิ่มตามกราฟ ข้อมูลราคา Indicator, EA, Report และ Cache Windows การเปิด Terminal ใหม่แล้วดู Task Manager ทันทีอาจประเมินต่ำ เพราะ History ยังโหลดไม่ครบและ EA ยังไม่เข้าสภาวะตลาดที่มี Tick หนาแน่น</p>
+
+<p>แนวทางวาง RAM:</p>
+<ol>
+<li>เปิด Workload เป้าหมายทั้งหมด</li>
+<li>ปล่อยให้ Sync History และทำงานผ่าน Session สำคัญ</li>
+<li>วัด Working Set และ Commit Charge สูงสุด</li>
+<li>เผื่อ Windows, Antivirus, Update และ Remote Session</li>
+<li>เพิ่ม Headroom สำหรับ Terminal Restart/Update ที่ Process ซ้อนชั่วคราว</li>
+</ol>
+
+<p>หากระบบเริ่มใช้ Page File หนัก Disk Latency จะเพิ่มและ Terminal อาจตอบสนองช้า ไม่ควรแก้ด้วยการปิด Page File แบบเหมารวม แต่ควรเพิ่ม RAM/ลด Workload และตั้ง Monitoring ให้เห็น Memory Pressure</p>
+
+<h2 id="storage">SSD, IOPS และพื้นที่ว่าง</h2>
+
+<p>MT5 เขียน Log, History, Tick, Cache และ Tester Data ต่อเนื่อง หลาย Terminal ทำให้ Random I/O เพิ่ม เลือก SSD ที่มีประสิทธิภาพสม่ำเสมอและมีพื้นที่ว่างสำหรับ Update/History ไม่ใช้ Disk จนเกือบเต็ม</p>
+
+<ul>
+<li>แยกโฟลเดอร์แต่ละ Terminal ให้ชัด</li>
+<li>กำหนดนโยบายเก็บ Log และ Archive แทนการลบโดยไม่ตรวจ</li>
+<li>ไม่ Sync โฟลเดอร์ Data ที่กำลังใช้งานด้วยเครื่องมือซึ่ง Lock File</li>
+<li>สำรอง Preset, Profile และไฟล์ตั้งค่า แต่อย่าถือ Snapshot เป็น Monitoring</li>
+<li>ตรวจ Disk Queue/Latency ไม่ดูเพียงเปอร์เซ็นต์พื้นที่</li>
+</ul>
+
+<h2 id="network">Network: ใกล้ Broker Server สำคัญกว่าคำว่า “เร็ว”</h2>
+
+<p>Bandwidth ที่มากไม่ได้รับประกัน Latency ต่ำ VPS ควรอยู่ใกล้ Trading Server ของ Broker ในเชิงเส้นทาง Network และมี Packet Loss/Jitter ต่ำ การวัดต้องทำจาก VPS ไปยัง Server เป้าหมาย ไม่ใช้ผล Speed Test ไปศูนย์ข้อมูลสุ่มแทน</p>
+
+<p>ตรวจ:</p>
+<ul>
+<li>Average และ Tail Latency ในหลายช่วงเวลา</li>
+<li>Jitter และ Packet Loss</li>
+<li>Route เปลี่ยนในช่วง Peak</li>
+<li>Network Redundancy และ SLA ของผู้ให้บริการ</li>
+<li>ระบบแจ้งเหตุและช่องทาง Support</li>
+</ul>
+
+<p>อ่านภาพรวมเพิ่มเติมที่ <a href="https://fenixpro-th.com/vps-for-ea/">VPS สำหรับ EA คืออะไร</a> และทดสอบ Latency จาก VPS ไปยัง Trading Server จริงก่อนตัดสินใจเลือก Region</p>
+
+<h2 id="windows">Windows, License และสิทธิ์</h2>
+
+<p>ตรวจว่า Image Windows ยังได้รับ Security Update, License ถูกต้อง และรองรับ MT5/เครื่องมือ Remote ที่จะใช้ เลือกภาษา/Timezone ให้ทีมเข้าใจ แต่ Logic EA ควรยึด Broker Server Time ตามที่ออกแบบ ไม่ใช้ Windows Clock แบบไม่ตรวจ</p>
+
+<p>ไม่ควรปิด Windows Update ถาวรเพื่อเลี่ยง Restart ให้กำหนด Maintenance Window, Active Hours, Backup และขั้นตอนตรวจหลัง Patch แทน บัญชี RDP ต้องใช้รหัสผ่านเฉพาะที่แข็งแรง จำกัดผู้มีสิทธิ์ และไม่แชร์บัญชี Administrator โดยไม่มี Audit</p>
+
+<h2 id="test">Load Test และ Acceptance Checklist</h2>
+
+<p>ก่อน Production ให้ติดตั้งตาม <a href="https://fenixpro-th.com/fenix-pro-ea-install-guide/">คู่มือติดตั้ง FENIX PRO EA</a> และรัน Demo ด้วยโครงจริง:</p>
+
+<ol>
+<li>เปิด Terminal/Chart/EA ครบตามจำนวนสูงสุดที่วางแผน</li>
+<li>Sync History และเปิด Monitoring CPU, RAM, Disk, Network</li>
+<li>ทดสอบช่วง Session เปิดและช่วง Tick หนาแน่น</li>
+<li>Restart VPS แล้วตรวจ Auto-start, Login, AutoTrading และ EA State</li>
+<li>Disconnect RDP แล้วตรวจว่า Process/Log ยังเดิน</li>
+<li>จำลอง Disk ใกล้เต็ม, Network ขาดช่วง และ Terminal ค้าง</li>
+<li>วัดต่อเนื่องหลายวันก่อนอนุมัติ Production</li>
+</ol>
+
+<p>เกณฑ์ผ่านควรเขียนเป็นค่าที่วัดได้ เช่น CPU/RAM Headroom ขั้นต่ำตามนโยบายทีม, ไม่มี Memory Pressure, Disk Latency ไม่พุ่งต่อเนื่อง, Terminal รับ Tick/เขียน Log ปกติ และ Alert ส่งถึงผู้รับผิดชอบ</p>
+
+<h2>สรุปการเลือกแพ็กเกจ</h2>
+
+<ul>
+<li>EA/Terminal น้อยและ Logic เบา: เริ่มจากแพ็กเกจเล็กที่ปรับเพิ่มได้แล้ววัดจริง</li>
+<li>หลาย Terminal/หลาย Chart: ให้ความสำคัญกับ RAM, Core และ Disk I/O</li>
+<li>Scalping/Execution-sensitive: ให้ความสำคัญกับ Location, Jitter และ Broker Route</li>
+<li>Backtest/Optimization: แยกจาก Production หรือจัด Maintenance Window</li>
+<li>งานสำคัญ: เลือก Monitoring, Backup, Support และ Recovery มากกว่าสเปกกระดาษ</li>
+</ul>
+
+<p><strong>สรุป:</strong> ไม่มีสเปก VPS ชุดเดียวที่เหมาะกับ EA ทุกตัว เลือกจาก Workload ที่ระบุได้ วัด Peak จริง เผื่อ Headroom และมีแผนขยาย/กู้คืน จึงจะลดความเสี่ยงจากเครื่องที่ดูพอในวันปกติแต่ล้มในเวลาสำคัญ</p>
+
+<p><strong>คำเตือนความเสี่ยง:</strong> VPS ช่วยเพิ่มความต่อเนื่องของระบบ แต่ไม่รับประกันการเชื่อมต่อ การส่งคำสั่ง หรือผลการเทรด ผู้ใช้ต้องติดตามสถานะและมีแผนรับเหตุขัดข้อง การใช้ EA และผลิตภัณฑ์ที่มี Leverage มีความเสี่ยงสูง อ่าน <a href="https://fenixpro-th.com/risk-disclosure/">คำเตือนความเสี่ยงฉบับเต็ม</a></p>
+
+<h2>แหล่งข้อมูล</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/start_advanced/start" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Platform Start and Multiple Installations</a></li>
+<li><a href="https://www.mql5.com/en/vps" rel="nofollow noopener" target="_blank">MQL5: MetaTrader VPS and Network Latency</a></li>
+</ul>
+
+<p><small>ตรวจทานล่าสุด: 6 ตุลาคม 2026</small></p>

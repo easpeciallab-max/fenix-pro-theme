@@ -1,0 +1,145 @@
+---
+seo_title: เปิด EA หลายตัวบน MT5 ได้ไหม? วิธีคุมความเสี่ยงรวม
+meta_description: วิธีเปิด EA หลายตัวหรือหลายกราฟบน MT5 พร้อมหลักแยก Magic Number, คุม Portfolio Exposure, ทรัพยากร VPS และตรวจ Log
+excerpt: MT5 เปิด EA หลายกราฟได้ แต่ความเสี่ยงต้องคิดรวมทั้งพอร์ต เรียนรู้การแยก Magic Number และป้องกันระบบรบกวนกัน
+cover_alt: หน้าจอ MT5 หลายกราฟพร้อม EA และแผงสรุปความเสี่ยงรวม
+---
+<p>MT5 สามารถเปิดหลายกราฟและรัน EA หลายตัวพร้อมกันได้ แต่คำว่า “เปิดได้” ไม่ได้แปลว่า “ควรเปิดโดยไม่จำกัด” ปัญหาหลักไม่ได้มีเพียง CPU หรือ RAM สิ่งที่สำคัญกว่าคือ EA แต่ละตัวแยกออเดอร์ของตนเองถูกต้องหรือไม่ และเมื่อรวมทุกระบบแล้ว Portfolio Exposure, Margin และความเสี่ยงต่อวันยังอยู่ในกรอบที่ยอมรับได้หรือไม่</p>
+
+<p>เอกสาร MetaTrader ระบุว่าในหนึ่งกราฟสามารถรัน Expert Advisor ได้หนึ่งตัว หากนำ EA อีกตัวมาวางบนกราฟเดิม ตัวก่อนหน้าจะถูกแทนที่ ดังนั้นการใช้หลายระบบต้องแยกกราฟหรือแยก Terminal และต้องวางแผน Magic Number, Symbol และบัญชีให้ชัดเจน</p>
+
+<nav aria-label="สารบัญ">
+<p><strong>สารบัญ</strong></p>
+<ul>
+<li><a href="#structure">โครงสร้างที่ใช้ได้</a></li>
+<li><a href="#magic">Magic Number สำคัญอย่างไร</a></li>
+<li><a href="#exposure">วิธีคิดความเสี่ยงรวม</a></li>
+<li><a href="#resources">CPU, RAM และ VPS</a></li>
+<li><a href="#conflicts">ปัญหาที่พบบ่อย</a></li>
+<li><a href="#checklist">เช็กลิสต์ตั้งค่า</a></li>
+</ul>
+</nav>
+
+<h2 id="structure">เปิดหลาย EA ได้ในรูปแบบใดบ้าง</h2>
+
+<h3>หลายกราฟใน MT5 Terminal เดียว</h3>
+<p>เหมาะเมื่อใช้บัญชีเดียวและ EA ออกแบบให้แยกออเดอร์ด้วย Symbol/Magic Number ได้ เปิดกราฟตาม Symbol และ Timeframe ที่คู่มือกำหนด แล้ววาง EA หนึ่งตัวต่อหนึ่งกราฟ ข้อดีคือดูแลง่ายและใช้ทรัพยากรน้อยกว่าหลาย Terminal</p>
+
+<h3>หลาย MT5 Terminal บนเครื่องเดียว</h3>
+<p>ใช้เมื่อต้องแยกบัญชี โบรกเกอร์ หรือชุดระบบให้เป็นอิสระ ต้องติดตั้งแต่ละ Terminal คนละโฟลเดอร์และตรวจ Data Folder ให้ถูกต้อง การคัดลอกไฟล์ EA หรือ Preset ผิด Terminal เป็นสาเหตุที่พบบ่อยเมื่อระบบไม่ทำงาน</p>
+
+<h3>หลาย VPS หรือแยกตามบัญชี</h3>
+<p>เหมาะเมื่อจำเป็นต้องแยกความเสี่ยง การบำรุงรักษา หรือสถานที่ Server แต่มีต้นทุนและภาระดูแลมากขึ้น ไม่จำเป็นต้องแยก VPS ทุกระบบหากเครื่องเดียวมีทรัพยากรเพียงพอและโครงสร้างบัญชีชัดเจน</p>
+
+<p>อ่านขั้นตอนพื้นฐานได้ที่ <a href="https://fenixpro-th.com/how-to-install-ea-mt5/">วิธีลง EA บน MT5</a> และ <a href="https://fenixpro-th.com/vps-for-ea/">การเลือก VPS สำหรับ EA</a></p>
+
+<h2 id="magic">Magic Number คืออะไรและสำคัญอย่างไร</h2>
+
+<p>Magic Number คือหมายเลขที่ EA ใส่ไว้กับคำสั่งหรือ Position เพื่อระบุว่าออเดอร์นั้นมาจากระบบใด ใน MQL5 มีข้อมูล Magic สำหรับอ่าน ID ของ EA ที่เปิด Position หากสองกราฟใช้ Magic เดียวกันและโค้ดเลือกออเดอร์จาก Magic เพียงอย่างเดียว ระบบหนึ่งอาจแก้ไขหรือปิดออเดอร์ของอีกระบบโดยไม่ตั้งใจ</p>
+
+<p>หลักการตั้งค่าที่ควรใช้:</p>
+
+<ul>
+<li>ให้แต่ละกลยุทธ์มี Magic Number ไม่ซ้ำกัน</li>
+<li>หาก EA เดียวกันเปิดหลาย Symbol ตรวจว่าคู่มือให้ใช้ Magic เดียวหรือแยกต่อ Symbol</li>
+<li>บันทึกตารางว่า Magic ใดอยู่กราฟ บัญชี และ Preset ใด</li>
+<li>อย่าเปลี่ยน Magic ขณะที่มีออเดอร์ค้าง หากยังไม่ทราบว่า EA จะจัดการออเดอร์เดิมอย่างไร</li>
+<li>ตรวจ Comment เพิ่มเติม แต่ไม่ใช้ Comment เป็นตัวระบุเพียงอย่างเดียวหากโบรกเกอร์อาจแก้ไขข้อความ</li>
+</ul>
+
+<p>หากคู่มือไม่ได้ระบุ Magic Number หรือวิธีแยกออเดอร์ ควรถามผู้พัฒนาก่อนเปิดหลายกราฟ เพราะการเดาค่าเองอาจทำให้ระบบไม่ติดตาม Position เดิมหรือจัดการออเดอร์ผิดชุด</p>
+
+<h2 id="exposure">วิธีคิดความเสี่ยงรวมเมื่อเปิดหลายระบบ</h2>
+
+<p>ข้อผิดพลาดที่พบบ่อยคือกำหนด Risk per Trade ให้แต่ละ EA แยกกัน แล้วสมมติว่าพอร์ตรวมยังเสี่ยงเท่าเดิม หากหลายระบบเปิดพร้อมกัน ความเสี่ยงรวมอาจเป็นผลบวกของทุกสถานะ และถ้า Symbol มีความสัมพันธ์กัน ความเสียหายอาจเกิดพร้อมกัน</p>
+
+<p>ควรติดตามอย่างน้อย 5 ค่า:</p>
+
+<ol>
+<li><strong>Open Risk รวม</strong> จำนวนเงินที่อาจเสียหากทุก Stop Loss ถูกเรียกตามระดับที่ตั้งไว้</li>
+<li><strong>Lot และ Notional Exposure รวม</strong> แยกตาม Symbol และทิศทาง</li>
+<li><strong>Margin Used และ Margin Level</strong> หลังรวม Pending Order และ Position</li>
+<li><strong>Daily Loss รวม</strong> ไม่ให้แต่ละ EA เริ่มรอบใหม่จนเกินเพดานของพอร์ต</li>
+<li><strong>Correlation</strong> เช่น EA หลายตัวอาจเปิดความเสี่ยงต่อ USD หรือทองในทิศทางเดียวกัน</li>
+</ol>
+
+<p>หาก EA ไม่มี Stop Loss รายออเดอร์ ต้องประเมินจาก Basket Stop หรือ Equity Stop และจำลองสถานการณ์ที่หลายระบบขาดทุนพร้อมกัน ไม่ใช้ผลเฉลี่ยของแต่ละตัวแยกกัน อ่านพื้นฐานเพิ่มที่ <a href="https://fenixpro-th.com/money-management/">Money Management</a> และ <a href="https://fenixpro-th.com/what-is-drawdown/">การอ่าน Drawdown</a></p>
+
+<h2 id="resources">CPU, RAM, Disk และ Network ต้องพอแค่ไหน</h2>
+
+<p>การใช้ทรัพยากรขึ้นอยู่กับจำนวนกราฟ Indicator, Tick, Log, History และความซับซ้อนของ EA ไม่สามารถสรุปจากจำนวน EA อย่างเดียว ควรเริ่มจากสเปกที่มีพื้นที่เผื่อและวัดการใช้งานจริง</p>
+
+<ul>
+<li><strong>CPU</strong> สำคัญเมื่อ EA คำนวณถี่หรือเปิดหลายกราฟพร้อมกัน</li>
+<li><strong>RAM</strong> เพิ่มตามจำนวน Terminal, กราฟ และข้อมูลที่โหลด</li>
+<li><strong>Disk</strong> ใช้เก็บ History, Tick, Log และไฟล์ของแต่ละ Terminal ควรเหลือพื้นที่สำหรับ Update</li>
+<li><strong>Network</strong> ต้องเสถียรและเชื่อมต่อ Trade Server ต่อเนื่อง ไม่ดูเพียงความเร็วดาวน์โหลดสูงสุด</li>
+</ul>
+
+<p>ใน Windows ให้ดู Task Manager และ Resource Monitor ช่วงตลาดเคลื่อนไหวจริง หาก CPU หรือ RAM แตะระดับสูงต่อเนื่อง ควรลดภาระหรือเพิ่มทรัพยากรก่อนเพิ่มระบบใหม่</p>
+
+<h2 id="conflicts">ปัญหาที่พบบ่อยเมื่อเปิดหลาย EA</h2>
+
+<table>
+<thead>
+<tr>
+<th>อาการ</th>
+<th>สาเหตุที่ควรตรวจ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EA ตัวหนึ่งปิดออเดอร์ของอีกตัว</td>
+<td>Magic Number ซ้ำ หรือโค้ดเลือก Position จาก Symbol โดยไม่แยก Magic</td>
+</tr>
+<tr>
+<td>วาง EA ใหม่แล้วตัวเดิมหาย</td>
+<td>วางสอง EA บนกราฟเดียวกัน</td>
+</tr>
+<tr>
+<td>MT5 ค้างหรือส่งคำสั่งช้า</td>
+<td>CPU/RAM ไม่พอ Log มาก หรืออินเทอร์เน็ตไม่เสถียร</td>
+</tr>
+<tr>
+<td>ไฟล์ Preset ไม่ตรง</td>
+<td>โหลด SET ผิดกราฟ ผิด Symbol หรือผิดเวอร์ชัน</td>
+</tr>
+<tr>
+<td>Margin ลดเร็ว</td>
+<td>หลายระบบเปิดทิศทางเดียวกันหรือสะสมออเดอร์พร้อมกัน</td>
+</tr>
+<tr>
+<td>Restart แล้วบาง EA ไม่กลับมาทำงาน</td>
+<td>Profile, AutoTrading, Login หรือ Startup ของ Terminal ไม่ครบ</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="checklist">เช็กลิสต์ก่อนเปิดหลาย EA</h2>
+
+<ul>
+<li>แยกกราฟให้แต่ละ EA และตรวจชื่อ Symbol/Timeframe</li>
+<li>กำหนด Magic Number ไม่ซ้ำตามคู่มือ</li>
+<li>บันทึก Preset และ Version ของทุกกราฟ</li>
+<li>คำนวณ Risk, Lot, Margin และ Daily Loss รวมทั้งพอร์ต</li>
+<li>ทดสอบหลายระบบพร้อมกันบน Demo ไม่ทดสอบแยกอย่างเดียว</li>
+<li>ดู CPU, RAM, Disk และ Network ในช่วงตลาดเคลื่อนไหว</li>
+<li>ตรวจ Experts/Journal ว่าไม่มี Error หรือออเดอร์ถูกปฏิเสธ</li>
+<li>วางแผน Restart, Update และ Backup โดยไม่ทำให้ทุกระบบหยุดพร้อมกัน</li>
+<li>เพิ่มระบบใหม่ทีละตัวและเฝ้าดูพฤติกรรมก่อนเพิ่มความเสี่ยง</li>
+</ul>
+
+<p>การเปิดหลาย EA ช่วยกระจาย “กลยุทธ์” ได้ก็ต่อเมื่อระบบไม่ได้เสี่ยงต่อปัจจัยเดียวกันทั้งหมด การมีหลายชื่อหรือหลายกราฟไม่ใช่การกระจายความเสี่ยงโดยอัตโนมัติ</p>
+
+<aside>
+<p><strong>คำเตือนความเสี่ยง:</strong> การใช้หลาย EA สามารถเพิ่ม Exposure, Margin Used และขาดทุนพร้อมกันได้ ต้องประเมินความเสี่ยงระดับพอร์ต ไม่ใช่ดูแต่ละระบบแยกกัน ผล Backtest ของแต่ละ EA ไม่ได้จำลองปฏิสัมพันธ์ของทั้งพอร์ตเสมอไป</p>
+</aside>
+
+<h2>แหล่งข้อมูลอ้างอิง</h2>
+<ul>
+<li><a href="https://www.metatrader5.com/en/terminal/help/algotrading/trade_robots_indicators" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Running Expert Advisors on charts</a></li>
+<li><a href="https://www.mql5.com/en/docs/standardlibrary/tradeclasses/cpositioninfo/cpositioninfomagic" rel="nofollow noopener" target="_blank">MQL5 Reference: Position Magic</a></li>
+<li><a href="https://www.metatrader5.com/en/terminal/help/trading_advanced/margin_forex" rel="nofollow noopener" target="_blank">MetaTrader 5 Help: Margin calculation for multiple positions</a></li>
+</ul>
+
+<p><small>ตรวจทานเนื้อหาล่าสุด: 24 กรกฎาคม 2026</small></p>

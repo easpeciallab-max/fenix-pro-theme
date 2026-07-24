@@ -20,5 +20,11 @@ desktop.ini
 node_modules/
 vendor/
 
+# Regenerable SEO draft outputs. Keep only the final WXR handoff file.
+content-drafts/generated/covers/
+content-drafts/generated/imports/fenix-content-*.xml
+!content-drafts/generated/imports/fenix-content-001-050.xml
+content-drafts/generated/imports/fenix-content-import-seed.json
+
 # WP Pusher ดึงทั้งโฟลเดอร์ fenix-pro/ ไปติดตั้ง อย่า commit ไฟล์ลับใด ๆ
 # (ค่า config เช่น LINE URL / ราคา อยู่ใน WordPress DB ผ่าน Customizer ไม่ใช่ในโค้ด)
