@@ -1599,6 +1599,92 @@ add_action( 'wp_ajax_fenix_load_more', 'fenix_load_more' );
 add_action( 'wp_ajax_nopriv_fenix_load_more', 'fenix_load_more' );
 
 /* --------------------------------------------------------------
+ * Production security hardening
+ * -------------------------------------------------------------- */
+
+/**
+ * Disable comments and pingbacks even if an individual post is misconfigured.
+ */
+function fenix_disable_discussion_support() {
+	remove_post_type_support( 'post', 'comments' );
+	remove_post_type_support( 'post', 'trackbacks' );
+	remove_post_type_support( 'page', 'comments' );
+	remove_post_type_support( 'page', 'trackbacks' );
+}
+add_action( 'init', 'fenix_disable_discussion_support', 100 );
+add_filter( 'comments_open', '__return_false', 20, 2 );
+add_filter( 'pings_open', '__return_false', 20, 2 );
+add_filter( 'comments_array', '__return_empty_array', 10, 2 );
+
+/**
+ * Remove comment management links from the dashboard.
+ */
+function fenix_remove_comments_admin_menu() {
+	remove_menu_page( 'edit-comments.php' );
+}
+add_action( 'admin_menu', 'fenix_remove_comments_admin_menu', 100 );
+
+function fenix_remove_comments_admin_bar( $wp_admin_bar ) {
+	$wp_admin_bar->remove_node( 'comments' );
+}
+add_action( 'admin_bar_menu', 'fenix_remove_comments_admin_bar', 100 );
+
+/**
+ * Disable XML-RPC and remove its public discovery links.
+ */
+add_filter( 'xmlrpc_enabled', '__return_false' );
+add_filter( 'xmlrpc_methods', '__return_empty_array' );
+remove_action( 'wp_head', 'rsd_link' );
+remove_action( 'wp_head', 'wlwmanifest_link' );
+
+/**
+ * Block the public REST user directory while keeping it available to editors.
+ *
+ * @param mixed           $result  Response to replace, or null.
+ * @param WP_REST_Server  $server  REST server instance.
+ * @param WP_REST_Request $request Current REST request.
+ * @return mixed
+ */
+function fenix_restrict_public_user_rest_api( $result, $server, $request ) {
+	unset( $server );
+
+	if ( is_user_logged_in() ) {
+		return $result;
+	}
+
+	if ( 0 === strpos( $request->get_route(), '/wp/v2/users' ) ) {
+		return new WP_Error(
+			'rest_user_directory_forbidden',
+			__( 'The user directory is not public.', 'fenix-pro' ),
+			array( 'status' => 403 )
+		);
+	}
+
+	return $result;
+}
+add_filter( 'rest_pre_dispatch', 'fenix_restrict_public_user_rest_api', 10, 3 );
+
+/**
+ * Remove unnecessary disclosure headers and disable sensitive browser APIs.
+ *
+ * @param array $headers Response headers.
+ * @return array
+ */
+function fenix_harden_response_headers( $headers ) {
+	unset( $headers['X-Pingback'] );
+	$headers['Permissions-Policy'] = 'camera=(), microphone=(), geolocation=()';
+	return $headers;
+}
+add_filter( 'wp_headers', 'fenix_harden_response_headers', 20 );
+
+function fenix_remove_powered_by_header() {
+	if ( function_exists( 'header_remove' ) ) {
+		header_remove( 'X-Powered-By' );
+	}
+}
+add_action( 'send_headers', 'fenix_remove_powered_by_header', 100 );
+
+/* --------------------------------------------------------------
  * Customizer
  * -------------------------------------------------------------- */
 require get_template_directory() . '/inc/customizer.php';
