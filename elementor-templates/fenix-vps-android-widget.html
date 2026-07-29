@@ -1,0 +1,199 @@
+﻿<style>
+.fenix-vps-android {
+  --bg:#0e0e0f;
+  --panel:#1b1c1f;
+  --panel2:#242529;
+  --text:#f6f6f6;
+  --muted:#c9cbd1;
+  --soft:#8f949f;
+  --orange:#ff8400;
+  --orange2:#ffb148;
+  --line:#444852;
+  --green:#21d260;
+  position:relative;
+  width:100%;
+  margin:0;
+  overflow-x:hidden;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body, inherit);
+  line-height:1.55;
+}
+.fenix-vps-android * { box-sizing:border-box; }
+.fenix-vps-android .topbar { width:100%; height:14px; background:linear-gradient(90deg, var(--orange), var(--orange2)); }
+.fenix-vps-android .page { width:min(1140px, calc(100% - 48px)); margin:0 auto; padding:36px 0 60px; }
+.fenix-vps-android .guide-head { padding:34px 0 22px; border-bottom:1px solid var(--line); }
+.fenix-vps-android .brand { color:var(--orange2); font-weight:800; letter-spacing:.05em; font-size:24px; }
+.fenix-vps-android h1 { margin:10px 0 8px; font-size:44px; line-height:1.12; color:var(--text); }
+.fenix-vps-android .lead { margin:0; color:var(--muted); font-size:22px; max-width:860px; text-align:left; text-wrap:balance; }
+.fenix-vps-android .summary { margin:28px 0 30px; padding:18px 22px; border:1px solid rgba(255,132,0,.45); background:#211810; border-radius:14px; color:#fff; font-size:18px; }
+.fenix-vps-android .summary b { color:var(--orange2); }
+.fenix-vps-android .grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.fenix-vps-android .step { break-inside:avoid; page-break-inside:avoid; background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px; min-height:0; }
+.fenix-vps-android .step-head { display:grid; grid-template-columns:56px 1fr; gap:16px; align-items:start; }
+.fenix-vps-android .num { width:48px; height:48px; border-radius:50%; display:grid; place-items:center; background:var(--orange); color:#18120b; font-size:25px; font-weight:900; }
+.fenix-vps-android h2 { margin:0 0 8px; font-size:25px; line-height:1.25; color:var(--text); }
+.fenix-vps-android .step p { margin:0 0 14px; color:var(--muted); font-size:18px; }
+.fenix-vps-android .mini-list { margin:0; padding:0; list-style:none; display:grid; grid-template-columns:1fr; gap:5px; }
+.fenix-vps-android .mini-list li { color:var(--text); font-size:17px; }
+.fenix-vps-android .mini-list li::before { content:"•"; color:var(--orange2); font-weight:900; margin-right:8px; }
+.fenix-vps-android .shot { margin:14px 0 0; }
+.fenix-vps-android figcaption { color:var(--orange2); font-weight:800; margin:0 0 8px; font-size:17px; }
+.fenix-vps-android .img-wrap { position:relative; background:#111; border:1px solid #5b5e66; border-radius:10px; overflow:hidden; }
+.fenix-vps-android .img-wrap img { display:block; width:100%; height:auto; }
+.fenix-vps-android .highlight { position:absolute; border:4px solid var(--orange); border-radius:7px; box-shadow:0 0 0 9999px rgba(0,0,0,.04), 0 0 14px rgba(255,132,0,.75); pointer-events:none; }
+.fenix-vps-android .callout { margin-top:10px; padding:10px 13px; border-left:5px solid var(--orange); background:#2d2117; color:#ffe1bd; border-radius:9px; font-size:17px; font-weight:700; }
+.fenix-vps-android .checklist { margin-top:28px; background:var(--panel2); border:1px solid var(--line); border-radius:16px; padding:24px; }
+.fenix-vps-android .checklist h2 { color:var(--orange2); }
+.fenix-vps-android .checklist ul { margin:12px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:10px 20px; }
+.fenix-vps-android .checklist li { color:var(--text); font-size:18px; }
+.fenix-vps-android .checklist li::before { content:"✓"; color:var(--green); font-weight:900; margin-right:9px; }
+.fenix-vps-android .risk { margin-top:18px; color:#ffd2a0; background:#291914; border:1px solid #61351f; padding:14px 18px; border-radius:12px; font-size:17px; }
+.fenix-vps-android .guide-footer { margin-top:28px; color:var(--soft); font-size:14px; }
+@media (max-width: 860px) {
+  .fenix-vps-android .page { width:min(100% - 32px, 100%); padding:26px 0 44px; }
+  .fenix-vps-android .grid { grid-template-columns:1fr; }
+  .fenix-vps-android h1 { font-size:34px; }
+  .fenix-vps-android .lead { font-size:19px; }
+  .fenix-vps-android .checklist ul { grid-template-columns:1fr; }
+}
+@media print {
+  .fenix-vps-android { background:#fff; color:#111; width:auto; margin:0; }
+  .fenix-vps-android .topbar { display:none; }
+  .fenix-vps-android .page { width:auto; padding:12mm; }
+  .fenix-vps-android .guide-head, .fenix-vps-android .step, .fenix-vps-android .checklist { break-inside:avoid; page-break-inside:avoid; }
+  .fenix-vps-android .grid { grid-template-columns:1fr 1fr; gap:12px; }
+  .fenix-vps-android .step { padding:14px; }
+  .fenix-vps-android h1 { font-size:30px; }
+  .fenix-vps-android h2 { font-size:18px; }
+  .fenix-vps-android .step p, .fenix-vps-android li, .fenix-vps-android .callout { font-size:13px; }
+}
+</style>
+<div class="fenix-vps-android">
+<div class="topbar"></div>
+<main class="page">
+  <header class="guide-head">
+    <div class="brand">FENIX PRO</div>
+    <h1>คู่มือใช้งาน VPS ผ่าน Android</h1>
+    <p class="lead">คู่มือแบบภาพประกอบสำหรับเชื่อมต่อ VPS จากมือถือ Android<br>ด้วยแอป Windows App ของ Microsoft Corporation บน Google Play</p>
+  </header>
+  <div class="summary"><b>ภาพรวม:</b> Google Play > Windows App > Add > PC > ใส่ IP > Credentials > ตรวจค่า > Save > แตะเข้า VPS</div>
+  <div class="grid">
+
+    <section class="step">
+      <div class="step-head">
+        <div class="num">1</div>
+        <div>
+          <h2>โหลดแอป Windows App</h2>
+          <p>เข้า Google Play ค้นหา Windows App ของ Microsoft Corporation แล้วกดติดตั้ง</p>
+
+        </div>
+      </div>
+      <figure class="shot">
+        <figcaption>หน้า Google Play ของ Windows App</figcaption>
+        <div class="img-wrap">
+          <img src="data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgODgwIDcyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9IndpbiIgeDE9IjAiIHgyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjNDRjNGZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTY4NWU0Ii8+PC9saW5lYXJHcmFkaWVudD4KICAgIDxmaWx0ZXIgaWQ9Imdsb3ciPjxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSIwIiBzdGREZXZpYXRpb249IjciIGZsb29kLWNvbG9yPSIjZmY4NDAwIiBmbG9vZC1vcGFjaXR5PSIuNzUiLz48L2ZpbHRlcj4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9Ijg4MCIgaGVpZ2h0PSI3MjAiIHJ4PSIyNCIgZmlsbD0iIzEwMTExMyIvPgogIDx0ZXh0IHg9IjY0IiB5PSI3MiIgZm9udC1zaXplPSIyOCIgZmlsbD0iI2Y2ZjZmNiI+R29vZ2xlIFBsYXk8L3RleHQ+CiAgPGNpcmNsZSBjeD0iODAwIiBjeT0iNjIiIHI9IjE4IiBmaWxsPSIjMmIyZDMxIi8+CiAgPHJlY3QgeD0iNjQiIHk9IjExNiIgd2lkdGg9IjEyOCIgaGVpZ2h0PSIxMjgiIHJ4PSIyNiIgZmlsbD0idXJsKCN3aW4pIi8+CiAgPHBhdGggZD0iTTEyOCAxMjZ2MTA4TTc0IDE4MGgxMDgiIHN0cm9rZT0iI2RmZjZmZiIgc3Ryb2tlLXdpZHRoPSI4IiBvcGFjaXR5PSIuNzUiLz4KICA8dGV4dCB4PSIyMjAiIHk9IjE1MiIgZm9udC1zaXplPSI0MiIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2ZmZiI+V2luZG93cyBBcHA8L3RleHQ+CiAgPHRleHQgeD0iMjIwIiB5PSIxOTQiIGZvbnQtc2l6ZT0iMjYiIGZpbGw9IiM1MGQwN2MiPk1pY3Jvc29mdCBDb3Jwb3JhdGlvbjwvdGV4dD4KICA8dGV4dCB4PSIyMjAiIHk9IjI0OCIgZm9udC1zaXplPSIyMyIgZmlsbD0iI2M5Y2JkMSI+NC4x4piFICAgMTBNKyBEb3dubG9hZHMgICBSYXRlZCAzKzwvdGV4dD4KICA8cmVjdCB4PSI2NCIgeT0iMjg2IiB3aWR0aD0iNzUyIiBoZWlnaHQ9Ijc0IiByeD0iMTQiIGZpbGw9IiMyMWQyNjAiIHN0cm9rZT0iI2ZmODQwMCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWx0ZXI9InVybCgjZ2xvdykiLz4KICA8dGV4dCB4PSI0NDAiIHk9IjMzNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iIzA3MTIwNyI+SW5zdGFsbDwvdGV4dD4KICA8cmVjdCB4PSI2NCIgeT0iNDEwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjE1MCIgcng9IjE0IiBmaWxsPSIjMjQyNTI5IiBzdHJva2U9IiM0NDQ4NTIiLz4KICA8cmVjdCB4PSIzMzAiIHk9IjQxMCIgd2lkdGg9IjIyMCIgaGVpZ2h0PSIxNTAiIHJ4PSIxNCIgZmlsbD0iIzI0MjUyOSIgc3Ryb2tlPSIjNDQ0ODUyIi8+CiAgPHJlY3QgeD0iNTk2IiB5PSI0MTAiIHdpZHRoPSIyMjAiIGhlaWdodD0iMTUwIiByeD0iMTQiIGZpbGw9IiMyNDI1MjkiIHN0cm9rZT0iIzQ0NDg1MiIvPgogIDx0ZXh0IHg9IjY0IiB5PSI2MjYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNjOWNiZDEiPkNvbm5lY3QgdG8gcmVtb3RlIFBDcywgV2luZG93cyAzNjUsIGFuZCBjbG91ZCBkZXNrdG9wcy48L3RleHQ+Cjwvc3ZnPgo=" alt="หน้า Google Play ของ Windows App">
+
+        </div>
+        <div class="callout">Android ใช้ชื่อแอปว่า Windows App ของ Microsoft Corporation</div>
+      </figure>
+    </section>
+    <section class="step">
+      <div class="step-head">
+        <div class="num">2</div>
+        <div>
+          <h2>เปิดแอปแล้วกด Add</h2>
+          <p>เมื่อเข้าแอปแล้ว กดปุ่ม + หรือ Add เพื่อเพิ่มการเชื่อมต่อ VPS ใหม่</p>
+
+        </div>
+      </div>
+      <figure class="shot">
+        <figcaption>กด Add ใน Windows App</figcaption>
+        <div class="img-wrap">
+          <img src="data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgODgwIDcyMCI+CiAgPGRlZnM+PGZpbHRlciBpZD0iZ2xvdyI+PGZlRHJvcFNoYWRvdyBkeD0iMCIgZHk9IjAiIHN0ZERldmlhdGlvbj0iNyIgZmxvb2QtY29sb3I9IiNmZjg0MDAiIGZsb29kLW9wYWNpdHk9Ii43NSIvPjwvZmlsdGVyPjwvZGVmcz4KICA8cmVjdCB3aWR0aD0iODgwIiBoZWlnaHQ9IjcyMCIgcng9IjI0IiBmaWxsPSIjMTAxMTEzIi8+CiAgPHRleHQgeD0iNjIiIHk9Ijc0IiBmb250LXNpemU9IjI4IiBmaWxsPSIjZjZmNmY2Ij5BbmRyb2lkIFdpbmRvd3MgQXBwPC90ZXh0PgogIDx0ZXh0IHg9IjYyIiB5PSIxMjYiIGZvbnQtc2l6ZT0iNDQiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNmZmYiPkRldmljZXM8L3RleHQ+CiAgPHJlY3QgeD0iOTIiIHk9IjIwMCIgd2lkdGg9IjY5NiIgaGVpZ2h0PSIyMTAiIHJ4PSIxOCIgZmlsbD0iIzE3MTgxYiIgc3Ryb2tlPSIjNDQ0ODUyIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSI0NDAiIHk9IjI4MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iI2M5Y2JkMSI+Tm8gZGV2aWNlczwvdGV4dD4KICA8dGV4dCB4PSI0NDAiIHk9IjMyMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIyMyIgZmlsbD0iIzhmOTQ5ZiI+QWRkIHlvdXIgZmlyc3QgZGV2aWNlIHRvIGdldCBzdGFydGVkLjwvdGV4dD4KICA8cmVjdCB4PSI1NzQiIHk9IjU0MCIgd2lkdGg9IjE2OCIgaGVpZ2h0PSI5MiIgcng9IjE4IiBmaWxsPSIjMjQyNTI5IiBzdHJva2U9IiNmZjg0MDAiIHN0cm9rZS13aWR0aD0iNSIgZmlsdGVyPSJ1cmwoI2dsb3cpIi8+CiAgPHRleHQgeD0iNjU4IiB5PSI1OTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMzYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNmZmIxNDgiPisgQWRkPC90ZXh0PgogIDx0ZXh0IHg9IjExMiIgeT0iNTk4IiBmb250LXNpemU9IjI2IiBmaWxsPSIjOGY5NDlmIj5EZXZpY2VzPC90ZXh0PgogIDx0ZXh0IHg9IjM2MCIgeT0iNTk4IiBmb250LXNpemU9IjI2IiBmaWxsPSIjOGY5NDlmIj5TZXR0aW5nczwvdGV4dD4KPC9zdmc+Cg==" alt="กด Add ใน Windows App">
+
+        </div>
+        <div class="callout">ปุ่ม Add อาจอยู่มุมขวาบนหรือแถบด้านล่าง ขึ้นกับเวอร์ชันแอป</div>
+      </figure>
+    </section>
+    <section class="step">
+      <div class="step-head">
+        <div class="num">3</div>
+        <div>
+          <h2>เลือก PC</h2>
+          <p>เลือกเมนู PC สำหรับเชื่อมต่อ VPS ด้วยชื่อเครื่องหรือ IP Address</p>
+
+        </div>
+      </div>
+      <figure class="shot">
+        <figcaption>เลือก PC ในหน้า Add</figcaption>
+        <div class="img-wrap">
+          <img src="data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgODgwIDcyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeDI9IjEiIHkxPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiMwYjBiMGMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxYjE0MGUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8ZmlsdGVyIGlkPSJnbG93Ij48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iMCIgc3RkRGV2aWF0aW9uPSI3IiBmbG9vZC1jb2xvcj0iI2ZmODQwMCIgZmxvb2Qtb3BhY2l0eT0iLjc1Ii8+PC9maWx0ZXI+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSI4ODAiIGhlaWdodD0iNzIwIiByeD0iMjQiIGZpbGw9InVybCgjYmcpIi8+CiAgPHJlY3QgeD0iMzYiIHk9IjM2IiB3aWR0aD0iODA4IiBoZWlnaHQ9IjY0OCIgcng9IjIyIiBmaWxsPSIjMTcxODFiIiBzdHJva2U9IiM0NDQ4NTIiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjcwIiB5PSI4OCIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2ZmYjE0OCI+QWRkPC90ZXh0PgogIDx0ZXh0IHg9IjcwIiB5PSIxMjAiIGZvbnQtc2l6ZT0iMjIiIGZpbGw9IiNjOWNiZDEiPldoYXQgZG8geW91IHdhbnQgdG8gYWRkPzwvdGV4dD4KICA8cmVjdCB4PSc3MCcgeT0nMTMyJyB3aWR0aD0nNzQwJyBoZWlnaHQ9Jzg4JyByeD0nMTYnIGZpbGw9JyMyNDI1MjknIHN0cm9rZT0nIzNmNDI0YScgc3Ryb2tlLXdpZHRoPSc0Jy8+PHRleHQgeD0nOTYnIHk9JzE2OCcgZm9udC1zaXplPScyOCcgZm9udC13ZWlnaHQ9JzgwMCcgZmlsbD0nI2Y2ZjZmNic+V29yayBvciBTY2hvb2wgQWNjb3VudDwvdGV4dD48dGV4dCB4PSc5NicgeT0nMjAwJyBmb250LXNpemU9JzIyJyBmaWxsPScjYzljYmQxJz7guKrguLPguKvguKPguLHguJrguJrguLHguI3guIrguLXguK3guIfguITguYzguIHguKM8L3RleHQ+PHJlY3QgeD0nNzAnIHk9JzI0MCcgd2lkdGg9Jzc0MCcgaGVpZ2h0PSc4OCcgcng9JzE2JyBmaWxsPScjMjQyNTI5JyBzdHJva2U9JyMzZjQyNGEnIHN0cm9rZS13aWR0aD0nNCcvPjx0ZXh0IHg9Jzk2JyB5PScyNzYnIGZvbnQtc2l6ZT0nMjgnIGZvbnQtd2VpZ2h0PSc4MDAnIGZpbGw9JyNmNmY2ZjYnPldvcmtzcGFjZTwvdGV4dD48dGV4dCB4PSc5NicgeT0nMzA4JyBmb250LXNpemU9JzIyJyBmaWxsPScjYzljYmQxJz7guYDguJ7guLTguYjguKHguJTguYnguKfguKIgVVJMIOC4q+C4o+C4t+C4reC4reC4teC5gOC4oeC4pTwvdGV4dD48cmVjdCB4PSc3MCcgeT0nMzQ4JyB3aWR0aD0nNzQwJyBoZWlnaHQ9Jzg4JyByeD0nMTYnIGZpbGw9JyMyNDI1MjknIHN0cm9rZT0nI2ZmODQwMCcgc3Ryb2tlLXdpZHRoPSc0JyBmaWx0ZXI9J3VybCgjZ2xvdyknLz48dGV4dCB4PSc5NicgeT0nMzg0JyBmb250LXNpemU9JzI4JyBmb250LXdlaWdodD0nODAwJyBmaWxsPScjZjZmNmY2Jz5QQzwvdGV4dD48dGV4dCB4PSc5NicgeT0nNDE2JyBmb250LXNpemU9JzIyJyBmaWxsPScjYzljYmQxJz5BZGQgYSBjb25uZWN0aW9uIHRvIGEgcGh5c2ljYWwgUEMgb3IgVk08L3RleHQ+Cjwvc3ZnPgo=" alt="เลือก PC ในหน้า Add">
+
+        </div>
+        <div class="callout">สำหรับ VPS ทั่วไปให้เลือก PC</div>
+      </figure>
+    </section>
+    <section class="step">
+      <div class="step-head">
+        <div class="num">4</div>
+        <div>
+          <h2>ใส่ IP Address ของ VPS</h2>
+          <p>กรอก IP ที่ได้รับในช่อง PC Name หรือ Hostname or IP Address</p>
+
+        </div>
+      </div>
+      <figure class="shot">
+        <figcaption>กรอก IP ในหน้า Add PC</figcaption>
+        <div class="img-wrap">
+          <img src="data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgODgwIDcyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeDI9IjEiIHkxPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiMwYjBiMGMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxYjE0MGUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8ZmlsdGVyIGlkPSJnbG93Ij48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iMCIgc3RkRGV2aWF0aW9uPSI3IiBmbG9vZC1jb2xvcj0iI2ZmODQwMCIgZmxvb2Qtb3BhY2l0eT0iLjc1Ii8+PC9maWx0ZXI+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSI4ODAiIGhlaWdodD0iNzIwIiByeD0iMjQiIGZpbGw9InVybCgjYmcpIi8+CiAgPHJlY3QgeD0iMzYiIHk9IjM2IiB3aWR0aD0iODA4IiBoZWlnaHQ9IjY0OCIgcng9IjIyIiBmaWxsPSIjMTcxODFiIiBzdHJva2U9IiM0NDQ4NTIiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjcwIiB5PSI4OCIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2ZmYjE0OCI+QWRkIFBDPC90ZXh0PgogIDx0ZXh0IHg9IjcwIiB5PSIxMjAiIGZvbnQtc2l6ZT0iMjIiIGZpbGw9IiNjOWNiZDEiPuC5g+C4quC5iOC4guC5ieC4reC4oeC4ueC4peC5gOC4hOC4o+C4t+C5iOC4reC4hyBWUFM8L3RleHQ+CiAgPHJlY3QgeD0nNzAnIHk9JzEzMicgd2lkdGg9Jzc0MCcgaGVpZ2h0PSc4OCcgcng9JzE2JyBmaWxsPScjMjQyNTI5JyBzdHJva2U9JyNmZjg0MDAnIHN0cm9rZS13aWR0aD0nNCcgZmlsdGVyPSd1cmwoI2dsb3cpJy8+PHRleHQgeD0nOTYnIHk9JzE2OCcgZm9udC1zaXplPScyOCcgZm9udC13ZWlnaHQ9JzgwMCcgZmlsbD0nI2Y2ZjZmNic+UEMgTmFtZTwvdGV4dD48dGV4dCB4PSc5NicgeT0nMjAwJyBmb250LXNpemU9JzIyJyBmaWxsPScjYzljYmQxJz5Ib3N0bmFtZSBvciBJUCBBZGRyZXNzPC90ZXh0PjxyZWN0IHg9JzcwJyB5PScyNDAnIHdpZHRoPSc3NDAnIGhlaWdodD0nODgnIHJ4PScxNicgZmlsbD0nIzI0MjUyOScgc3Ryb2tlPScjM2Y0MjRhJyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc5NicgeT0nMjc2JyBmb250LXNpemU9JzI4JyBmb250LXdlaWdodD0nODAwJyBmaWxsPScjZjZmNmY2Jz5Vc2VyIEFjY291bnQ8L3RleHQ+PHRleHQgeD0nOTYnIHk9JzMwOCcgZm9udC1zaXplPScyMicgZmlsbD0nI2M5Y2JkMSc+QXNrIFdoZW4gUmVxdWlyZWQ8L3RleHQ+PHJlY3QgeD0nNzAnIHk9JzM0OCcgd2lkdGg9Jzc0MCcgaGVpZ2h0PSc4OCcgcng9JzE2JyBmaWxsPScjMjQyNTI5JyBzdHJva2U9JyMzZjQyNGEnIHN0cm9rZS13aWR0aD0nNCcvPjx0ZXh0IHg9Jzk2JyB5PSczODQnIGZvbnQtc2l6ZT0nMjgnIGZvbnQtd2VpZ2h0PSc4MDAnIGZpbGw9JyNmNmY2ZjYnPlNob3cgQWRkaXRpb25hbCBPcHRpb25zPC90ZXh0Pjx0ZXh0IHg9Jzk2JyB5PSc0MTYnIGZvbnQtc2l6ZT0nMjInIGZpbGw9JyNjOWNiZDEnPuC5gOC4m+C4tOC4lOC4lOC4ueC4hOC5iOC4suC4leC4seC5ieC4h+C5gOC4nuC4tOC5iOC4oTwvdGV4dD4KPC9zdmc+Cg==" alt="กรอก IP ในหน้า Add PC">
+
+        </div>
+        <div class="callout">ถ้า IP ผิดแม้ตัวเดียวจะเชื่อมต่อไม่ได้</div>
+      </figure>
+    </section>
+    <section class="step">
+      <div class="step-head">
+        <div class="num">5</div>
+        <div>
+          <h2>ตั้งค่า Credentials</h2>
+          <p>เลือก Ask When Required หรือกรอก Username และ Password ตามข้อมูลที่ได้รับ</p>
+
+        </div>
+      </div>
+      <figure class="shot">
+        <figcaption>ตั้งค่า Credentials</figcaption>
+        <div class="img-wrap">
+          <img src="data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgODgwIDcyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeDI9IjEiIHkxPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiMwYjBiMGMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxYjE0MGUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8ZmlsdGVyIGlkPSJnbG93Ij48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iMCIgc3RkRGV2aWF0aW9uPSI3IiBmbG9vZC1jb2xvcj0iI2ZmODQwMCIgZmxvb2Qtb3BhY2l0eT0iLjc1Ii8+PC9maWx0ZXI+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSI4ODAiIGhlaWdodD0iNzIwIiByeD0iMjQiIGZpbGw9InVybCgjYmcpIi8+CiAgPHJlY3QgeD0iMzYiIHk9IjM2IiB3aWR0aD0iODA4IiBoZWlnaHQ9IjY0OCIgcng9IjIyIiBmaWxsPSIjMTcxODFiIiBzdHJva2U9IiM0NDQ4NTIiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjcwIiB5PSI4OCIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2ZmYjE0OCI+QWRkIFBDPC90ZXh0PgogIDx0ZXh0IHg9IjcwIiB5PSIxMjAiIGZvbnQtc2l6ZT0iMjIiIGZpbGw9IiNjOWNiZDEiPkNyZWRlbnRpYWxzPC90ZXh0PgogIDxyZWN0IHg9JzcwJyB5PScxMzInIHdpZHRoPSc3NDAnIGhlaWdodD0nODgnIHJ4PScxNicgZmlsbD0nIzI0MjUyOScgc3Ryb2tlPScjM2Y0MjRhJyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc5NicgeT0nMTY4JyBmb250LXNpemU9JzI4JyBmb250LXdlaWdodD0nODAwJyBmaWxsPScjZjZmNmY2Jz5QQyBOYW1lPC90ZXh0Pjx0ZXh0IHg9Jzk2JyB5PScyMDAnIGZvbnQtc2l6ZT0nMjInIGZpbGw9JyNjOWNiZDEnPjIwMy4wLjExMy4xMDwvdGV4dD48cmVjdCB4PSc3MCcgeT0nMjQwJyB3aWR0aD0nNzQwJyBoZWlnaHQ9Jzg4JyByeD0nMTYnIGZpbGw9JyMyNDI1MjknIHN0cm9rZT0nI2ZmODQwMCcgc3Ryb2tlLXdpZHRoPSc0JyBmaWx0ZXI9J3VybCgjZ2xvdyknLz48dGV4dCB4PSc5NicgeT0nMjc2JyBmb250LXNpemU9JzI4JyBmb250LXdlaWdodD0nODAwJyBmaWxsPScjZjZmNmY2Jz5DcmVkZW50aWFsczwvdGV4dD48dGV4dCB4PSc5NicgeT0nMzA4JyBmb250LXNpemU9JzIyJyBmaWxsPScjYzljYmQxJz5Bc2sgV2hlbiBSZXF1aXJlZDwvdGV4dD48cmVjdCB4PSc3MCcgeT0nMzQ4JyB3aWR0aD0nNzQwJyBoZWlnaHQ9Jzg4JyByeD0nMTYnIGZpbGw9JyMyNDI1MjknIHN0cm9rZT0nIzNmNDI0YScgc3Ryb2tlLXdpZHRoPSc0Jy8+PHRleHQgeD0nOTYnIHk9JzM4NCcgZm9udC1zaXplPScyOCcgZm9udC13ZWlnaHQ9JzgwMCcgZmlsbD0nI2Y2ZjZmNic+RnJpZW5kbHkgTmFtZTwvdGV4dD48dGV4dCB4PSc5NicgeT0nNDE2JyBmb250LXNpemU9JzIyJyBmaWxsPScjYzljYmQxJz5GRU5JWCBQUk8gVlBTPC90ZXh0Pgo8L3N2Zz4K" alt="ตั้งค่า Credentials">
+
+        </div>
+        <div class="callout">แนะนำให้เก็บ Username/Password ไว้ในที่ปลอดภัย</div>
+      </figure>
+    </section>
+    <section class="step">
+      <div class="step-head">
+        <div class="num">6</div>
+        <div>
+          <h2>ตรวจสอบค่าแล้วกด Save</h2>
+          <p>ตั้งชื่อ Friendly Name เป็น FENIX PRO VPS, Gateway เป็น No Gateway และเปิด Clipboard แล้วกด Save</p>
+
+        </div>
+      </div>
+      <figure class="shot">
+        <figcaption>ตรวจค่าก่อน Save</figcaption>
+        <div class="img-wrap">
+          <img src="data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgODgwIDcyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeDI9IjEiIHkxPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiMwYjBiMGMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxYjE0MGUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8ZmlsdGVyIGlkPSJnbG93Ij48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iMCIgc3RkRGV2aWF0aW9uPSI3IiBmbG9vZC1jb2xvcj0iI2ZmODQwMCIgZmxvb2Qtb3BhY2l0eT0iLjc1Ii8+PC9maWx0ZXI+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSI4ODAiIGhlaWdodD0iNzIwIiByeD0iMjQiIGZpbGw9InVybCgjYmcpIi8+CiAgPHJlY3QgeD0iMzYiIHk9IjM2IiB3aWR0aD0iODA4IiBoZWlnaHQ9IjY0OCIgcng9IjIyIiBmaWxsPSIjMTcxODFiIiBzdHJva2U9IiM0NDQ4NTIiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjcwIiB5PSI4OCIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2ZmYjE0OCI+QWRkIFBDPC90ZXh0PgogIDx0ZXh0IHg9IjcwIiB5PSIxMjAiIGZvbnQtc2l6ZT0iMjIiIGZpbGw9IiNjOWNiZDEiPuC4leC4o+C4p+C4iOC4quC4reC4muC4hOC5iOC4suC4geC5iOC4reC4mSBTYXZlPC90ZXh0PgogIDxyZWN0IHg9JzcwJyB5PScxMzInIHdpZHRoPSc3NDAnIGhlaWdodD0nODgnIHJ4PScxNicgZmlsbD0nIzI0MjUyOScgc3Ryb2tlPScjZmY4NDAwJyBzdHJva2Utd2lkdGg9JzQnIGZpbHRlcj0ndXJsKCNnbG93KScvPjx0ZXh0IHg9Jzk2JyB5PScxNjgnIGZvbnQtc2l6ZT0nMjgnIGZvbnQtd2VpZ2h0PSc4MDAnIGZpbGw9JyNmNmY2ZjYnPkZyaWVuZGx5IE5hbWU8L3RleHQ+PHRleHQgeD0nOTYnIHk9JzIwMCcgZm9udC1zaXplPScyMicgZmlsbD0nI2M5Y2JkMSc+RkVOSVggUFJPIFZQUzwvdGV4dD48cmVjdCB4PSc3MCcgeT0nMjQwJyB3aWR0aD0nNzQwJyBoZWlnaHQ9Jzg4JyByeD0nMTYnIGZpbGw9JyMyNDI1MjknIHN0cm9rZT0nI2ZmODQwMCcgc3Ryb2tlLXdpZHRoPSc0JyBmaWx0ZXI9J3VybCgjZ2xvdyknLz48dGV4dCB4PSc5NicgeT0nMjc2JyBmb250LXNpemU9JzI4JyBmb250LXdlaWdodD0nODAwJyBmaWxsPScjZjZmNmY2Jz5HYXRld2F5PC90ZXh0Pjx0ZXh0IHg9Jzk2JyB5PSczMDgnIGZvbnQtc2l6ZT0nMjInIGZpbGw9JyNjOWNiZDEnPk5vIEdhdGV3YXk8L3RleHQ+PHJlY3QgeD0nNzAnIHk9JzM0OCcgd2lkdGg9Jzc0MCcgaGVpZ2h0PSc4OCcgcng9JzE2JyBmaWxsPScjMjQyNTI5JyBzdHJva2U9JyNmZjg0MDAnIHN0cm9rZS13aWR0aD0nNCcgZmlsdGVyPSd1cmwoI2dsb3cpJy8+PHRleHQgeD0nOTYnIHk9JzM4NCcgZm9udC1zaXplPScyOCcgZm9udC13ZWlnaHQ9JzgwMCcgZmlsbD0nI2Y2ZjZmNic+Q2xpcGJvYXJkPC90ZXh0Pjx0ZXh0IHg9Jzk2JyB5PSc0MTYnIGZvbnQtc2l6ZT0nMjInIGZpbGw9JyNjOWNiZDEnPuC5gOC4m+C4tOC4lOC5g+C4iuC5ieC4h+C4suC4mTwvdGV4dD48dGV4dCB4PSc3MCcgeT0nNjcwJyBmb250LXNpemU9JzI0JyBmaWxsPScjZmZiMTQ4Jz7guIHguJQgU2F2ZSDguYDguJ7guLfguYjguK3guJrguLHguJnguJfguLbguIE8L3RleHQ+Cjwvc3ZnPgo=" alt="ตรวจค่าก่อน Save">
+
+        </div>
+        <div class="callout">หลังบันทึกแล้ว แตะชื่อ VPS เพื่อเริ่มเชื่อมต่อ</div>
+      </figure>
+    </section>
+  </div>
+  <section class="checklist">
+    <h2>เช็กก่อนเริ่มใช้งาน</h2>
+    <ul><li>มี IP Address ของ VPS</li><li>มี Username และ Password</li><li>อินเทอร์เน็ตมือถือหรือ Wi-Fi เสถียร</li><li>เลือกเมนู PC ไม่ใช่ Workspace</li><li>Gateway ตั้งเป็น No Gateway</li><li>เปิด Clipboard เพื่อใช้งานสะดวกขึ้น</li></ul>
+    <div class="risk">หมายเหตุ: VPS เป็นเครื่องสำหรับเปิดใช้งานโปรแกรม/EA ให้ต่อเนื่อง ควรเก็บ Username และ Password เป็นความลับ และตรวจสอบการเชื่อมต่อก่อนเริ่มใช้งานจริง</div>
+  </section>
+  <footer class="guide-footer">FENIX PRO - Android VPS Guide</footer>
+</main>
+</div>
