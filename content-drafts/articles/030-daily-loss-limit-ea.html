@@ -67,6 +67,10 @@ cover_alt: แผง Daily Loss Limit สำหรับ EA แสดงผล�
 
 <h2 id="timezone">“หนึ่งวัน” ต้องอิงเวลาใด</h2>
 
+<!-- fenix-media-v3:daily-loss-limit-ea-server-day-cycle.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/daily-loss-limit-ea-server-day-cycle.webp" alt="ภาพประกอบหัวข้อ “หนึ่งวัน” ต้องอิงเวลาใด" title="“หนึ่งวัน” ต้องอิงเวลาใด" class="wp-image-20186" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>เวลาเครื่องผู้ใช้ เวลา VPS เวลา Server ของ Broker และเวลาไทยอาจไม่ตรงกัน ฟังก์ชันเวลาของ MQL5 ยังแยก TimeLocal, TimeTradeServer และ TimeGMT หาก Logic ใช้คนละฐานกับรายงาน ผลขาดทุนอาจถูกแบ่งข้ามวันผิด และการเปลี่ยน Daylight Saving Time อาจเลื่อนเวลา Server</p>
 
 <p>แนวทางที่ตรวจสอบง่ายคือ:</p>
@@ -81,6 +85,10 @@ cover_alt: แผง Daily Loss Limit สำหรับ EA แสดงผล�
 <p>อย่ารีเซ็ต Limit เพียงเพราะ Restart Terminal เพราะผู้ใช้อาจเปิดระบบใหม่แล้วได้ Risk Budget ซ้ำในวันเดียว State ควรถูกเก็บอย่างคงทนและตรวจสอบกับ Account History เมื่อเริ่มทำงาน</p>
 
 <h2 id="actions">ลำดับเมื่อแตะ Daily Loss Limit</h2>
+
+<!-- fenix-media-v3:daily-loss-limit-ea-shutdown-sequence.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/daily-loss-limit-ea-shutdown-sequence.webp" alt="ภาพประกอบหัวข้อ ลำดับเมื่อแตะ Daily Loss Limit" title="ลำดับเมื่อแตะ Daily Loss Limit" class="wp-image-20187" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <ol>
 <li><strong>Lock Entry:</strong> ตั้งสถานะห้ามส่งคำสั่งเปิดใหม่ก่อน เพื่อไม่ให้ Signal Loop เพิ่ม Exposure ระหว่างปิด</li>
@@ -110,6 +118,10 @@ cover_alt: แผง Daily Loss Limit สำหรับ EA แสดงผล�
 <p>อ่านกรอบที่เกี่ยวข้องได้ที่ <a href="https://fenixpro-th.com/risk-per-trade/">Risk per Trade</a>, <a href="https://fenixpro-th.com/risk-of-ruin-ea-trading/">Risk of Ruin</a> และ <a href="https://fenixpro-th.com/equity-stop-ea/">Equity Stop</a></p>
 
 <h2 id="test">Checklist ทดสอบ</h2>
+
+<!-- fenix-media-v3:daily-loss-limit-ea-limit-review.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/daily-loss-limit-ea-limit-review.webp" alt="ภาพประกอบหัวข้อ Checklist ทดสอบ" title="Checklist ทดสอบ" class="wp-image-20188" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <ul>
 <li>Closed P/L และ Floating P/L ถูกนับตามนิยามหรือไม่</li>

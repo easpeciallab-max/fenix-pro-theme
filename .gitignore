@@ -26,5 +26,13 @@ content-drafts/generated/imports/fenix-content-*.xml
 !content-drafts/generated/imports/fenix-content-001-050.xml
 content-drafts/generated/imports/fenix-content-import-seed.json
 
+# Large generated image intermediates. Keep final WebP assets in Git.
+content-drafts/generated/media-v2/png-preview/
+content-drafts/generated/media-v2/render-article-media.html
+content-drafts/generated/media-v2/campaign-media-data.js
+content-drafts/generated/media-v3/sources/
+content-drafts/generated/media-v3/cover-backgrounds/
+content-drafts/generated/source-scenes/
+
 # WP Pusher ดึงทั้งโฟลเดอร์ fenix-pro/ ไปติดตั้ง อย่า commit ไฟล์ลับใด ๆ
 # (ค่า config เช่น LINE URL / ราคา อยู่ใน WordPress DB ผ่าน Customizer ไม่ใช่ในโค้ด)

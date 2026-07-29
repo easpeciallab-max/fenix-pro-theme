@@ -53,6 +53,10 @@ cover_alt: หน้าตั้ง Task Scheduler ให้ MT5 เปิดอ
 
 <h2 id="task">ขั้นตอนวาง Task Scheduler</h2>
 
+<!-- fenix-media-v3:auto-start-mt5-on-vps-task-scheduler-reboot-test.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/auto-start-mt5-on-vps-task-scheduler-reboot-test.webp" alt="ภาพประกอบหัวข้อ ขั้นตอนวาง Task Scheduler" title="ขั้นตอนวาง Task Scheduler" class="wp-image-20223" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <ol>
 <li>ยืนยัน Path ของ <code>terminal64.exe</code> และ Shortcut Argument ของ Terminal เป้าหมาย</li>
 <li>เปิด Task Scheduler ด้วยสิทธิ์ที่อนุญาตและเลือก Create Task</li>
@@ -68,6 +72,10 @@ cover_alt: หน้าตั้ง Task Scheduler ให้ MT5 เปิดอ
 <p>Windows ระบุว่า Logon Trigger จะเริ่ม Action เมื่อ User ที่กำหนดเข้าสู่ระบบ ส่วน On-start เริ่มเมื่อระบบ Boot การเลือกต้องสอดคล้องกับวิธีรักษา Session ของ VPS ไม่ควรเปิด Auto Logon แบบไม่มีการควบคุมเพียงเพื่อให้ MT5 เริ่มง่ายขึ้น</p>
 
 <h2 id="multiple">หลาย Terminal ต้องเปิดแบบ Staggered</h2>
+
+<!-- fenix-media-v3:auto-start-mt5-on-vps-staggered-startup.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/auto-start-mt5-on-vps-staggered-startup.webp" alt="ภาพประกอบหัวข้อ หลาย Terminal ต้องเปิดแบบ Staggered" title="หลาย Terminal ต้องเปิดแบบ Staggered" class="wp-image-20222" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <p>หากเปิดห้า Terminal พร้อมกัน ทุก Process อาจ Sync History, Login และอ่านไฟล์ในเวลาเดียวกัน ทำให้ CPU/Disk/Network พุ่ง ตั้ง Delay เช่น Terminal ถัดไปรอหลังตัวก่อนตามช่วงที่ทีมทดสอบ ไม่ใช้ค่าตายตัวจากเครื่องอื่น</p>
 
@@ -99,6 +107,10 @@ cover_alt: หน้าตั้ง Task Scheduler ให้ MT5 เปิดอ
 <p>ถ้าเงื่อนไขไม่ผ่าน ให้ EA อยู่ใน Safe State: ไม่เปิดออเดอร์ใหม่ แสดงเหตุผลและแจ้งเตือน ไม่ใช้วิธีรอเวลาคงที่อย่างเดียว เพราะ Network/History Sync อาจใช้เวลาต่างกันแต่ละครั้ง</p>
 
 <h2 id="test">ทดสอบ Reboot แบบ Acceptance Test</h2>
+
+<!-- fenix-media-v3:auto-start-mt5-on-vps-post-restart-validation.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/auto-start-mt5-on-vps-post-restart-validation.webp" alt="ภาพประกอบหัวข้อ ทดสอบ Reboot แบบ Acceptance Test" title="ทดสอบ Reboot แบบ Acceptance Test" class="wp-image-20224" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <ol>
 <li>เก็บรายการ Position/Pending/State ก่อนทดสอบใน Demo หรือ Maintenance Window</li>

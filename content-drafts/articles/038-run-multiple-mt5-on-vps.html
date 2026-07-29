@@ -22,6 +22,10 @@ cover_alt: โครงสร้างติดตั้ง MT5 หลาย Ter
 
 <h2 id="plan">สร้าง Terminal Inventory</h2>
 
+<!-- fenix-media-v3:run-multiple-mt5-on-vps-terminal-inventory.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/run-multiple-mt5-on-vps-terminal-inventory.webp" alt="ภาพประกอบหัวข้อ สร้าง Terminal Inventory" title="สร้าง Terminal Inventory" class="wp-image-20218" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>ก่อนดาวน์โหลด ให้ทำตารางหนึ่งแถวต่อ Terminal:</p>
 
 <table>
@@ -102,6 +106,10 @@ cover_alt: โครงสร้างติดตั้ง MT5 หลาย Ter
 
 <h2 id="resources">คุม CPU, RAM, Disk และ Network</h2>
 
+<!-- fenix-media-v3:run-multiple-mt5-on-vps-isolated-terminals-resources.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/run-multiple-mt5-on-vps-isolated-terminals-resources.webp" alt="ภาพประกอบหัวข้อ คุม CPU, RAM, Disk และ Network" title="คุม CPU, RAM, Disk และ Network" class="wp-image-20219" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>ทุก Terminal มี Process และ Cache ของตนเอง การเพิ่ม Instance จึงเพิ่ม RAM/Disk/Connection แม้เปิดกราฟน้อย ใช้ <a href="https://fenixpro-th.com/choose-vps-specs-for-mt5/">วิธีเลือกสเปก VPS</a> และตั้ง Resource Budget ต่อ Terminal:</p>
 
 <ul>
@@ -115,6 +123,10 @@ cover_alt: โครงสร้างติดตั้ง MT5 หลาย Ter
 <p>เปิด Terminal เพิ่มทีละหนึ่งแล้ววัด Peak อย่าติดตั้งครบทั้งหมดก่อนดูทรัพยากร หาก CPU ตันเฉพาะ Tick Burst การดู Average รายชั่วโมงอาจไม่เห็น ต้องเก็บ Sample ที่ถี่และตรวจ Journal ว่ามี Queue/Delay หรือไม่</p>
 
 <h2 id="restart">Auto-start และการตรวจหลัง Restart</h2>
+
+<!-- fenix-media-v3:run-multiple-mt5-on-vps-staggered-start-monitoring.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/run-multiple-mt5-on-vps-staggered-start-monitoring.webp" alt="ภาพประกอบหัวข้อ Auto-start และการตรวจหลัง Restart" title="Auto-start และการตรวจหลัง Restart" class="wp-image-20220" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <p>Shortcut แต่ละตัวต้องชี้ executable/argument ของ Terminal นั้น ใช้ Startup หรือ Task Scheduler ตามนโยบาย Windows และกำหนด Delay เพื่อไม่ให้ทุก Terminal เปิดพร้อมกันจน CPU/Disk พุ่ง</p>
 

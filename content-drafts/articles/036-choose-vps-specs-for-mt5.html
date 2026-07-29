@@ -23,6 +23,10 @@ cover_alt: แผนเลือกสเปก VPS สำหรับ MT5 แ�
 
 <h2 id="workload">เขียนรายการ Workload ก่อนเทียบราคา</h2>
 
+<!-- fenix-media-v3:choose-vps-specs-for-mt5-workload-measurement.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/choose-vps-specs-for-mt5-workload-measurement.webp" alt="ภาพประกอบหัวข้อ เขียนรายการ Workload ก่อนเทียบราคา" title="เขียนรายการ Workload ก่อนเทียบราคา" class="wp-image-20210" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <table>
 <thead>
 <tr>
@@ -57,6 +61,10 @@ cover_alt: แผนเลือกสเปก VPS สำหรับ MT5 แ�
 <p>แยก Production Trading ออกจาก Backtest/Optimization หากทำได้ Strategy Tester แบบหลาย Agent สามารถใช้ CPU และ RAM สูงเป็นช่วงยาว การรันพร้อม Terminal ที่ส่งคำสั่งจริงทำให้ Latency และความเสถียรแย่โดยไม่จำเป็น</p>
 
 <h2 id="cpu">CPU: ดูความเร็วต่อ Core และโหลดพร้อมกัน</h2>
+
+<!-- fenix-media-v3:choose-vps-specs-for-mt5-cpu-ram-ssd-network.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/choose-vps-specs-for-mt5-cpu-ram-ssd-network.webp" alt="ภาพประกอบหัวข้อ CPU: ดูความเร็วต่อ Core และโหลดพร้อมกัน" title="CPU: ดูความเร็วต่อ Core และโหลดพร้อมกัน" class="wp-image-20211" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <p>EA บน Chart หนึ่งมักประมวลผล Event ตามลำดับของ Instance นั้น จึงไม่ควรดูจำนวน vCPU อย่างเดียว ความเร็วต่อ Core, CPU Generation, Steal/Ready Time ในระบบ Virtualization และการ Oversubscribe ของผู้ให้บริการมีผลต่อเวลาประมวลผล</p>
 
@@ -99,6 +107,10 @@ cover_alt: แผนเลือกสเปก VPS สำหรับ MT5 แ�
 </ul>
 
 <h2 id="network">Network: ใกล้ Broker Server สำคัญกว่าคำว่า “เร็ว”</h2>
+
+<!-- fenix-media-v3:choose-vps-specs-for-mt5-server-location-network.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/choose-vps-specs-for-mt5-server-location-network.webp" alt="ภาพประกอบหัวข้อ Network: ใกล้ Broker Server สำคัญกว่าคำว่า “เร็ว”" title="Network: ใกล้ Broker Server สำคัญกว่าคำว่า “เร็ว”" class="wp-image-20212" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <p>Bandwidth ที่มากไม่ได้รับประกัน Latency ต่ำ VPS ควรอยู่ใกล้ Trading Server ของ Broker ในเชิงเส้นทาง Network และมี Packet Loss/Jitter ต่ำ การวัดต้องทำจาก VPS ไปยัง Server เป้าหมาย ไม่ใช้ผล Speed Test ไปศูนย์ข้อมูลสุ่มแทน</p>
 

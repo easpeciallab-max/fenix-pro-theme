@@ -63,6 +63,10 @@ cover_alt: ประวัติออเดอร์ EA ไม่มี Stop Lo
 
 <h2 id="server">Stop ที่ Broker เห็นกับ Stop ที่ EA จำ</h2>
 
+<!-- fenix-media-v3:ea-without-stop-loss-risks-broker-stop-vs-local-memory.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/ea-without-stop-loss-risks-broker-stop-vs-local-memory.webp" alt="ภาพประกอบหัวข้อ Stop ที่ Broker เห็นกับ Stop ที่ EA จำ" title="Stop ที่ Broker เห็นกับ Stop ที่ EA จำ" class="wp-image-20258" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>เอกสาร MetaTrader ระบุว่า Stop Loss/Take Profit ที่ผูกกับ Position และส่งไป Server จะทำงานโดยไม่พึ่ง Platform ที่เครื่องผู้ใช้ ส่วน Trailing Stop/Logic ใน Terminal ต้องให้ Platform ทำงานเพื่อส่งการแก้ไขหรือปิด</p>
 
 <p>Hidden Stop มีเหตุผลใช้งานบางแบบ เช่น ไม่เผยระดับให้ Server หรือใช้ Logic ซับซ้อน แต่เพิ่ม Failure Modes:</p>
@@ -92,6 +96,10 @@ cover_alt: ประวัติออเดอร์ EA ไม่มี Stop Lo
 
 <h2 id="risk">ความเสี่ยงสำคัญของระบบไม่มี Hard Stop</h2>
 
+<!-- fenix-media-v3:ea-without-stop-loss-risks-tail-risk-distribution.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/ea-without-stop-loss-risks-tail-risk-distribution.webp" alt="ภาพประกอบหัวข้อ ความเสี่ยงสำคัญของระบบไม่มี Hard Stop" title="ความเสี่ยงสำคัญของระบบไม่มี Hard Stop" class="wp-image-20259" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <h3>Loss Tail ไม่ชัด</h3>
 <p>Average Loss เล็กอาจมาจาก Sample ที่ยังไม่เจอเหตุการณ์ซึ่ง Exit ล้มเหลว Maximum Drawdown ในอดีตไม่ใช่เพดานอนาคต</p>
 
@@ -105,6 +113,10 @@ cover_alt: ประวัติออเดอร์ EA ไม่มี Stop Lo
 <p>Hidden Exit เพิ่มความสำคัญของ VPS, Connection, Update, License และ Monitoring หากผู้ขายบอกว่า “ไม่ต้องใช้ SL” แต่ไม่มีแผนกรณี EA หยุด ถือว่าข้อมูลยังไม่ครบ</p>
 
 <h2 id="testing">Stress Test ก่อนอนุมัติ</h2>
+
+<!-- fenix-media-v3:ea-without-stop-loss-risks-operational-dependency-failure.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/ea-without-stop-loss-risks-operational-dependency-failure.webp" alt="ภาพประกอบหัวข้อ Stress Test ก่อนอนุมัติ" title="Stress Test ก่อนอนุมัติ" class="wp-image-20260" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <ul>
 <li>ปิด Terminal/ตัด Connection ขณะ Position เปิดใน Demo แล้วดู Fallback</li>

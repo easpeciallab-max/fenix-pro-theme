@@ -36,6 +36,10 @@ cover_alt: กราฟ Monte Carlo หลายเส้นทางแสด�
 
 <h2 id="types">Monte Carlo สำหรับ EA มีแบบไหน</h2>
 
+<!-- fenix-media-v3:monte-carlo-testing-ea-shuffle-trade-order.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/monte-carlo-testing-ea-shuffle-trade-order.webp" alt="ภาพประกอบหัวข้อ Monte Carlo สำหรับ EA มีแบบไหน" title="Monte Carlo สำหรับ EA มีแบบไหน" class="wp-image-20154" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <h3>1. Shuffle Trade Order</h3>
 <p>ใช้ Trade ชุดเดิมแต่สลับลำดับ เหมาะกับการดู Sequence Risk ข้อจำกัดคือจำนวน Trade ชนะ/แพ้และขนาดผลยังเท่าเดิม ไม่สร้าง Market Regime ใหม่ และอาจทำลาย Serial Dependence ที่มีจริง</p>
 
@@ -52,6 +56,10 @@ cover_alt: กราฟ Monte Carlo หลายเส้นทางแสด�
 <p>สร้างเส้นราคาจำลองจากโมเดลทางสถิติแล้วรันกลยุทธ์ใหม่ มีพลังแต่ Model Risk สูง หากโมเดลไม่สะท้อน Tail, Volatility Clustering หรือ Gap ผลอาจให้ความมั่นใจผิด</p>
 
 <h2 id="outputs">ผลลัพธ์ที่ควรอ่าน</h2>
+
+<!-- fenix-media-v3:monte-carlo-testing-ea-outcome-distribution.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/monte-carlo-testing-ea-outcome-distribution.webp" alt="ภาพประกอบหัวข้อ ผลลัพธ์ที่ควรอ่าน" title="ผลลัพธ์ที่ควรอ่าน" class="wp-image-20155" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <table>
 <thead>
@@ -116,6 +124,10 @@ cover_alt: กราฟ Monte Carlo หลายเส้นทางแสด�
 <p>เริ่มจากข้อมูลที่เตรียมถูกต้องตาม <a href="https://fenixpro-th.com/how-to-backtest-ea-mt5/">วิธี Backtest EA บน MT5</a> และใช้ OOS ตาม <a href="https://fenixpro-th.com/in-sample-out-of-sample-ea/">การแบ่ง In-Sample/Out-of-Sample</a></p>
 
 <h2 id="decisions">นำผล Monte Carlo ไปใช้อย่างไร</h2>
+
+<!-- fenix-media-v3:monte-carlo-testing-ea-tail-risk-review.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/monte-carlo-testing-ea-tail-risk-review.webp" alt="ภาพประกอบหัวข้อ นำผล Monte Carlo ไปใช้อย่างไร" title="นำผล Monte Carlo ไปใช้อย่างไร" class="wp-image-20156" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <h3>กำหนด Lot/Risk จาก Tail ไม่ใช่เส้นเฉลี่ย</h3>
 <p>หากหลาย Simulation แตะ Risk Limit ที่ Lot ปัจจุบัน ให้ลดความเสี่ยงหรือเปลี่ยนกฎ ไม่ควรเลือก Scenario กลางเพราะรู้สึกว่า Worst Case “ไม่น่าเกิด”</p>

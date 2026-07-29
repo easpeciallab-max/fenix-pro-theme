@@ -22,6 +22,10 @@ cover_alt: แผงควบคุม Equity Stop ของพอร์ต EA �
 
 <h2 id="why">Equity Stop ใช้แก้ปัญหาอะไร</h2>
 
+<!-- fenix-media-v3:equity-stop-ea-emergency-cutoff.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/equity-stop-ea-emergency-cutoff.webp" alt="ภาพประกอบหัวข้อ Equity Stop ใช้แก้ปัญหาอะไร" title="Equity Stop ใช้แก้ปัญหาอะไร" class="wp-image-20182" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>พอร์ต EA อาจมีหลาย Position, หลาย Symbol หรือหลายระบบทำงานพร้อมกัน ต่อให้ทุกออเดอร์มี Stop Loss ความเสียหายรวมอาจเกิน Risk Budget เมื่อ Position สัมพันธ์กัน ขณะเดียวกันระบบ Grid/Basket บางแบบอาจไม่มี Stop รายออเดอร์ในรูปแบบปกติ Equity Stop จึงทำหน้าที่เป็น Circuit Breaker ชั้นบน</p>
 
 <ul>
@@ -93,6 +97,10 @@ cover_alt: แผงควบคุม Equity Stop ของพอร์ต EA �
 
 <h2 id="interaction">Equity Stop ไม่แทน Stop Loss ทุกชั้น</h2>
 
+<!-- fenix-media-v3:equity-stop-ea-layered-protection.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/equity-stop-ea-layered-protection.webp" alt="ภาพประกอบหัวข้อ Equity Stop ไม่แทน Stop Loss ทุกชั้น" title="Equity Stop ไม่แทน Stop Loss ทุกชั้น" class="wp-image-20183" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>โครงสร้างที่แข็งแรงมักมีหลายชั้น:</p>
 <ol>
 <li><strong>Trade Stop:</strong> จำกัด Thesis/Risk ของ Position เดี่ยว</li>
@@ -106,6 +114,10 @@ cover_alt: แผงควบคุม Equity Stop ของพอร์ต EA �
 <p>Threshold ต้องสัมพันธ์กับ Lot และ Margin Buffer ด้วย หากวาง Equity Stop ใกล้ Stop Out เกินไป ระบบอาจไม่มีพื้นที่พอให้ปิดตามแผน อ่าน <a href="https://fenixpro-th.com/leverage-margin-level-ea/">Leverage และ Margin Level มีผลต่อ EA อย่างไร</a> และ <a href="https://fenixpro-th.com/risk-of-ruin-ea-trading/">Risk of Ruin</a></p>
 
 <h2 id="test">วิธีทดสอบ Equity Stop</h2>
+
+<!-- fenix-media-v3:equity-stop-ea-trigger-testing.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/equity-stop-ea-trigger-testing.webp" alt="ภาพประกอบหัวข้อ วิธีทดสอบ Equity Stop" title="วิธีทดสอบ Equity Stop" class="wp-image-20184" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <ul>
 <li>ทดสอบ Trigger เมื่อ Equity เท่ากับ ต่ำกว่า และแกว่งรอบ Threshold</li>

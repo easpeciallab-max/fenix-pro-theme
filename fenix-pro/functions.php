@@ -805,6 +805,24 @@ function fenix_logo_url() {
 }
 
 /**
+ * ALT ของภาพเด่นจาก Media Library พร้อม fallback เป็นชื่อบทความ
+ *
+ * @param int $post_id Post ID. Defaults to the current post.
+ * @return string
+ */
+function fenix_featured_image_alt( $post_id = 0 ) {
+	$post_id      = $post_id ? absint( $post_id ) : get_the_ID();
+	$thumbnail_id = get_post_thumbnail_id( $post_id );
+	$alt          = $thumbnail_id ? trim( (string) get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) : '';
+
+	if ( '' === $alt ) {
+		$alt = get_the_title( $post_id );
+	}
+
+	return $alt;
+}
+
+/**
  * เมนูสำรอง กรณียังไม่ได้สร้างเมนูใน WordPress
  * ชี้ไปยังหน้าย่อยตาม slug ที่แนะนำ (ปรับเมนูจริงได้ที่ รูปแบบ → เมนู)
  */
@@ -1195,6 +1213,7 @@ add_action(
 function fenix_open_graph() {
 	$site        = get_bloginfo( 'name' );
 	$default_img = fenix_mod( 'og_default_image' );
+	$img_alt     = '';
 	if ( ! $default_img ) {
 		$default_img = fenix_logo_url();
 	}
@@ -1207,13 +1226,18 @@ function fenix_open_graph() {
 		if ( ! $img ) {
 			$img = $default_img;
 		}
-		$type = is_singular( 'post' ) ? 'article' : 'website';
+		$type    = is_singular( 'post' ) ? 'article' : 'website';
+		$img_alt = fenix_featured_image_alt( get_the_ID() );
 	} else {
 		$title = is_front_page() ? $site : wp_strip_all_tags( wp_get_document_title() );
 		$desc  = fenix_mod( 'og_default_description' );
 		$url   = home_url( '/' );
 		$img   = $default_img;
 		$type  = 'website';
+	}
+
+	if ( '' === $img_alt ) {
+		$img_alt = $title;
 	}
 
 	$desc = trim( (string) $desc );
@@ -1243,7 +1267,7 @@ function fenix_open_graph() {
 	}
 
 	if ( '' !== (string) $img ) {
-		printf( '<meta property="og:image:alt" content="%s">' . "\n", esc_attr( $title ) );
+		printf( '<meta property="og:image:alt" content="%s">' . "\n", esc_attr( $img_alt ) );
 	}
 
 	if ( 'article' === $type ) {
@@ -1258,7 +1282,7 @@ function fenix_open_graph() {
 	}
 	if ( '' !== (string) $img ) {
 		printf( '<meta name="twitter:image" content="%s">' . "\n", esc_attr( $img ) );
-		printf( '<meta name="twitter:image:alt" content="%s">' . "\n", esc_attr( $title ) );
+		printf( '<meta name="twitter:image:alt" content="%s">' . "\n", esc_attr( $img_alt ) );
 	}
 }
 if ( ! defined( 'WPSEO_VERSION' ) && ! class_exists( 'RankMath' ) && ! defined( 'SEOPRESS_VERSION' ) ) {
@@ -1525,7 +1549,7 @@ function fenix_post_card() {
 	<article <?php post_class( 'post-card' ); ?>>
 		<?php if ( has_post_thumbnail() ) : ?>
 			<a class="post-card-thumb" href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail( 'medium_large', array( 'alt' => esc_attr( get_the_title() ) ) ); ?>
+				<?php the_post_thumbnail( 'medium_large', array( 'alt' => esc_attr( fenix_featured_image_alt() ) ) ); ?>
 				<?php if ( $cat ) : ?>
 					<span class="post-card-cat"><?php echo esc_html( $cat->name ); ?></span>
 				<?php endif; ?>

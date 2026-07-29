@@ -11,16 +11,20 @@ cover_alt: แผนภาพระดับออเดอร์ของ Grid 
 <nav aria-label="สารบัญ">
 <p><strong>สารบัญ</strong></p>
 <ul>
-<li><a href="#mechanism">Grid EA ทำงานอย่างไร</a></li>
-<li><a href="#types">Grid ที่พบบ่อย</a></li>
-<li><a href="#martingale">Grid ต่างจาก Martingale อย่างไร</a></li>
-<li><a href="#risks">ความเสี่ยงหลัก</a></li>
-<li><a href="#backtest">วิธีตรวจจาก Backtest</a></li>
-<li><a href="#questions">คำถามก่อนนำไปใช้</a></li>
+<li><a href="/#mechanism">Grid EA ทำงานอย่างไร</a></li>
+<li><a href="/#types">Grid ที่พบบ่อย</a></li>
+<li><a href="/#martingale">Grid ต่างจาก Martingale อย่างไร</a></li>
+<li><a href="/#risks">ความเสี่ยงหลัก</a></li>
+<li><a href="/#backtest">วิธีตรวจจาก Backtest</a></li>
+<li><a href="/#questions">คำถามก่อนนำไปใช้</a></li>
 </ul>
 </nav>
 
 <h2 id="mechanism">Grid EA ทำงานอย่างไร</h2>
+<!-- wp:image {"id":20062,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/grid-ea-risks-overview.webp" alt="หน้าจออธิบาย Grid EA คือ และหลักการทำงานของ EA" class="wp-image-20062" width="1200" height="675" loading="lazy" decoding="async" /><figcaption class="wp-element-caption">ภาพประกอบสรุป Grid EA คืออะไร? เข้าใจกลไกและความเสี่ยงก่อนใช้</figcaption></figure>
+<!-- /wp:image -->
+
 
 <p>สมมติระบบกำหนดระดับราคาเป็นชั้น A, B, C และ D เมื่อราคาเคลื่อนผ่านแต่ละชั้น EA อาจเปิดออเดอร์เพิ่ม หรือวาง Pending Order รอไว้ล่วงหน้า จุดประสงค์ขึ้นอยู่กับการออกแบบ เช่น</p>
 
@@ -47,6 +51,10 @@ cover_alt: แผนภาพระดับออเดอร์ของ Grid 
 <p>เปิดสถานะทั้งสองด้านเพื่อจัดการการแกว่งตัวหรือ Exposure รวม โครงสร้างอาจซับซ้อนมากขึ้น เพราะกำไรฝั่งหนึ่งไม่ได้แปลว่าความเสี่ยงของอีกฝั่งหายไป และยังมีต้นทุน Spread, Commission หรือ Swap ของหลายสถานะ</p>
 
 <h2 id="martingale">Grid ต่างจาก Martingale อย่างไร</h2>
+<!-- wp:image {"id":20063,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/grid-ea-risks-key-points.webp" alt="อินโฟกราฟิกสรุปประเด็นสำคัญเรื่อง Grid EA คือ" class="wp-image-20063" width="1200" height="675" loading="lazy" decoding="async" /><figcaption class="wp-element-caption">สรุปประเด็นที่ควรเข้าใจเกี่ยวกับ Grid EA คือ</figcaption></figure>
+<!-- /wp:image -->
+
 
 <p>Grid กำหนด “ตำแหน่งราคา” ที่ระบบจะเปิดออเดอร์ ส่วน Martingale กำหนด “ขนาดเดิมพันหรือขนาดสถานะ” ที่เพิ่มขึ้นหลังขาดทุน จึงเกิดกรณีได้หลายแบบ</p>
 
@@ -111,6 +119,10 @@ cover_alt: แผนภาพระดับออเดอร์ของ Grid 
 <p>Strategy Tester ของ MetaTrader 5 ช่วยจำลองระบบด้วยข้อมูลย้อนหลัง แต่ผลลัพธ์ขึ้นอยู่กับข้อมูล Tick, การตั้งค่า, ต้นทุน และแบบจำลองที่เลือก จึงต้องอ่านรายละเอียดตาม <a href="https://fenixpro-th.com/read-ea-backtest/">คู่มืออ่านผล Backtest</a> และเปรียบเทียบกับ Forward Test</p>
 
 <h2 id="questions">คำถามที่ควรถามก่อนนำ Grid EA ไปใช้</h2>
+<!-- wp:image {"id":20064,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/grid-ea-risks-checklist.webp" alt="เช็กลิสต์ตรวจสอบ Grid EA คือ ก่อนนำไปใช้จริง" class="wp-image-20064" width="1200" height="675" loading="lazy" decoding="async" /><figcaption class="wp-element-caption">รายการตรวจสอบ Grid EA คือ ก่อนตัดสินใจใช้งาน</figcaption></figure>
+<!-- /wp:image -->
+
 
 <ul>
 <li>ระยะ Grid คงที่หรือเปลี่ยนตามความผันผวน</li>

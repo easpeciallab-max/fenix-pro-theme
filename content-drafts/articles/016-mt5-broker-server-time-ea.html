@@ -22,6 +22,10 @@ cover_alt: กราฟ MT5 เปรียบเทียบ Broker Server Time
 
 <h2 id="clocks">แยก Server Time, Local Time และ GMT</h2>
 
+<!-- fenix-media-v3:mt5-broker-server-time-ea-overview.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-broker-server-time-ea-overview.webp" alt="ภาพประกอบหัวข้อ แยก Server Time, Local Time และ GMT" title="แยก Server Time, Local Time และ GMT" class="wp-image-20130" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <table>
 <thead>
 <tr>
@@ -54,6 +58,10 @@ cover_alt: กราฟ MT5 เปรียบเทียบ Broker Server Time
 <p>เอกสาร MQL5 ระบุว่า TimeTradeServer เป็นเวลาปัจจุบันของ Trade Server ที่คำนวณใน Client Terminal และขึ้นกับการตั้งเวลาเครื่อง ส่วน TimeCurrent เกี่ยวกับเวลาของ Quote ล่าสุดใน Market Watch ใน Strategy Tester เวลาจะถูกจำลองจากข้อมูลประวัติ</p>
 
 <h2 id="effects">Server Time มีผลต่อ EA อย่างไร</h2>
+
+<!-- fenix-media-v3:mt5-broker-server-time-ea-market-sessions.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-broker-server-time-ea-market-sessions.webp" alt="ภาพประกอบหัวข้อ Server Time มีผลต่อ EA อย่างไร" title="Server Time มีผลต่อ EA อย่างไร" class="wp-image-20131" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <ul>
 <li><strong>Trading Session:</strong> กำหนดช่วงอนุญาต Entry เช่น London/New York</li>
@@ -91,6 +99,10 @@ cover_alt: กราฟ MT5 เปรียบเทียบ Broker Server Time
 <p>ตัวอย่างนี้ใช้ได้เมื่อรู้ Offset ที่ถูกต้อง ณ วันนั้น อย่าบันทึก “บวก 5 ชั่วโมงตลอดไป” เพราะ DST หรือการเปลี่ยนนโยบาย Server อาจทำให้ผิดในอนาคต</p>
 
 <h2 id="dst">Daylight Saving Time ทำให้ค่าเปลี่ยนอย่างไร</h2>
+
+<!-- fenix-media-v3:mt5-broker-server-time-ea-daylight-saving.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-broker-server-time-ea-daylight-saving.webp" alt="ภาพประกอบหัวข้อ Daylight Saving Time ทำให้ค่าเปลี่ยนอย่างไร" title="Daylight Saving Time ทำให้ค่าเปลี่ยนอย่างไร" class="wp-image-20132" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <p>ประเทศไทยไม่มี DST แต่ Server หลายแห่งปรับ Offset ตามเขตเวลายุโรปหรือสหรัฐฯ ช่วงเปลี่ยนฤดูกาล Server อาจขยับหนึ่งชั่วโมง แม้เวลาประเทศไทยไม่เปลี่ยน ผลคือ Session Filter ที่เคยตรงกับตลาดอาจเลื่อนไป</p>
 

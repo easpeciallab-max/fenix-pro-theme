@@ -22,6 +22,10 @@ cover_alt: เส้นเวลาแบ่งข้อมูลทดสอบ
 
 <h2 id="purpose">ทำไม Backtest ชุดเดียวไม่พอ</h2>
 
+<!-- fenix-media-v3:in-sample-out-of-sample-ea-overview.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/in-sample-out-of-sample-ea-overview.webp" alt="ภาพประกอบหัวข้อ ทำไม Backtest ชุดเดียวไม่พอ" title="ทำไม Backtest ชุดเดียวไม่พอ" class="wp-image-20146" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>เมื่อปรับพารามิเตอร์หลายชุด ยิ่งลองมากยิ่งมีโอกาสพบค่าที่เข้ากับ Noise ในอดีตโดยบังเอิญ ผล IS จึงบอกได้ว่าพารามิเตอร์ “พอดีกับข้อมูลที่ใช้เลือก” แต่ยังไม่บอกว่าตรรกะมีความทนทานนอกช่วงนั้น</p>
 
 <p>OOS ช่วยตอบคำถาม:</p>
@@ -35,6 +39,10 @@ cover_alt: เส้นเวลาแบ่งข้อมูลทดสอบ
 </ul>
 
 <h2 id="split">วิธีแบ่งข้อมูล In-Sample และ Out-of-Sample</h2>
+
+<!-- fenix-media-v3:in-sample-out-of-sample-ea-data-split.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/in-sample-out-of-sample-ea-data-split.webp" alt="ภาพประกอบหัวข้อ วิธีแบ่งข้อมูล In-Sample และ Out-of-Sample" title="วิธีแบ่งข้อมูล In-Sample และ Out-of-Sample" class="wp-image-20147" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <h3>Chronological Holdout</h3>
 <p>ใช้ช่วงเก่าเป็น IS และช่วงใหม่เป็น OOS เหมาะกับ Time Series เพราะรักษาลำดับเวลาและจำลองการพัฒนาระบบในอดีตแล้วนำไปใช้ช่วงถัดมา ตัวอย่างเชิงโครงสร้างคือ IS 70-80% แรก OOS 20-30% หลัง แต่สัดส่วนไม่ใช่กฎตายตัว ต้องให้แต่ละส่วนมี Trade และสภาวะตลาดพอวิเคราะห์</p>
@@ -99,6 +107,10 @@ cover_alt: เส้นเวลาแบ่งข้อมูลทดสอบ
 <p>ควร Normalize ผลตามเวลา/จำนวน Trade และดู Confidence ไม่เปรียบเทียบ Net Profit ตรง ๆ หาก IS ยาว 8 ปีแต่ OOS ยาว 1 ปี อ่าน Equity Curve, Monthly Distribution และ Exposure ร่วมกัน</p>
 
 <h2 id="leakage">ข้อผิดพลาดที่ทำให้ OOS ใช้ไม่ได้</h2>
+
+<!-- fenix-media-v3:in-sample-out-of-sample-ea-overfitting-validation.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/in-sample-out-of-sample-ea-overfitting-validation.webp" alt="ภาพประกอบหัวข้อ ข้อผิดพลาดที่ทำให้ OOS ใช้ไม่ได้" title="ข้อผิดพลาดที่ทำให้ OOS ใช้ไม่ได้" class="wp-image-20148" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <ul>
 <li>เปิดดู OOS แล้วปรับค่าซ้ำหลายรอบ</li>

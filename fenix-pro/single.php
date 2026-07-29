@@ -48,7 +48,7 @@ while ( have_posts() ) :
 
 			<?php if ( has_post_thumbnail() ) : ?>
 				<div class="container container-narrow">
-					<figure class="article-thumb"><?php the_post_thumbnail( 'large', array( 'alt' => esc_attr( get_the_title() ) ) ); ?></figure>
+					<figure class="article-thumb"><?php the_post_thumbnail( 'large', array( 'alt' => esc_attr( fenix_featured_image_alt() ) ) ); ?></figure>
 				</div>
 			<?php endif; ?>
 
@@ -139,7 +139,7 @@ while ( have_posts() ) :
 								<article <?php post_class( 'post-card' ); ?>>
 									<?php if ( has_post_thumbnail() ) : ?>
 										<a class="post-card-thumb" href="<?php the_permalink(); ?>">
-											<?php the_post_thumbnail( 'medium_large', array( 'alt' => esc_attr( get_the_title() ) ) ); ?>
+											<?php the_post_thumbnail( 'medium_large', array( 'alt' => esc_attr( fenix_featured_image_alt() ) ) ); ?>
 										</a>
 									<?php endif; ?>
 									<div class="post-card-body">

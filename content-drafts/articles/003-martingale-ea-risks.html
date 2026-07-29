@@ -11,16 +11,20 @@ cover_alt: แผนภาพ Martingale EA ที่เพิ่มขนาด
 <nav aria-label="สารบัญ">
 <p><strong>สารบัญ</strong></p>
 <ul>
-<li><a href="#mechanism">Martingale ทำงานอย่างไร</a></li>
-<li><a href="#growth">ทำไม Lot เพิ่มเร็ว</a></li>
-<li><a href="#grid">ต่างจาก Grid อย่างไร</a></li>
-<li><a href="#curve">ทำไมผลทดสอบอาจดูดี</a></li>
-<li><a href="#audit">วิธีตรวจประวัติออเดอร์</a></li>
-<li><a href="#limits">ขีดจำกัดที่ต้องกำหนด</a></li>
+<li><a href="/#mechanism">Martingale ทำงานอย่างไร</a></li>
+<li><a href="/#growth">ทำไม Lot เพิ่มเร็ว</a></li>
+<li><a href="/#grid">ต่างจาก Grid อย่างไร</a></li>
+<li><a href="/#curve">ทำไมผลทดสอบอาจดูดี</a></li>
+<li><a href="/#audit">วิธีตรวจประวัติออเดอร์</a></li>
+<li><a href="/#limits">ขีดจำกัดที่ต้องกำหนด</a></li>
 </ul>
 </nav>
 
 <h2 id="mechanism">Martingale EA ทำงานอย่างไร</h2>
+<!-- wp:image {"id":20066,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/martingale-ea-risks-overview.webp" alt="หน้าจออธิบาย Martingale EA คือ และหลักการทำงานของ EA" class="wp-image-20066" width="1200" height="675" loading="lazy" decoding="async" /><figcaption class="wp-element-caption">ภาพประกอบสรุป Martingale EA คืออะไร? ทำไมความเสี่ยงเพิ่มเร็ว</figcaption></figure>
+<!-- /wp:image -->
+
 
 <p>รูปแบบคลาสสิกคือเพิ่มขนาดหลังขาดทุน เช่น เริ่มด้วย Lot ตั้งต้นหนึ่งระดับ แล้วคูณ Lot เมื่อเปิดไม้ถัดไป ระบบจริงอาจไม่ได้เพิ่มเป็นสองเท่าเสมอไป บางตัวใช้ตัวคูณต่ำกว่า 2 บางตัวเพิ่มตามจำนวนจุดที่ราคาผิดทาง และบางตัวคำนวณ Lot เพื่อให้กำไรรวมของ Basket กลับมาเป็นบวกเมื่อราคาฟื้นเพียงระยะสั้น</p>
 
@@ -43,6 +47,10 @@ cover_alt: แผนภาพ Martingale EA ที่เพิ่มขนาด
 <p>เมื่อ Equity ลดลงพร้อมกับ Margin Used เพิ่มขึ้น Free Margin และ Margin Level จะลดลงสองทาง หากต่ำถึงเกณฑ์ของโบรกเกอร์ อาจเกิด Margin Call หรือ Stop Out ก่อนที่ราคาจะกลับตามที่ระบบคาดไว้ อ่านพื้นฐานการควบคุมทุนได้ที่ <a href="https://fenixpro-th.com/money-management/">Money Management สำหรับ EA</a></p>
 
 <h2 id="grid">Martingale ต่างจาก Grid อย่างไร</h2>
+<!-- wp:image {"id":20067,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/martingale-ea-risks-key-points.webp" alt="อินโฟกราฟิกสรุปประเด็นสำคัญเรื่อง Martingale EA คือ" class="wp-image-20067" width="1200" height="675" loading="lazy" decoding="async" /><figcaption class="wp-element-caption">สรุปประเด็นที่ควรเข้าใจเกี่ยวกับ Martingale EA คือ</figcaption></figure>
+<!-- /wp:image -->
+
 
 <p>Grid คือการวางออเดอร์หลายระดับราคา ส่วน Martingale คือการเพิ่มขนาดสถานะหลังผลลัพธ์ที่เสียเปรียบ ระบบจึงอาจใช้ Martingale โดยไม่ใช้ Grid เช่น เพิ่ม Lot ในสัญญาณใหม่หลังออเดอร์ก่อนหน้าปิดขาดทุน หรือใช้ Grid แบบ Fixed Lot โดยไม่เพิ่ม Lot ก็ได้</p>
 
@@ -78,6 +86,10 @@ cover_alt: แผนภาพ Martingale EA ที่เพิ่มขนาด
 <p>หากมีเพียงภาพ Screenshot ของกำไร ควรขอ Statement หรือผลทดสอบที่เปิดดูรายละเอียดออเดอร์ได้ และตรวจหลักฐานตาม <a href="https://fenixpro-th.com/evaluate-ea-checklist/">เช็กลิสต์ประเมิน EA</a></p>
 
 <h2 id="limits">ขีดจำกัดที่ระบบ Martingale ควรอธิบายได้</h2>
+<!-- wp:image {"id":20068,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/martingale-ea-risks-checklist.webp" alt="เช็กลิสต์ตรวจสอบ Martingale EA คือ ก่อนนำไปใช้จริง" class="wp-image-20068" width="1200" height="675" loading="lazy" decoding="async" /><figcaption class="wp-element-caption">รายการตรวจสอบ Martingale EA คือ ก่อนตัดสินใจใช้งาน</figcaption></figure>
+<!-- /wp:image -->
+
 
 <table>
 <thead>

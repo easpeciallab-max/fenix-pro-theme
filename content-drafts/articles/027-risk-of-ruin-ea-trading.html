@@ -73,6 +73,10 @@ cover_alt: แผนภาพ Risk of Ruin ของพอร์ต EA แสด
 
 <h2 id="estimate">วิธีประเมินก่อนรัน EA</h2>
 
+<!-- fenix-media-v3:risk-of-ruin-ea-trading-outcome-distribution.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/risk-of-ruin-ea-trading-outcome-distribution.webp" alt="ภาพประกอบหัวข้อ วิธีประเมินก่อนรัน EA" title="วิธีประเมินก่อนรัน EA" class="wp-image-20175" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <ol>
 <li><strong>กำหนด Ruin ให้ชัด:</strong> เขียนเป็นตัวเลขและเงื่อนไข เช่น Equity ลดลงถึง Risk Budget หรือ Margin Buffer ต่ำกว่าระดับที่กำหนด</li>
 <li><strong>ใช้ข้อมูลสุทธิ:</strong> รวม Spread, Commission, Swap และ Slippage ที่สอดคล้องกับ Broker/Account</li>
@@ -86,11 +90,19 @@ cover_alt: แผนภาพ Risk of Ruin ของพอร์ต EA แสด
 
 <h2 id="sequence">Sequence Risk: ผลรวมเท่ากัน แต่เส้นทางต่างกัน</h2>
 
+<!-- fenix-media-v3:risk-of-ruin-ea-trading-sequence-risk.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/risk-of-ruin-ea-trading-sequence-risk.webp" alt="ภาพประกอบหัวข้อ Sequence Risk: ผลรวมเท่ากัน แต่เส้นทางต่างกัน" title="Sequence Risk: ผลรวมเท่ากัน แต่เส้นทางต่างกัน" class="wp-image-20174" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>สมมติ Strategy สองชุดมีผลรวมสุดท้ายเท่ากัน ชุดแรกกระจาย Loss ตลอดช่วง ส่วนอีกชุดมี Loss ต่อเนื่องตั้งแต่ต้น หากใช้ Fixed Lot ผลกระทบอาจยังต่างกันด้านจิตใจและ Margin แต่หากใช้ Lot ตาม Equity ลำดับ Trade จะเปลี่ยนฐานคำนวณทุกครั้งและทำให้ผลปลายทางต่างกันได้มากขึ้น</p>
 
 <p>เหตุนี้ Maximum Consecutive Losses จากประวัติไม่ควรถูกใช้เป็นเพดานอนาคต ควรเผื่อ Streak ที่ยาวกว่า และตรวจว่า EA เพิ่ม Lot หลังแพ้หรือเพิ่มจำนวน Position ใน Basket หรือไม่ ระบบ Grid/Martingale ต้องวิเคราะห์ Tail Risk แยกจากระบบที่ขาดทุนจำกัดต่อ Trade</p>
 
 <h2 id="reduce">แนวทางลด Risk of Ruin</h2>
+
+<!-- fenix-media-v3:risk-of-ruin-ea-trading-risk-controls.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/risk-of-ruin-ea-trading-risk-controls.webp" alt="ภาพประกอบหัวข้อ แนวทางลด Risk of Ruin" title="แนวทางลด Risk of Ruin" class="wp-image-20176" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <ul>
 <li>ลด Risk ต่อ Trade/Basket และกำหนด Maximum Total Exposure</li>

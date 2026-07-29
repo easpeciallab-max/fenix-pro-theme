@@ -11,16 +11,20 @@ cover_alt: ปฏิทินข่าวเศรษฐกิจกับ News 
 <nav aria-label="สารบัญ">
 <p><strong>สารบัญ</strong></p>
 <ul>
-<li><a href="#behavior">ตลาดอาจเกิดอะไรช่วงข่าว</a></li>
-<li><a href="#filter">News Filter ทำงานอย่างไร</a></li>
-<li><a href="#time">เวลา Local, Server และ Calendar</a></li>
-<li><a href="#limits">สิ่งที่ Filter ป้องกันไม่ได้</a></li>
-<li><a href="#testing">วิธีทดสอบและตรวจ Log</a></li>
-<li><a href="#settings">เช็กลิสต์การตั้งค่า</a></li>
+<li><a href="/#behavior">ตลาดอาจเกิดอะไรช่วงข่าว</a></li>
+<li><a href="/#filter">News Filter ทำงานอย่างไร</a></li>
+<li><a href="/#time">เวลา Local, Server และ Calendar</a></li>
+<li><a href="/#limits">สิ่งที่ Filter ป้องกันไม่ได้</a></li>
+<li><a href="/#testing">วิธีทดสอบและตรวจ Log</a></li>
+<li><a href="/#settings">เช็กลิสต์การตั้งค่า</a></li>
 </ul>
 </nav>
 
 <h2 id="behavior">ตลาดอาจเกิดอะไรขึ้นในช่วงข่าว</h2>
+<!-- wp:image {"id":20082,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/ea-news-filter-trading-overview.webp" alt="หน้าจออธิบาย EA News Filter และหลักการทำงานของ EA" class="wp-image-20082" width="1200" height="675" loading="lazy" decoding="async" /><figcaption class="wp-element-caption">ภาพประกอบสรุป EA ทำงานช่วงข่าวอย่างไร? News Filter ช่วยอะไร</figcaption></figure>
+<!-- /wp:image -->
+
 
 <p>ข่าวไม่ได้ทำให้ราคาเคลื่อนแรงทุกครั้ง แต่เหตุการณ์ที่ตลาดให้ความสำคัญอาจสร้างเงื่อนไขต่อไปนี้พร้อมกัน</p>
 
@@ -49,6 +53,10 @@ cover_alt: ปฏิทินข่าวเศรษฐกิจกับ News 
 <p>MetaTrader 5 มี Economic Calendar ที่รวบรวมเหตุการณ์และปรับเวลาตามระบบของแพลตฟอร์ม แต่ EA แต่ละตัวอาจใช้แหล่งข้อมูลอื่น จึงต้องอ่านคู่มือของระบบ ไม่ควรสมมติว่า News Filter ทุกตัวใช้ข้อมูลเดียวกัน</p>
 
 <h2 id="time">เวลา Local, Broker Server และ Calendar ต้องตรงกัน</h2>
+<!-- wp:image {"id":20083,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/ea-news-filter-trading-key-points.webp" alt="อินโฟกราฟิกสรุปประเด็นสำคัญเรื่อง EA News Filter" class="wp-image-20083" width="1200" height="675" loading="lazy" decoding="async" /><figcaption class="wp-element-caption">สรุปประเด็นที่ควรเข้าใจเกี่ยวกับ EA News Filter</figcaption></figure>
+<!-- /wp:image -->
+
 
 <p>ความผิดพลาดที่พบบ่อยคือกำหนดเวลาข่าวถูก แต่ EA เทียบกับ Timezone คนละชุด MT5 แสดงเวลา Quote ตาม Trade Server ของโบรกเกอร์ ขณะที่ปฏิทินหรือเว็บไซต์ข่าวอาจแสดงตาม Local Time ของเครื่องหรือเขตเวลาที่เลือก</p>
 
@@ -92,6 +100,10 @@ cover_alt: ปฏิทินข่าวเศรษฐกิจกับ News 
 <p>หาก EA ไม่ทำงานตามคาด ให้ตรวจขั้นตอนใน <a href="https://fenixpro-th.com/ea-not-working-mt5/">EA ไม่ทำงานบน MT5 แก้อย่างไร</a> และอย่าแก้ด้วยการเปิดสิทธิทุกอย่างโดยไม่รู้สาเหตุ</p>
 
 <h2 id="settings">เช็กลิสต์ก่อนเปิด News Filter</h2>
+<!-- wp:image {"id":20084,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/ea-news-filter-trading-checklist.webp" alt="เช็กลิสต์ตรวจสอบ EA News Filter ก่อนนำไปใช้จริง" class="wp-image-20084" width="1200" height="675" loading="lazy" decoding="async" /><figcaption class="wp-element-caption">รายการตรวจสอบ EA News Filter ก่อนตัดสินใจใช้งาน</figcaption></figure>
+<!-- /wp:image -->
+
 
 <ul>
 <li>แหล่งข้อมูลข่าวคืออะไรและต้องใช้อินเทอร์เน็ตหรือ WebRequest หรือไม่</li>

@@ -22,6 +22,10 @@ cover_alt: Strategy Tester บน MT5 แสดงตัวเลือก Every
 
 <h2 id="modes">เปรียบเทียบโหมดสร้างราคาใน MT5</h2>
 
+<!-- fenix-media-v3:mt5-real-ticks-backtest-overview.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-real-ticks-backtest-overview.webp" alt="ภาพประกอบหัวข้อ เปรียบเทียบโหมดสร้างราคาใน MT5" title="เปรียบเทียบโหมดสร้างราคาใน MT5" class="wp-image-20142" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <table>
 <thead>
 <tr>
@@ -58,6 +62,10 @@ cover_alt: Strategy Tester บน MT5 แสดงตัวเลือก Every
 
 <h2 id="real">Real Ticks ต่างจาก Tick ที่สร้างอย่างไร</h2>
 
+<!-- fenix-media-v3:mt5-real-ticks-backtest-real-vs-generated.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-real-ticks-backtest-real-vs-generated.webp" alt="ภาพประกอบหัวข้อ Real Ticks ต่างจาก Tick ที่สร้างอย่างไร" title="Real Ticks ต่างจาก Tick ที่สร้างอย่างไร" class="wp-image-20143" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>ใน Real Ticks Tester เล่นลำดับ Tick ที่สะสมจาก Exchange/Liquidity Provider ผ่านโบรกเกอร์ Spread สามารถเปลี่ยนภายในนาทีได้ ส่วนโหมด Every Tick ที่สร้างจาก M1 จะใช้กฎสร้างจุดอ้างอิงระหว่าง Open, High, Low, Close และ Ask คำนวณจาก Bid + Spread ของ Bar ตามเอกสาร MT5</p>
 
 <p>ความต่างนี้สำคัญเมื่อ:</p>
@@ -88,6 +96,10 @@ cover_alt: Strategy Tester บน MT5 แสดงตัวเลือก Every
 <p>ตรวจข้อมูล Tick ของทุก Symbol ที่ EA เรียก ไม่ใช่เฉพาะ Chart หลัก Strategy Tester จะโหลดข้อมูลที่จำเป็น แต่ Gap หรือ Time Alignment ของ Symbol รองยังมีผลได้</p>
 
 <h2 id="spread">ทำไมต้องสนใจ Bid และ Ask</h2>
+
+<!-- fenix-media-v3:mt5-real-ticks-backtest-bid-ask.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/mt5-real-ticks-backtest-bid-ask.webp" alt="ภาพประกอบหัวข้อ ทำไมต้องสนใจ Bid และ Ask" title="ทำไมต้องสนใจ Bid และ Ask" class="wp-image-20144" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <p>กราฟจำนวนมากแสดง Bid เป็นหลัก แต่คำสั่ง Buy เปิดที่ Ask และปิดที่ Bid ส่วน Sell เปิดที่ Bid และปิดที่ Ask ดังนั้น Spread อยู่ในเส้นทางกำไรขาดทุนแม้มองไม่เห็นจาก Candle เดียว</p>
 

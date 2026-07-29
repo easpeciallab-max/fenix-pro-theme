@@ -22,6 +22,10 @@ cover_alt: หน้าจอ MT5 แสดง Position หลายรายก
 
 <h2 id="how">Magic Number ทำงานอย่างไรใน MT5</h2>
 
+<!-- fenix-media-v3:magic-number-mt5-ea-overview.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/magic-number-mt5-ea-overview.webp" alt="ภาพประกอบหัวข้อ Magic Number ทำงานอย่างไรใน MT5" title="Magic Number ทำงานอย่างไรใน MT5" class="wp-image-20114" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
+
 <p>ใน MQL5 มี Property สำหรับ Magic ของ Order, Deal และ Position นักพัฒนาสามารถกำหนดค่าเมื่อส่งคำสั่ง แล้วกรองรายการภายหลังเพื่อจัดการเฉพาะรายการที่ตรงกับ ID ของระบบ เช่น EA หมายเลข 12001 จะคำนวณกำไรขาดทุนหรือปิดเฉพาะ Position ที่มี Magic 12001</p>
 
 <p>อย่างไรก็ตาม Magic Number จะช่วยได้ก็ต่อเมื่อโค้ดใช้มันจริง EA บางตัวกรองจาก Symbol อย่างเดียว บางตัวใช้ทั้ง Symbol + Magic และบางตัวมีระบบ Mapping ภายใน ผู้ใช้จึงต้องอ่านคู่มือ ไม่ควรสรุปจากช่อง Input ว่าระบบแยกออเดอร์ครบทุกกรณี</p>
@@ -44,6 +48,10 @@ cover_alt: หน้าจอ MT5 แสดง Position หลายรายก
 <p>อ่านภาพรวมการจัดหลายระบบได้ที่ <a href="https://fenixpro-th.com/run-multiple-ea-mt5/">วิธีเปิด EA หลายตัวบน MT5 และคุมความเสี่ยงรวม</a></p>
 
 <h2 id="setting">วิธีตั้ง Magic Number แบบจัดการต่อได้</h2>
+
+<!-- fenix-media-v3:magic-number-mt5-ea-id-registry.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/magic-number-mt5-ea-id-registry.webp" alt="ภาพประกอบหัวข้อ วิธีตั้ง Magic Number แบบจัดการต่อได้" title="วิธีตั้ง Magic Number แบบจัดการต่อได้" class="wp-image-20115" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <p>ไม่มีเลข “ดีที่สุด” และตัวเลขใหญ่ไม่ได้ปลอดภัยกว่าเลขเล็ก เป้าหมายคือความไม่ซ้ำและตรวจย้อนกลับได้ วิธีใช้งานจริงคือสร้าง Convention ที่ทีมเข้าใจตรงกัน เช่นแบ่งช่วงเลขตามระบบ บัญชี หรือ Symbol</p>
 
@@ -106,6 +114,10 @@ cover_alt: หน้าจอ MT5 แสดง Position หลายรายก
 <p>ดังนั้น EA หลายตัวที่เทรด Symbol เดียวกันบนบัญชี Netting ต้องถูกออกแบบให้ทำงานร่วมกันโดยเฉพาะ การตั้ง Magic ไม่ซ้ำอย่างเดียวอาจไม่เพียงพอ ควรถามผู้พัฒนาว่ารองรับ Netting, Hedging หรือทั้งสองแบบ และทดสอบการเปิด/ลด/กลับทิศ Position จริงใน Demo</p>
 
 <h2 id="check">ปัญหาที่พบบ่อยและวิธีตรวจ</h2>
+
+<!-- fenix-media-v3:magic-number-mt5-ea-order-isolation.webp -->
+<figure class="wp-block-image size-full fenix-article-media"><img src="https://fenixpro-th.com/wp-content/uploads/2026/07/magic-number-mt5-ea-order-isolation.webp" alt="ภาพประกอบหัวข้อ ปัญหาที่พบบ่อยและวิธีตรวจ" title="ปัญหาที่พบบ่อยและวิธีตรวจ" class="wp-image-20116" width="1200" height="675" loading="lazy" decoding="async"></figure>
+<!-- /fenix-media-v3 -->
 
 <h3>EA ปิดออเดอร์ของอีกตัว</h3>
 <p>ตรวจว่า Magic ซ้ำหรือไม่ จากนั้นดูว่า EA แยกด้วย Symbol + Magic หรือเลือก Position ทั้ง Symbol หากเกิดในบัญชี Netting ให้ตรวจ Compatibility เพิ่ม</p>
