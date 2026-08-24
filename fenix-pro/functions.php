@@ -219,7 +219,7 @@ function fenix_defaults() {
 		'links_badges'     => '',
 		'links_logo'       => '',
 		'links_signup_label' => 'เปิดบัญชี MT5',
-		'links_signup_url'   => '/pricing/',
+		'links_signup_url'   => 'https://portal.zaurix.com?ref=202859',
 		'links_account_guide_label' => 'สอนเปิดบัญชี',
 		'links_account_guide_url'   => '/open-mt5-account/',
 		'links_mt5_download_label'  => 'คู่มือติดตั้ง MT5',
@@ -669,6 +669,10 @@ function fenix_mod( $key ) {
 		'instagram_url'   => array(
 			'https://www.instagram.com/fenixpro.ea/',
 			'https://www.instagram.com/fenixpro.th/',
+		),
+		'links_signup_url' => array(
+			'/pricing/',
+			'https://fenixpro-th.com/pricing/',
 		),
 		'pricing_subtitle' => 'เลือกแพ็กเกจที่เหมาะกับการใช้งานของคุณ หรือทักมาปรึกษาก่อนตัดสินใจได้',
 		'pricing_mode'     => 'contact',
