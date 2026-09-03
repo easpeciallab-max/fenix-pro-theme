@@ -1707,6 +1707,11 @@ function fenix_restore_authorization_header() {
 		}
 	}
 
+	// ทางเลือกสุดท้าย: ไคลเอนต์ส่งมาในชื่อ X-Authorization (โฮสต์บางเจ้าตัดเฉพาะชื่อ Authorization).
+	if ( '' === $header && ! empty( $_SERVER['HTTP_X_AUTHORIZATION'] ) ) {
+		$header = $_SERVER['HTTP_X_AUTHORIZATION']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+	}
+
 	if ( '' === $header ) {
 		return;
 	}
@@ -1717,6 +1722,39 @@ function fenix_restore_authorization_header() {
 	}
 }
 fenix_restore_authorization_header();
+
+/**
+ * จุดตรวจว่า header Authorization มาถึง PHP หรือไม่ · คืนเฉพาะ true/false ไม่มีข้อมูลลับ
+ * GET /wp-json/fenix/v1/authcheck
+ */
+function fenix_register_authcheck_route() {
+	register_rest_route(
+		'fenix/v1',
+		'/authcheck',
+		array(
+			'methods'             => 'GET',
+			'permission_callback' => '__return_true',
+			'callback'            => 'fenix_authcheck_response',
+		)
+	);
+}
+add_action( 'rest_api_init', 'fenix_register_authcheck_route' );
+
+function fenix_authcheck_response() {
+	$apache_keys = array();
+	if ( function_exists( 'apache_request_headers' ) ) {
+		$apache_keys = array_map( 'strtolower', array_keys( (array) apache_request_headers() ) );
+	}
+
+	return array(
+		'http_authorization'     => ! empty( $_SERVER['HTTP_AUTHORIZATION'] ),
+		'redirect_authorization' => ! empty( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ),
+		'x_authorization'        => ! empty( $_SERVER['HTTP_X_AUTHORIZATION'] ),
+		'apache_authorization'   => in_array( 'authorization', $apache_keys, true ),
+		'php_auth_user_set'      => isset( $_SERVER['PHP_AUTH_USER'] ),
+		'logged_in_user_id'      => get_current_user_id(),
+	);
+}
 
 /**
  * Block the public REST user directory while keeping it available to editors.
