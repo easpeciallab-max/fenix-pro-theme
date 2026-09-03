@@ -17,6 +17,7 @@ desktop.ini
 
 # Build artifacts / archives (ธีมไม่มี build step — ไม่ควร commit zip)
 *.zip
+!fenix-pro/assets/downloads/FENIX_Fast_V4.0.zip
 node_modules/
 vendor/
 

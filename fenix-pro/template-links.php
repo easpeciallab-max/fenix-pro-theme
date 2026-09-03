@@ -126,11 +126,24 @@ $lh_socials = array(
 			</a>
 		<?php endif; ?>
 
+		<?php if ( fenix_mod( 'links_fast_enabled' ) ) : ?>
+			<?php
+			$lh_fast_img = trim( (string) fenix_mod( 'links_fast_img' ) );
+			$lh_fast_url = trim( (string) fenix_mod( 'links_fast_url' ) );
+			?>
+			<?php if ( $lh_fast_img && $lh_fast_url ) : ?>
+				<div class="lh-feature lh-feature-fast">
+					<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_fast_url ) ); ?>" download>
+						<img src="<?php echo esc_url( $lh_fast_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'links_fast_alt' ) ); ?>" width="1200" height="631" loading="lazy">
+					</a>
+				</div>
+			<?php endif; ?>
+		<?php else : ?>
 		<?php
 		$lh_default_feat_img = get_template_directory_uri() . '/assets/img/link-download-fenix-pro-ea.png';
 		$lh_default_feat_url = get_template_directory_uri() . '/assets/downloads/fenix-pro-ea.zip';
 		$lh_feat_img         = trim( (string) fenix_mod( 'links_feature_img' ) );
-		$lh_feat_placeholder = preg_match( '#(?:placehold|placeholder|dummyimage|1200[^/?#]*(?:x|×|-|_)[^/?#]*630)#i', $lh_feat_img );
+		$lh_feat_placeholder = preg_match( '~(?:placehold|placeholder|dummyimage|1200[^/?#]*(?:x|×|-|_)[^/?#]*630)~i', $lh_feat_img );
 		if ( '' === $lh_feat_img || $lh_feat_placeholder ) {
 			$lh_feat_img = $lh_default_feat_img;
 		}
@@ -186,6 +199,7 @@ $lh_socials = array(
 				<span class="lh-feature-cap"><?php echo esc_html( $lh_feat2_caption ); ?></span>
 			<?php endif; ?>
 		</div>
+		<?php endif; ?>
 
 		<?php
 		for ( $lh_i = 1; $lh_i <= 6; $lh_i++ ) :
