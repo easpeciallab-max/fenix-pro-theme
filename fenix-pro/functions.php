@@ -1684,6 +1684,41 @@ remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
 
 /**
+ * กู้ header Authorization บนโฮสต์ที่ตัดทิ้ง (CGI/FastCGI/LiteSpeed)
+ * เพื่อให้ Application Passwords ใช้กับ REST API ได้ · ไม่มีผลถ้า PHP เห็น header อยู่แล้ว
+ */
+function fenix_restore_authorization_header() {
+	if ( ! empty( $_SERVER['HTTP_AUTHORIZATION'] ) || ! empty( $_SERVER['PHP_AUTH_USER'] ) ) {
+		return;
+	}
+
+	$header = '';
+	if ( ! empty( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ) {
+		$header = $_SERVER['REDIRECT_HTTP_AUTHORIZATION']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+	} elseif ( function_exists( 'apache_request_headers' ) ) {
+		$headers = apache_request_headers();
+		if ( is_array( $headers ) ) {
+			foreach ( $headers as $name => $value ) {
+				if ( 'authorization' === strtolower( $name ) ) {
+					$header = $value;
+					break;
+				}
+			}
+		}
+	}
+
+	if ( '' === $header ) {
+		return;
+	}
+
+	$_SERVER['HTTP_AUTHORIZATION'] = $header;
+	if ( function_exists( 'wp_populate_basic_auth_from_authorization_header' ) ) {
+		wp_populate_basic_auth_from_authorization_header();
+	}
+}
+fenix_restore_authorization_header();
+
+/**
  * Block the public REST user directory while keeping it available to editors.
  *
  * @param mixed           $result  Response to replace, or null.
