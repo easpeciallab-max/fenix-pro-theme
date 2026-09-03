@@ -1757,6 +1757,86 @@ function fenix_authcheck_response() {
 }
 
 /**
+ * REST สำหรับผู้ดูแล: อ่าน/แก้ค่า Customizer (theme_mod) เฉพาะ key ที่มีใน fenix_defaults()
+ * GET  /wp-json/fenix/v1/mods                      → ค่าปัจจุบันทุก key
+ * POST /wp-json/fenix/v1/mods {"key":"value",...}  → บันทึก (ส่ง null = ล้างกลับเป็นค่าเริ่มต้น)
+ * ต้องมีสิทธิ์ edit_theme_options (ผู้ดูแลระบบ) เท่านั้น
+ */
+function fenix_register_mods_route() {
+	register_rest_route(
+		'fenix/v1',
+		'/mods',
+		array(
+			array(
+				'methods'             => 'GET',
+				'permission_callback' => 'fenix_mods_permission',
+				'callback'            => 'fenix_mods_get',
+			),
+			array(
+				'methods'             => 'POST',
+				'permission_callback' => 'fenix_mods_permission',
+				'callback'            => 'fenix_mods_update',
+			),
+		)
+	);
+}
+add_action( 'rest_api_init', 'fenix_register_mods_route' );
+
+function fenix_mods_permission() {
+	return current_user_can( 'edit_theme_options' );
+}
+
+function fenix_mods_get() {
+	$out = array();
+	foreach ( array_keys( fenix_defaults() ) as $key ) {
+		$out[ $key ] = fenix_mod( $key );
+	}
+	return $out;
+}
+
+function fenix_mods_sanitize( $key, $value, $default ) {
+	if ( 'pricing_mode' === $key && function_exists( 'fenix_sanitize_pricing_mode' ) ) {
+		return fenix_sanitize_pricing_mode( $value );
+	}
+	if ( is_bool( $default ) ) {
+		return in_array( $value, array( true, 1, '1', 'true', 'on' ), true );
+	}
+	if ( preg_match( '/(_url|_img|_image|_logo)$/', $key ) ) {
+		return esc_url_raw( (string) $value );
+	}
+	return sanitize_textarea_field( (string) $value );
+}
+
+function fenix_mods_update( WP_REST_Request $request ) {
+	$defaults = fenix_defaults();
+	$data     = $request->get_json_params();
+
+	if ( ! is_array( $data ) || empty( $data ) ) {
+		return new WP_Error( 'fenix_mods_empty', 'ส่ง JSON object {"key":"value"} อย่างน้อย 1 รายการ', array( 'status' => 400 ) );
+	}
+
+	$saved    = array();
+	$rejected = array();
+	foreach ( $data as $key => $value ) {
+		if ( ! array_key_exists( $key, $defaults ) ) {
+			$rejected[] = $key;
+			continue;
+		}
+		if ( null === $value ) {
+			remove_theme_mod( $key );
+		} else {
+			set_theme_mod( $key, fenix_mods_sanitize( $key, $value, $defaults[ $key ] ) );
+		}
+		$saved[ $key ] = fenix_mod( $key );
+	}
+
+	return array(
+		'saved'    => $saved,
+		'rejected' => $rejected,
+	);
+}
+
+/**
  * Block the public REST user directory while keeping it available to editors.
  *
  * @param mixed           $result  Response to replace, or null.
