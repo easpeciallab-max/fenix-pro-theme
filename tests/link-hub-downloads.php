@@ -54,6 +54,15 @@ function render_downloads( $mods ) {
 	return array( $html, $cards );
 }
 
+function card_with_class( $cards, $class ) {
+	foreach ( $cards as $card ) {
+		if ( false !== strpos( ' ' . $card->getAttribute( 'class' ) . ' ', ' ' . $class . ' ' ) ) {
+			return $card;
+		}
+	}
+	return null;
+}
+
 $legacy = array(
 	'links_feature_img' => 'https://example.test/old-pro.png',
 	'links_feature_url' => 'https://example.test/old-pro.zip',
@@ -62,25 +71,41 @@ $legacy = array(
 );
 
 list( $html, $cards ) = render_downloads( $legacy );
-check( 1 === $cards->length, 'FAST replaces both legacy cards even with saved Customizer values' );
-$link = $cards->item( 0 )->getElementsByTagName( 'a' )->item( 0 );
-$image = $cards->item( 0 )->getElementsByTagName( 'img' )->item( 0 );
+check( 2 === $cards->length && null !== card_with_class( $cards, 'lh-feature-fast' ) && null !== card_with_class( $cards, 'lh-feature-plus' ), 'FAST replaces both legacy cards even with saved Customizer values; PLUS follows' );
+check( false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-fast' ) && false !== strpos( $cards->item( 1 )->getAttribute( 'class' ), 'lh-feature-plus' ), 'PLUS card renders directly after FAST' );
+$plus       = card_with_class( $cards, 'lh-feature-plus' );
+$plus_link  = $plus->getElementsByTagName( 'a' )->item( 0 );
+$plus_image = $plus->getElementsByTagName( 'img' )->item( 0 );
+check( 'https://example.test/wp-content/themes/fenix-pro/assets/downloads/FENIX_PLUS.zip' === $plus_link->getAttribute( 'href' ), 'PLUS links to the supplied ZIP' );
+check( $plus_link->hasAttribute( 'download' ), 'PLUS link requests a file download' );
+check( 'https://example.test/wp-content/themes/fenix-pro/assets/img/link-download-fenix-plus.webp' === $plus_image->getAttribute( 'src' ), 'PLUS uses the approved banner' );
+check( is_file( get_template_directory() . '/assets/downloads/FENIX_PLUS.zip' ) && is_file( get_template_directory() . '/assets/img/link-download-fenix-plus.webp' ), 'PLUS default assets exist in the theme' );
+$fast  = card_with_class( $cards, 'lh-feature-fast' );
+$link  = $fast->getElementsByTagName( 'a' )->item( 0 );
+$image = $fast->getElementsByTagName( 'img' )->item( 0 );
 check( 'https://example.test/wp-content/themes/fenix-pro/assets/downloads/FENIX_Fast_V4.0.zip' === $link->getAttribute( 'href' ), 'FAST links to the supplied ZIP' );
 check( $link->hasAttribute( 'download' ), 'FAST link requests a file download' );
 check( 'https://example.test/wp-content/themes/fenix-pro/assets/img/link-download-fenix-fast.webp' === $image->getAttribute( 'src' ), 'FAST uses the approved banner' );
 check( false === strpos( $html, 'old-pro.' ) && false === strpos( $html, 'old-mt.' ), 'Legacy assets are not emitted while FAST is enabled' );
 
 list( $html, $cards ) = render_downloads( array_merge( $legacy, array( 'links_fast_enabled' => false ) ) );
-check( 2 === $cards->length, 'Disabling FAST restores the two legacy cards' );
+check( 3 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ), 'Disabling FAST restores the two legacy cards (PLUS stays independent)' );
 check( false !== strpos( $html, 'old-pro.zip' ) && false !== strpos( $html, 'old-mt.zip' ), 'Restored cards retain their saved links' );
+
+list( $html, $cards ) = render_downloads( array( 'links_plus_enabled' => false ) );
+check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS.zip' ), 'Disabling PLUS hides its card and ZIP link' );
+
+list( $html, $cards ) = render_downloads( array( 'links_plus_alt' => 'FENIX PLUS "Download" <test>' ) );
+$plus_image = card_with_class( $cards, 'lh-feature-plus' )->getElementsByTagName( 'img' )->item( 0 );
+check( 'FENIX PLUS "Download" <test>' === $plus_image->getAttribute( 'alt' ) && false !== strpos( $html, 'PLUS &quot;Download&quot; &lt;test&gt;' ), 'PLUS alt text is configurable and escaped' );
 
 list( $html, $cards ) = render_downloads( array(
 	'links_fast_img' => 'https://example.test/custom.webp',
 	'links_fast_url' => 'https://example.test/package.zip?v=2&source=go',
 	'links_fast_alt' => 'FENIX FAST "Download" <test>',
 ) );
-$link = $cards->item( 0 )->getElementsByTagName( 'a' )->item( 0 );
-$image = $cards->item( 0 )->getElementsByTagName( 'img' )->item( 0 );
+$link  = card_with_class( $cards, 'lh-feature-fast' )->getElementsByTagName( 'a' )->item( 0 );
+$image = card_with_class( $cards, 'lh-feature-fast' )->getElementsByTagName( 'img' )->item( 0 );
 check( 'https://example.test/package.zip?v=2&source=go' === $link->getAttribute( 'href' ), 'Customizer download URLs survive escaping' );
 check( 'https://example.test/custom.webp' === $image->getAttribute( 'src' ), 'Customizer banner overrides the default' );
 check( 'FENIX FAST "Download" <test>' === $image->getAttribute( 'alt' ) && false !== strpos( $html, '&lt;test&gt;' ), 'Image alt text is configurable and escaped' );

@@ -201,6 +201,20 @@ $lh_socials = array(
 		</div>
 		<?php endif; ?>
 
+		<?php if ( fenix_mod( 'links_plus_enabled' ) ) : ?>
+			<?php
+			$lh_plus_img = trim( (string) fenix_mod( 'links_plus_img' ) );
+			$lh_plus_url = trim( (string) fenix_mod( 'links_plus_url' ) );
+			?>
+			<?php if ( $lh_plus_img && $lh_plus_url ) : ?>
+				<div class="lh-feature lh-feature-plus">
+					<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_plus_url ) ); ?>" download>
+						<img src="<?php echo esc_url( $lh_plus_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'links_plus_alt' ) ); ?>" width="1200" height="675" loading="lazy">
+					</a>
+				</div>
+			<?php endif; ?>
+		<?php endif; ?>
+
 		<?php
 		for ( $lh_i = 1; $lh_i <= 6; $lh_i++ ) :
 			$lh_label = trim( (string) fenix_mod( 'links_btn' . $lh_i . '_label' ) );
