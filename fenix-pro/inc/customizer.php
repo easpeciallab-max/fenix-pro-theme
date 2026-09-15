@@ -578,6 +578,7 @@ function fenix_customize_register( $wp_customize ) {
 			'links_openchat_label' => array( 'ข้อความปุ่ม LINE OpenChat', 'text' ),
 			'links_openchat_url'   => array( 'ลิงก์ LINE OpenChat', 'url' ),
 			'links_fast_enabled' => array( 'แสดง FENIX FAST แทนการ์ดดาวน์โหลดเดิมทั้งสองใบ', 'checkbox' ),
+			'links_fast_show'    => array( 'FENIX FAST · แสดงการ์ดนี้ (ปิด = ซ่อน FAST โดยไม่ดึงการ์ดเก่ากลับมา)', 'checkbox' ),
 			'links_fast_img'     => array( 'FENIX FAST · รูปดาวน์โหลด', 'image' ),
 			'links_fast_url'     => array( 'FENIX FAST · ลิงก์ไฟล์ดาวน์โหลด', 'text' ),
 			'links_fast_alt'     => array( 'FENIX FAST · ข้อความอธิบายรูป (Alt)', 'text' ),

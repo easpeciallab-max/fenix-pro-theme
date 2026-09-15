@@ -92,6 +92,9 @@ list( $html, $cards ) = render_downloads( array_merge( $legacy, array( 'links_fa
 check( 3 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ), 'Disabling FAST restores the two legacy cards (PLUS stays independent)' );
 check( false !== strpos( $html, 'old-pro.zip' ) && false !== strpos( $html, 'old-mt.zip' ), 'Restored cards retain their saved links' );
 
+list( $html, $cards ) = render_downloads( array_merge( $legacy, array( 'links_fast_show' => false ) ) );
+check( 1 === $cards->length && null !== card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_Fast_V4.0.zip' ) && false === strpos( $html, 'old-pro.' ), 'Hiding FAST shows only PLUS and does not bring back legacy cards' );
+
 list( $html, $cards ) = render_downloads( array( 'links_plus_enabled' => false ) );
 check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS.zip' ), 'Disabling PLUS hides its card and ZIP link' );
 

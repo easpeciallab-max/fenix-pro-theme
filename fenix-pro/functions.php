@@ -228,6 +228,7 @@ function fenix_defaults() {
 		'links_openchat_label' => 'เข้ากลุ่ม FENIX OpenChat',
 		'links_openchat_url'   => 'https://line.me/ti/g2/6O9XyBBtatI9LF_Z7N1dpbw7aOgE0IAl39m3bw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default',
 		'links_fast_enabled' => true,
+		'links_fast_show'    => true,
 		'links_fast_img'     => get_template_directory_uri() . '/assets/img/link-download-fenix-fast.webp',
 		'links_fast_url'     => get_template_directory_uri() . '/assets/downloads/FENIX_Fast_V4.0.zip',
 		'links_fast_alt'     => 'ดาวน์โหลด FENIX FAST สำหรับ MetaTrader 5',

@@ -131,7 +131,7 @@ $lh_socials = array(
 			$lh_fast_img = trim( (string) fenix_mod( 'links_fast_img' ) );
 			$lh_fast_url = trim( (string) fenix_mod( 'links_fast_url' ) );
 			?>
-			<?php if ( $lh_fast_img && $lh_fast_url ) : ?>
+			<?php if ( fenix_mod( 'links_fast_show' ) && $lh_fast_img && $lh_fast_url ) : ?>
 				<div class="lh-feature lh-feature-fast">
 					<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_fast_url ) ); ?>" download>
 						<img src="<?php echo esc_url( $lh_fast_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'links_fast_alt' ) ); ?>" width="1200" height="631" loading="lazy">
