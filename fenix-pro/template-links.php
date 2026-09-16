@@ -83,6 +83,37 @@ $lh_socials = array(
 			</ul>
 		<?php endif; ?>
 
+		<?php
+		$lh_mt5_apps = array();
+		foreach ( array( 'ios' => 'apple', 'android' => 'android', 'windows' => 'windows', 'macos' => 'macos' ) as $lh_os => $lh_os_icon ) {
+			$lh_os_url   = trim( (string) fenix_mod( 'links_mt5_' . $lh_os . '_url' ) );
+			$lh_os_label = trim( (string) fenix_mod( 'links_mt5_' . $lh_os . '_label' ) );
+			if ( '' !== $lh_os_url && '#' !== $lh_os_url && '' !== $lh_os_label ) {
+				$lh_mt5_apps[] = array(
+					'url'   => $lh_os_url,
+					'label' => $lh_os_label,
+					'icon'  => $lh_os_icon,
+				);
+			}
+		}
+		$lh_mt5_title = trim( (string) fenix_mod( 'links_mt5_install_title' ) );
+		?>
+		<?php if ( $lh_mt5_apps ) : ?>
+			<section class="lh-vps lh-mt5-install"<?php echo $lh_mt5_title ? ' aria-label="' . esc_attr( $lh_mt5_title ) . '"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?>>
+				<?php if ( $lh_mt5_title ) : ?>
+					<h2 class="lh-section-title"><?php echo esc_html( $lh_mt5_title ); ?></h2>
+				<?php endif; ?>
+				<div class="lh-vps-grid lh-mt5-grid lh-mt5-grid--<?php echo esc_attr( (string) count( $lh_mt5_apps ) ); ?>">
+					<?php foreach ( $lh_mt5_apps as $lh_app ) : ?>
+						<a class="lh-vps-item lh-mt5-item" href="<?php echo esc_url( fenix_link_url( $lh_app['url'] ) ); ?>" target="_blank" rel="noopener">
+							<span class="lh-vps-ic"><?php echo fenix_icon( $lh_app['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+							<span class="lh-vps-lbl"><?php echo esc_html( $lh_app['label'] ); ?></span>
+						</a>
+					<?php endforeach; ?>
+				</div>
+			</section>
+		<?php endif; ?>
+
 		<?php if ( ( $lh_signup_url && $lh_signup_label ) || ( $lh_account_guide_url && $lh_account_guide_label ) || ( $lh_mt5_download_url && $lh_mt5_download_label ) ) : ?>
 			<div class="lh-account-actions">
 				<?php if ( $lh_signup_url && $lh_signup_label ) : ?>

@@ -112,3 +112,38 @@ $image = card_with_class( $cards, 'lh-feature-fast' )->getElementsByTagName( 'im
 check( 'https://example.test/package.zip?v=2&source=go' === $link->getAttribute( 'href' ), 'Customizer download URLs survive escaping' );
 check( 'https://example.test/custom.webp' === $image->getAttribute( 'src' ), 'Customizer banner overrides the default' );
 check( 'FENIX FAST "Download" <test>' === $image->getAttribute( 'alt' ) && false !== strpos( $html, '&lt;test&gt;' ), 'Image alt text is configurable and escaped' );
+
+// ---- MT5 install section (first section on /go/) ----
+function render_page( $mods ) {
+	global $theme_mods;
+	$theme_mods = $mods;
+	ob_start();
+	require get_template_directory() . '/template-links.php';
+	$html = ob_get_clean();
+	$dom = new DOMDocument();
+	libxml_use_internal_errors( true );
+	$dom->loadHTML( '<?xml encoding="UTF-8">' . $html );
+	libxml_clear_errors();
+	return array( $html, new DOMXPath( $dom ) );
+}
+
+list( $html, $xpath ) = render_page( array() );
+$mt5_items = $xpath->query( '//section[contains(concat(" ", normalize-space(@class), " "), " lh-mt5-install ")]//a' );
+check( 3 === $mt5_items->length, 'MT5 install section shows iPhone, Android and Windows by default (macOS hidden)' );
+check( strpos( $html, 'lh-mt5-install' ) < strpos( $html, 'lh-account-actions' ) && strpos( $html, 'lh-mt5-install' ) < strpos( $html, 'lh-btn-line' ), 'MT5 install section renders before signup and LINE buttons' );
+$hrefs = array();
+$blank = true;
+foreach ( $mt5_items as $a ) {
+	$hrefs[] = $a->getAttribute( 'href' );
+	$blank   = $blank && '_blank' === $a->getAttribute( 'target' ) && false !== strpos( $a->getAttribute( 'rel' ), 'noopener' );
+}
+check( array( 'https://apps.apple.com/us/app/metatrader-5/id413251709', 'https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5', 'https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe' ) === $hrefs, 'MT5 install tiles link to App Store, Google Play and the official Windows installer in order' );
+check( $blank, 'MT5 install tiles open in a new tab with rel=noopener' );
+check( 1 === $xpath->query( '//div[contains(@class, "lh-mt5-grid--3")]' )->length, 'Three tiles use the 3-column grid' );
+
+list( $html, $xpath ) = render_page( array( 'links_mt5_macos_url' => 'https://example.test/mt5-mac.pkg', 'links_mt5_ios_label' => 'iPhone <test>' ) );
+check( 4 === $xpath->query( '//section[contains(@class, "lh-mt5-install")]//a' )->length && false !== strpos( $html, 'lh-mt5-grid--4' ), 'Filling the macOS link adds a fourth tile' );
+check( false !== strpos( $html, 'iPhone &lt;test&gt;' ), 'MT5 tile labels are escaped' );
+
+list( $html, $xpath ) = render_page( array( 'links_mt5_ios_url' => '', 'links_mt5_android_url' => '#', 'links_mt5_windows_url' => '' ) );
+check( false === strpos( $html, 'lh-mt5-install' ), 'MT5 install section disappears when every link is empty' );
