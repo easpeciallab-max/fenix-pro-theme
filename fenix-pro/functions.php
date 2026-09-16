@@ -225,7 +225,7 @@ function fenix_defaults() {
 		'links_mt5_download_label'  => 'คู่มือติดตั้ง MT5',
 		'links_mt5_download_url'    => '/mt5-login-zaurix-server/',
 		'links_mt5_install_title'   => 'ติดตั้งแอป MT5 และ Login',
-		'links_top_line_label'      => 'ไม่อยากทำเอง? ทักไลน์ให้ทีมช่วย',
+		'links_top_line_label'      => '',
 		'links_steps_title'         => 'เริ่มใช้งานใน {n} ขั้นตอน',
 		'links_step1_title'         => 'เปิดบัญชี Zaurix',
 		'links_step1_desc'          => 'สมัครและยืนยันตัวตน (KYC) เพื่อรับ Login และ Password ของ MT5',

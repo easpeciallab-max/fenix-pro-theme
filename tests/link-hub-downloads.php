@@ -153,8 +153,12 @@ check( 1 === $xpath->query( '//li[contains(@class, "lh-step--deposit")]//a[@href
 check( 1 === $xpath->query( '//li[contains(@class, "lh-step--download")]//div[contains(@class, "lh-feature-plus")]' )->length, 'Download step contains the FENIX PLUS card' );
 check( 1 === $xpath->query( '//li[contains(@class, "lh-step--install")]//a[@href="https://example.test/fenix-pro-ea-install-guide/"]' )->length && 3 === $xpath->query( '//li[contains(@class, "lh-step--vps")]//a[contains(@class, "lh-vps-item")]' )->length, 'Install step has the EA guide; VPS step has 3 guides' );
 check( false !== strpos( $html, 'lh-step-badge">แนะนำ' ), 'VPS step shows its recommended badge' );
-check( 1 === $xpath->query( '//a[contains(@class, "lh-top-line")]' )->length && strpos( $html, 'lh-top-line' ) < strpos( $html, 'lh-journey' ), 'Short LINE link sits above the steps' );
-check( strpos( $html, 'lh-journey' ) < strpos( $html, 'lh-group--info' ) && strpos( $html, 'lh-group--info' ) < strpos( $html, 'lh-group--help' ) && 1 === $xpath->query( '//section[contains(@class, "lh-group--help")]//a[contains(@class, "lh-btn-line")]' )->length, 'Info group then help group (LINE, OpenChat) come after the steps' );
+check( 0 === $xpath->query( '//a[contains(@class, "lh-top-line")]' )->length, 'Short LINE link is hidden by default (help group already sits on top)' );
+check( strpos( $html, 'lh-group--help' ) < strpos( $html, 'lh-journey' ) && strpos( $html, 'lh-journey' ) < strpos( $html, 'lh-group--info' ) && 1 === $xpath->query( '//section[contains(@class, "lh-group--help")]//a[contains(@class, "lh-btn-line")]' )->length && 1 === $xpath->query( '//section[contains(@class, "lh-group--help")]//a[contains(@class, "lh-btn-openchat")]' )->length, 'Help group (LINE, OpenChat) sits above the steps; info group comes after' );
+check( 1 === substr_count( $html, 'lh-btn lh-btn-line' ), 'LINE button renders only once' );
+
+list( $html, $xpath ) = render_page( array( 'links_top_line_label' => 'Need help?' ) );
+check( 1 === $xpath->query( '//a[contains(@class, "lh-top-line")]' )->length, 'Short LINE link appears when its label is filled' );
 check( 1 === $xpath->query( '//section[contains(@class, "lh-group--info")]//a[contains(@href, "myfxbook")]' )->length && 1 === $xpath->query( '//section[contains(@class, "lh-group--info")]//a[@href="https://example.test/pricing/"]' )->length, 'Info group holds live results and pricing' );
 
 list( $html, $xpath ) = render_page( array( 'links_deposit_url' => '' ) );

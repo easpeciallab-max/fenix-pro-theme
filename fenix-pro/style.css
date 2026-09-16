@@ -5945,6 +5945,32 @@ a.lh-feature-frame:hover {
 	margin-bottom: 0;
 }
 
+/* กลุ่มติดต่อทีม (LINE / OpenChat) อยู่บนสุด ใต้ชื่อแบรนด์ */
+.lh-group--help {
+	margin: 0 0 22px;
+	padding: 0 0 20px;
+	border-top: 0;
+	border-bottom: 1px solid #1D1D27;
+}
+
+/* ปุ่มทุกแบบในหน้า Link Hub สูงเท่ากัน 56px · ข้อความยาวขึ้นบรรทัดสองได้ภายในความสูงเดิม */
+.lh-card .lh-btn,
+.lh-card .lh-btn-signup,
+.lh-card .lh-mini-btn,
+.lh-card .lh-top-line {
+	height: 56px;
+	min-height: 56px;
+	padding-top: 0;
+	padding-bottom: 0;
+	box-sizing: border-box;
+}
+
+.lh-card .lh-btn .lh-lbl,
+.lh-card .lh-mini-btn span:last-child,
+.lh-card .lh-top-line span {
+	line-height: 1.2;
+}
+
 .screen-reader-text {
 	position: absolute;
 	width: 1px;

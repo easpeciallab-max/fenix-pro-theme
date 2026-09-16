@@ -389,6 +389,24 @@ $lh_help_title  = trim( (string) fenix_mod( 'links_help_title' ) );
 			</ul>
 		<?php endif; ?>
 
+		<section class="lh-group lh-group--help"<?php echo $lh_help_title ? ' aria-label="' . esc_attr( $lh_help_title ) . '"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?>>
+			<?php if ( $lh_help_title ) : ?>
+				<h2 class="lh-section-title"><?php echo esc_html( $lh_help_title ); ?></h2>
+			<?php endif; ?>
+
+			<a class="lh-btn lh-btn-line" href="<?php echo esc_url( $lh_line ); ?>" target="_blank" rel="noopener">
+				<span class="lh-ic"><?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+				<span class="lh-lbl"><?php echo esc_html( fenix_mod( 'links_line_label' ) ); ?></span>
+			</a>
+
+			<?php if ( $lh_openchat_url && $lh_openchat_label ) : ?>
+				<a class="lh-btn lh-btn-openchat" href="<?php echo esc_url( $lh_openchat_url ); ?>" target="_blank" rel="noopener">
+					<span class="lh-ic"><?php echo fenix_icon( 'users' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<span class="lh-lbl"><?php echo esc_html( $lh_openchat_label ); ?></span>
+				</a>
+			<?php endif; ?>
+		</section>
+
 		<?php if ( $lh_top_line_label && $lh_line ) : ?>
 			<a class="lh-top-line" href="<?php echo esc_url( $lh_line ); ?>" target="_blank" rel="noopener">
 				<span class="lh-ic"><?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
@@ -439,24 +457,6 @@ $lh_help_title  = trim( (string) fenix_mod( 'links_help_title' ) );
 				<?php echo $lh_info_body; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			</section>
 		<?php endif; ?>
-
-		<section class="lh-group lh-group--help"<?php echo $lh_help_title ? ' aria-label="' . esc_attr( $lh_help_title ) . '"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?>>
-			<?php if ( $lh_help_title ) : ?>
-				<h2 class="lh-section-title"><?php echo esc_html( $lh_help_title ); ?></h2>
-			<?php endif; ?>
-
-			<a class="lh-btn lh-btn-line" href="<?php echo esc_url( $lh_line ); ?>" target="_blank" rel="noopener">
-				<span class="lh-ic"><?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-				<span class="lh-lbl"><?php echo esc_html( fenix_mod( 'links_line_label' ) ); ?></span>
-			</a>
-
-			<?php if ( $lh_openchat_url && $lh_openchat_label ) : ?>
-				<a class="lh-btn lh-btn-openchat" href="<?php echo esc_url( $lh_openchat_url ); ?>" target="_blank" rel="noopener">
-					<span class="lh-ic"><?php echo fenix_icon( 'users' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-					<span class="lh-lbl"><?php echo esc_html( $lh_openchat_label ); ?></span>
-				</a>
-			<?php endif; ?>
-		</section>
 
 		<div class="lh-socials">
 			<?php foreach ( $lh_socials as $lh_name => $lh_s ) : ?>
