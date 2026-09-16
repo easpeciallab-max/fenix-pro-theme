@@ -5778,6 +5778,185 @@ a.lh-feature-frame:hover {
 	grid-template-columns: minmax(0, 1fr);
 }
 
+/* ปุ่ม LINE สั้นใต้ชื่อแบรนด์ (สำหรับคนที่ไม่อยากทำเอง) */
+.lh-top-line {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	margin: -4px 0 22px;
+	padding: 10px 16px;
+	border-radius: 999px;
+	border: 1px solid rgba(6, 199, 85, 0.55);
+	background: rgba(6, 199, 85, 0.08);
+	color: #8EF0B8;
+	font-family: var(--font-display);
+	font-size: 0.8rem;
+	font-weight: 800;
+	text-decoration: none;
+	transition: border-color 0.14s ease, background 0.14s ease;
+}
+
+.lh-top-line .lh-ic {
+	width: 20px;
+	height: 20px;
+	color: #06C755;
+}
+
+.lh-top-line .lh-ic svg {
+	width: 19px;
+	height: 19px;
+}
+
+.lh-top-line .lh-ar {
+	color: #06C755;
+}
+
+.lh-top-line:hover {
+	border-color: #06C755;
+	background: rgba(6, 199, 85, 0.14);
+	color: #B3F6CF;
+}
+
+/* ขั้นตอนเริ่มใช้งาน · เลขกำกับ + เส้นเชื่อมระหว่างขั้น */
+.lh-journey {
+	text-align: left;
+}
+
+.lh-steps-title {
+	margin: 0 0 16px;
+	font-family: var(--font-display);
+	font-size: 1rem;
+	font-weight: 800;
+	color: #F7F7FA;
+	text-align: center;
+}
+
+.lh-steps {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.lh-step {
+	position: relative;
+	padding: 0 0 20px 44px;
+}
+
+.lh-step::before {
+	content: "";
+	position: absolute;
+	left: 15px;
+	top: 36px;
+	bottom: 6px;
+	width: 2px;
+	border-radius: 2px;
+	background: #26262F;
+}
+
+.lh-step:last-child {
+	padding-bottom: 4px;
+}
+
+.lh-step:last-child::before {
+	display: none;
+}
+
+.lh-step-num {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	background: #FF7A1A;
+	color: #130A02;
+	font-family: var(--font-display);
+	font-size: 0.92rem;
+	font-weight: 800;
+	line-height: 1;
+}
+
+.lh-step-head {
+	min-height: 32px;
+	margin: 0 0 10px;
+}
+
+.lh-step-title {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 8px;
+	margin: 0;
+	padding-top: 5px;
+	font-family: var(--font-display);
+	font-size: 0.95rem;
+	font-weight: 800;
+	line-height: 1.3;
+	color: #F7F7FA;
+}
+
+.lh-step-badge {
+	padding: 2px 8px;
+	border-radius: 999px;
+	border: 1px solid rgba(255, 122, 26, 0.45);
+	color: #FFB347;
+	font-size: 0.62rem;
+	font-weight: 800;
+	line-height: 1.4;
+}
+
+.lh-step-desc {
+	margin: 3px 0 0;
+	font-size: 0.76rem;
+	line-height: 1.5;
+	color: #ABABBA;
+}
+
+.lh-step-body > * {
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+.lh-step-body > :last-child {
+	margin-bottom: 0;
+}
+
+.lh-step-body > .lh-mini-btn {
+	width: 100%;
+	box-sizing: border-box;
+	min-height: 44px;
+}
+
+.lh-step-body .lh-btn-signup {
+	margin: 0 0 8px;
+}
+
+/* กลุ่มท้ายหน้า: ข้อมูลก่อนตัดสินใจ / ติดขั้นตอนไหน ทักทีม */
+.lh-group {
+	margin: 22px 0 0;
+	padding-top: 18px;
+	border-top: 1px solid #1D1D27;
+}
+
+.lh-group > .lh-btn:last-child {
+	margin-bottom: 0;
+}
+
+.screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
 .lh-mt5-grid--3 {
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 }

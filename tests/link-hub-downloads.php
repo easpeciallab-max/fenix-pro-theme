@@ -113,7 +113,7 @@ check( 'https://example.test/package.zip?v=2&source=go' === $link->getAttribute(
 check( 'https://example.test/custom.webp' === $image->getAttribute( 'src' ), 'Customizer banner overrides the default' );
 check( 'FENIX FAST "Download" <test>' === $image->getAttribute( 'alt' ) && false !== strpos( $html, '&lt;test&gt;' ), 'Image alt text is configurable and escaped' );
 
-// ---- MT5 install section (first section on /go/) ----
+// ---- Numbered start-up journey on /go/ ----
 function render_page( $mods ) {
 	global $theme_mods;
 	$theme_mods = $mods;
@@ -127,23 +127,46 @@ function render_page( $mods ) {
 	return array( $html, new DOMXPath( $dom ) );
 }
 
+function step_keys( $xpath ) {
+	$keys = array();
+	foreach ( $xpath->query( '//ol[@class="lh-steps"]/li' ) as $li ) {
+		preg_match( '/lh-step--([a-z0-9]+)/', $li->getAttribute( 'class' ), $m );
+		$keys[] = $m[1] . ':' . trim( $xpath->query( './/span[@class="lh-step-num"]', $li )->item( 0 )->textContent );
+	}
+	return $keys;
+}
+
 list( $html, $xpath ) = render_page( array() );
-$mt5_items = $xpath->query( '//section[contains(concat(" ", normalize-space(@class), " "), " lh-mt5-install ")]//a' );
-check( 3 === $mt5_items->length, 'MT5 install section shows iPhone, Android and Windows by default (macOS hidden)' );
-check( strpos( $html, 'lh-mt5-install' ) < strpos( $html, 'lh-account-actions' ) && strpos( $html, 'lh-mt5-install' ) < strpos( $html, 'lh-btn-line' ), 'MT5 install section renders before signup and LINE buttons' );
+check( array( 'account:1', 'mt5:2', 'deposit:3', 'download:4', 'install:5', 'vps:6' ) === step_keys( $xpath ), 'Journey shows 6 numbered steps in order: account, MT5, deposit, download, install EA, VPS' );
+check( false !== strpos( $html, 'เริ่มใช้งานใน 6 ขั้นตอน' ), 'Steps heading shows the live step count' );
+$mt5_items = $xpath->query( '//li[contains(@class, "lh-step--mt5")]//div[contains(@class, "lh-mt5-grid")]/a' );
 $hrefs = array();
 $blank = true;
 foreach ( $mt5_items as $a ) {
 	$hrefs[] = $a->getAttribute( 'href' );
 	$blank   = $blank && '_blank' === $a->getAttribute( 'target' ) && false !== strpos( $a->getAttribute( 'rel' ), 'noopener' );
 }
-check( array( 'https://apps.apple.com/us/app/metatrader-5/id413251709', 'https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5', 'https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe' ) === $hrefs, 'MT5 install tiles link to App Store, Google Play and the official Windows installer in order' );
-check( $blank, 'MT5 install tiles open in a new tab with rel=noopener' );
-check( 1 === $xpath->query( '//div[contains(@class, "lh-mt5-grid--3")]' )->length, 'Three tiles use the 3-column grid' );
+check( array( 'https://apps.apple.com/us/app/metatrader-5/id413251709', 'https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5', 'https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe' ) === $hrefs && $blank, 'MT5 step has iPhone, Android, Windows tiles (new tab), macOS hidden' );
+check( 1 === $xpath->query( '//li[contains(@class, "lh-step--mt5")]//a[@href="https://example.test/mt5-login-zaurix-server/"]' )->length && false !== strpos( $html, 'วิธี Login เข้า Zaurix-Server' ), 'MT5 step links the Zaurix login guide with the new label' );
+check( 1 === $xpath->query( '//li[contains(@class, "lh-step--account")]//a[contains(@class, "lh-btn-signup")]' )->length && 1 === $xpath->query( '//li[contains(@class, "lh-step--account")]//a[@href="https://example.test/open-mt5-account/"]' )->length, 'Account step holds the signup button and the account guide' );
+check( 1 === $xpath->query( '//li[contains(@class, "lh-step--deposit")]//a[@href="https://portal.zaurix.com/" and @target="_blank"]' )->length && false === strpos( $html, 'คู่มือฝากเงิน' ), 'Deposit step links the Zaurix portal; empty deposit guide stays hidden' );
+check( 1 === $xpath->query( '//li[contains(@class, "lh-step--download")]//div[contains(@class, "lh-feature-plus")]' )->length, 'Download step contains the FENIX PLUS card' );
+check( 1 === $xpath->query( '//li[contains(@class, "lh-step--install")]//a[@href="https://example.test/fenix-pro-ea-install-guide/"]' )->length && 3 === $xpath->query( '//li[contains(@class, "lh-step--vps")]//a[contains(@class, "lh-vps-item")]' )->length, 'Install step has the EA guide; VPS step has 3 guides' );
+check( false !== strpos( $html, 'lh-step-badge">แนะนำ' ), 'VPS step shows its recommended badge' );
+check( 1 === $xpath->query( '//a[contains(@class, "lh-top-line")]' )->length && strpos( $html, 'lh-top-line' ) < strpos( $html, 'lh-journey' ), 'Short LINE link sits above the steps' );
+check( strpos( $html, 'lh-journey' ) < strpos( $html, 'lh-group--info' ) && strpos( $html, 'lh-group--info' ) < strpos( $html, 'lh-group--help' ) && 1 === $xpath->query( '//section[contains(@class, "lh-group--help")]//a[contains(@class, "lh-btn-line")]' )->length, 'Info group then help group (LINE, OpenChat) come after the steps' );
+check( 1 === $xpath->query( '//section[contains(@class, "lh-group--info")]//a[contains(@href, "myfxbook")]' )->length && 1 === $xpath->query( '//section[contains(@class, "lh-group--info")]//a[@href="https://example.test/pricing/"]' )->length, 'Info group holds live results and pricing' );
 
-list( $html, $xpath ) = render_page( array( 'links_mt5_macos_url' => 'https://example.test/mt5-mac.pkg', 'links_mt5_ios_label' => 'iPhone <test>' ) );
-check( 4 === $xpath->query( '//section[contains(@class, "lh-mt5-install")]//a' )->length && false !== strpos( $html, 'lh-mt5-grid--4' ), 'Filling the macOS link adds a fourth tile' );
-check( false !== strpos( $html, 'iPhone &lt;test&gt;' ), 'MT5 tile labels are escaped' );
+list( $html, $xpath ) = render_page( array( 'links_deposit_url' => '' ) );
+check( array( 'account:1', 'mt5:2', 'download:3', 'install:4', 'vps:5' ) === step_keys( $xpath ) && false !== strpos( $html, 'เริ่มใช้งานใน 5 ขั้นตอน' ), 'Empty deposit step is hidden and the remaining steps renumber' );
 
-list( $html, $xpath ) = render_page( array( 'links_mt5_ios_url' => '', 'links_mt5_android_url' => '#', 'links_mt5_windows_url' => '' ) );
-check( false === strpos( $html, 'lh-mt5-install' ), 'MT5 install section disappears when every link is empty' );
+list( $html, $xpath ) = render_page( array( 'links_deposit_guide_url' => '/zaurix-deposit/' ) );
+check( 1 === $xpath->query( '//li[contains(@class, "lh-step--deposit")]//a[@href="https://example.test/zaurix-deposit/"]' )->length, 'Filling the deposit guide link shows its button' );
+
+list( $html, $xpath ) = render_page( array( 'links_mt5_macos_url' => 'https://example.test/mt5-mac.pkg', 'links_mt5_install_title' => 'ขั้นตอนแรก · ติดตั้งแอป MT5', 'links_mt5_download_label' => 'คู่มือติดตั้ง MT5' ) );
+check( 4 === $xpath->query( '//div[contains(@class, "lh-mt5-grid--4")]/a' )->length, 'Filling the macOS link adds a fourth MT5 tile' );
+check( false !== strpos( $html, 'ติดตั้งแอป MT5 และ Login' ) && false === strpos( $html, 'ขั้นตอนแรก · ติดตั้งแอป MT5' ) && false !== strpos( $html, 'วิธี Login เข้า Zaurix-Server' ), 'Old saved MT5 title and guide label migrate to the new wording' );
+
+list( $html, $xpath ) = render_page( array( 'links_mt5_ios_url' => '', 'links_mt5_android_url' => '#', 'links_mt5_windows_url' => '', 'links_step1_title' => 'Open <test>' ) );
+check( 0 === $xpath->query( '//div[contains(@class, "lh-mt5-grid")]' )->length && in_array( 'mt5:2', step_keys( $xpath ), true ), 'Without app links the MT5 step keeps its login guide button' );
+check( false !== strpos( $html, 'Open &lt;test&gt;' ), 'Step titles are escaped' );
