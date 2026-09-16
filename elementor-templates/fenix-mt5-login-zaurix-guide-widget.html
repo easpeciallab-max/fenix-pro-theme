@@ -93,18 +93,45 @@
   color:#FFD7A8;
   border-color:rgba(255,122,26,.32);
 }
+
+.fenix-mt5-login-zaurix-guide .mt5g-device { margin-bottom:22px; background:#111217; border:1px solid rgba(255,122,26,.26); border-radius:18px; padding:18px; }
+.fenix-mt5-login-zaurix-guide .mt5g-device h2 { margin:0 0 12px; font-size:22px; color:#F7F7FA; }
+.fenix-mt5-login-zaurix-guide .mt5g-device-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.fenix-mt5-login-zaurix-guide .mt5g-device-card { display:flex; align-items:center; gap:14px; padding:16px; border-radius:16px; background:#F7F7FA; color:#10131B; text-decoration:none; border:2px solid transparent; transition:border-color .15s ease; }
+.fenix-mt5-login-zaurix-guide .mt5g-device-card:hover { border-color:#FF7A1A; }
+.fenix-mt5-login-zaurix-guide .mt5g-device-ic { width:48px; height:48px; border-radius:12px; background:#FF7A1A; color:#fff; display:grid; place-items:center; flex:0 0 auto; }
+.fenix-mt5-login-zaurix-guide .mt5g-device-ic svg { width:26px; height:26px; display:block; }
+.fenix-mt5-login-zaurix-guide .mt5g-device-card strong { display:block; font-size:18px; line-height:1.25; color:#10131B; }
+.fenix-mt5-login-zaurix-guide .mt5g-device-card small { display:block; margin-top:2px; color:#5b6472; font-size:13px; }
+.fenix-mt5-login-zaurix-guide .mt5g-quick-win { display:block; margin-top:10px; padding:11px 12px; border-radius:12px; background:#FF7A1A; color:#fff; font-weight:900; text-decoration:none; text-align:center; }
+.fenix-mt5-login-zaurix-guide .mt5g-group-title { margin:28px 0 14px; display:flex; align-items:center; flex-wrap:wrap; gap:10px; font-size:24px; line-height:1.25; color:#F7F7FA; }
+.fenix-mt5-login-zaurix-guide .mt5g-group-title span { font-size:12px; font-weight:900; letter-spacing:.3px; color:#fff; background:#FF7A1A; border-radius:999px; padding:4px 11px; }
+.fenix-mt5-login-zaurix-guide .mt5g-win { margin-top:34px; padding-top:6px; border-top:1px solid rgba(255,122,26,.22); }
+.fenix-mt5-login-zaurix-guide .mt5g-install-grid.mt5g-install-grid-1 { grid-template-columns:1fr; }
+.fenix-mt5-login-zaurix-guide .mt5g-app-icon.mt5g-win-ic { color:#0078D4; }
+.fenix-mt5-login-zaurix-guide .mt5g-app-icon.mt5g-win-ic svg { width:34px; height:34px; display:block; }
+.fenix-mt5-login-zaurix-guide .mt5g-step.mt5g-step-wide, .fenix-mt5-login-zaurix-guide .mt5g-step.mt5g-step-wide:nth-child(even) { grid-template-columns:1fr; }
+.fenix-mt5-login-zaurix-guide .mt5g-step.mt5g-step-wide .mt5g-text, .fenix-mt5-login-zaurix-guide .mt5g-step.mt5g-step-wide .mt5g-shot { order:initial; }
+.fenix-mt5-login-zaurix-guide .mt5g-desk { width:100%; max-width:820px; margin:0 auto; }
+.fenix-mt5-login-zaurix-guide .mt5g-desk.mt5g-desk-narrow { max-width:470px; }
+.fenix-mt5-login-zaurix-guide [id^="mt5g-"] { scroll-margin-top:70px; }
+@media (max-width:880px) {
+  .fenix-mt5-login-zaurix-guide .mt5g-device-grid { grid-template-columns:1fr; }
+  .fenix-mt5-login-zaurix-guide .mt5g-group-title { font-size:20px; }
+  .fenix-mt5-login-zaurix-guide .mt5g-desk .mt5g-callout { font-size:11px; padding:5px 8px; }
+}
 </style>
 <div class="fenix-mt5-login-zaurix-guide">
 <div class="mt5g-header">
     <div class="mt5g-wrap">
       <section class="mt5g-hero">
         <div>
-          <span class="mt5g-pill">ติดตั้งแอป • iPhone / Android • Zaurix-Server</span>
+          <span class="mt5g-pill">ติดตั้งแอป • iPhone / Android / Windows • Zaurix-Server</span>
           <h1>คู่มือติดตั้งแอป MT5 และ Login เข้า MT5</h1>
-          <p class="mt5g-lead">เริ่มตั้งแต่ดาวน์โหลดแอป MetaTrader 5 บน iPhone หรือ Android, เปิดแอป, ค้นหาโบรกเกอร์ Zaurix, เลือก Server ให้ถูกต้อง, ใส่ Login และ Password ที่ได้รับจากบัญชี MT5 แล้วเข้าสู่ระบบให้เรียบร้อย</p>
+          <p class="mt5g-lead">เริ่มตั้งแต่ดาวน์โหลดแอป MetaTrader 5 บน iPhone, Android หรือคอมพิวเตอร์ Windows, เปิดแอป, ค้นหาโบรกเกอร์ Zaurix, เลือก Server ให้ถูกต้อง, ใส่ Login และ Password ที่ได้รับจากบัญชี MT5 แล้วเข้าสู่ระบบให้เรียบร้อย</p>
         </div>
         <aside class="mt5g-quick">
-          <h2>สรุปขั้นตอนเร็ว</h2>
+          <h2>สรุปขั้นตอนเร็ว (มือถือ)</h2>
           <ol>
             <li><span class="mt5g-num">1</span><span>ติดตั้งแอป MetaTrader 5 จาก App Store หรือ Google Play</span></li>
             <li><span class="mt5g-num">2</span><span>เปิดแอป MT5 แล้วเข้าเมนู New Account / บัญชีใหม่</span></li>
@@ -114,21 +141,30 @@
             <li><span class="mt5g-num">6</span><span>ใส่ Login และ Password แล้วกดลงชื่อเข้าใช้</span></li>
           </ol>
           <div class="mt5g-warn">สำคัญ: ดาวน์โหลดแอปชื่อ MetaTrader 5 เท่านั้น และ Login MT5 ไม่ใช่อีเมลสมัครเว็บ</div>
+          <a class="mt5g-quick-win" href="#mt5g-win">ใช้คอมพิวเตอร์ Windows? ไปคู่มือ Windows ›</a>
         </aside>
       </section>
     </div>
   </div>
 
   <div class="mt5g-nav" role="navigation" aria-label="สารบัญคู่มือ MT5"><div class="mt5g-wrap">
-    <a href="#mt5g-install-ios">ติดตั้ง iPhone</a><a href="#mt5g-install-android">ติดตั้ง Android</a><a href="#mt5g-open">เปิด MT5</a><a href="#mt5g-search">ค้นหา Zaurix</a><a href="#mt5g-select">เลือกโบรกเกอร์</a><a href="#mt5g-login">ใส่ Login</a><a href="#mt5g-check-section">ตรวจสอบ</a><a href="#mt5g-fix">แก้ปัญหา</a>
+    <a href="#mt5g-install-ios">ติดตั้ง iPhone</a><a href="#mt5g-install-android">ติดตั้ง Android</a><a href="#mt5g-win">Windows (คอม)</a><a href="#mt5g-open">เปิด MT5</a><a href="#mt5g-search">ค้นหา Zaurix</a><a href="#mt5g-select">เลือกโบรกเกอร์</a><a href="#mt5g-login">ใส่ Login</a><a href="#mt5g-check-section">ตรวจสอบ</a><a href="#mt5g-fix">แก้ปัญหา</a>
   </div></div>
 
   <div class="mt5g-main">
     <div class="mt5g-wrap">
 
+      <section class="mt5g-device" aria-label="เลือกอุปกรณ์ที่ใช้ติดตั้ง MT5">
+        <h2>ใช้ MT5 บนอุปกรณ์ไหน? เลือกก่อนเริ่ม</h2>
+        <div class="mt5g-device-grid">
+          <a class="mt5g-device-card" href="#mt5g-install-ios"><span class="mt5g-device-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 1.8h8a2.2 2.2 0 0 1 2.2 2.2v16a2.2 2.2 0 0 1-2.2 2.2H8A2.2 2.2 0 0 1 5.8 20V4A2.2 2.2 0 0 1 8 1.8zm0 2v14.6h8V3.8H8zm4 15.6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg></span><span><strong>มือถือ iPhone / Android</strong><small>ติดตั้งแอปจาก App Store หรือ Google Play</small></span></a>
+          <a class="mt5g-device-card" href="#mt5g-win"><span class="mt5g-device-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5.1 10.3 4v7.3H3V5.1zm8.3-1.3L21 2.4v8.9h-9.7V3.8zM3 12.7h7.3V20L3 18.9v-6.2zm8.3 0H21v8.9l-9.7-1.4v-7.5z"/></svg></span><span><strong>คอมพิวเตอร์ Windows</strong><small>ติดตั้งโปรแกรม MT5 บน PC / โน้ตบุ๊ก</small></span></a>
+        </div>
+      </section>
+
       <section class="mt5g-install-panel" id="mt5g-install-ios">
-        <div class="mt5g-kicker">Step 01</div>
-        <h2>ติดตั้งแอป MetaTrader 5</h2>
+        <div class="mt5g-kicker">มือถือ · Step 01</div>
+        <h2>ติดตั้งแอป MetaTrader 5 บนมือถือ</h2>
         <div class="mt5g-install-grid">
           <article class="mt5g-store-card">
             <div class="mt5g-store-top">
@@ -170,10 +206,11 @@
         </div>
       </section>
 
+      <h2 class="mt5g-group-title"><span>มือถือ</span>Login บน iPhone / Android</h2>
       <div class="mt5g-steps">
         <article class="mt5g-step" id="mt5g-open">
           <div class="mt5g-text">
-            <div class="mt5g-kicker">Step 02</div>
+            <div class="mt5g-kicker">มือถือ · Step 02</div>
             <h2>เปิดแอป MT5 แล้วเข้าเมนูเพิ่มบัญชี</h2>
             <p>หลังเปิดแอป MetaTrader 5 ให้ไปที่เมนูตั้งค่าของแอป แล้วเลือกเพิ่มบัญชีใหม่ เช่น New Account / บัญชีใหม่ / Add Account ตามภาษาที่แอปแสดง</p>
             <ul class="mt5g-check">
@@ -192,7 +229,7 @@
 
         <article class="mt5g-step" id="mt5g-search">
           <div class="mt5g-text">
-            <div class="mt5g-kicker">Step 03</div>
+            <div class="mt5g-kicker">มือถือ · Step 03</div>
             <h2>พิมพ์ค้นหาคำว่า zaurix</h2>
             <p>ที่ช่องค้นหา ให้พิมพ์คำว่า <strong>zaurix</strong> ตัวพิมพ์เล็กหรือใหญ่ก็ได้ เพื่อให้ระบบแสดงรายชื่อโบรกเกอร์ของ Zaurix</p>
             <ul class="mt5g-check">
@@ -214,7 +251,7 @@
 
         <article class="mt5g-step" id="mt5g-select">
           <div class="mt5g-text">
-            <div class="mt5g-kicker">Step 04</div>
+            <div class="mt5g-kicker">มือถือ · Step 04</div>
             <h2>เลือกโบรกเกอร์ Zaurix Ltd.</h2>
             <p>เมื่อค้นหาแล้ว ให้แตะรายการ <strong>Zaurix Ltd.</strong> ที่มีโลโก้สีแดงของ Zaurix ตามภาพ</p>
             <ul class="mt5g-check">
@@ -235,7 +272,7 @@
 
         <article class="mt5g-step" id="mt5g-login">
           <div class="mt5g-text">
-            <div class="mt5g-kicker">Step 05</div>
+            <div class="mt5g-kicker">มือถือ · Step 05</div>
             <h2>กรอก Login และ Password ของ MT5</h2>
             <p>ในหน้าลงชื่อเข้าใช้ ให้ตรวจ Server เป็น <strong>Zaurix-Server</strong> จากนั้นกรอกเลข Login และรหัสผ่าน MT5 ที่ได้รับหลังเปิดบัญชี</p>
             <ul class="mt5g-check">
@@ -262,7 +299,7 @@
 
         <article class="mt5g-step" id="mt5g-check-section">
           <div class="mt5g-text">
-            <div class="mt5g-kicker">Step 06</div>
+            <div class="mt5g-kicker">มือถือ · Step 06</div>
             <h2>กดลงชื่อเข้าใช้ แล้วเช็กว่าล็อกอินสำเร็จ</h2>
             <p>หลังกรอกครบ ให้กดปุ่มลงชื่อเข้าใช้ด้านล่าง ถ้าข้อมูลถูกต้อง แอปจะเข้าสู่บัญชี MT5 และจะแสดงข้อมูลราคา/บัญชีเทรด</p>
             <ul class="mt5g-check">
@@ -283,6 +320,119 @@
         </article>
       </div>
 
+      <section class="mt5g-win" id="mt5g-win">
+        <h2 class="mt5g-group-title"><span>Windows</span>ติดตั้งและ Login MT5 บนคอมพิวเตอร์</h2>
+
+        <section class="mt5g-install-panel">
+          <div class="mt5g-kicker">Windows · Step 01</div>
+          <h2>ติดตั้งโปรแกรม MetaTrader 5 บน Windows</h2>
+          <div class="mt5g-install-grid mt5g-install-grid-1">
+            <article class="mt5g-store-card">
+              <div class="mt5g-store-top">
+                <div class="mt5g-app-icon mt5g-win-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5.1 10.3 4v7.3H3V5.1zm8.3-1.3L21 2.4v8.9h-9.7V3.8zM3 12.7h7.3V20L3 18.9v-6.2zm8.3 0H21v8.9l-9.7-1.4v-7.5z"/></svg></div>
+                <div><h3>คอมพิวเตอร์ Windows</h3><p>ดาวน์โหลดตัวติดตั้งทางการของ MetaQuotes</p></div>
+              </div>
+              <ol class="mt5g-store-steps">
+                <li>กดปุ่ม <strong>DOWNLOAD</strong> ด้านล่าง จะได้ไฟล์ <strong>mt5setup.exe</strong></li>
+                <li>เปิดไฟล์ที่ดาวน์โหลด ถ้า Windows ถามสิทธิ์ ให้กด <strong>Yes / ใช่</strong></li>
+                <li>กด <strong>Next</strong> ไปเรื่อย ๆ จนติดตั้งเสร็จ แล้วกด <strong>Finish</strong></li>
+                <li>เปิดโปรแกรม <strong>MetaTrader 5</strong> จากหน้า Desktop หรือเมนู Start</li>
+              </ol>
+              <div class="mt5g-store-btns">
+                <a class="mt5g-store-btn mt5g-download" href="https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe" rel="noopener"><span>DOWNLOAD</span><span class="mt5g-download-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M9.7 3h4.6v10.1h4.3L12 21 5.4 13.1h4.3V3z"/></svg></span></a>
+                <a class="mt5g-store-btn mt5g-alt" href="#mt5g-win-open">ติดตั้งแล้ว ไปขั้นตอน Login</a>
+              </div>
+              <div class="mt5g-mini-note">ตัวติดตั้งนี้สำหรับคอมพิวเตอร์ Windows เท่านั้น ถ้าใช้มือถือ ให้กลับไปดูส่วนมือถือด้านบน</div>
+            </article>
+          </div>
+        </section>
+
+        <div class="mt5g-steps">
+          <article class="mt5g-step mt5g-step-wide" id="mt5g-win-open">
+            <div class="mt5g-text">
+              <div class="mt5g-kicker">Windows · Step 02</div>
+              <h2>กดเมนู File แล้วเลือก Open an Account</h2>
+              <p>เปิดโปรแกรม MetaTrader 5 แล้วกดเมนู <strong>File</strong> ที่มุมซ้ายบน จากนั้นเลือก <strong>Open an Account</strong></p>
+              <ul class="mt5g-check">
+                <li>เมนู File อยู่มุมซ้ายบนสุดของโปรแกรม</li>
+                <li>เลือกบรรทัด Open an Account (มีไอคอน +)</li>
+              </ul>
+            </div>
+            <figure class="mt5g-shot mt5g-desk mt5g-desk-narrow">
+              <img src="https://fenixpro-th.com/wp-content/uploads/2026/09/mt5-windows-01-file-open-an-account.webp" alt="เมนู File ในโปรแกรม MT5 บน Windows เลือก Open an Account" width="470" height="638" loading="lazy">
+              <span class="mt5g-ring" style="left:29%; top:62.7%; width:57%; height:4.4%;"></span>
+              <span class="mt5g-callout" style="left:47%; top:71%;"><span class="mt5g-arrow">↑</span>กด Open an Account</span>
+            </figure>
+          </article>
+
+          <article class="mt5g-step mt5g-step-wide" id="mt5g-win-search">
+            <div class="mt5g-text">
+              <div class="mt5g-kicker">Windows · Step 03</div>
+              <h2>พิมพ์ zaurix แล้วเลือก Zaurix Ltd.</h2>
+              <p>ในหน้า <strong>List of companies</strong> ให้พิมพ์ <strong>zaurix</strong> ในช่องค้นหา เลือก <strong>Zaurix Ltd.</strong> แล้วกด <strong>Next</strong></p>
+              <ul class="mt5g-check">
+                <li>พิมพ์คำว่า zaurix ในช่องด้านบน</li>
+                <li>ถ้ารายชื่อยังไม่ขึ้น ให้กด Find your company</li>
+                <li>คลิกเลือก Zaurix Ltd. ให้เป็นแถบสีฟ้า แล้วกด Next</li>
+              </ul>
+              <div class="mt5g-note">ต้องเลือก Zaurix Ltd. เท่านั้น อย่าเลือกบริษัทอื่นที่ขึ้นมาในรายชื่อ</div>
+            </div>
+            <figure class="mt5g-shot mt5g-desk">
+              <img src="https://fenixpro-th.com/wp-content/uploads/2026/09/mt5-windows-02-search-zaurix-ltd.webp" alt="หน้าค้นหาโบรกเกอร์ใน MT5 บน Windows พิมพ์ zaurix แล้วเลือก Zaurix Ltd." width="813" height="663" loading="lazy">
+              <span class="mt5g-ring" style="left:39.6%; top:20.5%; width:75%; height:5.2%;"></span>
+              <span class="mt5g-ring" style="left:50%; top:34.7%; width:95%; height:7.4%;"></span>
+              <span class="mt5g-ring" style="left:80.9%; top:96.2%; width:12.5%; height:5.2%;"></span>
+              <span class="mt5g-callout" style="left:40%; top:12.5%;"><span class="mt5g-arrow">↓</span>พิมพ์ zaurix</span>
+              <span class="mt5g-callout" style="left:50%; top:45.5%;"><span class="mt5g-arrow">↑</span>เลือก Zaurix Ltd.</span>
+              <span class="mt5g-callout" style="left:80%; top:88%;"><span class="mt5g-arrow">↓</span>กด Next</span>
+            </figure>
+          </article>
+
+          <article class="mt5g-step mt5g-step-wide" id="mt5g-win-login">
+            <div class="mt5g-text">
+              <div class="mt5g-kicker">Windows · Step 04</div>
+              <h2>เลือก Connect with an existing trade account แล้วกรอก Login</h2>
+              <p>เลือกหัวข้อล่างสุด <strong>Connect with an existing trade account</strong> แล้วกรอกข้อมูลบัญชี MT5 ที่ได้รับหลังเปิดบัญชี</p>
+              <ul class="mt5g-check">
+                <li>Login: ใส่เลขบัญชี MT5</li>
+                <li>Password: ใส่รหัสสำหรับเทรด ไม่ใช่ Investor Password</li>
+                <li>Server: เลือก Zaurix-Server</li>
+                <li>กด Finish</li>
+              </ul>
+              <div class="mt5g-note">อย่าเลือก Open a demo account หรือ Open a real account เพราะเป็นการเปิดบัญชีใหม่ ไม่ใช่การ Login บัญชีที่มีอยู่</div>
+            </div>
+            <figure class="mt5g-shot mt5g-desk">
+              <img src="https://fenixpro-th.com/wp-content/uploads/2026/09/mt5-windows-03-login-zaurix-server.webp" alt="หน้า Connect with an existing trade account ใน MT5 บน Windows กรอก Login Password และเลือก Zaurix-Server" width="811" height="665" loading="lazy">
+              <span class="mt5g-ring" style="left:29.8%; top:72.6%; width:50%; height:20%;"></span>
+              <span class="mt5g-ring" style="left:80.8%; top:96.1%; width:12%; height:5.2%;"></span>
+              <span class="mt5g-callout" style="left:58%; top:64%;"><span class="mt5g-arrow">←</span>กรอก Login / Password / Server</span>
+              <span class="mt5g-callout" style="left:80%; top:88%;"><span class="mt5g-arrow">↓</span>กด Finish</span>
+            </figure>
+          </article>
+
+          <article class="mt5g-step mt5g-step-wide" id="mt5g-win-check">
+            <div class="mt5g-text">
+              <div class="mt5g-kicker">Windows · Step 05</div>
+              <h2>เช็กว่า Login สำเร็จ</h2>
+              <p>ถ้า Login สำเร็จ แถบด้านบนสุดของโปรแกรมจะขึ้น <strong>เลขบัญชี - Zaurix-Server</strong> และราคาในหน้าต่าง <strong>Market Watch</strong> จะขยับ</p>
+              <ul class="mt5g-check">
+                <li>แถบบนสุดขึ้นเลขบัญชีตามด้วย Zaurix-Server</li>
+                <li>Market Watch มีราคา Bid / Ask ขยับ</li>
+                <li>ถ้ายังไม่ขึ้น ให้ดูหัวข้อแก้ปัญหาด้านล่าง</li>
+              </ul>
+              <div class="mt5g-note">ภาพตัวอย่างปิดเลขบัญชีไว้เพื่อความเป็นส่วนตัว</div>
+            </div>
+            <figure class="mt5g-shot mt5g-desk">
+              <img src="https://fenixpro-th.com/wp-content/uploads/2026/09/mt5-windows-04-logged-in-zaurix-server.webp" alt="โปรแกรม MT5 บน Windows หลัง Login สำเร็จ แถบด้านบนขึ้น Zaurix-Server" width="1400" height="484" loading="lazy">
+              <span class="mt5g-ring" style="left:8.6%; top:2.6%; width:17.5%; height:5.5%;"></span>
+              <span class="mt5g-ring" style="left:9.3%; top:31.5%; width:18.5%; height:36%;"></span>
+              <span class="mt5g-callout" style="left:33%; top:21%;"><span class="mt5g-arrow">←</span>ขึ้น Zaurix-Server</span>
+              <span class="mt5g-callout" style="left:30%; top:36%;"><span class="mt5g-arrow">←</span>ราคาขยับ</span>
+            </figure>
+          </article>
+        </div>
+      </section>
+
       <section class="mt5g-trouble" id="mt5g-fix">
         <h2>ถ้า Login ไม่ได้ ให้เช็ก 6 จุดนี้ก่อน</h2>
         <div class="mt5g-trouble-grid">
@@ -297,5 +447,5 @@
     </div>
   </div>
 
-  <div class="mt5g-footer"><div class="mt5g-wrap">หมายเหตุ: คู่มือนี้ใช้ภาพจริงจากหน้าจอ MT5 บน iPhone ภาษาไทย ลำดับเมนูอาจต่างเล็กน้อยตามเวอร์ชันแอป แต่หลักสำคัญคือดาวน์โหลด MetaTrader 5 ให้ถูกแอป เลือก Zaurix Ltd. และ Server เป็น Zaurix-Server</div></div>
+  <div class="mt5g-footer"><div class="mt5g-wrap">หมายเหตุ: ส่วนมือถือใช้ภาพจริงจากหน้าจอ MT5 บน iPhone ภาษาไทย ส่วน Windows ใช้ภาพจากโปรแกรม MT5 บน Windows ภาษาอังกฤษ ลำดับเมนูอาจต่างเล็กน้อยตามเวอร์ชันแอป แต่หลักสำคัญคือดาวน์โหลด MetaTrader 5 ให้ถูกแอป เลือก Zaurix Ltd. และ Server เป็น Zaurix-Server</div></div>
 </div>
