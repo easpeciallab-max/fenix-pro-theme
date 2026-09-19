@@ -185,7 +185,7 @@ if ( fenix_mod( 'links_fast_enabled' ) ) :
 		?>
 		<div class="lh-feature lh-feature-fast">
 			<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_fast_url ) ); ?>" download>
-				<img src="<?php echo esc_url( $lh_fast_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'links_fast_alt' ) ); ?>" width="1200" height="631" loading="lazy">
+				<img src="<?php echo esc_url( $lh_fast_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'links_fast_alt' ) ); ?>" width="1200" height="675" loading="lazy">
 			</a>
 		</div>
 		<?php
