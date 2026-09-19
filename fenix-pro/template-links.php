@@ -191,18 +191,16 @@ if ( fenix_mod( 'links_fast_enabled' ) ) :
 		<?php
 	endif;
 else :
-	$lh_default_feat_img = get_template_directory_uri() . '/assets/img/link-download-fenix-pro-ea.png';
-	$lh_default_feat_url = get_template_directory_uri() . '/assets/downloads/fenix-pro-ea.zip';
 	$lh_feat_img         = trim( (string) fenix_mod( 'links_feature_img' ) );
 	$lh_feat_placeholder = preg_match( '~(?:placehold|placeholder|dummyimage|1200[^/?#]*(?:x|×|-|_)[^/?#]*630)~i', $lh_feat_img );
-	if ( '' === $lh_feat_img || $lh_feat_placeholder ) {
-		$lh_feat_img = $lh_default_feat_img;
+	if ( $lh_feat_placeholder ) {
+		$lh_feat_img = '';
 	}
 	if ( $lh_feat_img ) :
 		$lh_feat_url     = trim( (string) fenix_mod( 'links_feature_url' ) );
 		$lh_feat_caption = fenix_mod( 'links_feature_caption' );
-		if ( '' === $lh_feat_url || fenix_mod( 'line_url' ) === $lh_feat_url ) {
-			$lh_feat_url = $lh_default_feat_url;
+		if ( fenix_mod( 'line_url' ) === $lh_feat_url ) {
+			$lh_feat_url = '';
 		}
 		$lh_feat_has_url = ( '' !== $lh_feat_url );
 		?>
