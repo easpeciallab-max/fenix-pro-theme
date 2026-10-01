@@ -75,10 +75,12 @@ check( 1 === $cards->length && null !== card_with_class( $cards, 'lh-feature-plu
 $plus       = card_with_class( $cards, 'lh-feature-plus' );
 $plus_link  = $plus->getElementsByTagName( 'a' )->item( 0 );
 $plus_image = $plus->getElementsByTagName( 'img' )->item( 0 );
-check( 'https://fenixpro-th.com/wp-content/uploads/2026/09/FENIX_PLUS_V4.1.zip' === $plus_link->getAttribute( 'href' ), 'PLUS links to the supplied ZIP' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_PLUS_V4.2.zip' === $plus_link->getAttribute( 'href' ), 'PLUS links to the supplied ZIP' );
 check( $plus_link->hasAttribute( 'download' ), 'PLUS link requests a file download' );
 check( 'https://example.test/wp-content/themes/fenix-pro/assets/img/link-download-fenix-plus.webp' === $plus_image->getAttribute( 'src' ), 'PLUS uses the approved banner' );
 check( is_file( get_template_directory() . '/assets/img/link-download-fenix-plus.webp' ), 'PLUS banner exists in the theme' );
+check( false !== strpos( $html, '<span class="lh-ver-num">V4.2</span>' ), 'Version badge reads the number from the download file name' );
+check( false !== strpos( $html, 'เวอร์ชันล่าสุด' ), 'Version badge keeps its Thai prefix' );
 check( false === strpos( $html, 'FENIX_PRO_V3.8.zip' ) && false === strpos( $html, 'link-download-fenix-pro-v32.webp' ), 'The retired PRO download is not referenced anywhere' );
 check( false === strpos( $html, 'old-pro.' ) && false === strpos( $html, 'old-mt.' ), 'Legacy assets are not emitted while FAST is enabled' );
 
@@ -106,6 +108,15 @@ $image = card_with_class( $cards, 'lh-feature-fast' )->getElementsByTagName( 'im
 check( 'https://example.test/package.zip?v=2&source=go' === $link->getAttribute( 'href' ), 'Customizer download URLs survive escaping' );
 check( 'https://example.test/custom.webp' === $image->getAttribute( 'src' ), 'Customizer banner overrides the default' );
 check( 'FENIX FAST "Download" <test>' === $image->getAttribute( 'alt' ) && false !== strpos( $html, '&lt;test&gt;' ), 'Image alt text is configurable and escaped' );
+
+list( $html, $cards ) = render_downloads( array( 'links_plus_version' => '5.0 BETA' ) );
+check( false !== strpos( $html, '<span class="lh-ver-num">V5.0 BETA</span>' ), 'A version typed in the Customizer wins over the file name' );
+
+list( $html, $cards ) = render_downloads( array( 'links_plus_version' => 'รุ่นทดสอบ <b>', 'links_plus_version_label' => '' ) );
+check( false !== strpos( $html, 'รุ่นทดสอบ &lt;b&gt;' ) && false === strpos( $html, 'lh-ver-label' ), 'Free-text versions are escaped and the prefix can be emptied' );
+
+list( $html, $cards ) = render_downloads( array( 'links_plus_url' => 'https://example.test/fenix-plus.zip' ) );
+check( false === strpos( $html, 'lh-feature-ver' ), 'No badge when the file name carries no version and none is typed' );
 
 // ---- Numbered start-up journey on /go/ ----
 function render_page( $mods ) {

@@ -615,6 +615,8 @@ function fenix_customize_register( $wp_customize ) {
 			'links_plus_img'     => array( 'FENIX PLUS · รูปดาวน์โหลด', 'image' ),
 			'links_plus_url'     => array( 'FENIX PLUS · ลิงก์ไฟล์ดาวน์โหลด', 'text' ),
 			'links_plus_alt'     => array( 'FENIX PLUS · ข้อความอธิบายรูป (Alt)', 'text' ),
+			'links_plus_version_label' => array( 'FENIX PLUS · คำนำหน้าเลขเวอร์ชัน (เว้นว่าง = ไม่แสดงคำนำหน้า)', 'text' ),
+			'links_plus_version'       => array( 'FENIX PLUS · เลขเวอร์ชันที่แสดง เช่น 4.2 (เว้นว่าง = ดึงจากชื่อไฟล์ให้อัตโนมัติ)', 'text' ),
 			'links_feature_img'     => array( 'รูปโชว์ (ใต้ปุ่ม LINE) · ไม่ใส่ = ใช้รูปดาวน์โหลดค่าเริ่มต้น', 'image', 'แนะนำภาพแนวนอน 1200×630px สำหรับ Link Hub' ),
 			'links_feature_url'     => array( 'รูปโชว์ · ลิงก์เมื่อคลิก (ไม่ใส่ = รูปค่าเริ่มต้นจะไป LINE)', 'text' ),
 			'links_feature_caption' => array( 'รูปโชว์ · ข้อความใต้รูป (ถ้ามี)', 'text' ),

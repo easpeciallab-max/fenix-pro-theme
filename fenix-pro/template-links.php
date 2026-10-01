@@ -254,11 +254,28 @@ if ( fenix_mod( 'links_plus_enabled' ) ) :
 	$lh_plus_img = trim( (string) fenix_mod( 'links_plus_img' ) );
 	$lh_plus_url = trim( (string) fenix_mod( 'links_plus_url' ) );
 	if ( $lh_plus_img && $lh_plus_url ) :
+		// เลขเวอร์ชัน: ใช้ค่าที่กรอกใน Customizer ก่อน ถ้าเว้นว่างจะดึงจากชื่อไฟล์ให้เอง.
+		$lh_plus_ver = trim( (string) fenix_mod( 'links_plus_version' ) );
+		if ( '' === $lh_plus_ver ) {
+			$lh_plus_ver = fenix_version_from_url( $lh_plus_url );
+		}
+		if ( '' !== $lh_plus_ver && preg_match( '/^\d/', $lh_plus_ver ) ) {
+			$lh_plus_ver = 'V' . $lh_plus_ver;
+		}
+		$lh_plus_ver_label = trim( (string) fenix_mod( 'links_plus_version_label' ) );
 		?>
 		<div class="lh-feature lh-feature-plus">
 			<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_plus_url ) ); ?>" download>
 				<img src="<?php echo esc_url( $lh_plus_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'links_plus_alt' ) ); ?>" width="1200" height="675" loading="lazy">
 			</a>
+			<?php if ( '' !== $lh_plus_ver ) : ?>
+				<span class="lh-feature-ver">
+					<?php if ( '' !== $lh_plus_ver_label ) : ?>
+						<span class="lh-ver-label"><?php echo esc_html( $lh_plus_ver_label ); ?></span>
+					<?php endif; ?>
+					<span class="lh-ver-num"><?php echo esc_html( $lh_plus_ver ); ?></span>
+				</span>
+			<?php endif; ?>
 		</div>
 		<?php
 	endif;
