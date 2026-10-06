@@ -275,7 +275,7 @@ function fenix_defaults() {
 		'links_feature2_caption' => '',
 		'links_feature2_placeholder' => '1200 × 630',
 		'links_btn1_label' => 'ดูผลเทรดจริง (Forward Test)',
-		'links_btn1_url'   => 'https://www.myfxbook.com/members/speccub/fenix-smart-core/12163940/dTX1kOz5MZwCABISlzuH',
+		'links_btn1_url'   => 'https://www.myfxbook.com/portfolio/eafn/12227282',
 		'links_btn2_label' => 'แพ็กเกจ & ราคา',
 		'links_btn2_url'   => '/pricing/',
 		'links_btn3_label' => '',
@@ -732,6 +732,8 @@ function fenix_mod( $key ) {
 		'links_btn1_url' => array(
 			'/forward-test/',
 			'https://fenixpro-th.com/forward-test/',
+			'https://www.myfxbook.com/members/speccub/fenix-smart-core/12163940/dTX1kOz5MZwCABISlzuH',
+			'https://www.myfxbook.com/portfolio/eajw/12171161',
 		),
 		'pricing_subtitle' => 'เลือกแพ็กเกจที่เหมาะกับการใช้งานของคุณ หรือทักมาปรึกษาก่อนตัดสินใจได้',
 		'pricing_mode'     => 'contact',
