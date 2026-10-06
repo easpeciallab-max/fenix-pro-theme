@@ -1941,3 +1941,28 @@ add_action( 'send_headers', 'fenix_remove_powered_by_header', 100 );
  * Customizer
  * -------------------------------------------------------------- */
 require get_template_directory() . '/inc/customizer.php';
+
+/**
+ * ปุ่ม "สอบถามทาง LINE" ใต้แดชบอร์ดหน้า Backtest มาจากปลั๊กอิน FENIX Performance
+ * Dashboard Pro ซึ่งฝัง URL ของ Myfxbook ตัวเก่าไว้ผิด ลูกค้ากดแล้วหลุดออกจากเว็บ
+ * ตัวกรองนี้บังคับให้ปุ่มชี้กลับไปที่ LINE ตามค่าใน Customizer จนกว่าจะแก้ที่ปลั๊กอิน
+ */
+function fenix_fix_dashboard_line_button( $output, $tag ) {
+	if ( 'fenix_dashboard_pro' !== $tag || '' === trim( (string) $output ) ) {
+		return $output;
+	}
+
+	$line_url = trim( (string) fenix_mod( 'line_url' ) );
+	if ( '' === $line_url ) {
+		return $output;
+	}
+
+	$fixed = preg_replace(
+		'~(<a\b[^>]*?)href="[^"]*"([^>]*>\s*สอบถามทาง\s*LINE\s*</a>)~u',
+		'$1href="' . esc_url( $line_url ) . '"$2',
+		$output
+	);
+
+	return null === $fixed ? $output : $fixed;
+}
+add_filter( 'do_shortcode_tag', 'fenix_fix_dashboard_line_button', 10, 2 );
