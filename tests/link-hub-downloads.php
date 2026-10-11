@@ -75,11 +75,11 @@ check( 1 === $cards->length && null !== card_with_class( $cards, 'lh-feature-plu
 $plus       = card_with_class( $cards, 'lh-feature-plus' );
 $plus_link  = $plus->getElementsByTagName( 'a' )->item( 0 );
 $plus_image = $plus->getElementsByTagName( 'img' )->item( 0 );
-check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_PLUS_V4.2.zip' === $plus_link->getAttribute( 'href' ), 'PLUS links to the supplied ZIP' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_PLUS_V4.3.zip' === $plus_link->getAttribute( 'href' ), 'PLUS links to the supplied ZIP' );
 check( $plus_link->hasAttribute( 'download' ), 'PLUS link requests a file download' );
 check( 'https://example.test/wp-content/themes/fenix-pro/assets/img/link-download-fenix-plus.webp' === $plus_image->getAttribute( 'src' ), 'PLUS uses the approved banner' );
 check( is_file( get_template_directory() . '/assets/img/link-download-fenix-plus.webp' ), 'PLUS banner exists in the theme' );
-check( false !== strpos( $html, '<span class="lh-ver-num">V4.2</span>' ), 'Version badge reads the number from the download file name' );
+check( false !== strpos( $html, '<span class="lh-ver-num">V4.3</span>' ), 'Version badge reads the number from the download file name' );
 check( false !== strpos( $html, 'เวอร์ชันล่าสุด' ), 'Version badge keeps its Thai prefix' );
 check( false === strpos( $html, 'FENIX_PRO_V3.8.zip' ) && false === strpos( $html, 'link-download-fenix-pro-v32.webp' ), 'The retired PRO download is not referenced anywhere' );
 check( false === strpos( $html, 'old-pro.' ) && false === strpos( $html, 'old-mt.' ), 'Legacy assets are not emitted while FAST is enabled' );
@@ -92,7 +92,7 @@ list( $html, $cards ) = render_downloads( array_merge( $legacy, array( 'links_fa
 check( 1 === $cards->length && null !== card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PRO_V3.8.zip' ) && false === strpos( $html, 'old-pro.' ), 'Hiding FAST shows only PLUS and does not bring back legacy cards' );
 
 list( $html, $cards ) = render_downloads( array( 'links_plus_enabled' => false ) );
-check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS_V4.1.zip' ), 'Disabling PLUS hides its card and ZIP link' );
+check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS_V4.3.zip' ), 'Disabling PLUS hides its card and ZIP link' );
 
 list( $html, $cards ) = render_downloads( array( 'links_plus_alt' => 'FENIX PLUS "Download" <test>' ) );
 $plus_image = card_with_class( $cards, 'lh-feature-plus' )->getElementsByTagName( 'img' )->item( 0 );
