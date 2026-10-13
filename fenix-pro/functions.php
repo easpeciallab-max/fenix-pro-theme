@@ -185,7 +185,7 @@ function fenix_defaults() {
 	$d = array(
 		/* ทั่วไป */
 		'line_url'        => 'https://line.me/R/ti/p/@fenixpro',
-		'facebook_url'    => 'https://www.facebook.com/fenixpro.ea',
+		'facebook_url'    => 'https://www.facebook.com/fenixpro.trading',
 		'instagram_url'   => 'https://www.instagram.com/fenixproea_th/',
 		'tiktok_url'      => 'https://www.tiktok.com/@fenixpro.ea',
 		'youtube_url'     => 'https://www.youtube.com/@FenixProExpertAdvisor',
@@ -721,6 +721,9 @@ function fenix_mod( $key ) {
 	 * custom values remain untouched.
 	 */
 	$stale_values = array(
+		'facebook_url'    => array(
+			'https://www.facebook.com/fenixpro.ea',
+		),
 		'instagram_url'   => array(
 			'https://www.instagram.com/fenixpro.ea/',
 			'https://www.instagram.com/fenixpro.th/',
