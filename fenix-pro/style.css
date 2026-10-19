@@ -6126,3 +6126,59 @@ a.lh-feature-frame:hover {
 		font-size: 0.74rem;
 	}
 }
+
+/* ตารางบล็อก Gutenberg ในเนื้อหา — ใช้หน้าตาเดียวกับ .table-scroll และเลื่อนแนวนอนได้บนมือถือ
+   (ไม่งั้น 5 คอลัมน์จะถูกบีบจนคอลัมน์สุดท้ายหลุดขอบจอ) */
+.entry-content figure.wp-block-table {
+	margin: 1.8em 0;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	border: 1px solid #2a2a36;
+}
+
+.entry-content figure.wp-block-table table {
+	width: 100%;
+	min-width: 540px;
+	border: 0;
+	border-collapse: collapse;
+	margin: 0;
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+.entry-content figure.wp-block-table th,
+.entry-content figure.wp-block-table td {
+	padding: 13px 18px;
+	text-align: left;
+	vertical-align: top;
+	border: 0;
+	border-bottom: 1px solid #23232e;
+	border-right: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+.entry-content figure.wp-block-table th:last-child,
+.entry-content figure.wp-block-table td:last-child {
+	border-right: 0;
+}
+
+.entry-content figure.wp-block-table th {
+	background: #17171F;
+	color: #F7F7FA;
+	font-weight: 700;
+	font-family: var(--font-display);
+	border-bottom: 2px solid #FF7A1A;
+	white-space: nowrap;
+}
+
+.entry-content figure.wp-block-table td {
+	color: #ABABBA;
+}
+
+.entry-content figure.wp-block-table tbody td:first-child {
+	color: #F7F7FA;
+	font-weight: 600;
+}
+
+.entry-content figure.wp-block-table tbody tr:last-child td {
+	border-bottom: 0;
+}
