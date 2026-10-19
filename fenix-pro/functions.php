@@ -203,9 +203,15 @@ function fenix_defaults() {
 		'mobile_nav_test_url'     => '/forward-test/',
 		'mobile_nav_price_label'   => 'แพ็กเกจ',
 		'mobile_nav_price_url'     => '/pricing/',
-		'mobile_nav_install_label' => 'วิธีติดตั้ง',
-		'mobile_nav_install_url'   => '/how-to-install/',
+		'mobile_nav_dash_label'    => 'แดชบอร์ด',
+		'mobile_nav_dash_url'      => '',
 		'mobile_nav_line_label'    => 'ทัก LINE',
+
+		/* แดชบอร์ดลูกค้า (ปุ่มบนแถบเมนู + เมนูลัดมือถือ) */
+		'dashboard_url'       => 'https://dashboard.fenixpro-th.com/',
+		'show_header_auth'    => true,
+		'header_signup_label' => 'สมัครสมาชิก',
+		'header_login_label'  => 'เข้าสู่ระบบ',
 
 		/* SEO / แชร์ลิงก์ (Open Graph) */
 		'og_default_image'       => '',
@@ -704,6 +710,48 @@ function fenix_version_from_url( $url ) {
 	}
 
 	return '';
+}
+
+/**
+ * เมนูลัดด้านล่างบนมือถือ (บาร์ 5 ปุ่ม)
+ * ปุ่มที่ 4 ชี้ไปแดชบอร์ดลูกค้า ถ้าไม่ได้กรอกลิงก์เฉพาะจะใช้ลิงก์แดชบอร์ดหลัก
+ */
+function fenix_mobile_nav_items() {
+	$dash_url = trim( (string) fenix_mod( 'mobile_nav_dash_url' ) );
+
+	if ( '' === $dash_url ) {
+		$dash_url = trim( (string) fenix_mod( 'dashboard_url' ) );
+	}
+
+	return array(
+		array(
+			'label' => fenix_mod( 'mobile_nav_home_label' ),
+			'url'   => fenix_link_url( fenix_mod( 'mobile_nav_home_url' ) ),
+			'icon'  => 'home',
+		),
+		array(
+			'label' => fenix_mod( 'mobile_nav_test_label' ),
+			'url'   => fenix_link_url( fenix_mod( 'mobile_nav_test_url' ) ),
+			'icon'  => 'chart',
+		),
+		array(
+			'label' => fenix_mod( 'mobile_nav_price_label' ),
+			'url'   => fenix_link_url( fenix_mod( 'mobile_nav_price_url' ) ),
+			'icon'  => 'tag',
+		),
+		array(
+			'label' => fenix_mod( 'mobile_nav_dash_label' ),
+			'url'   => fenix_link_url( $dash_url ),
+			'icon'  => 'gauge',
+		),
+		array(
+			'label'        => fenix_mod( 'mobile_nav_line_label' ),
+			'url'          => fenix_mod( 'line_url' ),
+			'icon'         => 'line',
+			'is_action'    => true,
+			'target_blank' => true,
+		),
+	);
 }
 
 /**

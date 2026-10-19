@@ -6075,3 +6075,33 @@ a.lh-feature-frame:hover {
 .link-hub-page .language-switcher {
 	display: none !important;
 }
+
+/* ปุ่มสมัคร / เข้าสู่ระบบ ของแดชบอร์ด บนแถบเมนู (section 39) */
+.header-auth {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	flex: 0 0 auto;
+}
+
+.header-auth .btn {
+	white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+	.header-auth {
+		margin-left: auto;
+		margin-right: 2px;
+	}
+
+	.header-auth-login {
+		display: none;
+	}
+}
+
+@media (max-width: 420px) {
+	.header-auth .btn {
+		padding-inline: 13px;
+		font-size: 0.76rem;
+	}
+}

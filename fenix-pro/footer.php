@@ -8,35 +8,7 @@
 $fenix_line  = fenix_mod( 'line_url' );
 $fenix_intro = fenix_lines( fenix_mod( 'footer_tagline' ) );
 $fenix_prep  = fenix_lines( fenix_mod( 'footer_prep_items' ) );
-$fenix_mobile_nav = array(
-	array(
-		'label' => fenix_mod( 'mobile_nav_home_label' ),
-		'url'   => fenix_link_url( fenix_mod( 'mobile_nav_home_url' ) ),
-		'icon'  => 'home',
-	),
-	array(
-		'label' => fenix_mod( 'mobile_nav_test_label' ),
-		'url'   => fenix_link_url( fenix_mod( 'mobile_nav_test_url' ) ),
-		'icon'  => 'chart',
-	),
-	array(
-		'label' => fenix_mod( 'mobile_nav_price_label' ),
-		'url'   => fenix_link_url( fenix_mod( 'mobile_nav_price_url' ) ),
-		'icon'  => 'tag',
-	),
-	array(
-		'label' => fenix_mod( 'mobile_nav_install_label' ),
-		'url'   => fenix_link_url( fenix_mod( 'mobile_nav_install_url' ) ),
-		'icon'  => 'download',
-	),
-	array(
-		'label'        => fenix_mod( 'mobile_nav_line_label' ),
-		'url'          => $fenix_line,
-		'icon'         => 'line',
-		'is_action'    => true,
-		'target_blank' => true,
-	),
-);
+$fenix_mobile_nav = fenix_mobile_nav_items();
 ?>
 
 <?php if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'footer' ) ) : ?>

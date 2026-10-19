@@ -317,8 +317,8 @@ function fenix_customize_register( $wp_customize ) {
 				'mobile_nav_test_url'    => array( 'เมนู 2 · ลิงก์หรือ slug', 'text' ),
 				'mobile_nav_price_label'   => array( 'เมนู 3 · ชื่อ', 'text' ),
 				'mobile_nav_price_url'     => array( 'เมนู 3 · ลิงก์หรือ slug', 'text' ),
-				'mobile_nav_install_label' => array( 'เมนู 4 · ชื่อ', 'text' ),
-				'mobile_nav_install_url'   => array( 'เมนู 4 · ลิงก์หรือ slug', 'text' ),
+				'mobile_nav_dash_label'    => array( 'เมนู 4 · ชื่อ (แดชบอร์ด)', 'text' ),
+				'mobile_nav_dash_url'      => array( 'เมนู 4 · ลิงก์ (เว้นว่าง = ใช้ลิงก์แดชบอร์ดในหมวด 29)', 'text' ),
 				'mobile_nav_line_label'    => array( 'เมนู 5 · ชื่อปุ่ม LINE', 'text' ),
 			),
 		),
@@ -648,6 +648,17 @@ function fenix_customize_register( $wp_customize ) {
 			'links_guide5_label' => array( 'คู่มือ 5 · ข้อความ', 'text' ),
 			'links_guide5_url'   => array( 'คู่มือ 5 · ลิงก์', 'text' ),
 			'links_note'       => array( 'ข้อความเตือนความเสี่ยง (ด้านล่างสุด)', 'textarea' ),
+		),
+	);
+
+	$sections['fenix_dashboard'] = array(
+		'title'       => '29) แดชบอร์ดลูกค้า (ปุ่มสมัคร / เข้าสู่ระบบ)',
+		'description' => 'ปุ่มบนแถบเมนู: เดสก์ท็อปแสดงสองปุ่ม มือถือแสดงเฉพาะปุ่มสมัคร · เมนูลัดมือถือปุ่มที่ 4 ก็ชี้มาที่ลิงก์นี้',
+		'fields'      => array(
+			'dashboard_url'       => array( 'ลิงก์แดชบอร์ด', 'url' ),
+			'show_header_auth'    => array( 'แสดงปุ่มสมัคร / เข้าสู่ระบบ บนแถบเมนู', 'checkbox' ),
+			'header_signup_label' => array( 'ข้อความปุ่มสมัคร', 'text' ),
+			'header_login_label'  => array( 'ข้อความปุ่มเข้าสู่ระบบ (เดสก์ท็อปเท่านั้น)', 'text' ),
 		),
 	);
 
