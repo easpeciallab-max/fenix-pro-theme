@@ -258,9 +258,10 @@ function fenix_defaults() {
 		'links_openchat_url'   => 'https://line.me/ti/g2/6O9XyBBtatI9LF_Z7N1dpbw7aOgE0IAl39m3bw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default',
 		'links_fast_enabled' => true,
 		'links_fast_show'    => true,
-		'links_fast_img'     => '',
-		'links_fast_url'     => '',
-		'links_fast_alt'     => 'ดาวน์โหลด FENIX PRO EA สำหรับ MetaTrader 5',
+		'links_fast_img'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-dual.webp',
+		'links_fast_url'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_DUAL_V6.1.zip',
+		'links_fast_alt'     => 'ดาวน์โหลด FENIX DUAL Expert Advisor สำหรับ MetaTrader 5',
+		'links_fast_version' => '',
 		'links_plus_enabled' => true,
 		'links_plus_img'     => get_template_directory_uri() . '/assets/img/link-download-fenix-plus.webp',
 		'links_plus_url'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_PLUS_V5.0.zip',
@@ -703,6 +704,35 @@ function fenix_version_from_url( $url ) {
 	}
 
 	return '';
+}
+
+/**
+ * ป้ายเลขเวอร์ชันใต้การ์ดดาวน์โหลด ใช้ร่วมกันทุกการ์ด
+ * ใช้เลขที่กรอกใน Customizer ก่อน ถ้าเว้นว่างจะดึงจากชื่อไฟล์ให้เอง
+ */
+function fenix_download_version_badge( $url, $override ) {
+	$version = trim( (string) $override );
+
+	if ( '' === $version ) {
+		$version = fenix_version_from_url( $url );
+	}
+
+	if ( '' === $version ) {
+		return '';
+	}
+
+	if ( preg_match( '/^\d/', $version ) ) {
+		$version = 'V' . $version;
+	}
+
+	$label = trim( (string) fenix_mod( 'links_plus_version_label' ) );
+	$html  = '<span class="lh-feature-ver">';
+
+	if ( '' !== $label ) {
+		$html .= '<span class="lh-ver-label">' . esc_html( $label ) . '</span>';
+	}
+
+	return $html . '<span class="lh-ver-num">' . esc_html( $version ) . '</span></span>';
 }
 
 /**

@@ -71,7 +71,15 @@ $legacy = array(
 );
 
 list( $html, $cards ) = render_downloads( $legacy );
-check( 1 === $cards->length && null !== card_with_class( $cards, 'lh-feature-plus' ) && null === card_with_class( $cards, 'lh-feature-fast' ), 'Only PLUS ships by default; the second slot has no download until the owner fills it' );
+check( 2 === $cards->length && null !== card_with_class( $cards, 'lh-feature-fast' ) && null !== card_with_class( $cards, 'lh-feature-plus' ), 'DUAL and PLUS both ship by default' );
+check( false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-fast' ) && false !== strpos( $cards->item( 1 )->getAttribute( 'class' ), 'lh-feature-plus' ), 'DUAL renders above PLUS' );
+$dual       = card_with_class( $cards, 'lh-feature-fast' );
+$dual_link  = $dual->getElementsByTagName( 'a' )->item( 0 );
+$dual_image = $dual->getElementsByTagName( 'img' )->item( 0 );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_DUAL_V6.1.zip' === $dual_link->getAttribute( 'href' ), 'DUAL links to the supplied ZIP' );
+check( $dual_link->hasAttribute( 'download' ), 'DUAL link requests a file download' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-dual.webp' === $dual_image->getAttribute( 'src' ), 'DUAL uses the approved banner' );
+check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V6\.1</span>~s', $html ), 'DUAL carries its own version badge' );
 $plus       = card_with_class( $cards, 'lh-feature-plus' );
 $plus_link  = $plus->getElementsByTagName( 'a' )->item( 0 );
 $plus_image = $plus->getElementsByTagName( 'img' )->item( 0 );
@@ -115,8 +123,15 @@ check( false !== strpos( $html, '<span class="lh-ver-num">V6.1 BETA</span>' ), '
 list( $html, $cards ) = render_downloads( array( 'links_plus_version' => 'รุ่นทดสอบ <b>', 'links_plus_version_label' => '' ) );
 check( false !== strpos( $html, 'รุ่นทดสอบ &lt;b&gt;' ) && false === strpos( $html, 'lh-ver-label' ), 'Free-text versions are escaped and the prefix can be emptied' );
 
-list( $html, $cards ) = render_downloads( array( 'links_plus_url' => 'https://example.test/fenix-plus.zip' ) );
+list( $html, $cards ) = render_downloads( array(
+	'links_plus_url' => 'https://example.test/fenix-plus.zip',
+	'links_fast_url' => 'https://example.test/fenix-dual.zip',
+) );
 check( false === strpos( $html, 'lh-feature-ver' ), 'No badge when the file name carries no version and none is typed' );
+
+list( $html, $cards ) = render_downloads( array( 'links_fast_version' => '7.0 RC' ) );
+check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V7\.0 RC</span>~s', $html ), 'DUAL takes its own typed version' );
+check( false !== strpos( $html, '<span class="lh-ver-num">V5.0</span>' ), 'Typing a DUAL version leaves the PLUS badge alone' );
 
 // ---- Numbered start-up journey on /go/ ----
 function render_page( $mods ) {
