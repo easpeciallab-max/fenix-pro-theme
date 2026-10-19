@@ -35,15 +35,13 @@ function check( $condition, $message ) {
 
 // ---- ปุ่มบนแถบเมนู ----
 check( 'https://dashboard.fenixpro-th.com/' === fenix_mod( 'dashboard_url' ), 'Dashboard link ships as a default' );
-check( true === fenix_mod( 'show_header_auth' ), 'Header buttons are on out of the box' );
-check( 'สมัครสมาชิก' === fenix_mod( 'header_signup_label' ) && 'เข้าสู่ระบบ' === fenix_mod( 'header_login_label' ), 'Both button labels are editable settings, not hardcoded copy' );
+check( true === fenix_mod( 'show_header_auth' ), 'The header button is on out of the box' );
+check( 'แดชบอร์ด' === fenix_mod( 'header_dash_label' ), 'The button label is an editable setting, not hardcoded copy' );
 
 $header = file_get_contents( get_template_directory() . '/header.php' );
-check( false !== strpos( $header, 'header-auth-signup' ) && false !== strpos( $header, 'header-auth-login' ), 'Header renders a signup and a login button' );
+check( 1 === substr_count( $header, 'header-auth-dash' ), 'The header renders exactly one dashboard button' );
+check( false === strpos( $header, 'header_signup_label' ) && false === strpos( $header, 'header_login_label' ), 'The retired sign-up and log-in buttons are gone' );
 check( false === strpos( $header, 'https://dashboard.fenixpro-th.com' ), 'The header template keeps the URL in a setting' );
-
-$css = file_get_contents( get_template_directory() . '/style.css' );
-check( 1 === preg_match( '~@media \(max-width: 960px\)\s*\{[^}]*\.header-auth\s*\{[^}]*\}\s*\.header-auth-login\s*\{\s*display:\s*none;~s', $css ), 'Phones show the signup button only' );
 
 // ---- เมนูลัดมือถือด้านล่าง ----
 $items = fenix_mobile_nav_items();

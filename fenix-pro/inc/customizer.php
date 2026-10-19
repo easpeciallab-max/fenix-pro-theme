@@ -653,12 +653,11 @@ function fenix_customize_register( $wp_customize ) {
 
 	$sections['fenix_dashboard'] = array(
 		'title'       => '29) แดชบอร์ดลูกค้า (ปุ่มสมัคร / เข้าสู่ระบบ)',
-		'description' => 'ปุ่มบนแถบเมนู: เดสก์ท็อปแสดงสองปุ่ม มือถือแสดงเฉพาะปุ่มสมัคร · เมนูลัดมือถือปุ่มที่ 4 ก็ชี้มาที่ลิงก์นี้',
+		'description' => 'ปุ่มแดชบอร์ดบนแถบเมนู (แสดงทั้งเดสก์ท็อปและมือถือ) · เมนูลัดมือถือปุ่มที่ 4 ก็ชี้มาที่ลิงก์นี้',
 		'fields'      => array(
 			'dashboard_url'       => array( 'ลิงก์แดชบอร์ด', 'url' ),
-			'show_header_auth'    => array( 'แสดงปุ่มสมัคร / เข้าสู่ระบบ บนแถบเมนู', 'checkbox' ),
-			'header_signup_label' => array( 'ข้อความปุ่มสมัคร', 'text' ),
-			'header_login_label'  => array( 'ข้อความปุ่มเข้าสู่ระบบ (เดสก์ท็อปเท่านั้น)', 'text' ),
+			'show_header_auth'    => array( 'แสดงปุ่มแดชบอร์ดบนแถบเมนู', 'checkbox' ),
+			'header_dash_label'   => array( 'ข้อความปุ่มแดชบอร์ด', 'text' ),
 		),
 	);
 

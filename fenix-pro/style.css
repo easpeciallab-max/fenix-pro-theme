@@ -6088,14 +6088,21 @@ a.lh-feature-frame:hover {
 	white-space: nowrap;
 }
 
+.header-auth .btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.header-auth .icon {
+	width: 17px;
+	height: 17px;
+}
+
 @media (max-width: 960px) {
 	.header-auth {
 		margin-left: auto;
 		margin-right: 2px;
-	}
-
-	.header-auth-login {
-		display: none;
 	}
 }
 

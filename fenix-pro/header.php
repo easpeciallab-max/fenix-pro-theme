@@ -46,8 +46,10 @@
 		if ( fenix_mod( 'show_header_auth' ) && $fenix_dash_url ) :
 			?>
 			<div class="header-auth">
-				<a class="btn btn-ghost btn-sm header-auth-login" href="<?php echo esc_url( $fenix_dash_url ); ?>"><?php echo esc_html( fenix_mod( 'header_login_label' ) ); ?></a>
-				<a class="btn btn-fire btn-sm header-auth-signup" href="<?php echo esc_url( $fenix_dash_url ); ?>"><?php echo esc_html( fenix_mod( 'header_signup_label' ) ); ?></a>
+				<a class="btn btn-fire btn-sm header-auth-dash" href="<?php echo esc_url( $fenix_dash_url ); ?>">
+					<?php echo fenix_icon( 'gauge', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					<span><?php echo esc_html( fenix_mod( 'header_dash_label' ) ); ?></span>
+				</a>
 			</div>
 		<?php endif; ?>
 

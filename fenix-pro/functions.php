@@ -210,8 +210,7 @@ function fenix_defaults() {
 		/* แดชบอร์ดลูกค้า (ปุ่มบนแถบเมนู + เมนูลัดมือถือ) */
 		'dashboard_url'       => 'https://dashboard.fenixpro-th.com/',
 		'show_header_auth'    => true,
-		'header_signup_label' => 'สมัครสมาชิก',
-		'header_login_label'  => 'เข้าสู่ระบบ',
+		'header_dash_label'   => 'แดชบอร์ด',
 
 		/* SEO / แชร์ลิงก์ (Open Graph) */
 		'og_default_image'       => '',
