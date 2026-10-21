@@ -71,8 +71,16 @@ $legacy = array(
 );
 
 list( $html, $cards ) = render_downloads( $legacy );
-check( 2 === $cards->length && null !== card_with_class( $cards, 'lh-feature-fast' ) && null !== card_with_class( $cards, 'lh-feature-plus' ), 'DUAL and PLUS both ship by default' );
-check( false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-fast' ) && false !== strpos( $cards->item( 1 )->getAttribute( 'class' ), 'lh-feature-plus' ), 'DUAL renders above PLUS' );
+check( 3 === $cards->length, 'POWER, PLUS and DUAL all ship by default' );
+check( false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-card3' )
+	&& false !== strpos( $cards->item( 1 )->getAttribute( 'class' ), 'lh-feature-plus' )
+	&& false !== strpos( $cards->item( 2 )->getAttribute( 'class' ), 'lh-feature-fast' ), 'Cards run in version order: POWER 4.2, PLUS 5.0, DUAL 6.1' );
+$power       = card_with_class( $cards, 'lh-feature-card3' );
+$power_link  = $power->getElementsByTagName( 'a' )->item( 0 );
+$power_image = $power->getElementsByTagName( 'img' )->item( 0 );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_POWER_V4.2.zip' === $power_link->getAttribute( 'href' ), 'POWER links to the supplied ZIP' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-power.webp' === $power_image->getAttribute( 'src' ), 'POWER uses the approved banner' );
+check( 1 === preg_match( '~lh-feature-card3.*?lh-ver-num">V4\.2</span>~s', $html ), 'POWER carries its own version badge' );
 $dual       = card_with_class( $cards, 'lh-feature-fast' );
 $dual_link  = $dual->getElementsByTagName( 'a' )->item( 0 );
 $dual_image = $dual->getElementsByTagName( 'img' )->item( 0 );
@@ -93,14 +101,14 @@ check( false === strpos( $html, 'FENIX_PRO_V3.8.zip' ) && false === strpos( $htm
 check( false === strpos( $html, 'old-pro.' ) && false === strpos( $html, 'old-mt.' ), 'Legacy assets are not emitted while FAST is enabled' );
 
 list( $html, $cards ) = render_downloads( array_merge( $legacy, array( 'links_fast_enabled' => false ) ) );
-check( 3 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ), 'Disabling FAST restores the two legacy cards (PLUS stays independent)' );
+check( 4 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ), 'Disabling the DUAL slot restores the two legacy cards (the others stay independent)' );
 check( false !== strpos( $html, 'old-pro.zip' ) && false !== strpos( $html, 'old-mt.zip' ), 'Restored cards retain their saved links' );
 
 list( $html, $cards ) = render_downloads( array_merge( $legacy, array( 'links_fast_show' => false ) ) );
-check( 1 === $cards->length && null !== card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PRO_V3.8.zip' ) && false === strpos( $html, 'old-pro.' ), 'Hiding FAST shows only PLUS and does not bring back legacy cards' );
+check( 2 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ) && null !== card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'old-pro.' ), 'Hiding the DUAL card leaves the rest and does not bring back legacy cards' );
 
 list( $html, $cards ) = render_downloads( array( 'links_plus_enabled' => false ) );
-check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS_V5.0.zip' ), 'Disabling PLUS hides its card and ZIP link' );
+check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS_V5.0.zip' ) && 2 === $cards->length, 'Disabling PLUS hides its card and ZIP link' );
 
 list( $html, $cards ) = render_downloads( array( 'links_plus_alt' => 'FENIX PLUS "Download" <test>' ) );
 $plus_image = card_with_class( $cards, 'lh-feature-plus' )->getElementsByTagName( 'img' )->item( 0 );
@@ -124,14 +132,24 @@ list( $html, $cards ) = render_downloads( array( 'links_plus_version' => 'รุ
 check( false !== strpos( $html, 'รุ่นทดสอบ &lt;b&gt;' ) && false === strpos( $html, 'lh-ver-label' ), 'Free-text versions are escaped and the prefix can be emptied' );
 
 list( $html, $cards ) = render_downloads( array(
-	'links_plus_url' => 'https://example.test/fenix-plus.zip',
-	'links_fast_url' => 'https://example.test/fenix-dual.zip',
+	'links_plus_url'  => 'https://example.test/fenix-plus.zip',
+	'links_fast_url'  => 'https://example.test/fenix-dual.zip',
+	'links_card3_url' => 'https://example.test/fenix-power.zip',
 ) );
 check( false === strpos( $html, 'lh-feature-ver' ), 'No badge when the file name carries no version and none is typed' );
 
 list( $html, $cards ) = render_downloads( array( 'links_fast_version' => '7.0 RC' ) );
 check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V7\.0 RC</span>~s', $html ), 'DUAL takes its own typed version' );
 check( false !== strpos( $html, '<span class="lh-ver-num">V5.0</span>' ), 'Typing a DUAL version leaves the PLUS badge alone' );
+
+list( $html, $cards ) = render_downloads( array( 'links_card3_version' => '9.0' ) );
+check( false !== strpos( $cards->item( 2 )->getAttribute( 'class' ), 'lh-feature-card3' ), 'Raising a card version moves it down the list' );
+
+list( $html, $cards ) = render_downloads( array( 'links_card3_enabled' => false ) );
+check( 2 === $cards->length && null === card_with_class( $cards, 'lh-feature-card3' ), 'Turning POWER off leaves the other two cards' );
+
+list( $html, $cards ) = render_downloads( array( 'links_card3_url' => 'https://example.test/no-version.zip' ) );
+check( false !== strpos( $cards->item( 2 )->getAttribute( 'class' ), 'lh-feature-card3' ), 'A card with no version number sits last' );
 
 // ---- Numbered start-up journey on /go/ ----
 function render_page( $mods ) {

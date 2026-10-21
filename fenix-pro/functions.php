@@ -273,6 +273,11 @@ function fenix_defaults() {
 		'links_plus_alt'     => 'ดาวน์โหลด FENIX PLUS Expert Advisor สำหรับ MetaTrader 5',
 		'links_plus_version_label' => 'เวอร์ชันล่าสุด',
 		'links_plus_version'       => '',
+		'links_card3_enabled' => true,
+		'links_card3_img'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-power.webp',
+		'links_card3_url'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_POWER_V4.2.zip',
+		'links_card3_alt'     => 'ดาวน์โหลด FENIX POWER Expert Advisor สำหรับ MetaTrader 5',
+		'links_card3_version' => '',
 		'links_feature_img'     => '',
 		'links_feature_url'     => '',
 		'links_feature_caption' => '',
@@ -709,6 +714,63 @@ function fenix_version_from_url( $url ) {
 	}
 
 	return '';
+}
+
+/**
+ * การ์ดดาวน์โหลดในขั้นตอน "ดาวน์โหลด EA" เรียงตามเลขเวอร์ชันจากน้อยไปมาก
+ * การ์ดที่ไม่มีเลขเวอร์ชันจะไปอยู่ท้ายสุดตามลำดับที่ตั้งไว้
+ */
+function fenix_download_cards() {
+	$slots = array(
+		'fast'  => 'lh-feature-fast',
+		'plus'  => 'lh-feature-plus',
+		'card3' => 'lh-feature-card3',
+	);
+
+	$cards = array();
+
+	foreach ( $slots as $slot => $class ) {
+		if ( ! fenix_mod( 'links_' . $slot . '_enabled' ) ) {
+			continue;
+		}
+
+		if ( 'fast' === $slot && ! fenix_mod( 'links_fast_show' ) ) {
+			continue;
+		}
+
+		$img = trim( (string) fenix_mod( 'links_' . $slot . '_img' ) );
+		$url = trim( (string) fenix_mod( 'links_' . $slot . '_url' ) );
+
+		if ( '' === $img || '' === $url ) {
+			continue;
+		}
+
+		$override = trim( (string) fenix_mod( 'links_' . $slot . '_version' ) );
+		$number   = '' !== $override ? $override : fenix_version_from_url( $url );
+
+		$cards[] = array(
+			'slot'     => $slot,
+			'class'    => $class,
+			'img'      => $img,
+			'url'      => $url,
+			'alt'      => fenix_mod( 'links_' . $slot . '_alt' ),
+			'version'  => $override,
+			'sort_key' => preg_match( '/^\d/', $number ) ? $number : '',
+		);
+	}
+
+	usort(
+		$cards,
+		function ( $a, $b ) {
+			if ( '' === $a['sort_key'] || '' === $b['sort_key'] ) {
+				return ( '' === $a['sort_key'] ? 1 : 0 ) - ( '' === $b['sort_key'] ? 1 : 0 );
+			}
+
+			return version_compare( $a['sort_key'], $b['sort_key'] );
+		}
+	);
+
+	return $cards;
 }
 
 /**

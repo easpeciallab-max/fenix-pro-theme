@@ -178,20 +178,7 @@ $lh_steps[] = array( 'key' => 'deposit', 'n' => 3, 'body' => ob_get_clean() );
 
 // ขั้นตอน: ดาวน์โหลด EA (FAST / การ์ดเดิม / PLUS).
 ob_start();
-if ( fenix_mod( 'links_fast_enabled' ) ) :
-	$lh_fast_img = trim( (string) fenix_mod( 'links_fast_img' ) );
-	$lh_fast_url = trim( (string) fenix_mod( 'links_fast_url' ) );
-	if ( fenix_mod( 'links_fast_show' ) && $lh_fast_img && $lh_fast_url ) :
-		?>
-		<div class="lh-feature lh-feature-fast">
-			<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_fast_url ) ); ?>" download>
-				<img src="<?php echo esc_url( $lh_fast_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'links_fast_alt' ) ); ?>" width="1200" height="675" loading="lazy">
-			</a>
-			<?php echo fenix_download_version_badge( $lh_fast_url, fenix_mod( 'links_fast_version' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-		</div>
-		<?php
-	endif;
-else :
+if ( ! fenix_mod( 'links_fast_enabled' ) ) :
 	$lh_feat_img         = trim( (string) fenix_mod( 'links_feature_img' ) );
 	$lh_feat_placeholder = preg_match( '~(?:placehold|placeholder|dummyimage|1200[^/?#]*(?:x|×|-|_)[^/?#]*630)~i', $lh_feat_img );
 	if ( $lh_feat_placeholder ) {
@@ -251,20 +238,16 @@ else :
 	</div>
 	<?php
 endif;
-if ( fenix_mod( 'links_plus_enabled' ) ) :
-	$lh_plus_img = trim( (string) fenix_mod( 'links_plus_img' ) );
-	$lh_plus_url = trim( (string) fenix_mod( 'links_plus_url' ) );
-	if ( $lh_plus_img && $lh_plus_url ) :
-		?>
-		<div class="lh-feature lh-feature-plus">
-			<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_plus_url ) ); ?>" download>
-				<img src="<?php echo esc_url( $lh_plus_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'links_plus_alt' ) ); ?>" width="1200" height="675" loading="lazy">
-			</a>
-			<?php echo fenix_download_version_badge( $lh_plus_url, fenix_mod( 'links_plus_version' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-		</div>
-		<?php
-	endif;
-endif;
+foreach ( fenix_download_cards() as $lh_card ) :
+	?>
+	<div class="lh-feature <?php echo esc_attr( $lh_card['class'] ); ?>">
+		<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_card['url'] ) ); ?>" download>
+			<img src="<?php echo esc_url( $lh_card['img'] ); ?>" alt="<?php echo esc_attr( $lh_card['alt'] ); ?>" width="1200" height="675" loading="lazy">
+		</a>
+		<?php echo fenix_download_version_badge( $lh_card['url'], $lh_card['version'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+	</div>
+	<?php
+endforeach;
 $lh_steps[] = array( 'key' => 'download', 'n' => 4, 'body' => ob_get_clean() );
 
 // ขั้นตอน: ติดตั้ง EA บน MT5.
