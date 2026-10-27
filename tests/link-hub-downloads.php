@@ -183,7 +183,7 @@ foreach ( $mt5_items as $a ) {
 	$hrefs[] = $a->getAttribute( 'href' );
 	$blank   = $blank && '_blank' === $a->getAttribute( 'target' ) && false !== strpos( $a->getAttribute( 'rel' ), 'noopener' );
 }
-check( array( 'https://apps.apple.com/us/app/metatrader-5/id413251709', 'https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5', 'https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe' ) === $hrefs && $blank, 'MT5 step has iPhone, Android, Windows tiles (new tab), macOS hidden' );
+check( array( 'https://apps.apple.com/us/app/metatrader-5/id413251709', 'https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5', 'https://www.metatrader5.com/en/download' ) === $hrefs && $blank, 'MT5 step has iPhone, Android, Windows tiles (new tab), macOS hidden' );
 check( 1 === $xpath->query( '//li[contains(@class, "lh-step--mt5")]//a[@href="https://example.test/mt5-login-zaurix-server/"]' )->length && false !== strpos( $html, 'วิธี Login เข้า Zaurix-Server' ), 'MT5 step links the Zaurix login guide with the new label' );
 check( 1 === $xpath->query( '//li[contains(@class, "lh-step--account")]//a[contains(@class, "lh-btn-signup")]' )->length && 1 === $xpath->query( '//li[contains(@class, "lh-step--account")]//a[@href="https://example.test/open-mt5-account/"]' )->length, 'Account step holds the signup button and the account guide' );
 check( 1 === $xpath->query( '//li[contains(@class, "lh-step--deposit")]//a[@href="https://portal.zaurix.com/" and @target="_blank"]' )->length && false === strpos( $html, 'คู่มือฝากเงิน' ), 'Deposit step links the Zaurix portal; empty deposit guide stays hidden' );
