@@ -1,0 +1,90 @@
+<!-- ส่วนผลทดสอบในหน้า https://fenixpro-th.com/backtest/ (เพจ id 102) · Gutenberg blocks -->
+<!-- wp:heading -->
+<h2 class="wp-block-heading">ผลทดสอบย้อนหลัง FENIX DUAL 6.3 (ชุด STD)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>รุ่น 6.3 มาพร้อมชุดค่าเดียวคือชุด STD แล้วเลือกความแรงด้วยขนาด N แทน ตารางด้านล่างคือกำไรรายเดือนคิดเป็น % ของทุน จากรายงาน MetaTrader 5 ฉบับจริง</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>เดือน (2569)</th><th>ขนาด N 1 (ทุน 10,000)</th><th>ขนาด N 2 (ทุน 20,000)</th></tr></thead><tbody><tr><td>มกราคม</td><td>278%</td><td>278%</td></tr><tr><td>กุมภาพันธ์</td><td>515%</td><td>514%</td></tr><tr><td>มีนาคม</td><td>541%</td><td>540%</td></tr><tr><td>เมษายน</td><td>156%</td><td>156%</td></tr><tr><td>พฤษภาคม</td><td>117%</td><td>115%</td></tr><tr><td>มิถุนายน</td><td>125%</td><td>125%</td></tr><tr><td>กรกฎาคม</td><td>91%</td><td>91%</td></tr><tr><td>สิงหาคม</td><td>91%</td><td>91%</td></tr><tr><td>กันยายน</td><td>83%</td><td>83%</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table><thead><tr><th>ตัวเลขรวม 9 เดือน</th><th>ขนาด N 1</th><th>ขนาด N 2</th></tr></thead><tbody><tr><td>กำไรสุทธิ</td><td>199,699.44 USD</td><td>398,731.48 USD</td></tr><tr><td>Equity DD สูงสุด</td><td>13,566.10 USD (6.70%)</td><td>41,845.90 USD (13.66%)</td></tr><tr><td>ตะกร้าค้างนานสุด</td><td>6.9 ชั่วโมง</td><td>6.9 ชั่วโมง</td></tr><tr><td>เดือนที่ทำกำไรน้อยสุด</td><td>83%</td><td>83%</td></tr><tr><td>ทุนที่ใช้ทดสอบ</td><td>10,000 USD</td><td>20,000 USD</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>ขนาด N 2 ทำกำไรใกล้สองเท่าของ N 1 ก็จริง แต่ DD สูงกว่าสองเท่า ไม่ได้เพิ่มขึ้นตามสัดส่วนเดียวกัน ส่วนขนาด N 4 / 8 / 16 ยังไม่ได้ทดสอบ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">เงื่อนไขที่ใช้ทดสอบ</h3>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list">
+<!-- wp:list-item -->
+<li>สินค้า <strong>XAUUSD.s</strong> โบรก Zaurix · ไทม์เฟรม M1 · โหมดราคา tick จริง · หน่วง 50 ms · เลเวอเรจ 1:2000</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>ช่วงเวลา <strong>1 ม.ค. – 30 ก.ย. 2569</strong> · ทุนเริ่มต้น 10,000 USD ต่อขนาด N 1 (ขนาด N 2 ทดสอบด้วยทุน 20,000 USD)</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>ชุดค่าที่ใช้คือชุด STD ซึ่งเป็นชุดเดียวที่มากับรุ่น 6.3</li>
+<!-- /wp:list-item -->
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">ข้อควรรู้ก่อนดูตัวเลขนี้</h3>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list">
+<!-- wp:list-item -->
+<li><strong>คุณภาพข้อมูลราคา:</strong> ช่วง 15 ม.ค. – 3 มิ.ย. 2569 โบรกไม่มี tick จริงของ XAUUSD.s ระบบ MT5 จำลองราคาจากแท่ง 1 นาที กำไรช่วงนั้นอาจต่างจากที่เกิดขึ้นจริง</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>ผลนี้มีการหยุดเริ่มรอบใหม่ 5 วัน</strong> ที่เลือกย้อนหลังจากผลทดสอบว่าวันนั้น DD เกิน 15,000 USD ซึ่งในการใช้งานจริงไม่มีใครรู้ล่วงหน้าได้ · ถ้าไม่หยุดวันไหนเลย ขนาด N 1 ได้ +203,537.73 USD และ DD สูงสุด 21,000.23 USD</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>เงินทุนลอยต่ำสุด:</strong> ขนาด N 1 ที่ทุน 10,000 USD เคยเหลือเพียง 1,928.04 USD (Equity DD 83.53%) ช่วงต้นเดือน ม.ค. 2569</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>ทุนไม่พอ = พอร์ตแตก:</strong> ทดสอบขนาด N 2 ด้วยทุน 10,000 USD พอร์ตแตกวันที่ 7 ม.ค. 2569 (ขาดทุน 10,098.68 USD) ขนาด N 2 ต้องใช้ทุน 20,000 USD</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>ระบบไม่มีการตัดขาดทุน บางตะกร้าค้างนานสุดถึง 6.9 ชั่วโมง</li>
+<!-- /wp:list-item -->
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">ดาวน์โหลดรายงาน MetaTrader 5 (หน้าสรุป)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>ไฟล์ที่ MT5 สร้างเอง ไม่ได้แก้ไขตัวเลขใด ๆ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list">
+<!-- wp:list-item -->
+<li><a href="https://fenixpro-th.com/wp-content/uploads/2026/10/fenix-dual-63-mt5-report-n1.pdf" target="_blank" rel="noopener">ชุด STD · ขนาด N 1 · รายงาน MT5 (PDF)</a></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><a href="https://fenixpro-th.com/wp-content/uploads/2026/10/fenix-dual-63-mt5-report-n2.pdf" target="_blank" rel="noopener">ชุด STD · ขนาด N 2 · รายงาน MT5 (PDF)</a></li>
+<!-- /wp:list-item -->
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>ยังไม่แน่ใจว่าทุนของคุณควรใช้ขนาดไหน อ่านสรุปได้ที่หน้า <a href="https://fenixpro-th.com/fenix-dual-presets/">เลือกขนาด N ของ FENIX DUAL</a> หรือทักทีมงานให้ช่วยประเมิน</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>คำเตือน:</strong> ผลการทดสอบย้อนหลังเป็นเส้นทางเดียวจากข้อมูล 9 เดือน ไม่ใช่คำสัญญาว่าจะได้กำไรแบบเดียวกันในอนาคต การเทรดทองมีความเสี่ยงสูง ใช้เฉพาะเงินที่รับความเสี่ยงได้เท่านั้น</p>
+<!-- /wp:paragraph -->
+
