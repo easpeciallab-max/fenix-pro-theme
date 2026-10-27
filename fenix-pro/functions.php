@@ -255,7 +255,7 @@ function fenix_defaults() {
 		'links_mt5_android_label'   => 'Android',
 		'links_mt5_android_url'     => 'https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5',
 		'links_mt5_windows_label'   => 'Windows',
-		'links_mt5_windows_url'     => 'https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe',
+		'links_mt5_windows_url'     => 'https://www.metatrader5.com/en/download',
 		'links_mt5_macos_label'     => 'macOS',
 		'links_mt5_macos_url'       => '',
 		'links_line_label' => 'ทักไลน์ปรึกษาทีมงานฟรี 24 ชั่วโมง',
