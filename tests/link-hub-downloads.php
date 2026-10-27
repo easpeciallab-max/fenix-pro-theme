@@ -74,7 +74,7 @@ list( $html, $cards ) = render_downloads( $legacy );
 check( 3 === $cards->length, 'POWER, PLUS and DUAL all ship by default' );
 check( false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-card3' )
 	&& false !== strpos( $cards->item( 1 )->getAttribute( 'class' ), 'lh-feature-plus' )
-	&& false !== strpos( $cards->item( 2 )->getAttribute( 'class' ), 'lh-feature-fast' ), 'Cards run in version order: POWER 4.2, PLUS 5.0, DUAL 6.1' );
+	&& false !== strpos( $cards->item( 2 )->getAttribute( 'class' ), 'lh-feature-fast' ), 'Cards run in version order: POWER 4.2, PLUS 5.0, DUAL 6.3' );
 $power       = card_with_class( $cards, 'lh-feature-card3' );
 $power_link  = $power->getElementsByTagName( 'a' )->item( 0 );
 $power_image = $power->getElementsByTagName( 'img' )->item( 0 );
@@ -84,10 +84,10 @@ check( 1 === preg_match( '~lh-feature-card3.*?lh-ver-num">V4\.2</span>~s', $html
 $dual       = card_with_class( $cards, 'lh-feature-fast' );
 $dual_link  = $dual->getElementsByTagName( 'a' )->item( 0 );
 $dual_image = $dual->getElementsByTagName( 'img' )->item( 0 );
-check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_DUAL_V6.1.zip' === $dual_link->getAttribute( 'href' ), 'DUAL links to the supplied ZIP' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_DUAL_V6.3.zip' === $dual_link->getAttribute( 'href' ), 'DUAL links to the supplied ZIP' );
 check( $dual_link->hasAttribute( 'download' ), 'DUAL link requests a file download' );
 check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-dual-v2.webp' === $dual_image->getAttribute( 'src' ), 'DUAL uses the approved banner' );
-check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V6\.1</span>~s', $html ), 'DUAL carries its own version badge' );
+check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V6\.3</span>~s', $html ), 'DUAL carries its own version badge' );
 $plus       = card_with_class( $cards, 'lh-feature-plus' );
 $plus_link  = $plus->getElementsByTagName( 'a' )->item( 0 );
 $plus_image = $plus->getElementsByTagName( 'img' )->item( 0 );

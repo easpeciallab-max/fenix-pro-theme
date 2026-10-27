@@ -264,7 +264,7 @@ function fenix_defaults() {
 		'links_fast_enabled' => true,
 		'links_fast_show'    => true,
 		'links_fast_img'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-dual-v2.webp',
-		'links_fast_url'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_DUAL_V6.1.zip',
+		'links_fast_url'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_DUAL_V6.3.zip',
 		'links_fast_alt'     => 'ดาวน์โหลด FENIX DUAL Expert Advisor สำหรับ MetaTrader 5',
 		'links_fast_version' => '',
 		'links_plus_enabled' => true,
