@@ -273,7 +273,7 @@ function fenix_defaults() {
 		'links_plus_alt'     => 'ดาวน์โหลด FENIX PLUS Expert Advisor สำหรับ MetaTrader 5',
 		'links_plus_version_label' => 'เวอร์ชันล่าสุด',
 		'links_plus_version'       => '',
-		'links_card3_enabled' => true,
+		'links_card3_enabled' => false,
 		'links_card3_img'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-power-v2.webp',
 		'links_card3_url'     => 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_POWER_V4.2.zip',
 		'links_card3_alt'     => 'ดาวน์โหลด FENIX POWER Expert Advisor สำหรับ MetaTrader 5',
