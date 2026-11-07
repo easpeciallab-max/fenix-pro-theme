@@ -73,7 +73,7 @@ $legacy = array(
 list( $html, $cards ) = render_downloads( $legacy );
 check( 2 === $cards->length && null === card_with_class( $cards, 'lh-feature-card3' ), 'PLUS and DUAL ship by default; the third slot is off' );
 check( false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-plus' )
-	&& false !== strpos( $cards->item( 1 )->getAttribute( 'class' ), 'lh-feature-fast' ), 'Cards run in version order: PLUS 5.0, DUAL 6.3' );
+	&& false !== strpos( $cards->item( 1 )->getAttribute( 'class' ), 'lh-feature-fast' ), 'Cards run in version order: PLUS 5.1, DUAL 6.3' );
 $dual       = card_with_class( $cards, 'lh-feature-fast' );
 $dual_link  = $dual->getElementsByTagName( 'a' )->item( 0 );
 $dual_image = $dual->getElementsByTagName( 'img' )->item( 0 );
@@ -84,10 +84,10 @@ check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V6\.3</span>~s', $html 
 $plus       = card_with_class( $cards, 'lh-feature-plus' );
 $plus_link  = $plus->getElementsByTagName( 'a' )->item( 0 );
 $plus_image = $plus->getElementsByTagName( 'img' )->item( 0 );
-check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_PLUS_V5.0.zip' === $plus_link->getAttribute( 'href' ), 'PLUS links to the supplied ZIP' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/11/FENIX_PLUS_V5.1.zip' === $plus_link->getAttribute( 'href' ), 'PLUS links to the supplied ZIP' );
 check( $plus_link->hasAttribute( 'download' ), 'PLUS link requests a file download' );
 check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-plus-v2.webp' === $plus_image->getAttribute( 'src' ), 'PLUS uses the approved banner' );
-check( false !== strpos( $html, '<span class="lh-ver-num">V5.0</span>' ), 'Version badge reads the number from the download file name' );
+check( false !== strpos( $html, '<span class="lh-ver-num">V5.1</span>' ), 'Version badge reads the number from the download file name' );
 check( false !== strpos( $html, 'เวอร์ชันล่าสุด' ), 'Version badge keeps its Thai prefix' );
 check( false === strpos( $html, 'FENIX_PRO_V3.8.zip' ) && false === strpos( $html, 'link-download-fenix-pro-v32.webp' ), 'The retired PRO download is not referenced anywhere' );
 check( false === strpos( $html, 'old-pro.' ) && false === strpos( $html, 'old-mt.' ), 'Legacy assets are not emitted while FAST is enabled' );
@@ -100,7 +100,7 @@ list( $html, $cards ) = render_downloads( array_merge( $legacy, array( 'links_fa
 check( 1 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ) && null !== card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'old-pro.' ), 'Hiding the DUAL card leaves PLUS alone and does not bring back legacy cards' );
 
 list( $html, $cards ) = render_downloads( array( 'links_plus_enabled' => false ) );
-check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS_V5.0.zip' ) && 1 === $cards->length, 'Disabling PLUS hides its card and ZIP link' );
+check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS_V5.1.zip' ) && 1 === $cards->length, 'Disabling PLUS hides its card and ZIP link' );
 
 list( $html, $cards ) = render_downloads( array( 'links_plus_alt' => 'FENIX PLUS "Download" <test>' ) );
 $plus_image = card_with_class( $cards, 'lh-feature-plus' )->getElementsByTagName( 'img' )->item( 0 );
@@ -132,7 +132,7 @@ check( false === strpos( $html, 'lh-feature-ver' ), 'No badge when the file name
 
 list( $html, $cards ) = render_downloads( array( 'links_fast_version' => '7.0 RC' ) );
 check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V7\.0 RC</span>~s', $html ), 'DUAL takes its own typed version' );
-check( false !== strpos( $html, '<span class="lh-ver-num">V5.0</span>' ), 'Typing a DUAL version leaves the PLUS badge alone' );
+check( false !== strpos( $html, '<span class="lh-ver-num">V5.1</span>' ), 'Typing a DUAL version leaves the PLUS badge alone' );
 
 list( $html, $cards ) = render_downloads( array( 'links_card3_enabled' => true ) );
 check( 3 === $cards->length && false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-card3' ), 'Switching the third slot back on puts it first, by version 4.2' );
