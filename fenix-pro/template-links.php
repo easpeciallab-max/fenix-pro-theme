@@ -239,19 +239,20 @@ if ( ! fenix_mod( 'links_fast_enabled' ) ) :
 	<?php
 endif;
 $lh_dl_label = trim( (string) fenix_mod( 'links_download_label' ) );
+$lh_dl_pos   = fenix_sanitize_download_pos( fenix_mod( 'links_download_pos' ) );
 foreach ( fenix_download_cards() as $lh_card ) :
 	?>
 	<div class="lh-feature <?php echo esc_attr( $lh_card['class'] ); ?>">
 		<a class="lh-feature-frame" href="<?php echo esc_url( fenix_link_url( $lh_card['url'] ) ); ?>" download>
 			<img src="<?php echo esc_url( $lh_card['img'] ); ?>" alt="<?php echo esc_attr( $lh_card['alt'] ); ?>" width="1200" height="675" loading="lazy">
+			<?php if ( '' !== $lh_dl_label ) : ?>
+				<span class="lh-dl-chip lh-dl-chip--<?php echo esc_attr( $lh_dl_pos ); ?>">
+					<span class="lh-dl-ic"><?php echo fenix_icon( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<span class="lh-dl-txt"><?php echo esc_html( $lh_dl_label ); ?></span>
+				</span>
+			<?php endif; ?>
 		</a>
 		<?php echo fenix_download_version_badge( $lh_card['url'], $lh_card['version'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-		<?php if ( '' !== $lh_dl_label ) : ?>
-		<a class="lh-btn lh-dl-btn" href="<?php echo esc_url( fenix_link_url( $lh_card['url'] ) ); ?>" download>
-			<span class="lh-ic"><?php echo fenix_icon( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-			<span class="lh-lbl"><?php echo esc_html( $lh_dl_label ); ?></span>
-		</a>
-		<?php endif; ?>
 	</div>
 	<?php
 endforeach;

@@ -242,7 +242,7 @@ function fenix_defaults() {
 		'links_deposit_guide_label' => 'คู่มือฝากเงิน',
 		'links_deposit_guide_url'   => '',
 		'links_step4_title'         => 'ดาวน์โหลด EA',
-		'links_step4_desc'          => 'กดที่รูปหรือปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ EA',
+		'links_step4_desc'          => 'กดปุ่มดาวน์โหลดบนรูปของตัวที่ต้องการ',
 		'links_step5_title'         => 'ติดตั้ง EA บน MT5',
 		'links_step5_desc'          => 'วางไฟล์ EA ลงใน MT5 แล้วเปิด Algo Trading',
 		'links_step6_title'         => 'ให้ EA ทำงาน 24 ชั่วโมงด้วย VPS',
@@ -279,6 +279,7 @@ function fenix_defaults() {
 		'links_card3_alt'     => 'ดาวน์โหลด FENIX BTC Expert Advisor สำหรับ MetaTrader 5',
 		'links_card3_version' => '',
 		'links_download_label' => 'ดาวน์โหลด',
+		'links_download_pos'   => 'bl',
 		'links_feature_img'     => '',
 		'links_feature_url'     => '',
 		'links_feature_caption' => '',
@@ -820,6 +821,18 @@ function fenix_mobile_nav_items() {
  * ป้ายเลขเวอร์ชันใต้การ์ดดาวน์โหลด ใช้ร่วมกันทุกการ์ด
  * ใช้เลขที่กรอกใน Customizer ก่อน ถ้าเว้นว่างจะดึงจากชื่อไฟล์ให้เอง
  */
+/**
+ * มุมที่วางปุ่มดาวน์โหลดบนรูป · รับเฉพาะค่าที่ธีมรู้จัก.
+ *
+ * @param string $value ค่าที่กรอกมา.
+ * @return string
+ */
+function fenix_sanitize_download_pos( $value ) {
+	$allowed = array( 'bl', 'br', 'bc' );
+
+	return in_array( $value, $allowed, true ) ? $value : 'bl';
+}
+
 function fenix_download_version_badge( $url, $override ) {
 	$version = trim( (string) $override );
 
@@ -870,6 +883,7 @@ function fenix_mod( $key ) {
 		),
 		'links_step4_desc' => array(
 			'กดที่รูปเพื่อดาวน์โหลดไฟล์ EA',
+			'กดที่รูปหรือปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ EA',
 		),
 		'links_signup_url' => array(
 			'/pricing/',

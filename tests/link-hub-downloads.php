@@ -212,21 +212,34 @@ list( $html, $xpath ) = render_page( array( 'links_mt5_ios_url' => '', 'links_mt
 check( 0 === $xpath->query( '//div[contains(@class, "lh-mt5-grid")]' )->length && in_array( 'mt5:2', step_keys( $xpath ), true ), 'Without app links the MT5 step keeps its login guide button' );
 check( false !== strpos( $html, 'Open &lt;test&gt;' ), 'Step titles are escaped' );
 
-// ---- ปุ่มดาวน์โหลดใต้การ์ด ----
+// ---- ปุ่มดาวน์โหลดบนรูป ----
 list( $html, $cards ) = render_downloads( array() );
-check( 3 === substr_count( $html, 'lh-btn lh-dl-btn' ), 'Every download card carries its own download button' );
+check( 3 === substr_count( $html, 'lh-dl-chip ' ), 'Every download card carries its own download button' );
 foreach ( array( 'lh-feature-card3' => 'FENIX_BTC_V1.1.zip', 'lh-feature-plus' => 'FENIX_PLUS_V5.1.zip', 'lh-feature-fast' => 'FENIX_DUAL_V6.3.zip' ) as $lh_class => $lh_file ) {
-	$card    = card_with_class( $cards, $lh_class );
-	$buttons = array();
-	foreach ( $card->getElementsByTagName( 'a' ) as $anchor ) {
-		if ( false !== strpos( $anchor->getAttribute( 'class' ), 'lh-dl-btn' ) ) {
-			$buttons[] = $anchor;
+	$card  = card_with_class( $cards, $lh_class );
+	$frame = $card->getElementsByTagName( 'a' )->item( 0 );
+	$chips = array();
+	foreach ( $frame->getElementsByTagName( 'span' ) as $span ) {
+		if ( false !== strpos( $span->getAttribute( 'class' ), 'lh-dl-chip' ) ) {
+			$chips[] = $span;
 		}
 	}
-	check( 1 === count( $buttons ), "$lh_class has exactly one download button" );
-	check( false !== strpos( $buttons[0]->getAttribute( 'href' ), $lh_file ) && $buttons[0]->hasAttribute( 'download' ), "The $lh_class button downloads that card's own file" );
-	check( false !== strpos( $buttons[0]->textContent, 'ดาวน์โหลด' ), "The $lh_class button says what it does" );
+	check( 1 === count( $chips ), "$lh_class has exactly one download button" );
+	check( false !== strpos( $frame->getAttribute( 'href' ), $lh_file ) && $frame->hasAttribute( 'download' ), "The $lh_class button sits inside the link to that card's own file" );
+	check( false !== strpos( $chips[0]->textContent, 'ดาวน์โหลด' ), 'The ' . $lh_class . ' button says what it does' );
+	check( 1 === $card->getElementsByTagName( 'a' )->length, "$lh_class keeps a single link, so the button cannot be nested in another" );
 }
+
+check( 3 === substr_count( $html, 'lh-dl-chip--bl' ), 'Buttons sit bottom left out of the box' );
+
+list( $html, $cards ) = render_downloads( array( 'links_download_pos' => 'br' ) );
+check( 3 === substr_count( $html, 'lh-dl-chip--br' ) && false === strpos( $html, 'lh-dl-chip--bl' ), 'The corner is a Customizer choice' );
+
+list( $html, $cards ) = render_downloads( array( 'links_download_pos' => 'bc' ) );
+check( 3 === substr_count( $html, 'lh-dl-chip--bc' ), 'Bottom centre is offered too' );
+
+list( $html, $cards ) = render_downloads( array( 'links_download_pos' => 'top"><script>' ) );
+check( 3 === substr_count( $html, 'lh-dl-chip--bl' ) && false === strpos( $html, '<script>' ), 'A position the theme does not know falls back to bottom left' );
 
 list( $html, $cards ) = render_downloads( array( 'links_download_label' => 'เก็บไฟล์ลงเครื่อง' ) );
 check( 3 === substr_count( $html, 'เก็บไฟล์ลงเครื่อง' ) && false === strpos( $html, '>ดาวน์โหลด<' ), 'The button wording comes from the Customizer' );
@@ -235,13 +248,15 @@ list( $html, $cards ) = render_downloads( array( 'links_download_label' => 'Down
 check( false !== strpos( $html, 'Download &lt;b&gt;' ), 'The button label is escaped' );
 
 list( $html, $cards ) = render_downloads( array( 'links_download_label' => '  ' ) );
-check( false === strpos( $html, 'lh-dl-btn' ) && 3 === $cards->length, 'Emptying the label hides the buttons and leaves the cards alone' );
-
-list( $html, $cards ) = render_downloads( array() );
-check( false !== strpos( $html, 'กดที่รูปหรือปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ EA' ), 'Step 4 tells people about the button, not just the image' );
-
-list( $html, $cards ) = render_downloads( array( 'links_step4_desc' => 'กดที่รูปเพื่อดาวน์โหลดไฟล์ EA' ) );
-check( false !== strpos( $html, 'กดที่รูปหรือปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ EA' ) && false === strpos( $html, '>กดที่รูปเพื่อดาวน์โหลดไฟล์ EA<' ), 'The old saved step 4 wording migrates to the new one' );
+check( false === strpos( $html, 'lh-dl-chip' ) && 3 === $cards->length, 'Emptying the label hides the buttons and leaves the cards alone' );
 
 list( $html, $cards ) = render_downloads( array( 'links_card3_enabled' => false ) );
-check( 2 === substr_count( $html, 'lh-btn lh-dl-btn' ) && false === strpos( $html, 'FENIX_BTC_V1.1.zip' ), 'A hidden card takes its download button with it' );
+check( 2 === substr_count( $html, 'lh-dl-chip ' ) && false === strpos( $html, 'FENIX_BTC_V1.1.zip' ), 'A hidden card takes its download button with it' );
+
+list( $html, $cards ) = render_downloads( array() );
+check( false !== strpos( $html, 'กดปุ่มดาวน์โหลดบนรูปของตัวที่ต้องการ' ), 'Step 4 points at the button on the image' );
+
+foreach ( array( 'กดที่รูปเพื่อดาวน์โหลดไฟล์ EA', 'กดที่รูปหรือปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ EA' ) as $lh_old ) {
+	list( $html, $cards ) = render_downloads( array( 'links_step4_desc' => $lh_old ) );
+	check( false !== strpos( $html, 'กดปุ่มดาวน์โหลดบนรูปของตัวที่ต้องการ' ) && false === strpos( $html, '>' . $lh_old . '<' ), 'Older saved step 4 wording migrates: ' . $lh_old );
+}

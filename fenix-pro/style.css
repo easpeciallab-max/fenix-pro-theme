@@ -5623,6 +5623,7 @@ h1, h2, h3, h4,
 }
 
 .lh-feature-frame {
+	position: relative;
 	display: block;
 	overflow: hidden;
 	border-radius: 16px;
@@ -5695,27 +5696,51 @@ a.lh-feature-frame:hover {
 	letter-spacing: 0.03em;
 }
 
-/* ปุ่มดาวน์โหลดใต้การ์ด (ข้อความแก้ได้ใน Customizer · เว้นว่าง = ซ่อนปุ่ม) */
-.lh-dl-btn {
-	justify-content: center;
-	margin: 10px 0 0;
-	border-color: #FF7A1A;
+/* ปุ่มดาวน์โหลดบนรูป (ข้อความ/ตำแหน่งแก้ได้ใน Customizer · เว้นข้อความว่าง = ซ่อนปุ่ม) */
+.lh-dl-chip {
+	position: absolute;
+	bottom: 6%;
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 6px 13px 6px 10px;
+	border-radius: 999px;
 	background: #FF7A1A;
 	color: #130A02;
+	font-family: var(--font-display);
+	font-size: clamp(0.64rem, 2.4vw, 0.8rem);
+	font-weight: 800;
+	line-height: 1;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.38);
+	pointer-events: none;
+	transition: background 0.14s ease;
 }
 
-.lh-dl-btn:hover {
-	border-color: #FF8C3A;
+.lh-dl-chip--bl {
+	left: 5%;
+}
+
+.lh-dl-chip--br {
+	right: 5%;
+}
+
+.lh-dl-chip--bc {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.lh-dl-chip .lh-dl-ic {
+	display: flex;
+	color: #130A02;
+}
+
+.lh-dl-chip svg {
+	width: 15px;
+	height: 15px;
+}
+
+a.lh-feature-frame:hover .lh-dl-chip {
 	background: #FF8C3A;
-	color: #130A02;
-}
-
-.lh-dl-btn .lh-ic {
-	color: #130A02;
-}
-
-.lh-dl-btn .lh-lbl {
-	flex: 0 0 auto;
 }
 
 .lh-vps {

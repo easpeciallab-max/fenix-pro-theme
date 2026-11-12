@@ -623,7 +623,16 @@ function fenix_customize_register( $wp_customize ) {
 			'links_card3_url'     => array( 'FENIX BTC · ลิงก์ไฟล์ดาวน์โหลด', 'text' ),
 			'links_card3_alt'     => array( 'FENIX BTC · ข้อความอธิบายรูป (Alt)', 'text' ),
 			'links_card3_version' => array( 'FENIX BTC · เลขเวอร์ชันที่แสดง (เว้นว่าง = ดึงจากชื่อไฟล์ให้อัตโนมัติ)', 'text' ),
-			'links_download_label' => array( 'ข้อความบนปุ่มดาวน์โหลดใต้การ์ด (เว้นว่าง = ไม่แสดงปุ่ม)', 'text' ),
+			'links_download_label' => array( 'ข้อความบนปุ่มดาวน์โหลด (เว้นว่าง = ไม่แสดงปุ่ม)', 'text' ),
+			'links_download_pos'   => array(
+				'ตำแหน่งปุ่มดาวน์โหลดบนรูป',
+				'radio',
+				array(
+					'bl' => 'มุมล่างซ้าย',
+					'br' => 'มุมล่างขวา',
+					'bc' => 'กลางด้านล่าง',
+				),
+			),
 			'links_feature_img'     => array( 'รูปโชว์ (ใต้ปุ่ม LINE) · ไม่ใส่ = ใช้รูปดาวน์โหลดค่าเริ่มต้น', 'image', 'แนะนำภาพแนวนอน 1200×630px สำหรับ Link Hub' ),
 			'links_feature_url'     => array( 'รูปโชว์ · ลิงก์เมื่อคลิก (ไม่ใส่ = รูปค่าเริ่มต้นจะไป LINE)', 'text' ),
 			'links_feature_caption' => array( 'รูปโชว์ · ข้อความใต้รูป (ถ้ามี)', 'text' ),
@@ -700,7 +709,7 @@ function fenix_customize_register( $wp_customize ) {
 					$sanitize = 'sanitize_textarea_field';
 					break;
 				case 'radio':
-					$sanitize = 'fenix_sanitize_pricing_mode';
+					$sanitize = 'links_download_pos' === $field_id ? 'fenix_sanitize_download_pos' : 'fenix_sanitize_pricing_mode';
 					break;
 				default:
 					$sanitize = 'sanitize_text_field';
