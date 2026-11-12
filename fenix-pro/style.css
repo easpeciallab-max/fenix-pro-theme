@@ -5783,6 +5783,13 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	color: #FFB347;
 }
 
+/* ปกแคบมาก (จอเล็กกว่ามือถือทั่วไป) · ตัดคำนำหน้าออก เหลือเลขเวอร์ชันอย่างเดียว ป้ายจะได้ไม่ชนปุ่ม */
+@container (max-width: 175px) {
+	.lh-feature-ver--on .lh-ver-label {
+		display: none;
+	}
+}
+
 .lh-vps {
 	margin: 16px 0 16px;
 	padding: 4px 0 3px;
