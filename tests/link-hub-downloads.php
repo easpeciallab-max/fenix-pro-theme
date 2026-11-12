@@ -71,36 +71,43 @@ $legacy = array(
 );
 
 list( $html, $cards ) = render_downloads( $legacy );
-check( 2 === $cards->length && null === card_with_class( $cards, 'lh-feature-card3' ), 'PLUS and DUAL ship by default; the third slot is off' );
-check( false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-plus' )
-	&& false !== strpos( $cards->item( 1 )->getAttribute( 'class' ), 'lh-feature-fast' ), 'Cards run in version order: PLUS 5.1, DUAL 6.3' );
+check( 3 === $cards->length, 'BTC, PLUS and DUAL all ship by default' );
+check( false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-card3' )
+	&& false !== strpos( $cards->item( 1 )->getAttribute( 'class' ), 'lh-feature-plus' )
+	&& false !== strpos( $cards->item( 2 )->getAttribute( 'class' ), 'lh-feature-fast' ), 'Cards run in version order: BTC 1.1, PLUS 5.1, DUAL 6.3' );
+$btc       = card_with_class( $cards, 'lh-feature-card3' );
+$btc_link  = $btc->getElementsByTagName( 'a' )->item( 0 );
+$btc_image = $btc->getElementsByTagName( 'img' )->item( 0 );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/11/FENIX_BTC_V1.1.zip' === $btc_link->getAttribute( 'href' ), 'BTC links to the supplied ZIP' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/11/link-download-fenix-btc-v3.webp' === $btc_image->getAttribute( 'src' ), 'BTC uses the approved banner' );
+check( 1 === preg_match( '~lh-feature-card3.*?lh-ver-num">V1\.1</span>~s', $html ), 'BTC carries its own version badge' );
 $dual       = card_with_class( $cards, 'lh-feature-fast' );
 $dual_link  = $dual->getElementsByTagName( 'a' )->item( 0 );
 $dual_image = $dual->getElementsByTagName( 'img' )->item( 0 );
 check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_DUAL_V6.3.zip' === $dual_link->getAttribute( 'href' ), 'DUAL links to the supplied ZIP' );
 check( $dual_link->hasAttribute( 'download' ), 'DUAL link requests a file download' );
-check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-dual-v2.webp' === $dual_image->getAttribute( 'src' ), 'DUAL uses the approved banner' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/11/link-download-fenix-dual-v3.webp' === $dual_image->getAttribute( 'src' ), 'DUAL uses the approved banner' );
 check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V6\.3</span>~s', $html ), 'DUAL carries its own version badge' );
 $plus       = card_with_class( $cards, 'lh-feature-plus' );
 $plus_link  = $plus->getElementsByTagName( 'a' )->item( 0 );
 $plus_image = $plus->getElementsByTagName( 'img' )->item( 0 );
 check( 'https://fenixpro-th.com/wp-content/uploads/2026/11/FENIX_PLUS_V5.1.zip' === $plus_link->getAttribute( 'href' ), 'PLUS links to the supplied ZIP' );
 check( $plus_link->hasAttribute( 'download' ), 'PLUS link requests a file download' );
-check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/link-download-fenix-plus-v2.webp' === $plus_image->getAttribute( 'src' ), 'PLUS uses the approved banner' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/11/link-download-fenix-plus-v3.webp' === $plus_image->getAttribute( 'src' ), 'PLUS uses the approved banner' );
 check( false !== strpos( $html, '<span class="lh-ver-num">V5.1</span>' ), 'Version badge reads the number from the download file name' );
 check( false !== strpos( $html, 'เวอร์ชันล่าสุด' ), 'Version badge keeps its Thai prefix' );
 check( false === strpos( $html, 'FENIX_PRO_V3.8.zip' ) && false === strpos( $html, 'link-download-fenix-pro-v32.webp' ), 'The retired PRO download is not referenced anywhere' );
 check( false === strpos( $html, 'old-pro.' ) && false === strpos( $html, 'old-mt.' ), 'Legacy assets are not emitted while FAST is enabled' );
 
 list( $html, $cards ) = render_downloads( array_merge( $legacy, array( 'links_fast_enabled' => false ) ) );
-check( 3 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ), 'Disabling the DUAL slot restores the two legacy cards (PLUS stays independent)' );
+check( 4 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ), 'Disabling the DUAL slot restores the two legacy cards (the others stay independent)' );
 check( false !== strpos( $html, 'old-pro.zip' ) && false !== strpos( $html, 'old-mt.zip' ), 'Restored cards retain their saved links' );
 
 list( $html, $cards ) = render_downloads( array_merge( $legacy, array( 'links_fast_show' => false ) ) );
-check( 1 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ) && null !== card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'old-pro.' ), 'Hiding the DUAL card leaves PLUS alone and does not bring back legacy cards' );
+check( 2 === $cards->length && null === card_with_class( $cards, 'lh-feature-fast' ) && null !== card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'old-pro.' ), 'Hiding the DUAL card leaves the rest and does not bring back legacy cards' );
 
 list( $html, $cards ) = render_downloads( array( 'links_plus_enabled' => false ) );
-check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS_V5.1.zip' ) && 1 === $cards->length, 'Disabling PLUS hides its card and ZIP link' );
+check( null === card_with_class( $cards, 'lh-feature-plus' ) && false === strpos( $html, 'FENIX_PLUS_V5.1.zip' ) && 2 === $cards->length, 'Disabling PLUS hides its card and ZIP link' );
 
 list( $html, $cards ) = render_downloads( array( 'links_plus_alt' => 'FENIX PLUS "Download" <test>' ) );
 $plus_image = card_with_class( $cards, 'lh-feature-plus' )->getElementsByTagName( 'img' )->item( 0 );
@@ -126,7 +133,7 @@ check( false !== strpos( $html, 'รุ่นทดสอบ &lt;b&gt;' ) && fal
 list( $html, $cards ) = render_downloads( array(
 	'links_plus_url'  => 'https://example.test/fenix-plus.zip',
 	'links_fast_url'  => 'https://example.test/fenix-dual.zip',
-	'links_card3_url' => 'https://example.test/fenix-power.zip',
+	'links_card3_url' => 'https://example.test/fenix-btc.zip',
 ) );
 check( false === strpos( $html, 'lh-feature-ver' ), 'No badge when the file name carries no version and none is typed' );
 
@@ -134,14 +141,13 @@ list( $html, $cards ) = render_downloads( array( 'links_fast_version' => '7.0 RC
 check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V7\.0 RC</span>~s', $html ), 'DUAL takes its own typed version' );
 check( false !== strpos( $html, '<span class="lh-ver-num">V5.1</span>' ), 'Typing a DUAL version leaves the PLUS badge alone' );
 
-list( $html, $cards ) = render_downloads( array( 'links_card3_enabled' => true ) );
-check( 3 === $cards->length && false !== strpos( $cards->item( 0 )->getAttribute( 'class' ), 'lh-feature-card3' ), 'Switching the third slot back on puts it first, by version 4.2' );
-check( 1 === preg_match( '~lh-feature-card3.*?lh-ver-num">V4\.2</span>~s', $html ), 'The third card keeps its own version badge' );
+list( $html, $cards ) = render_downloads( array( 'links_card3_enabled' => false ) );
+check( 2 === $cards->length && null === card_with_class( $cards, 'lh-feature-card3' ), 'Turning the third card off leaves the other two' );
 
-list( $html, $cards ) = render_downloads( array( 'links_card3_enabled' => true, 'links_card3_version' => '9.0' ) );
+list( $html, $cards ) = render_downloads( array( 'links_card3_version' => '9.0' ) );
 check( false !== strpos( $cards->item( 2 )->getAttribute( 'class' ), 'lh-feature-card3' ), 'Raising a card version moves it down the list' );
 
-list( $html, $cards ) = render_downloads( array( 'links_card3_enabled' => true, 'links_card3_url' => 'https://example.test/no-version.zip' ) );
+list( $html, $cards ) = render_downloads( array( 'links_card3_url' => 'https://example.test/no-version.zip' ) );
 check( false !== strpos( $cards->item( 2 )->getAttribute( 'class' ), 'lh-feature-card3' ), 'A card with no version number sits last' );
 
 // ---- Numbered start-up journey on /go/ ----
