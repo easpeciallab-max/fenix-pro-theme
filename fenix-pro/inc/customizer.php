@@ -623,6 +623,7 @@ function fenix_customize_register( $wp_customize ) {
 			'links_card3_url'     => array( 'FENIX BTC · ลิงก์ไฟล์ดาวน์โหลด', 'text' ),
 			'links_card3_alt'     => array( 'FENIX BTC · ข้อความอธิบายรูป (Alt)', 'text' ),
 			'links_card3_version' => array( 'FENIX BTC · เลขเวอร์ชันที่แสดง (เว้นว่าง = ดึงจากชื่อไฟล์ให้อัตโนมัติ)', 'text' ),
+			'links_download_label' => array( 'ข้อความบนปุ่มดาวน์โหลดใต้การ์ด (เว้นว่าง = ไม่แสดงปุ่ม)', 'text' ),
 			'links_feature_img'     => array( 'รูปโชว์ (ใต้ปุ่ม LINE) · ไม่ใส่ = ใช้รูปดาวน์โหลดค่าเริ่มต้น', 'image', 'แนะนำภาพแนวนอน 1200×630px สำหรับ Link Hub' ),
 			'links_feature_url'     => array( 'รูปโชว์ · ลิงก์เมื่อคลิก (ไม่ใส่ = รูปค่าเริ่มต้นจะไป LINE)', 'text' ),
 			'links_feature_caption' => array( 'รูปโชว์ · ข้อความใต้รูป (ถ้ามี)', 'text' ),

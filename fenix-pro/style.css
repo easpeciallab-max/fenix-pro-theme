@@ -5695,6 +5695,29 @@ a.lh-feature-frame:hover {
 	letter-spacing: 0.03em;
 }
 
+/* ปุ่มดาวน์โหลดใต้การ์ด (ข้อความแก้ได้ใน Customizer · เว้นว่าง = ซ่อนปุ่ม) */
+.lh-dl-btn {
+	justify-content: center;
+	margin: 10px 0 0;
+	border-color: #FF7A1A;
+	background: #FF7A1A;
+	color: #130A02;
+}
+
+.lh-dl-btn:hover {
+	border-color: #FF8C3A;
+	background: #FF8C3A;
+	color: #130A02;
+}
+
+.lh-dl-btn .lh-ic {
+	color: #130A02;
+}
+
+.lh-dl-btn .lh-lbl {
+	flex: 0 0 auto;
+}
+
 .lh-vps {
 	margin: 16px 0 16px;
 	padding: 4px 0 3px;

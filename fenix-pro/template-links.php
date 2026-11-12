@@ -238,6 +238,7 @@ if ( ! fenix_mod( 'links_fast_enabled' ) ) :
 	</div>
 	<?php
 endif;
+$lh_dl_label = trim( (string) fenix_mod( 'links_download_label' ) );
 foreach ( fenix_download_cards() as $lh_card ) :
 	?>
 	<div class="lh-feature <?php echo esc_attr( $lh_card['class'] ); ?>">
@@ -245,6 +246,12 @@ foreach ( fenix_download_cards() as $lh_card ) :
 			<img src="<?php echo esc_url( $lh_card['img'] ); ?>" alt="<?php echo esc_attr( $lh_card['alt'] ); ?>" width="1200" height="675" loading="lazy">
 		</a>
 		<?php echo fenix_download_version_badge( $lh_card['url'], $lh_card['version'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		<?php if ( '' !== $lh_dl_label ) : ?>
+		<a class="lh-btn lh-dl-btn" href="<?php echo esc_url( fenix_link_url( $lh_card['url'] ) ); ?>" download>
+			<span class="lh-ic"><?php echo fenix_icon( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+			<span class="lh-lbl"><?php echo esc_html( $lh_dl_label ); ?></span>
+		</a>
+		<?php endif; ?>
 	</div>
 	<?php
 endforeach;

@@ -211,3 +211,37 @@ check( false !== strpos( $html, 'ติดตั้งแอป MT5 และ Lo
 list( $html, $xpath ) = render_page( array( 'links_mt5_ios_url' => '', 'links_mt5_android_url' => '#', 'links_mt5_windows_url' => '', 'links_step1_title' => 'Open <test>' ) );
 check( 0 === $xpath->query( '//div[contains(@class, "lh-mt5-grid")]' )->length && in_array( 'mt5:2', step_keys( $xpath ), true ), 'Without app links the MT5 step keeps its login guide button' );
 check( false !== strpos( $html, 'Open &lt;test&gt;' ), 'Step titles are escaped' );
+
+// ---- ปุ่มดาวน์โหลดใต้การ์ด ----
+list( $html, $cards ) = render_downloads( array() );
+check( 3 === substr_count( $html, 'lh-btn lh-dl-btn' ), 'Every download card carries its own download button' );
+foreach ( array( 'lh-feature-card3' => 'FENIX_BTC_V1.1.zip', 'lh-feature-plus' => 'FENIX_PLUS_V5.1.zip', 'lh-feature-fast' => 'FENIX_DUAL_V6.3.zip' ) as $lh_class => $lh_file ) {
+	$card    = card_with_class( $cards, $lh_class );
+	$buttons = array();
+	foreach ( $card->getElementsByTagName( 'a' ) as $anchor ) {
+		if ( false !== strpos( $anchor->getAttribute( 'class' ), 'lh-dl-btn' ) ) {
+			$buttons[] = $anchor;
+		}
+	}
+	check( 1 === count( $buttons ), "$lh_class has exactly one download button" );
+	check( false !== strpos( $buttons[0]->getAttribute( 'href' ), $lh_file ) && $buttons[0]->hasAttribute( 'download' ), "The $lh_class button downloads that card's own file" );
+	check( false !== strpos( $buttons[0]->textContent, 'ดาวน์โหลด' ), "The $lh_class button says what it does" );
+}
+
+list( $html, $cards ) = render_downloads( array( 'links_download_label' => 'เก็บไฟล์ลงเครื่อง' ) );
+check( 3 === substr_count( $html, 'เก็บไฟล์ลงเครื่อง' ) && false === strpos( $html, '>ดาวน์โหลด<' ), 'The button wording comes from the Customizer' );
+
+list( $html, $cards ) = render_downloads( array( 'links_download_label' => 'Download <b>' ) );
+check( false !== strpos( $html, 'Download &lt;b&gt;' ), 'The button label is escaped' );
+
+list( $html, $cards ) = render_downloads( array( 'links_download_label' => '  ' ) );
+check( false === strpos( $html, 'lh-dl-btn' ) && 3 === $cards->length, 'Emptying the label hides the buttons and leaves the cards alone' );
+
+list( $html, $cards ) = render_downloads( array() );
+check( false !== strpos( $html, 'กดที่รูปหรือปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ EA' ), 'Step 4 tells people about the button, not just the image' );
+
+list( $html, $cards ) = render_downloads( array( 'links_step4_desc' => 'กดที่รูปเพื่อดาวน์โหลดไฟล์ EA' ) );
+check( false !== strpos( $html, 'กดที่รูปหรือปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ EA' ) && false === strpos( $html, '>กดที่รูปเพื่อดาวน์โหลดไฟล์ EA<' ), 'The old saved step 4 wording migrates to the new one' );
+
+list( $html, $cards ) = render_downloads( array( 'links_card3_enabled' => false ) );
+check( 2 === substr_count( $html, 'lh-btn lh-dl-btn' ) && false === strpos( $html, 'FENIX_BTC_V1.1.zip' ), 'A hidden card takes its download button with it' );

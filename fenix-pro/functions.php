@@ -242,7 +242,7 @@ function fenix_defaults() {
 		'links_deposit_guide_label' => 'คู่มือฝากเงิน',
 		'links_deposit_guide_url'   => '',
 		'links_step4_title'         => 'ดาวน์โหลด EA',
-		'links_step4_desc'          => 'กดที่รูปเพื่อดาวน์โหลดไฟล์ EA',
+		'links_step4_desc'          => 'กดที่รูปหรือปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ EA',
 		'links_step5_title'         => 'ติดตั้ง EA บน MT5',
 		'links_step5_desc'          => 'วางไฟล์ EA ลงใน MT5 แล้วเปิด Algo Trading',
 		'links_step6_title'         => 'ให้ EA ทำงาน 24 ชั่วโมงด้วย VPS',
@@ -278,6 +278,7 @@ function fenix_defaults() {
 		'links_card3_url'     => 'https://fenixpro-th.com/wp-content/uploads/2026/11/FENIX_BTC_V1.1.zip',
 		'links_card3_alt'     => 'ดาวน์โหลด FENIX BTC Expert Advisor สำหรับ MetaTrader 5',
 		'links_card3_version' => '',
+		'links_download_label' => 'ดาวน์โหลด',
 		'links_feature_img'     => '',
 		'links_feature_url'     => '',
 		'links_feature_caption' => '',
@@ -866,6 +867,9 @@ function fenix_mod( $key ) {
 		'instagram_url'   => array(
 			'https://www.instagram.com/fenixpro.ea/',
 			'https://www.instagram.com/fenixpro.th/',
+		),
+		'links_step4_desc' => array(
+			'กดที่รูปเพื่อดาวน์โหลดไฟล์ EA',
 		),
 		'links_signup_url' => array(
 			'/pricing/',
