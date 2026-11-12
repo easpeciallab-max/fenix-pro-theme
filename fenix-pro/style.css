@@ -5748,6 +5748,36 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	color: #130A02;
 }
 
+/* ป้ายเลขเวอร์ชันแบบวางบนรูป (ย้ายไปใต้รูปได้ใน Customizer) */
+.lh-feature-ver--on {
+	position: absolute;
+	bottom: 3%;
+	gap: 5px;
+	margin: 0;
+	padding: 4px 11px;
+	border-radius: 999px;
+	background: #140A08;
+	color: #C9C2BF;
+	font-size: clamp(0.6rem, 2.6vw, 0.74rem);
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+	pointer-events: none;
+}
+
+.lh-feature-ver--br {
+	right: 3.5%;
+}
+
+.lh-feature-ver--bl {
+	left: 3.5%;
+}
+
+.lh-feature-ver--on .lh-ver-num {
+	padding: 0;
+	border: 0;
+	background: none;
+	color: #FFB347;
+}
+
 .lh-vps {
 	margin: 16px 0 16px;
 	padding: 4px 0 3px;

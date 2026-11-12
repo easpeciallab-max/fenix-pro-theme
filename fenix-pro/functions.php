@@ -280,6 +280,7 @@ function fenix_defaults() {
 		'links_card3_version' => '',
 		'links_download_label' => 'ดาวน์โหลด',
 		'links_download_pos'   => 'bl',
+		'links_version_pos'    => 'br',
 		'links_feature_img'     => '',
 		'links_feature_url'     => '',
 		'links_feature_caption' => '',
@@ -833,7 +834,19 @@ function fenix_sanitize_download_pos( $value ) {
 	return in_array( $value, $allowed, true ) ? $value : 'bl';
 }
 
-function fenix_download_version_badge( $url, $override ) {
+/**
+ * ที่วางป้ายเวอร์ชัน · บนรูปมุมขวาล่าง มุมซ้ายล่าง หรือใต้รูปแบบเดิม.
+ *
+ * @param string $value ค่าที่กรอกมา.
+ * @return string
+ */
+function fenix_sanitize_version_pos( $value ) {
+	$allowed = array( 'br', 'bl', 'under' );
+
+	return in_array( $value, $allowed, true ) ? $value : 'br';
+}
+
+function fenix_download_version_badge( $url, $override, $pos = 'under' ) {
 	$version = trim( (string) $override );
 
 	if ( '' === $version ) {
@@ -849,7 +862,13 @@ function fenix_download_version_badge( $url, $override ) {
 	}
 
 	$label = trim( (string) fenix_mod( 'links_plus_version_label' ) );
-	$html  = '<span class="lh-feature-ver">';
+	$class = 'lh-feature-ver';
+
+	if ( in_array( $pos, array( 'br', 'bl' ), true ) ) {
+		$class .= ' lh-feature-ver--on lh-feature-ver--' . $pos;
+	}
+
+	$html  = '<span class="' . esc_attr( $class ) . '">';
 
 	if ( '' !== $label ) {
 		$html .= '<span class="lh-ver-label">' . esc_html( $label ) . '</span>';

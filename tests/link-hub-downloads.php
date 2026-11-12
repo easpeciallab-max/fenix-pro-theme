@@ -260,3 +260,39 @@ foreach ( array( 'กดที่รูปเพื่อดาวน์โห�
 	list( $html, $cards ) = render_downloads( array( 'links_step4_desc' => $lh_old ) );
 	check( false !== strpos( $html, 'กดปุ่มดาวน์โหลดบนรูปของตัวที่ต้องการ' ) && false === strpos( $html, '>' . $lh_old . '<' ), 'Older saved step 4 wording migrates: ' . $lh_old );
 }
+// ---- ป้ายเลขเวอร์ชันบนรูป ----
+list( $html, $cards ) = render_downloads( array() );
+check( 3 === substr_count( $html, 'lh-feature-ver--br' ), 'Version badges sit bottom right on the cover out of the box' );
+$frame = card_with_class( $cards, 'lh-feature-card3' )->getElementsByTagName( 'a' )->item( 0 );
+$inside = false;
+foreach ( $frame->getElementsByTagName( 'span' ) as $span ) {
+	if ( false !== strpos( $span->getAttribute( 'class' ), 'lh-feature-ver' ) ) {
+		$inside = true;
+	}
+}
+check( $inside, 'The badge rides inside the cover link, so the whole card still downloads' );
+check( 1 === preg_match( '~lh-feature-ver--on[^>]*>.*?lh-ver-num">V1\.1</span>~s', $html ), 'The overlaid badge keeps label and number together' );
+
+list( $html, $cards ) = render_downloads( array( 'links_version_pos' => 'bl' ) );
+check( 3 === substr_count( $html, 'lh-feature-ver--bl' ) && false === strpos( $html, 'lh-feature-ver--br' ), 'The badge corner is a Customizer choice' );
+
+list( $html, $cards ) = render_downloads( array( 'links_version_pos' => 'under' ) );
+check( false === strpos( $html, 'lh-feature-ver--on' ) && 3 === substr_count( $html, 'class="lh-feature-ver"' ), 'Choosing under the cover brings the old row back' );
+$card  = card_with_class( $cards, 'lh-feature-card3' );
+$frame = $card->getElementsByTagName( 'a' )->item( 0 );
+$inside = false;
+foreach ( $frame->getElementsByTagName( 'span' ) as $span ) {
+	if ( false !== strpos( $span->getAttribute( 'class' ), 'lh-feature-ver' ) ) {
+		$inside = true;
+	}
+}
+check( ! $inside && false !== strpos( $card->textContent, 'V1.1' ), 'Under the cover the badge leaves the link but stays on the card' );
+
+list( $html, $cards ) = render_downloads( array( 'links_version_pos' => 'top"><script>' ) );
+check( 3 === substr_count( $html, 'lh-feature-ver--br' ) && false === strpos( $html, '<script>' ), 'A badge position the theme does not know falls back to bottom right' );
+
+list( $html, $cards ) = render_downloads( array( 'links_version_pos' => 'br', 'links_download_pos' => 'br' ) );
+check( 3 === substr_count( $html, 'lh-dl-chip--br' ) && 3 === substr_count( $html, 'lh-feature-ver--br' ), 'Both can share a corner if that is what the owner picks' );
+
+list( $html, $cards ) = render_downloads( array( 'links_card3_version' => '', 'links_card3_url' => 'https://example.test/fenix-btc.zip' ) );
+check( 2 === substr_count( $html, 'lh-feature-ver--on' ), 'A file with no version in its name still gets no badge' );

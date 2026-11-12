@@ -633,6 +633,15 @@ function fenix_customize_register( $wp_customize ) {
 					'bc' => 'กลางด้านล่าง',
 				),
 			),
+			'links_version_pos'    => array(
+				'ตำแหน่งป้ายเลขเวอร์ชัน',
+				'radio',
+				array(
+					'br'    => 'บนรูป · มุมล่างขวา',
+					'bl'    => 'บนรูป · มุมล่างซ้าย',
+					'under' => 'ใต้รูป (แบบเดิม)',
+				),
+			),
 			'links_feature_img'     => array( 'รูปโชว์ (ใต้ปุ่ม LINE) · ไม่ใส่ = ใช้รูปดาวน์โหลดค่าเริ่มต้น', 'image', 'แนะนำภาพแนวนอน 1200×630px สำหรับ Link Hub' ),
 			'links_feature_url'     => array( 'รูปโชว์ · ลิงก์เมื่อคลิก (ไม่ใส่ = รูปค่าเริ่มต้นจะไป LINE)', 'text' ),
 			'links_feature_caption' => array( 'รูปโชว์ · ข้อความใต้รูป (ถ้ามี)', 'text' ),
@@ -709,7 +718,11 @@ function fenix_customize_register( $wp_customize ) {
 					$sanitize = 'sanitize_textarea_field';
 					break;
 				case 'radio':
-					$sanitize = 'links_download_pos' === $field_id ? 'fenix_sanitize_download_pos' : 'fenix_sanitize_pricing_mode';
+					$radio_sanitizers = array(
+						'links_download_pos' => 'fenix_sanitize_download_pos',
+						'links_version_pos'  => 'fenix_sanitize_version_pos',
+					);
+					$sanitize = isset( $radio_sanitizers[ $field_id ] ) ? $radio_sanitizers[ $field_id ] : 'fenix_sanitize_pricing_mode';
 					break;
 				default:
 					$sanitize = 'sanitize_text_field';
