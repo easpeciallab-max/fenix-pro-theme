@@ -5624,6 +5624,7 @@ h1, h2, h3, h4,
 
 .lh-feature-frame {
 	position: relative;
+	container-type: inline-size;
 	display: block;
 	overflow: hidden;
 	border-radius: 16px;
@@ -5696,23 +5697,34 @@ a.lh-feature-frame:hover {
 	letter-spacing: 0.03em;
 }
 
-/* ปุ่มดาวน์โหลดบนรูป (ข้อความ/ตำแหน่งแก้ได้ใน Customizer · เว้นข้อความว่าง = ซ่อนปุ่ม) */
-.lh-dl-chip {
+/* ป้ายบนรูป · ปุ่มดาวน์โหลดกับเลขเวอร์ชันใช้ขนาดเดียวกัน และย่อตามความกว้างของปกเอง */
+.lh-dl-chip,
+.lh-feature-ver--on {
 	position: absolute;
-	bottom: 3%;
+	bottom: 4%;
+	box-sizing: border-box;
 	display: inline-flex;
 	align-items: center;
-	gap: 4px;
-	padding: 4px 11px 4px 8px;
+	min-height: 2em;
+	margin: 0;
+	padding: 0 1em;
+	border: 1px solid transparent;
 	border-radius: 999px;
 	background: #140A08;
-	color: #FFFFFF;
 	font-family: var(--font-display);
-	font-size: clamp(0.66rem, 2.9vw, 0.8rem);
 	font-weight: 800;
 	line-height: 1;
+	white-space: nowrap;
+	font-size: clamp(0.56rem, 2.9vw, 0.8rem);
+	font-size: clamp(0.56rem, 4.4cqw, 0.8rem);
 	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
 	pointer-events: none;
+}
+
+.lh-dl-chip {
+	gap: 0.38em;
+	padding-left: 0.78em;
+	color: #FFFFFF;
 	transition: background 0.14s ease, color 0.14s ease;
 }
 
@@ -5735,8 +5747,8 @@ a.lh-feature-frame:hover {
 }
 
 .lh-dl-chip svg {
-	width: 13px;
-	height: 13px;
+	width: 1.2em;
+	height: 1.2em;
 }
 
 a.lh-feature-frame:hover .lh-dl-chip {
@@ -5750,17 +5762,10 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 
 /* ป้ายเลขเวอร์ชันแบบวางบนรูป (ย้ายไปใต้รูปได้ใน Customizer) */
 .lh-feature-ver--on {
-	position: absolute;
-	bottom: 3%;
-	gap: 5px;
-	margin: 0;
-	padding: 4px 11px;
-	border-radius: 999px;
-	background: #140A08;
+	gap: 0.45em;
+	border-color: rgba(255, 140, 0, 0.62);
 	color: #C9C2BF;
-	font-size: clamp(0.6rem, 2.6vw, 0.74rem);
-	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-	pointer-events: none;
+	font-weight: 700;
 }
 
 .lh-feature-ver--br {
