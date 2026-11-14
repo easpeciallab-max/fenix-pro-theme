@@ -84,7 +84,7 @@ check( 1 === preg_match( '~lh-feature-card3.*?lh-ver-num">V1\.1</span>~s', $html
 $dual       = card_with_class( $cards, 'lh-feature-fast' );
 $dual_link  = $dual->getElementsByTagName( 'a' )->item( 0 );
 $dual_image = $dual->getElementsByTagName( 'img' )->item( 0 );
-check( 'https://fenixpro-th.com/wp-content/uploads/2026/10/FENIX_DUAL_V6.3.zip' === $dual_link->getAttribute( 'href' ), 'DUAL links to the supplied ZIP' );
+check( 'https://fenixpro-th.com/wp-content/uploads/2026/11/FENIX_DUAL_V6.3.zip' === $dual_link->getAttribute( 'href' ), 'DUAL links to the supplied ZIP' );
 check( $dual_link->hasAttribute( 'download' ), 'DUAL link requests a file download' );
 check( 'https://fenixpro-th.com/wp-content/uploads/2026/11/link-download-fenix-dual-v3.webp' === $dual_image->getAttribute( 'src' ), 'DUAL uses the approved banner' );
 check( 1 === preg_match( '~lh-feature-fast.*?lh-ver-num">V6\.3</span>~s', $html ), 'DUAL carries its own version badge' );
