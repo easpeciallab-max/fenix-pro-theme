@@ -21,7 +21,7 @@ Tags: one-column, custom-logo, custom-menu, landing-page
 	--void: #080808;
 	--coal: #16161A;
 	--coal-2: #202026;
-	--coal-3: #2A2A31;
+	--coal-3: #2C2C33;
 
 	--ember: #FF6A00;
 	--ember-deep: #E2520B;
@@ -39,10 +39,9 @@ Tags: one-column, custom-logo, custom-menu, landing-page
 	--line-green-dark: #05A648;
 
 	--border: #2C2C33;
-	--border-fire: rgba(255, 106, 0, 0.3);
+	--border-fire: var(--ember-deep);
 
-	--grad-fire: linear-gradient(118deg, var(--flare), var(--ember) 55%, var(--ember-deep));
-	--grad-text: linear-gradient(110deg, #FFB020, var(--ember) 70%);
+	--grad-fire: var(--ember);
 
 	--font-display: "Outfit", "Noto Sans Thai", system-ui, sans-serif;
 	--font-body: "Outfit", "Noto Sans Thai", system-ui, sans-serif;
@@ -219,11 +218,11 @@ h3 {
 	content: "";
 	width: 26px;
 	height: 1px;
-	background: linear-gradient(90deg, transparent, var(--ember));
+	background: var(--ember);
 }
 
 .kicker::after {
-	background: linear-gradient(90deg, var(--ember), transparent);
+	background: var(--ember);
 }
 
 .sec-note {
@@ -283,7 +282,7 @@ h3 {
 }
 
 .btn-fire:hover {
-	background: #FF8426;
+	background: #E2520B;
 	color: #FFFFFF;
 }
 
@@ -597,7 +596,7 @@ h3 {
 }
 
 .language-switcher[open] summary {
-	border-color: rgba(255, 106, 0, 0.42);
+	border-color: var(--ember-deep);
 	background: #202026;
 	color: var(--flare);
 }
@@ -668,7 +667,7 @@ h3 {
 	justify-content: center;
 	width: 34px;
 	height: 28px;
-	border: 1px solid rgba(255, 106, 0, 0.22);
+	border: 1px solid var(--ember-deep);
 	border-radius: 999px;
 	color: var(--flare);
 	font-size: 0.75rem;
@@ -724,7 +723,7 @@ h3 {
 
 .language-switcher--gtranslate select:hover,
 .language-switcher--gtranslate .gt_selector:hover {
-	border-color: rgba(255, 106, 0, 0.42);
+	border-color: var(--ember-deep);
 	background-color: #202026;
 }
 
@@ -767,7 +766,7 @@ h3 {
 }
 
 .site-header .language-switcher--gtranslate .gt_float_switcher:hover {
-	border-color: rgba(255, 106, 0, 0.42) !important;
+	border-color: var(--ember-deep) !important;
 	background: #202026 !important;
 }
 
@@ -795,7 +794,7 @@ h3 {
 	margin: 0 !important;
 	object-fit: cover !important;
 	border-radius: 3px !important;
-	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+	box-shadow: 0 0 0 1px var(--border) !important;
 }
 
 .site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected .gt-current-lang span.gt-lang-code {
@@ -921,29 +920,6 @@ h3 {
 	pointer-events: none;
 }
 
-.ember {
-	position: absolute;
-	border-radius: 50%;
-	filter: blur(70px);
-	opacity: 0.5;
-}
-
-.ember-a {
-	width: 560px;
-	height: 560px;
-	left: -160px;
-	bottom: -260px;
-	background: none;
-}
-
-.ember-b {
-	width: 640px;
-	height: 640px;
-	right: -200px;
-	top: -240px;
-	background: none;
-}
-
 .hero-candles {
 	position: absolute;
 	right: 2%;
@@ -982,10 +958,7 @@ h3 {
 	font-weight: 700;
 	letter-spacing: 0.015em;
 	margin-bottom: 10px;
-	background: linear-gradient(110deg, #FFFFFF 30%, #FFB020 62%, var(--ember));
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+	color: var(--ink);
 }
 
 .hero-sub {
@@ -1042,7 +1015,7 @@ h3 {
 .hero-orb img {
 	width: 78%;
 	border-radius: 50%;
-	filter: drop-shadow(0 22px 60px rgba(255, 110, 20, 0.4));
+	filter: drop-shadow(0 22px 60px rgba(0, 0, 0, 0.5));
 	animation: orb-float 7s ease-in-out infinite;
 }
 
@@ -1060,7 +1033,7 @@ h3 {
 
 .orb-ring-b {
 	inset: 7%;
-	border-color: rgba(242, 193, 78, 0.2);
+	border-color: var(--gold);
 	animation: orb-spin 38s linear infinite reverse;
 }
 
@@ -1074,7 +1047,7 @@ h3 {
 	height: 8px;
 	border-radius: 50%;
 	background: var(--ember);
-	box-shadow: 0 0 12px var(--ember);
+	box-shadow: none;
 }
 
 .hero-frame {
@@ -1099,7 +1072,7 @@ h3 {
    9) Cards (pain / features / reviews)
    ========================================================== */
 .card {
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
 	padding: 26px 24px;
@@ -1143,7 +1116,7 @@ h3 {
    10) About
    ========================================================== */
 .about-panel {
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 	border: 1px solid var(--border);
 	border-left: 3px solid var(--ember);
 	border-radius: var(--radius);
@@ -1196,7 +1169,7 @@ h3 {
 	gap: 12px;
 	padding: 30px;
 	text-align: center;
-	background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255, 255, 255, 0.018) 14px 28px);
+	background: #202026;
 }
 
 .shot-placeholder .shot-empty img {
@@ -1236,7 +1209,7 @@ h3 {
 
 .step {
 	position: relative;
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
 	padding: 28px 24px;
@@ -1322,7 +1295,7 @@ h3 {
 	margin-top: 34px;
 	padding: 20px 24px;
 	border-radius: var(--radius);
-	border: 1px solid rgba(255, 197, 61, 0.3);
+	border: 1px solid var(--gold);
 	background: #202026;
 }
 
@@ -1335,7 +1308,7 @@ h3 {
 
 .disclaimer p {
 	margin: 0;
-	color: #E8D8AC;
+	color: #B8B8C0;
 	font-size: 0.95rem;
 }
 
@@ -1352,7 +1325,7 @@ h3 {
 	border-radius: var(--radius);
 	padding: 30px 28px;
 	border: 1px solid var(--border);
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 }
 
 .fit-card h3 {
@@ -1419,7 +1392,7 @@ h3 {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 	border: 1px solid var(--border);
 	border-radius: var(--radius-lg);
 	padding: 32px 28px;
@@ -1432,8 +1405,8 @@ h3 {
 }
 
 .price-card.is-featured {
-	border-color: rgba(255, 106, 0, 0.55);
-	background: linear-gradient(180deg, var(--coal-3), var(--coal));
+	border-color: var(--ember-deep);
+	background: var(--coal);
 }
 
 .price-flag {
@@ -1543,7 +1516,7 @@ h3 {
 .faq-item {
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 	overflow: hidden;
 	transition: border-color 0.2s ease;
 }
@@ -1617,7 +1590,7 @@ h3 {
 }
 
 .risk-box {
-	border: 1px solid rgba(255, 197, 61, 0.35);
+	border: 1px solid var(--gold);
 	background: var(--coal);
 	border-radius: var(--radius-lg);
 	padding: 32px 36px;
@@ -1638,7 +1611,7 @@ h3 {
 }
 
 .risk-box p {
-	color: #D9CCA6;
+	color: #B8B8C0;
 	font-size: 0.97rem;
 	margin: 0;
 }
@@ -1696,10 +1669,8 @@ h3 {
    ========================================================== */
 .site-footer {
 	position: relative;
-	border-top: 1px solid rgba(255, 255, 255, 0.08);
-	background:
-		linear-gradient(180deg, rgba(22, 22, 30, 0.98), var(--void) 72%),
-		var(--void);
+	border-top: 1px solid var(--border);
+	background: var(--void);
 	padding: 44px 0 28px;
 	overflow: hidden;
 }
@@ -1711,7 +1682,7 @@ h3 {
 	left: 0;
 	right: 0;
 	height: 3px;
-	background: linear-gradient(90deg, transparent, var(--ember) 24%, var(--gold) 50%, var(--ember) 76%, transparent);
+	background: var(--ember);
 	opacity: 0.9;
 }
 
@@ -1723,11 +1694,9 @@ h3 {
 	gap: 28px;
 	padding: 24px 28px;
 	margin-bottom: 34px;
-	border: 1px solid rgba(255, 255, 255, 0.09);
+	border: 1px solid var(--border);
 	border-radius: var(--radius-lg);
-	background:
-		linear-gradient(135deg, rgba(255, 106, 0, 0.13), rgba(242, 193, 78, 0.035)),
-		rgba(255, 255, 255, 0.025);
+	background: #202026;
 }
 
 .footer-kicker {
@@ -1760,7 +1729,7 @@ h3 {
 	gap: 11px;
 	min-width: 260px;
 	padding: 15px 22px;
-	border: 1px solid rgba(255, 255, 255, 0.16);
+	border: 1px solid var(--border);
 	border-radius: 999px;
 	background: var(--line-green);
 	color: #03240F;
@@ -1788,7 +1757,7 @@ h3 {
 	align-items: stretch;
 	padding-bottom: 28px;
 	margin-bottom: 18px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	border-bottom: 1px solid var(--border);
 }
 
 .footer-tagline {
@@ -1818,7 +1787,7 @@ h3 {
 
 .footer-trust li {
 	padding: 7px 12px;
-	border: 1px solid rgba(255, 255, 255, 0.08);
+	border: 1px solid var(--border);
 	border-radius: 999px;
 	background: #202026;
 	color: var(--ash);
@@ -1828,11 +1797,9 @@ h3 {
 
 .footer-prep {
 	padding: 22px;
-	border: 1px solid rgba(255, 255, 255, 0.09);
+	border: 1px solid var(--border);
 	border-radius: var(--radius);
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.025)),
-		rgba(10, 10, 14, 0.32);
+	background: #202026;
 }
 
 .footer-head {
@@ -1866,7 +1833,7 @@ h3 {
 	gap: 12px;
 	min-height: 46px;
 	padding: 11px 14px;
-	border: 1px solid rgba(255, 255, 255, 0.08);
+	border: 1px solid var(--border);
 	border-radius: var(--radius);
 	background: var(--coal-2);
 	color: var(--ash);
@@ -2253,7 +2220,7 @@ h3 {
 .post-card {
 	display: flex;
 	flex-direction: column;
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
 	overflow: hidden;
@@ -2337,7 +2304,7 @@ h3 {
 	padding: 4px 12px;
 	border-radius: 999px;
 	background: var(--void);
-	border: 1px solid rgba(255, 106, 0, 0.4);
+	border: 1px solid var(--ember-deep);
 	color: var(--flare);
 	font-family: var(--font-display);
 	font-size: 0.72rem;
@@ -2429,7 +2396,7 @@ h3 {
 
 .error-search:focus-within {
 	border-color: var(--gold);
-	box-shadow: 0 0 0 2px rgba(242, 193, 78, 0.35);
+	box-shadow: 0 0 0 2px var(--gold);
 }
 
 .error-search input {
@@ -2476,7 +2443,7 @@ h3 {
 	border: 0;
 	border-radius: 50%;
 	background: var(--grad-fire);
-	color: #1a0d02;
+	color: #080808;
 	cursor: pointer;
 }
 
@@ -2715,7 +2682,7 @@ h3 {
 	height: 3px;
 	border-radius: 3px;
 	margin-bottom: 0.55em;
-	background: linear-gradient(90deg, var(--ember), var(--gold));
+	background: var(--ember);
 }
 
 .entry-content h3 {
@@ -2741,7 +2708,7 @@ h3 {
 	margin: 1.8em 0;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
-	border: 1px solid #2a2a36;
+	border: 1px solid #2C2C33;
 }
 
 .entry-content .table-scroll table {
@@ -2759,8 +2726,8 @@ h3 {
 	text-align: left;
 	vertical-align: top;
 	border: 0;
-	border-bottom: 1px solid #23232e;
-	border-right: 1px solid rgba(255, 255, 255, 0.045);
+	border-bottom: 1px solid #2C2C33;
+	border-right: 1px solid var(--border);
 }
 
 .entry-content .table-scroll th:last-child,
@@ -3013,7 +2980,7 @@ h3 {
 	display: block;
 	height: 100%;
 	width: 0;
-	background: linear-gradient(90deg, var(--ember), var(--gold));
+	background: var(--ember);
 	transition: width 0.1s linear;
 }
 
@@ -3220,7 +3187,7 @@ h3 {
 		padding: 20px 22px 32px;
 		overflow-y: auto;
 		overscroll-behavior: contain;
-		background: linear-gradient(180deg, rgba(13, 13, 18, 0.995), rgba(9, 9, 13, 0.995));
+		background: #202026;
 		border: 0;
 		border-top: 1px solid var(--border);
 		border-radius: 0;
@@ -3285,7 +3252,7 @@ h3 {
 		margin: 2px 0 6px 10px;
 		padding: 2px 0 2px 12px;
 		border: 0;
-		border-left: 2px solid rgba(255, 106, 0, 0.28);
+		border-left: 2px solid var(--ember-deep);
 		border-radius: 0;
 		opacity: 1;
 		visibility: visible;
@@ -3554,10 +3521,7 @@ h1, h2, h3, h4,
 	font-size: clamp(1.9rem, 4.4vw, 3rem);
 	font-weight: 700;
 	margin: 6px 0 0;
-	background: linear-gradient(110deg, #FFFFFF 30%, #FFB020 62%, var(--ember));
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+	color: var(--ink);
 }
 
 .phero-sub {
@@ -3623,7 +3587,7 @@ h1, h2, h3, h4,
 	overflow-x: auto;
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 }
 
 .compare-table {
@@ -3686,7 +3650,7 @@ h1, h2, h3, h4,
 }
 
 .guide-step {
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
 	padding: 26px 28px;
@@ -3743,7 +3707,7 @@ h1, h2, h3, h4,
 
 /* กล่องสิ่งที่ต้องเตรียม */
 .req-box {
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 	border: 1px solid var(--border);
 	border-left: 3px solid var(--ok);
 	border-radius: var(--radius);
@@ -3790,7 +3754,7 @@ h1, h2, h3, h4,
 	align-items: flex-start;
 	padding: 22px 26px;
 	border-radius: var(--radius);
-	border: 1px solid rgba(255, 197, 61, 0.3);
+	border: 1px solid var(--gold);
 	background: #202026;
 	margin-bottom: 34px;
 }
@@ -3805,7 +3769,7 @@ h1, h2, h3, h4,
 
 .riskdoc-intro p {
 	margin: 0;
-	color: #E8D8AC;
+	color: #B8B8C0;
 }
 
 .riskdoc-figure {
@@ -3834,7 +3798,7 @@ h1, h2, h3, h4,
 }
 
 .riskdoc-block {
-	background: linear-gradient(180deg, var(--coal-2), var(--coal));
+	background: var(--coal);
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
 	padding: 26px 28px;
@@ -3986,9 +3950,7 @@ h1, h2, h3, h4,
 
 /* (ค) แถบไฮไลต์ใต้ Hero · จุดดึงสายตาใหม่ */
 .highlight-bar {
-	background:
-		linear-gradient(180deg, rgba(255, 106, 0, 0.08), rgba(255, 106, 0, 0.02)),
-		var(--coal);
+	background: var(--coal);
 	border-top: 1px solid var(--border-fire);
 	border-bottom: 1px solid var(--border-fire);
 }
@@ -4120,9 +4082,7 @@ h1, h2, h3, h4,
 	position: relative;
 	overflow: hidden;
 	padding: 18px 0;
-	background:
-		linear-gradient(90deg, rgba(255, 106, 0, 0.08), rgba(6, 199, 85, 0.05), rgba(255, 106, 0, 0.08)),
-		#0D0D13;
+	background: #080808;
 	border-bottom: 1px solid var(--border-soft);
 }
 
@@ -4140,7 +4100,7 @@ h1, h2, h3, h4,
 	gap: 10px;
 	padding: 10px 22px;
 	border-radius: 999px;
-	border: 1px solid rgba(62, 207, 142, 0.28);
+	border: 1px solid var(--ok);
 	background: var(--coal-2);
 	color: var(--ok);
 	font-family: var(--font-display);
@@ -4148,7 +4108,7 @@ h1, h2, h3, h4,
 	font-size: 0.82rem;
 	letter-spacing: 0.16em;
 	white-space: nowrap;
-	box-shadow: 0 14px 40px rgba(62, 207, 142, 0.08);
+	box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
 	position: relative;
 	z-index: 2;
 }
@@ -4160,7 +4120,7 @@ h1, h2, h3, h4,
 	height: 8px;
 	border-radius: 999px;
 	background: var(--ok);
-	box-shadow: 0 0 16px rgba(62, 207, 142, 0.75);
+	box-shadow: none;
 	animation: status-pulse 1.8s ease-in-out infinite;
 }
 
@@ -4219,9 +4179,7 @@ h1, h2, h3, h4,
 	overflow: hidden;
 	isolation: isolate;
 	min-height: 100%;
-	background:
-		linear-gradient(145deg, rgba(255, 106, 0, 0.11), transparent 48%),
-		linear-gradient(180deg, #1C1C26, #16161A);
+	background: #16161A;
 }
 
 .pain-card::before {
@@ -4229,7 +4187,7 @@ h1, h2, h3, h4,
 	position: absolute;
 	inset: 0 auto 0 0;
 	width: 3px;
-	background: linear-gradient(180deg, var(--ember), transparent);
+	background: var(--ember);
 	opacity: 0.9;
 }
 
@@ -4238,26 +4196,20 @@ h1, h2, h3, h4,
 }
 
 .pain-card-2 {
-	background:
-		linear-gradient(145deg, rgba(255, 197, 61, 0.12), transparent 52%),
-		linear-gradient(180deg, #202026, #16161A);
+	background: #16161A;
 }
 
 .pain-card-3 {
-	background:
-		linear-gradient(145deg, rgba(255, 107, 107, 0.11), transparent 52%),
-		linear-gradient(180deg, #202026, #16161A);
+	background: #16161A;
 }
 
 .pain-card-4 {
-	background:
-		linear-gradient(145deg, rgba(62, 207, 142, 0.09), transparent 52%),
-		linear-gradient(180deg, #202026, #16161A);
+	background: #16161A;
 }
 
 .control-section {
 	overflow: hidden;
-	background: linear-gradient(180deg, #080808, #101017);
+	background: #080808;
 }
 
 .control-layout {
@@ -4287,9 +4239,7 @@ h1, h2, h3, h4,
 	overflow: hidden;
 	border-radius: 28px;
 	border: 1px solid var(--border-fire);
-	background:
-		linear-gradient(140deg, rgba(255, 106, 0, 0.14), rgba(255, 255, 255, 0.035) 42%, rgba(62, 207, 142, 0.08)),
-		#16161A;
+	background: #16161A;
 	padding: 30px;
 	box-shadow: 0 26px 70px rgba(0, 0, 0, 0.48);
 }
@@ -4298,9 +4248,7 @@ h1, h2, h3, h4,
 	content: "";
 	position: absolute;
 	inset: 0;
-	background:
-		linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+	background: #202026;
 	background-size: 42px 42px;
 	opacity: 0.22;
 	pointer-events: none;
@@ -4345,7 +4293,7 @@ h1, h2, h3, h4,
 	height: 42px;
 	padding: 0 16px;
 	border-radius: 999px;
-	border: 1px solid rgba(255, 106, 0, 0.34);
+	border: 1px solid var(--ember-deep);
 	background: #202026;
 	color: var(--flare);
 	font-family: var(--font-display);
@@ -4366,7 +4314,7 @@ h1, h2, h3, h4,
 }
 
 .control-metric {
-	border: 1px solid rgba(255, 255, 255, 0.11);
+	border: 1px solid var(--border);
 	border-radius: 18px;
 	background: var(--coal-2);
 	padding: 14px;
@@ -4453,9 +4401,7 @@ h1, h2, h3, h4,
 }
 
 .feat-card {
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
-		var(--card-bg);
+	background: var(--card-bg);
 }
 
 .feat-card-1 {
@@ -4468,12 +4414,12 @@ h1, h2, h3, h4,
 }
 
 .feat-card-4 {
-	border-color: rgba(62, 207, 142, 0.22);
+	border-color: var(--ok);
 }
 
 .feat-card-4 .card-icon {
 	color: var(--ok);
-	border-color: rgba(62, 207, 142, 0.26);
+	border-color: var(--ok);
 	background: var(--coal-2);
 }
 
@@ -4498,9 +4444,7 @@ h1, h2, h3, h4,
 .steps-timeline .step {
 	overflow: hidden;
 	border-radius: 24px;
-	background:
-		linear-gradient(180deg, rgba(255, 106, 0, 0.07), transparent),
-		var(--card-bg);
+	background: var(--card-bg);
 }
 
 .steps-timeline .step::after {
@@ -4547,9 +4491,7 @@ h1, h2, h3, h4,
 	min-height: 112px;
 	text-align: left;
 	border-radius: 22px;
-	background:
-		linear-gradient(135deg, rgba(255, 106, 0, 0.09), transparent 52%),
-		var(--card-bg);
+	background: var(--card-bg);
 }
 
 .stats-grid--home .stat-value {
@@ -4560,9 +4502,7 @@ h1, h2, h3, h4,
 .perf-figure--home {
 	margin: 0;
 	border-radius: 28px;
-	background:
-		linear-gradient(140deg, rgba(255, 106, 0, 0.12), rgba(255, 255, 255, 0.035)),
-		#16161A;
+	background: #16161A;
 }
 
 .perf-placeholder {
@@ -4570,9 +4510,7 @@ h1, h2, h3, h4,
 	min-height: 355px;
 	padding: 28px;
 	overflow: hidden;
-	background:
-		linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+	background: #202026;
 	background-size: 44px 44px;
 }
 
@@ -4614,7 +4552,7 @@ h1, h2, h3, h4,
 .perf-bars i {
 	flex: 1;
 	border-radius: 999px 999px 10px 10px;
-	background: linear-gradient(180deg, var(--flare), var(--ember));
+	background: var(--ember);
 	opacity: 0.72;
 }
 
@@ -4632,9 +4570,9 @@ h1, h2, h3, h4,
 	bottom: 126px;
 	height: 2px;
 	border-radius: 999px;
-	background: linear-gradient(90deg, transparent, var(--ok), var(--gold), transparent);
+	background: var(--gold);
 	transform: rotate(-4deg);
-	box-shadow: 0 0 18px rgba(62, 207, 142, 0.42);
+	box-shadow: none;
 	z-index: 2;
 }
 
@@ -4672,9 +4610,7 @@ h1, h2, h3, h4,
 .hub-card {
 	position: relative;
 	overflow: hidden;
-	background:
-		linear-gradient(145deg, rgba(255, 106, 0, 0.08), transparent 54%),
-		var(--card-bg);
+	background: var(--card-bg);
 }
 
 .hub-card::after {
@@ -4685,24 +4621,20 @@ h1, h2, h3, h4,
 	width: 130px;
 	height: 130px;
 	border-radius: 999px;
-	border: 1px solid rgba(255, 106, 0, 0.18);
+	border: 1px solid var(--ember-deep);
 	pointer-events: none;
 }
 
 .hub-card-2 {
-	background:
-		linear-gradient(145deg, rgba(62, 207, 142, 0.08), transparent 54%),
-		var(--card-bg);
+	background: var(--card-bg);
 }
 
 .hub-card-3 {
-	background:
-		linear-gradient(145deg, rgba(242, 193, 78, 0.09), transparent 54%),
-		var(--card-bg);
+	background: var(--card-bg);
 }
 
 .hub-card-5 {
-	border-color: rgba(255, 197, 61, 0.22);
+	border-color: var(--gold);
 }
 
 @media (max-width: 960px) {
@@ -5019,9 +4951,7 @@ h1, h2, h3, h4,
 	padding: 28px 32px;
 	border-radius: var(--radius-lg);
 	border: 1px solid var(--border-fire);
-	background:
-		linear-gradient(120deg, rgba(255, 106, 0, 0.12), transparent 60%),
-		var(--coal-2);
+	background: var(--coal-2);
 }
 
 .mid-cta-copy h2 {
@@ -5126,9 +5056,7 @@ h1, h2, h3, h4,
 
 .price-teaser-card.is-featured {
 	border-color: var(--border-fire);
-	background:
-		linear-gradient(180deg, rgba(255, 106, 0, 0.08), transparent 60%),
-		var(--card-bg);
+	background: var(--card-bg);
 }
 
 .price-flag {
@@ -5255,7 +5183,7 @@ h1, h2, h3, h4,
 
 .social-link:hover {
 	color: var(--ember);
-	border-color: rgba(255, 106, 0, 0.45);
+	border-color: var(--ember-deep);
 	background: #202026;
 	transform: translateY(-2px);
 }
@@ -5276,7 +5204,7 @@ h1, h2, h3, h4,
    หน้า standalone ไม่มีเมนู/ฟุตเตอร์ · โฟกัสปุ่มเดียว (ทักไลน์)
    ========================================================== */
 .link-hub-page {
-	background: #060608;
+	background: #080808;
 }
 
 .link-hub {
@@ -5286,7 +5214,7 @@ h1, h2, h3, h4,
 	align-items: flex-start;
 	justify-content: center;
 	padding: 40px 16px 48px;
-	background: #060608;
+	background: #080808;
 }
 
 /* การ์ดหลัก · ขอบบาง + มุมโค้ง + พื้นเข้มกว่าหน้า + แสงเรืองในตัวที่หัวการ์ด (ตรงตาม mockup) */
@@ -5295,7 +5223,7 @@ h1, h2, h3, h4,
 	max-width: 400px;
 	text-align: center;
 	padding: 34px 24px 26px;
-	border: 1px solid #2A2A31;
+	border: 1px solid #2C2C33;
 	border-radius: 28px;
 	background: #080808;
 	box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
@@ -5310,8 +5238,8 @@ h1, h2, h3, h4,
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
-	background: #12121A;
-	border: 1px solid rgba(255, 106, 0, 0.4);
+	background: #16161A;
+	border: 1px solid var(--ember-deep);
 	box-shadow: none;
 }
 
@@ -5355,7 +5283,7 @@ h1, h2, h3, h4,
 	letter-spacing: 0.04em;
 	white-space: nowrap;
 	color: #FFB020;
-	border: 1px solid rgba(255, 106, 0, 0.3);
+	border: 1px solid var(--ember-deep);
 	border-radius: 999px;
 	padding: 4px 10px;
 }
@@ -5380,7 +5308,7 @@ h1, h2, h3, h4,
 }
 
 .lh-btn:hover {
-	border-color: rgba(255, 106, 0, 0.55);
+	border-color: var(--ember-deep);
 	background: #202026;
 	color: #F4F4F5;
 }
@@ -5418,7 +5346,7 @@ h1, h2, h3, h4,
 	padding: 10px;
 	border: 1px solid #2C2C33;
 	border-radius: 26px;
-	background: #0F0F15;
+	background: #16161A;
 }
 
 .lh-btn-signup {
@@ -5437,8 +5365,8 @@ h1, h2, h3, h4,
 	width: 30px;
 	height: 30px;
 	border-radius: 999px;
-	background: #0F0F15;
-	border: 1px solid rgba(255, 106, 0, 0.3);
+	background: #16161A;
+	border: 1px solid var(--ember-deep);
 	color: #FFB020;
 }
 
@@ -5467,7 +5395,7 @@ h1, h2, h3, h4,
 
 .lh-btn-signup:hover {
 	border-color: #FFB020;
-	background: #FF8A24;
+	background: #E2520B;
 	color: #FFFFFF;
 	box-shadow: none;
 }
@@ -5487,8 +5415,8 @@ h1, h2, h3, h4,
 	min-height: 52px;
 	padding: 10px;
 	border-radius: 999px;
-	border: 1px solid #32323D;
-	background: #171720;
+	border: 1px solid #2C2C33;
+	background: #202026;
 	color: #F4F4F5;
 	font-family: var(--font-display);
 	font-size: 0.82rem;
@@ -5522,7 +5450,7 @@ h1, h2, h3, h4,
 
 .lh-mini-btn:hover {
 	border-color: #FF6A00;
-	background: #20202B;
+	background: #202026;
 	color: #FFB020;
 }
 
@@ -5544,8 +5472,8 @@ h1, h2, h3, h4,
 }
 
 .lh-btn-line:hover {
-	background: #05B34C;
-	border-color: #05B34C;
+	background: #05A648;
+	border-color: #05A648;
 	color: #03240F;
 }
 
@@ -5598,10 +5526,8 @@ h1, h2, h3, h4,
 	justify-content: center;
 	aspect-ratio: 1200 / 630;
 	width: 100%;
-	background:
-		linear-gradient(135deg, rgba(255, 106, 0, 0.12), rgba(255, 176, 32, 0.05)),
-		#101016;
-	color: rgba(255, 255, 255, 0.34);
+	background: #202026;
+	color: var(--ash-2);
 	font-family: var(--font-display);
 	font-size: clamp(1.5rem, 7vw, 2.7rem);
 	font-weight: 800;
@@ -5618,7 +5544,7 @@ a.lh-feature-frame {
 }
 
 a.lh-feature-frame:hover {
-	border-color: rgba(255, 106, 0, 0.5);
+	border-color: var(--ember-deep);
 }
 
 .lh-feature-cap {
@@ -5646,7 +5572,7 @@ a.lh-feature-frame:hover {
 .lh-feature-ver .lh-ver-num {
 	padding: 3px 11px;
 	border-radius: 999px;
-	border: 1px solid rgba(255, 106, 0, 0.38);
+	border: 1px solid var(--ember-deep);
 	background: #202026;
 	color: var(--flare);
 	letter-spacing: 0.03em;
@@ -5718,8 +5644,8 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 /* ป้ายเลขเวอร์ชันแบบวางบนรูป (ย้ายไปใต้รูปได้ใน Customizer) */
 .lh-feature-ver--on {
 	gap: 0.45em;
-	border-color: rgba(255, 140, 0, 0.62);
-	color: #C9C2BF;
+	border-color: var(--ember-deep);
+	color: #B8B8C0;
 	font-weight: 700;
 }
 
@@ -5783,7 +5709,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 }
 
 .lh-vps-item:hover {
-	border-color: rgba(255, 106, 0, 0.55);
+	border-color: var(--ember-deep);
 	background: #202026;
 	color: #FFFFFF;
 }
@@ -5810,7 +5736,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 .lh-vps-item-pending:hover {
 	border-color: #2C2C33;
 	background: #16161A;
-	color: #EDEDF2;
+	color: #F4F4F5;
 }
 
 .lh-vps-item-pending:hover .lh-vps-ic {
@@ -5832,7 +5758,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	font-weight: 800;
 	line-height: 1.1;
 	white-space: nowrap;
-	color: #D7D7E4;
+	color: #F4F4F5;
 	transition: color 0.14s ease;
 }
 
@@ -5861,7 +5787,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	border-radius: 999px;
 	border: 1px solid rgba(6, 199, 85, 0.55);
 	background: var(--coal-2);
-	color: #8EF0B8;
+	color: #22C55E;
 	font-family: var(--font-display);
 	font-size: 0.8rem;
 	font-weight: 800;
@@ -5887,7 +5813,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 .lh-top-line:hover {
 	border-color: #06C755;
 	background: var(--coal-3);
-	color: #B3F6CF;
+	color: #22C55E;
 }
 
 /* ขั้นตอนเริ่มใช้งาน · เลขกำกับ + เส้นเชื่อมระหว่างขั้น */
@@ -5973,7 +5899,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 .lh-step-badge {
 	padding: 2px 8px;
 	border-radius: 999px;
-	border: 1px solid rgba(255, 106, 0, 0.45);
+	border: 1px solid var(--ember-deep);
 	color: #FFB020;
 	font-size: 0.62rem;
 	font-weight: 800;
@@ -6010,7 +5936,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 .lh-group {
 	margin: 22px 0 0;
 	padding-top: 18px;
-	border-top: 1px solid #2A2A31;
+	border-top: 1px solid #2C2C33;
 }
 
 .lh-group > .lh-btn:last-child {
@@ -6022,7 +5948,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	margin: 0 0 22px;
 	padding: 0 0 20px;
 	border-top: 0;
-	border-bottom: 1px solid #2A2A31;
+	border-bottom: 1px solid #2C2C33;
 }
 
 /* ปุ่มทุกแบบในหน้า Link Hub สูงเท่ากัน 56px · ข้อความยาวขึ้นบรรทัดสองได้ภายในความสูงเดิม */
