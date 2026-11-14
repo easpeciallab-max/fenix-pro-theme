@@ -23,21 +23,29 @@ fenix_page_hero( 'Forward Test', $fenix_title ? $fenix_title : 'ผล Forward T
 			<p class="lead reveal"><?php echo esc_html( fenix_mod( 'forward_intro' ) ); ?></p>
 		<?php endif; ?>
 
-		<div class="stats-grid reveal">
-			<?php
-			for ( $i = 1; $i <= 6; $i++ ) :
-				$s_label = fenix_mod( 'fw_stat' . $i . '_label' );
-				$s_value = fenix_mod( 'fw_stat' . $i . '_value' );
-				if ( ! $s_label && ! $s_value ) {
-					continue;
-				}
-				?>
-				<div class="stat">
-					<span class="stat-label"><?php echo esc_html( $s_label ); ?></span>
-					<span class="stat-value"><?php echo esc_html( $s_value ); ?></span>
-				</div>
-			<?php endfor; ?>
-		</div>
+		<?php
+		$fenix_fw_stats = array();
+		for ( $i = 1; $i <= 6; $i++ ) {
+			$s_value = trim( (string) fenix_mod( 'fw_stat' . $i . '_value' ) );
+			if ( '' === $s_value ) {
+				continue;
+			}
+			$fenix_fw_stats[] = array(
+				'label' => fenix_mod( 'fw_stat' . $i . '_label' ),
+				'value' => $s_value,
+			);
+		}
+		?>
+		<?php if ( ! empty( $fenix_fw_stats ) ) : ?>
+			<div class="stats-grid reveal">
+				<?php foreach ( $fenix_fw_stats as $fenix_fw_stat ) : ?>
+					<div class="stat">
+						<span class="stat-label"><?php echo esc_html( $fenix_fw_stat['label'] ); ?></span>
+						<span class="stat-value"><?php echo esc_html( $fenix_fw_stat['value'] ); ?></span>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
 
 		<?php if ( fenix_mod( 'forward_img' ) ) : ?>
 			<figure class="perf-figure reveal">
@@ -45,14 +53,6 @@ fenix_page_hero( 'Forward Test', $fenix_title ? $fenix_title : 'ผล Forward T
 				<?php if ( fenix_mod( 'forward_img_caption' ) ) : ?>
 					<figcaption><?php echo esc_html( fenix_mod( 'forward_img_caption' ) ); ?></figcaption>
 				<?php endif; ?>
-			</figure>
-		<?php else : ?>
-			<figure class="perf-figure shot-placeholder reveal">
-				<div class="shot-empty">
-					<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo.png' ); ?>" alt="" loading="lazy" width="110" height="110">
-					<span class="chip">ภาพประกอบ</span>
-					<p>อัปโหลดภาพผล Forward Test ได้ที่ ปรับแต่ง → หน้า Forward Test</p>
-				</div>
 			</figure>
 		<?php endif; ?>
 
