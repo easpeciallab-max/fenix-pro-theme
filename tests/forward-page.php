@@ -60,6 +60,8 @@ check( false !== strpos( $html, 'myfxbook.com/portfolio/eafn/12227282' ), 'ป�
 check( false !== strpos( $html, 'Backtest' ), 'อธิบายว่า Forward Test ต่างจาก Backtest อย่างไร' );
 check( false !== strpos( $html, 'Drawdown' ), 'บอกให้ดู Drawdown ไม่ใช่ดูแต่กำไร' );
 check( false !== strpos( $html, 'ไม่มีการตัดขาดทุนอัตโนมัติ' ), 'คำเตือนบอกตรง ๆ ว่าไม่มีการตัดขาดทุน' );
+check( false !== strpos( $html, 'FENIX PLUS' ), 'บอกชัดว่าบัญชีนี้รัน FENIX PLUS' );
+check( false !== strpos( $html, 'FENIX BTC' ) && false !== strpos( $html, 'FENIX DUAL' ), 'เตือนว่าใช้แทนผลของอีกสองตัวไม่ได้' );
 check( 1 === substr_count( $html, 'line.me' ), 'ยังมีทางติดต่อทีมงานท้ายหน้า' );
 
 // ---- พอมีตัวเลขจริงแล้วต้องขึ้นเอง ----
