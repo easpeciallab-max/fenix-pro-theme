@@ -56,7 +56,7 @@ function fenix_assets() {
 
 	wp_enqueue_style(
 		'fenix-fonts',
-		'https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap',
 		array(),
 		null
 	);
