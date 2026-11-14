@@ -453,7 +453,7 @@ $fenix_has_perf     = ! empty( $fenix_perf_stats ) || $fenix_perf_img || $fenix_
 			<p><?php echo esc_html( fenix_mod( 'perf_subtitle' ) ); ?></p>
 		</div>
 
-		<div class="performance-layout<?php echo $fenix_perf_img ? '' : ' performance-layout--solo'; ?>">
+		<div class="performance-layout<?php echo ( $fenix_perf_img && ! empty( $fenix_perf_stats ) ) ? '' : ' performance-layout--solo'; ?>">
 			<?php if ( ! empty( $fenix_perf_stats ) ) : ?>
 				<div class="stats-grid stats-grid--home reveal">
 					<?php foreach ( $fenix_perf_stats as $fenix_stat ) : ?>

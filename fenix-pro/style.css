@@ -5944,6 +5944,12 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 }
 
 /* กลุ่มติดต่อทีม (LINE / OpenChat) อยู่บนสุด ใต้ชื่อแบรนด์ */
+.lh-group--info {
+	margin-top: 22px;
+	padding-top: 18px;
+	border-top: 1px solid var(--border);
+}
+
 .lh-group--help {
 	margin: 0 0 22px;
 	padding: 0 0 20px;
@@ -6138,4 +6144,14 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	.header-inner {
 		gap: 8px;
 	}
+}
+
+/* ชื่อแบรนด์ในส่วนท้าย · เดิมไม่มีสไตล์เลย */
+.footer-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-family: var(--font-display);
+	font-weight: 700;
+	color: var(--ink);
 }

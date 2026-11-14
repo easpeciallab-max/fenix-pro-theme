@@ -1500,7 +1500,7 @@ function fenix_open_graph() {
 
 	if ( is_singular() ) {
 		$title = get_the_title();
-		$desc  = has_excerpt() ? get_the_excerpt() : wp_trim_words( wp_strip_all_tags( strip_shortcodes( get_the_content() ) ), 40, '…' );
+		$desc  = has_excerpt() ? get_the_excerpt() : wp_trim_words( wp_strip_all_tags( strip_shortcodes( get_the_content() ) ), fenix_excerpt_length( 160, 40 ), '…' );
 		$url   = get_permalink();
 		$img   = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 		if ( ! $img ) {
@@ -1838,7 +1838,7 @@ function fenix_post_card() {
 		<div class="post-card-body">
 			<span class="post-meta"><?php echo esc_html( get_the_date() ); ?></span>
 			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-			<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 22 ) ); ?></p>
+			<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), fenix_excerpt_length() ) ); ?></p>
 			<span class="post-card-more">อ่านต่อ <?php echo fenix_icon( 'arrow', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 		</div>
 	</article>
@@ -1923,6 +1923,22 @@ add_action( 'init', 'fenix_disable_discussion_support', 100 );
  * Yoast เก็บค่าพวกนี้เป็น meta ที่ซ่อนไว้ ทำให้แก้จากนอกหน้าจอ WordPress ไม่ได้
  * ลงทะเบียนตรงนี้เพื่อให้ตรวจและเติมให้ครบทุกหน้าได้โดยไม่ต้องไล่เปิดทีละหน้า
  */
+/**
+ * ความยาวบทคัดย่อที่เหมาะกับภาษาที่ใช้
+ *
+ * WordPress ภาษาไทยนับ "คำ" เป็นตัวอักษร เลข 22 ที่เคยใส่ไว้จึงกลายเป็น 22 ตัวอักษร
+ * ตัดกลางคำจนอ่านไม่รู้เรื่อง ฟังก์ชันนี้คืนค่าที่เหมาะกับแต่ละแบบ
+ *
+ * @param int $chars จำนวนตัวอักษรสำหรับภาษาที่นับเป็นตัวอักษร.
+ * @param int $words จำนวนคำสำหรับภาษาที่นับเป็นคำ.
+ * @return int
+ */
+function fenix_excerpt_length( $chars = 120, $words = 22 ) {
+	$type = _x( 'words', 'Word count type. Do not translate!' );
+
+	return ( 'words' === $type ) ? $words : $chars;
+}
+
 function fenix_register_seo_meta() {
 	$fields = array( '_yoast_wpseo_title', '_yoast_wpseo_metadesc', '_yoast_wpseo_focuskw', '_yoast_wpseo_canonical', '_elementor_element_cache' );
 
