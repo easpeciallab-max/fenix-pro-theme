@@ -1924,7 +1924,7 @@ add_action( 'init', 'fenix_disable_discussion_support', 100 );
  * ลงทะเบียนตรงนี้เพื่อให้ตรวจและเติมให้ครบทุกหน้าได้โดยไม่ต้องไล่เปิดทีละหน้า
  */
 function fenix_register_seo_meta() {
-	$fields = array( '_yoast_wpseo_title', '_yoast_wpseo_metadesc', '_yoast_wpseo_focuskw' );
+	$fields = array( '_yoast_wpseo_title', '_yoast_wpseo_metadesc', '_yoast_wpseo_focuskw', '_yoast_wpseo_canonical', '_elementor_element_cache' );
 
 	foreach ( array( 'post', 'page' ) as $type ) {
 		foreach ( $fields as $field ) {
