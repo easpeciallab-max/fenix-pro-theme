@@ -1916,6 +1916,35 @@ function fenix_disable_discussion_support() {
 	remove_post_type_support( 'page', 'trackbacks' );
 }
 add_action( 'init', 'fenix_disable_discussion_support', 100 );
+
+/**
+ * เปิดให้แก้หัวข้อ SEO ของ Yoast ผ่าน REST ได้ (คนที่แก้โพสต์ได้เท่านั้น)
+ *
+ * Yoast เก็บค่าพวกนี้เป็น meta ที่ซ่อนไว้ ทำให้แก้จากนอกหน้าจอ WordPress ไม่ได้
+ * ลงทะเบียนตรงนี้เพื่อให้ตรวจและเติมให้ครบทุกหน้าได้โดยไม่ต้องไล่เปิดทีละหน้า
+ */
+function fenix_register_seo_meta() {
+	$fields = array( '_yoast_wpseo_title', '_yoast_wpseo_metadesc', '_yoast_wpseo_focuskw' );
+
+	foreach ( array( 'post', 'page' ) as $type ) {
+		foreach ( $fields as $field ) {
+			register_post_meta(
+				$type,
+				$field,
+				array(
+					'type'              => 'string',
+					'single'            => true,
+					'show_in_rest'      => true,
+					'sanitize_callback' => 'sanitize_text_field',
+					'auth_callback'     => function () {
+						return current_user_can( 'edit_posts' );
+					},
+				)
+			);
+		}
+	}
+}
+add_action( 'init', 'fenix_register_seo_meta' );
 add_filter( 'comments_open', '__return_false', 20, 2 );
 add_filter( 'pings_open', '__return_false', 20, 2 );
 add_filter( 'comments_array', '__return_empty_array', 10, 2 );
