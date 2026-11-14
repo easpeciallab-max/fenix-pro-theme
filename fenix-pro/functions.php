@@ -1081,33 +1081,58 @@ function fenix_featured_image_alt( $post_id = 0 ) {
  * เมนูสำรอง กรณียังไม่ได้สร้างเมนูใน WordPress
  * ชี้ไปยังหน้าย่อยตาม slug ที่แนะนำ (ปรับเมนูจริงได้ที่ รูปแบบ → เมนู)
  */
-function fenix_fallback_menu() {
-	$items = array(
-		'/pricing/'  => 'แพ็กเกจ',
-		'/articles/' => 'บทความ',
+function fenix_menu_tree() {
+	return array(
+		array( 'url' => '/', 'label' => 'หน้าแรก' ),
+		array( 'url' => '/go/', 'label' => 'ดาวน์โหลด EA' ),
+		array(
+			'url'      => '/backtest/',
+			'label'    => 'ผลทดสอบ',
+			'children' => array(
+				array( 'url' => '/backtest/', 'label' => 'ผล BACKTEST' ),
+				array( 'url' => '/forward-test/', 'label' => 'ผล FORWARD TEST' ),
+			),
+		),
+		array(
+			'url'      => '/fenix-pro-ea-install-guide/',
+			'label'    => 'วิธีใช้งาน',
+			'children' => array(
+				array( 'url' => '/open-mt5-account/', 'label' => 'เปิดบัญชี MT5' ),
+				array( 'url' => '/mt5-login-zaurix-server/', 'label' => 'ติดตั้ง MT5 และ LOGIN' ),
+				array( 'url' => '/deposit-zaurix/', 'label' => 'ฝากเงินเข้าบัญชี' ),
+				array( 'url' => '/fenix-pro-ea-install-guide/', 'label' => 'ติดตั้ง EA บน MT5' ),
+				array( 'url' => '/fenix-dual-presets/', 'label' => 'เลือกคูณ LOT ของ FENIX DUAL' ),
+				array( 'url' => '/vps-desktop-windows/', 'label' => 'VPS บน WINDOWS' ),
+				array( 'url' => '/vps-android/', 'label' => 'VPS บน ANDROID' ),
+				array( 'url' => '/vps-iphone-ios/', 'label' => 'VPS บน IPHONE' ),
+			),
+		),
+		array( 'url' => '/pricing/', 'label' => 'แพ็กเกจ' ),
+		array( 'url' => '/articles/', 'label' => 'บทความ' ),
 	);
-	echo '<ul class="nav-list">';
-	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">หน้าแรก</a></li>';
-	echo '<li class="menu-item-has-children"><a href="' . esc_url( home_url( '/forward-test/' ) ) . '">ผลทดสอบ</a>';
-	echo '<ul class="sub-menu">';
-	echo '<li><a href="' . esc_url( home_url( '/backtest/' ) ) . '">Backtest</a></li>';
-	echo '<li><a href="' . esc_url( home_url( '/forward-test/' ) ) . '">Forward Test</a></li>';
-	echo '</ul></li>';
-	echo '<li class="menu-item-has-children"><a href="' . esc_url( home_url( '/fenix-pro-ea-install-guide/' ) ) . '">คู่มือการใช้งาน</a>';
-	echo '<ul class="sub-menu">';
-	echo '<li><a href="' . esc_url( home_url( '/fenix-pro-ea-install-guide/' ) ) . '">ติดตั้ง FENIX PRO EA บน MT5</a></li>';
-	echo fenix_guide_menu_extra_items(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	echo '<li><a href="' . esc_url( home_url( '/vps-desktop-windows/' ) ) . '">ใช้งาน VPS บน Windows</a></li>';
-	echo '<li><a href="' . esc_url( home_url( '/vps-android/' ) ) . '">ใช้งาน VPS ผ่าน Android</a></li>';
-	echo '<li><a href="' . esc_url( home_url( '/vps-iphone-ios/' ) ) . '">ใช้งาน VPS ผ่าน iPhone / iOS</a></li>';
-	echo '</ul></li>';
-	foreach ( $items as $path => $label ) {
-		echo '<li><a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $label ) . '</a></li>';
-	}
-	echo '<li><a href="' . esc_url( home_url( '/go/' ) ) . '">ติดต่อ</a></li>';
-	echo '</ul>';
 }
 
+function fenix_fallback_menu() {
+	echo '<ul class="nav-list">';
+
+	foreach ( fenix_menu_tree() as $item ) {
+		$has_children = ! empty( $item['children'] );
+		echo '<li' . ( $has_children ? ' class="menu-item-has-children"' : '' ) . '>';
+		echo '<a href="' . esc_url( home_url( $item['url'] ) ) . '">' . esc_html( $item['label'] ) . '</a>';
+
+		if ( $has_children ) {
+			echo '<ul class="sub-menu">';
+			foreach ( $item['children'] as $child ) {
+				echo '<li><a href="' . esc_url( home_url( $child['url'] ) ) . '">' . esc_html( $child['label'] ) . '</a></li>';
+			}
+			echo '</ul>';
+		}
+
+		echo '</li>';
+	}
+
+	echo '</ul>';
+}
 function fenix_guide_menu_extra_items() {
 	$items  = '<li class="menu-item menu-item-fenix-open-account"><a href="' . esc_url( home_url( '/open-mt5-account/' ) ) . '">สอนเปิดบัญชี MT5</a></li>';
 	$items .= '<li class="menu-item menu-item-fenix-mt5-login"><a href="' . esc_url( home_url( '/mt5-login-zaurix-server/' ) ) . '">ติดตั้ง MT5 และ Login Zaurix-Server</a></li>';
