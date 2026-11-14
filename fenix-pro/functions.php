@@ -1940,7 +1940,7 @@ function fenix_excerpt_length( $chars = 120, $words = 22 ) {
 }
 
 function fenix_register_seo_meta() {
-	$fields = array( '_yoast_wpseo_title', '_yoast_wpseo_metadesc', '_yoast_wpseo_focuskw', '_yoast_wpseo_canonical', '_elementor_element_cache' );
+	$fields = array( '_yoast_wpseo_title', '_yoast_wpseo_metadesc', '_yoast_wpseo_focuskw', '_yoast_wpseo_canonical', '_elementor_element_cache', '_elementor_css' );
 
 	foreach ( array( 'post', 'page' ) as $type ) {
 		foreach ( $fields as $field ) {
