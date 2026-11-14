@@ -185,9 +185,7 @@ h3 {
 }
 
 .section-alt {
-	background:
-		radial-gradient(900px 320px at 85% -10%, rgba(255, 106, 0, 0.05), transparent 60%),
-		var(--coal);
+	background: var(--coal);
 	border-top: 1px solid var(--border);
 	border-bottom: 1px solid var(--border);
 }
@@ -256,8 +254,9 @@ h3 {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	min-height: 48px;
 	gap: 0.55rem;
-	padding: 0.9rem 1.7rem;
+	padding: 0.75rem 1.7rem;
 	border-radius: 999px;
 	border: 1px solid transparent;
 	font-family: var(--font-display);
@@ -371,8 +370,6 @@ h3 {
 	display: flex;
 	align-items: center;
 	background: rgba(10, 10, 14, 0.78);
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
 	border-bottom: 1px solid transparent;
 	transition: border-color 0.25s ease, background-color 0.25s ease;
 }
@@ -417,10 +414,7 @@ h3 {
 
 .brand-name em {
 	font-style: normal;
-	background: var(--grad-text);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+	color: var(--ember);
 }
 
 .brand-name small {
@@ -643,8 +637,6 @@ h3 {
 	border-radius: 18px;
 	background: rgba(18, 18, 24, 0.98);
 	box-shadow: 0 18px 46px rgba(0, 0, 0, 0.36);
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
 }
 
 .language-switcher-menu a,
@@ -941,7 +933,7 @@ h3 {
 	height: 560px;
 	left: -160px;
 	bottom: -260px;
-	background: radial-gradient(circle, rgba(255, 110, 20, 0.55), transparent 65%);
+	background: none;
 }
 
 .ember-b {
@@ -949,7 +941,7 @@ h3 {
 	height: 640px;
 	right: -200px;
 	top: -240px;
-	background: radial-gradient(circle, rgba(255, 168, 60, 0.34), transparent 65%);
+	background: none;
 }
 
 .hero-candles {
@@ -1204,9 +1196,7 @@ h3 {
 	gap: 12px;
 	padding: 30px;
 	text-align: center;
-	background:
-		radial-gradient(420px 200px at 50% 110%, rgba(255, 106, 0, 0.1), transparent 70%),
-		repeating-linear-gradient(135deg, transparent 0 14px, rgba(255, 255, 255, 0.018) 14px 28px);
+	background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255, 255, 255, 0.018) 14px 28px);
 }
 
 .shot-placeholder .shot-empty img {
@@ -1259,10 +1249,7 @@ h3 {
 	font-size: 2rem;
 	line-height: 1;
 	margin-bottom: 14px;
-	background: var(--grad-text);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+	color: var(--ember);
 }
 
 .step h3 {
@@ -1489,10 +1476,7 @@ h3 {
 	font-weight: 700;
 	font-size: 2rem;
 	line-height: 1.15;
-	background: var(--grad-text);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+	color: var(--ember);
 }
 
 .price-amount span {
@@ -1634,9 +1618,7 @@ h3 {
 
 .risk-box {
 	border: 1px solid rgba(255, 197, 61, 0.35);
-	background:
-		radial-gradient(560px 220px at 12% -30%, rgba(255, 197, 61, 0.09), transparent 70%),
-		var(--coal);
+	background: var(--coal);
 	border-radius: var(--radius-lg);
 	padding: 32px 36px;
 }
@@ -1683,7 +1665,7 @@ h3 {
 	left: 50%;
 	top: 55%;
 	transform: translate(-50%, -50%);
-	background: radial-gradient(circle, rgba(255, 110, 20, 0.3), transparent 62%);
+	background: none;
 }
 
 .cta-inner {
@@ -2036,8 +2018,6 @@ h3 {
 	border-radius: 16px;
 	background: rgba(15, 15, 20, 0.97);
 	box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
-	-webkit-backdrop-filter: blur(12px);
-	backdrop-filter: blur(12px);
 }
 
 .cookie-consent.is-visible {
@@ -2161,8 +2141,6 @@ h3 {
 		border-radius: 20px;
 		background: rgba(13, 13, 19, 0.92);
 		box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-		-webkit-backdrop-filter: blur(18px) saturate(145%);
-		backdrop-filter: blur(18px) saturate(145%);
 		animation: mobile-nav-rise 0.36s cubic-bezier(.2,.9,.25,1) both;
 	}
 
@@ -2256,9 +2234,7 @@ h3 {
 	padding: 72px 0 48px;
 	text-align: center;
 	border-bottom: 1px solid var(--border);
-	background:
-		radial-gradient(700px 260px at 50% -20%, rgba(255, 106, 0, 0.08), transparent 70%),
-		var(--void);
+	background: var(--void);
 }
 
 .page-hero h1 {
@@ -2373,8 +2349,6 @@ h3 {
 	font-size: 0.72rem;
 	font-weight: 600;
 	letter-spacing: 0.03em;
-	-webkit-backdrop-filter: blur(6px);
-	backdrop-filter: blur(6px);
 }
 
 .post-card-more {
@@ -2430,10 +2404,7 @@ h3 {
 	font-size: clamp(5rem, 18vw, 9rem);
 	line-height: 1;
 	letter-spacing: 0.02em;
-	background: var(--grad-text);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+	color: var(--ember);
 }
 
 .error-title {
@@ -3569,9 +3540,7 @@ h1, h2, h3, h4,
 	overflow: hidden;
 	padding: 72px 0 56px;
 	border-bottom: 1px solid var(--border);
-	background:
-		radial-gradient(760px 280px at 50% -30%, rgba(255, 106, 0, 0.08), transparent 70%),
-		var(--void);
+	background: var(--void);
 }
 
 .phero-bg {
@@ -4018,9 +3987,7 @@ h1, h2, h3, h4,
 
 /* ทำให้ section-alt ต่างจากพื้นปกติชัดขึ้น */
 .section-alt {
-	background:
-		radial-gradient(900px 320px at 85% -10%, rgba(255, 106, 0, 0.06), transparent 60%),
-		#0E0E14;
+	background: #16161A;
 }
 
 /* (ค) แถบไฮไลต์ใต้ Hero · จุดดึงสายตาใหม่ */
@@ -4498,16 +4465,12 @@ h1, h2, h3, h4,
 }
 
 .feat-card-1 {
-	background:
-		radial-gradient(360px 220px at 90% 10%, rgba(255, 106, 0, 0.18), transparent 68%),
-		var(--card-bg);
+	background: var(--card-bg);
 }
 
 .feat-card-2,
 .feat-card-6 {
-	background:
-		radial-gradient(320px 190px at 100% 0%, rgba(242, 193, 78, 0.13), transparent 70%),
-		var(--card-bg);
+	background: var(--card-bg);
 }
 
 .feat-card-4 {
@@ -4521,9 +4484,7 @@ h1, h2, h3, h4,
 }
 
 .steps-section {
-	background:
-		radial-gradient(760px 260px at 16% 0%, rgba(242, 193, 78, 0.07), transparent 66%),
-		var(--void);
+	background: var(--void);
 }
 
 .steps-timeline {
@@ -4555,7 +4516,7 @@ h1, h2, h3, h4,
 	right: 0;
 	width: 86px;
 	height: 86px;
-	background: radial-gradient(circle, rgba(255, 106, 0, 0.18), transparent 68%);
+	background: none;
 	pointer-events: none;
 }
 
@@ -5342,9 +5303,7 @@ h1, h2, h3, h4,
 	padding: 34px 24px 26px;
 	border: 1px solid #2A2A31;
 	border-radius: 28px;
-	background:
-		radial-gradient(420px 280px at 50% -30px, rgba(255, 106, 0, 0.17), transparent 70%),
-		#080808;
+	background: #080808;
 	box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
 }
 
@@ -5359,7 +5318,7 @@ h1, h2, h3, h4,
 	overflow: hidden;
 	background: #12121A;
 	border: 1px solid rgba(255, 106, 0, 0.4);
-	box-shadow: 0 0 28px rgba(255, 106, 0, 0.18);
+	box-shadow: none;
 }
 
 .lh-logo img {
