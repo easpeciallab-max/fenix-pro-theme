@@ -337,7 +337,7 @@ function fenix_defaults() {
 		/* --- หน้าแรกชุดใหม่ (พ.ย. 2026) --- */
 		'highlight_versions' => true,
 
-		'show_notus'   => true,
+		'show_notus'   => false,
 		'notus_kicker' => 'Before anything else',
 		'notus_title'  => 'ก่อนอื่น ขอบอกให้ชัดว่าเราไม่ได้ทำอะไร',
 		'notus_sub'    => 'ตลาดนี้มีคนทำเสียหายไว้เยอะ เราเลยขอเริ่มจากสิ่งที่เราไม่ทำ',

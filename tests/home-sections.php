@@ -91,11 +91,11 @@ foreach ( $x->query( '//section[@id]' ) as $sec ) {
 	$ids[] = $sec->getAttribute( 'id' );
 }
 
-$expected = array( 'hero', 'notus', 'about', 'pain', 'how-it-works', 'features', 'fit', 'performance', 'devices', 'own', 'team', 'pricing', 'explore', 'faq', 'risk', 'cta' );
+$expected = array( 'hero', 'about', 'pain', 'how-it-works', 'features', 'fit', 'performance', 'devices', 'own', 'team', 'pricing', 'explore', 'faq', 'risk', 'cta' );
 check( $expected === $ids, 'หัวข้อบนหน้าแรกเรียงตามแผนใหม่: ' . implode( ' > ', $ids ) );
 
 /* ---- หัวข้อที่ยุบแล้วต้องไม่โผล่ ---- */
-foreach ( array( 'system', 'assurance', 'screenshots', 'reviews' ) as $gone ) {
+foreach ( array( 'notus', 'system', 'assurance', 'screenshots', 'reviews' ) as $gone ) {
 	check( ! in_array( $gone, $ids, true ), "หัวข้อ #$gone ถูกยุบแล้ว ไม่แสดงบนหน้าแรก" );
 }
 
@@ -107,10 +107,11 @@ check(
 	'ชิปสุดท้ายดึงเลขเวอร์ชันมาจากชื่อไฟล์ EA จริง'
 );
 
-/* ---- เราไม่ทำอะไร ---- */
-$notus = $x->query( '//section[@id="notus"]//ul[contains(@class,"notus-list")]/li' );
-check( 5 === $notus->length, 'หัวข้อ "เราไม่ทำอะไร" มี 5 ข้อ' );
-check( 5 === $x->query( '//section[@id="notus"]//li/span[contains(@class,"notus-body")]/strong' )->length, 'ทุกข้อมีหัวข้อหนาและคำอธิบายแยกกัน' );
+/* ---- เราไม่ทำอะไร: ปิดไว้ตามที่เจ้าของสั่ง แต่ยังเปิดกลับได้ ---- */
+$xn    = xp( render_front( array( 'show_notus' => true ) ) );
+$notus = $xn->query( '//section[@id="notus"]//ul[contains(@class,"notus-list")]/li' );
+check( 5 === $notus->length, 'เปิดหัวข้อ "เราไม่ทำอะไร" กลับมาได้ และมี 5 ข้อครบ' );
+check( 5 === $xn->query( '//section[@id="notus"]//li/span[contains(@class,"notus-body")]/strong' )->length, 'ทุกข้อมีหัวข้อหนาและคำอธิบายแยกกัน' );
 
 /* ---- EA คืออะไร ---- */
 check( 1 === $x->query( '//section[@id="about"]//figure[contains(@class,"sec-figure")]' )->length, 'หัวข้อ EA คืออะไร มีรูปประกอบ' );
@@ -162,11 +163,11 @@ check( false !== strpos( $html, 'Drawdown สูงสุดที่เคย�
 check( false !== strpos( $html, 'ขาดทุนติดกันหลายเดือน' ), 'มีคำถามว่าถ้าขาดทุนติดกันทีมทำอะไร' );
 
 /* ---- ปิดหัวข้อใหม่ได้ ---- */
-$x3 = xp( render_front( array( 'show_notus' => false, 'show_devices' => false, 'show_own' => false ) ) );
-foreach ( array( 'notus', 'devices', 'own' ) as $sec ) {
+$x3 = xp( render_front( array( 'show_devices' => false, 'show_own' => false ) ) );
+foreach ( array( 'devices', 'own' ) as $sec ) {
 	check( 0 === $x3->query( '//section[@id="' . $sec . '"]' )->length, "ปิดหัวข้อ #$sec จากหลังบ้านได้" );
 }
 
 /* ---- ค่าที่กรอกต้องถูก escape ---- */
-$evil = render_front( array( 'notus_title' => '<script>x</script>' ) );
+$evil = render_front( array( 'show_notus' => true, 'notus_title' => '<script>x</script>' ) );
 check( false === strpos( $evil, '<script>x</script>' ), 'ข้อความจากหลังบ้านถูก escape ก่อนแสดง' );
