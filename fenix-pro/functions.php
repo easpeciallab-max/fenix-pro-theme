@@ -56,7 +56,7 @@ function fenix_assets() {
 
 	wp_enqueue_style(
 		'fenix-fonts',
-		'https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap',
+		'https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap',
 		array(),
 		null
 	);
@@ -70,6 +70,25 @@ function fenix_assets() {
 			'nonce'   => wp_create_nonce( 'fenix_load_more' ),
 		)
 	);
+	if ( is_front_page() && ! is_paged() ) {
+		$home_css = get_template_directory() . '/assets/css/home.css';
+		$home_js  = get_template_directory() . '/assets/js/home.js';
+
+		wp_enqueue_style(
+			'fenix-home',
+			get_template_directory_uri() . '/assets/css/home.css',
+			array( 'fenix-style' ),
+			file_exists( $home_css ) ? filemtime( $home_css ) : FENIX_VERSION
+		);
+		wp_enqueue_script(
+			'fenix-home',
+			get_template_directory_uri() . '/assets/js/home.js',
+			array(),
+			file_exists( $home_js ) ? filemtime( $home_js ) : FENIX_VERSION,
+			true
+		);
+	}
+
 	if ( fenix_mod( 'ga_measurement_id' ) || fenix_mod( 'fb_pixel_id' ) ) {
 		wp_localize_script(
 			'fenix-main',
@@ -165,6 +184,10 @@ function fenix_uses_elementor_page_template( $post_id = null ) {
 function fenix_body_classes( $classes ) {
 	if ( is_page() && fenix_is_elementor_page( get_queried_object_id() ) ) {
 		$classes[] = 'fenix-has-elementor';
+	}
+
+	if ( is_front_page() && ! is_paged() ) {
+		$classes[] = 'fenix-home';
 	}
 
 	return $classes;
@@ -365,7 +388,7 @@ function fenix_defaults() {
 		'prof3_title' => 'คนที่มีพอร์ตอยู่แล้ว อยากแบ่งส่วนให้ระบบทำ',
 		'prof3_desc'  => 'ไม่ได้จะทิ้งวิธีเดิม แต่อยากมีอีกส่วนที่ทำงานตามกฎทุกวันโดยไม่ใช้อารมณ์',
 
-		'perf_conditions' => '',
+		'perf_conditions' => 'ผลทดสอบย้อนหลังใน MT5 · XAUUSD.c โบรก ZAURIX LTD. · M1 · Every Tick Based On Real Ticks · Leverage 1:2000 · โหมดเดียว FENIX STANDARD ขั้นละ 1 ไม้ · ช่วง 15 ม.ค. – 3 มิ.ย. 2569 MT5 จำลองราคาจากแท่ง 1 นาที · ตัวกรองข่าวแดงไม่ได้ทำงาน (บัญชีจริงผลต่างจากนี้ได้) · ไม่มีการตัดขาดทุนอัตโนมัติ · ค่าของโหมดนี้คัดจากผลทดสอบบนช่วงเวลาเดียวกัน ผลช่วงนี้จึงดีกว่าที่ควรคาดหวังในช่วงเวลาอื่น',
 		'verify_title'    => 'ตรวจสอบเราเองได้ยังไง',
 		'verify_items'    => "กดลิงก์ Myfxbook ด้านบน แล้วดูว่าเป็นหน้าเว็บจริง ไม่ใช่ภาพถ่ายหน้าจอ\nดูว่ามีตรา Verified ครบสองอัน ทั้ง Track Record และ Trading Privileges\nเทียบค่า Gain กับ Absolute Gain ถ้าต่างกันมาก แปลว่ามีการฝาก-ถอนทำให้ตัวเลขเพี้ยน\nไล่ดูเดือนที่ขาดทุนด้วย ระบบที่มีแต่เดือนกำไรคือสิ่งที่ควรสงสัย\nดูชื่อเซิร์ฟเวอร์โบรกเกอร์ว่าเป็นโบรกจริง ไม่ใช่ชื่อ Other MT5",
 
@@ -455,7 +478,7 @@ function fenix_defaults() {
 		'show_steps'     => true,
 		'steps_kicker'   => 'Workflow',
 		'steps_title'    => 'เริ่มใช้งานใน 4 ขั้นตอน',
-		'steps_subtitle' => 'เราแนะนำให้ผ่านสามด่านนี้ตามลำดับ ไม่ควรข้าม',
+		'steps_subtitle' => 'เราแนะนำให้ผ่านทั้ง 4 ด่านนี้ตามลำดับ ไม่ควรข้าม',
 		'step1_title'    => 'ติดตั้ง MT5',
 		'step1_desc'     => 'เตรียมบัญชีเทรดและติดตั้งแพลตฟอร์ม MetaTrader 5 บนเครื่องหรือ VPS',
 		'step2_title'    => 'ติดตั้ง FENIX PRO EA',
@@ -494,7 +517,8 @@ function fenix_defaults() {
 		'fit_good_title' => 'เหมาะกับ',
 		'fit_good_items' => "คนที่อยากเทรดอย่างเป็นระบบ มีแบบแผนชัดเจน\nคนที่ต้องการลดการใช้อารมณ์ในการเทรด\nคนที่เข้าใจว่าการเทรดมีความเสี่ยง\nคนที่มีเวลาเรียนรู้การตั้งค่าระบบ\nคนที่มองว่า EA คือเครื่องมือช่วย ไม่ใช่เครื่องการันตีกำไร",
 		'fit_bad_title'  => 'ถ้าคุณเป็นแบบนี้ อย่าเพิ่งใช้',
-		'fit_bad_items'  => "คนที่หวังกำไรเร็วหรือรวยทางลัด\nคนที่รับความเสี่ยงและการขาดทุนไม่ได้\nคนที่ไม่ต้องการศึกษาการใช้งานเลย\nคนที่คิดว่า EA จะทำเงินให้ได้ตลอดเวลา\nคนที่ไม่ได้ใช้เงินเย็นในการเทรด",
+		'fit_bad_items'  => "คนที่มีทุนน้อยกว่า 10,000 USD
+คนที่หวังกำไรเร็วหรือรวยทางลัด\nคนที่รับความเสี่ยงและการขาดทุนไม่ได้\nคนที่ไม่ต้องการศึกษาการใช้งานเลย\nคนที่คิดว่า EA จะทำเงินให้ได้ตลอดเวลา\nคนที่ไม่ได้ใช้เงินเย็นในการเทรด",
 
 		/* แพ็กเกจ */
 		'show_pricing'     => true,
@@ -771,6 +795,161 @@ function fenix_defaults() {
 			'blog_title'     => 'บทความและความรู้',
 			'blog_subtitle'  => 'รวมบทความเกี่ยวกับ EA การเทรดอัตโนมัติ และการบริหารความเสี่ยงบน MetaTrader 5',
 			'blog_all_label' => 'ดูบทความทั้งหมด',
+
+			/* ===== หน้าแรกดีไซน์ใหม่ (อนุมัติ 16 พ.ย. 2026) ===== */
+
+			/* 01 · Hero */
+			'hero_pill_tag'     => 'NEW',
+			'hero_pill_prefix'  => 'เวอร์ชันล่าสุด',
+			'hero_mini1_value'  => '3 ตัว',
+			'hero_mini1_label'  => 'EA ในชุด',
+			'hero_mini2_value'  => 'MT5',
+			'hero_mini2_label'  => 'แพลตฟอร์มเดียว',
+			'hero_mini3_value'  => '24 ชม.',
+			'hero_mini3_label'  => 'เมื่อรันบน VPS',
+			'hero_status_text'  => 'กำลังเฝ้ากราฟ',
+			'hero_toast_title'  => 'เงื่อนไขครบ ส่งคำสั่ง',
+			'hero_toast_text'   => 'ตามแผนที่ตั้งไว้ ไม่ลังเล',
+			'hero_proof_top'    => 'ผลทดสอบย้อนหลัง 9 เดือน · PLUS 5.1',
+			'hero_proof_value'  => '+513.3%',
+			'hero_proof_bottom' => 'ทุน 10,000 USD · DRAWDOWN สูงสุด 46.49%',
+
+			'features_kicker' => 'Key features',
+			'pricing_kicker'  => 'Pricing',
+			'explore_kicker'  => 'Explore',
+			'blog_read_more'  => 'อ่านต่อ',
+
+			/* 02 · EA ในชุด */
+			'show_products'     => true,
+			'products_kicker'   => 'Products',
+			'products_title'    => 'EA ในชุด FENIX PRO',
+			'products_sub'      => 'ทุกตัวทำงานบน MetaTrader 5 และตั้งค่าความเสี่ยงเองได้ทุกตัว ดูผลทดสอบของแต่ละเวอร์ชันก่อนเลือกใช้',
+			'prod_badge_latest' => 'ล่าสุด',
+			'prod_badge_other'  => 'เวอร์ชัน',
+			'prod_plus_spec1'   => 'สไตล์ | Balanced Grid',
+			'prod_plus_spec2'   => 'ผลทดสอบ | ทองคำ XAUUSD',
+			'prod_fast_spec1'   => 'สไตล์ | Two-way Grid',
+			'prod_fast_spec2'   => 'ตั้งค่า | เลือกคูณ Lot ได้',
+			'prod_card3_spec1'  => 'สไตล์ | Bitcoin Grid',
+			'prod_card3_spec2'  => 'ตลาด | Bitcoin',
+
+			/* 03 · EA คืออะไร */
+			'about_kicker'      => 'About',
+			'about_bold'        => 'เลือกแผนและกำหนดว่ารับความเสี่ยงได้แค่ไหน',
+			'about_chart_pair'  => 'XAUUSD',
+			'about_chart_note'  => 'M15 · ภาพประกอบ',
+			'about_chart_run'   => 'EA กำลังทำงาน',
+
+			/* 04 · ปัญหา */
+			'pain_kicker'    => 'The problem',
+			'pain_day_title' => '24 ชั่วโมงของคุณ กับ 24 ชั่วโมงของ EA',
+			'pain_day_you'   => "7 | หลับ\n2 | เดินทาง\n9 | ทำงาน · ประชุม · ติดธุระ\n2 | กิน[ข้าว]\n+ 2 | ดูจอ[ได้]\n2 | หลับ",
+			'pain_day_ea'    => 'เฝ้ากราฟตลอดเวลา [— เมื่อเปิดเครื่องหรือรันบน VPS]',
+			'pain_day_note1' => 'เวลาที่คุณดูจอได้จริงในหนึ่งวัน',
+			'pain_day_note2' => 'เวลาที่ EA ทำงานตามแผน',
+			'pain_chk_title' => 'ติ๊กข้อที่ตรงกับคุณ',
+			'pain_chk_zero'  => 'ลองติ๊กข้อที่ตรงกับคุณ',
+			'pain_chk_res'   => 'ติ๊กไป {n} จาก {total} ข้อ — ลองดูว่าการให้ระบบทำตามแผนต่างจากการเทรดเองตรงไหน',
+			'pain_chk_btn'   => 'เทียบให้ดู',
+
+			/* 05 · เทรดเอง vs ใช้ EA */
+			'show_vs'         => true,
+			'vs_kicker'       => 'Side by side',
+			'vs_title'        => 'เทรดเอง vs ให้ FENIX PRO EA ทำตามแผน',
+			'vs_sub'          => 'เทียบกันตรง ๆ ทีละเรื่อง รวมถึงเรื่องที่ EA เปลี่ยนให้ไม่ได้',
+			'vs_left_label'   => 'เทรดเอง',
+			'vs_right_label'  => 'ใช้ FENIX PRO EA',
+			'vs_rows'         => "การเข้าออเดอร์ | กลัวตกรถ รีบเข้า รีบออก | เข้าและออกตามเงื่อนไขที่กำหนดไว้ล่วงหน้า\nเวลาเฝ้าจอ | ต้องนั่งดูเอง พลาดจังหวะตอนติดธุระ | ระบบเฝ้ากราฟให้ เมื่อเปิดเครื่องหรือใช้ VPS\nขนาดไม้ | บางครั้งเทรดใหญ่เกินไป | เลือกตัวคูณ Lot ได้ตามทุนที่รับได้\nวินัย | พอกราฟวิ่งจริงกลับเปลี่ยนใจกลางทาง | ทำตามแผนอย่างเคร่งครัด ไม่ต่อรองกับตัวเอง\nการติดตามผล | ต้องเปิด MT5 ไล่ดูเอง | ดูสถานะ กำไร/ขาดทุน ผ่าน Dashboard หน้าเดียว",
+			'vs_risk_row'     => 'ความเสี่ยงของตลาด | มีอยู่เสมอ | ยังมีอยู่เหมือนเดิม — EA ไม่ได้ทำให้ความเสี่ยงหายไป',
+
+			/* 06 · ขั้นตอน */
+			'steps_hl'       => '3',
+			'step1_pic'      => 'ติดตั้งเสร็จ · LOGIN แล้ว',
+			'step2_pic'      => 'FENIX-PLUS.ex5',
+			'step2_pic2'     => 'EA ติดบนกราฟแล้ว',
+			'step3_pic'      => 'รันด้วยเงินสมมติก่อน',
+			'step4_pic'      => 'ขนาดไม้: เริ่มจากเล็กสุด',
+
+			/* 07 · จุดเด่น */
+			'feat1_log'      => "02:14 | เงื่อนไขครบ | ส่งคำสั่งตามแผน\n09:41 | ถึงจุดปิดตามกฎ | ปิดไม้\n21:05 | เงื่อนไขยังไม่ครบ | รอต่อ",
+			'feat4_chips'    => "Lot\nStop Loss\nDrawdown",
+			'feat5_ring'     => '24 | ชั่วโมง · VPS',
+			'feat6_lots'     => 'เล็กสุด | ตัวคูณ Lot | ใหญ่',
+
+			/* 08 · Dashboard */
+			'show_dash'   => true,
+			'dash_kicker' => 'Dashboard',
+			'dash_title'  => 'ดูทุกอย่างได้ในหน้าจอเดียว',
+			'dash_sub'    => 'หลังติดตั้ง คุณติดตามบัญชี MT5 ทุกบัญชีผ่าน Dashboard ได้ทั้งบนคอมและมือถือ ไม่ต้องเปิด MT5 ไล่ดูเอง',
+			'dash_host'   => 'dashboard.fenixpro-th.com',
+			'dash_menu'   => "ภาพรวม\nบัญชี MT5\nเลือก EA\nปฏิทินผลเทรด\nออเดอร์\nประวัติและผลการเทรด\nปฏิทินข่าว\nการแจ้งเตือน\nตั้งค่า",
+			'dash_items'  => "wallet | ยอดเงินและกำไร/ขาดทุน | รายวัน สัปดาห์ เดือน ของทุกบัญชีรวมกัน\ngauge | Drawdown เทียบเพดาน | เห็นทันทีว่าใกล้เพดานความเสี่ยงที่ตั้งไว้หรือยัง\nactivity | สถานะ EA แบบสด | รู้ว่า EA กำลังรันอยู่จริง และเชื่อมต่อ MT5 ปกติ\nshield | ตัวกรองข่าวแรง | ดูปฏิทินข่าวและสถานะ News Guard ในที่เดียว\nbell | การแจ้งเตือน + ปฏิทินผลเทรด | ย้อนดูผลทีละวัน และรับแจ้งเตือนเมื่อมีเหตุการณ์สำคัญ",
+			'dash_news'   => 'ตัวกรองข่าวแรง (News Guard) | EA งดเปิดรอบใหม่ช่วงข่าวแรงตามปฏิทินข่าว',
+			'dash_note'   => 'ตัวเลขในภาพเป็นตัวอย่างประกอบ ไม่ใช่ผลของบัญชีจริง',
+			'dash_image'  => '',
+
+			/* 09 · เหมาะกับใคร */
+			'fit_kicker'   => 'Honest check',
+			'fit_stamp'    => 'เหมาะ',
+			'fit_ask_text' => 'ไม่แน่ใจว่าตัวเองอยู่กลุ่มไหน? ทัก LINE ให้ทีมช่วยประเมินก่อนตัดสินใจได้',
+			'fit_ask_btn'  => 'ทัก LINE',
+
+			/* 10 · ผลการทดสอบ */
+			'ev_tab1'      => 'Backtest',
+			'ev_tab2'      => 'Forward Test · เรียลไทม์',
+			'ev_chips'     => "FENIX PLUS 5.1\nโหมด FENIX STANDARD\nทองคำ XAUUSD.c\nย้อนหลัง 9 เดือน",
+			'ev_big'       => '+513.3%',
+			'ev_sub'       => 'กำไรสุทธิ {b} เทียบเงินตั้งต้น 10,000 USD · 1 ม.ค. – 30 ก.ย. 2569',
+			'ev_sub_bold'  => '+51,333.78',
+			'ev_kpis'      => "เงินตั้งต้น | 10,000 | ทุนคิดไม้ 10,000\nProfit Factor | 2.30 | เดือนที่กำไร 9 / 9\nจำนวนไม้ | 2,028 | ยอดเงินสุดท้าย 61,334",
+			'ev_risk_kpis' => "ติดลบลอยตัวสูงสุด (เป็นเงิน) | 9,507.42 | = 95% ของเงินตั้งต้น\nDrawdown สูงสุดจากยอดสูงสุด | 46.49% | ครั้งที่เงินในบัญชีลดจากยอดสูงสุดมากที่สุด",
+			'ev_bars_title' => 'กำไรรายเดือน',
+			'ev_bars_unit'  => '(% ของเงินตั้งต้น 10,000)',
+			'ev_bars_note'  => 'พื้นเทา = เดือนที่ราคาเป็นแบบจำลองเกินครึ่งเดือน',
+			'ev_bars'       => "ม.ค. | 42 | sim\nก.พ. | 49 | sim\nมี.ค. | 67 | sim\nเม.ย. | 52 | sim\nพ.ค. | 53 | sim\nมิ.ย. | 66\nก.ค. | 55\nส.ค. | 66\nก.ย. | 65",
+			'ev_stamp'      => 'Verify yourself',
+			'ev_fw_text'    => 'แท็บนี้ลิงก์ออกไปดูบัญชีจริงแบบเรียลไทม์บน Myfxbook ตรวจตรา Verified และเทียบค่า Gain กับ Absolute Gain ได้เองตามขั้นตอนด้านขวา',
+
+			/* 11 · เสียงจากผู้ใช้งาน (เปิดเมื่อมีภาพแชตจริงที่ได้รับอนุญาต) */
+			'show_rv'   => false,
+			'rv_kicker' => 'From users',
+			'rv_sub'    => 'ภาพแชตจากกลุ่มผู้ใช้งาน FENIX PRO EA ทาง LINE',
+			'rv_group'  => 'กลุ่มผู้ใช้ FENIX PRO',
+			'rv_img1'   => '',
+			'rv_img2'   => '',
+			'rv_img3'   => '',
+			'rv_note'   => 'ใช้เฉพาะภาพแชตจริงที่ได้รับอนุญาตจากผู้ใช้งาน ผลของแต่ละคนขึ้นอยู่กับทุน การตั้งค่า และสภาวะตลาด',
+
+			/* 12 · ใช้กับอะไรได้บ้าง */
+			'dev1_items' => "+ รัน EA ได้เต็มรูปแบบ\n! ต้องเปิดเครื่องทิ้งไว้",
+			'dev2_items' => "+ รัน EA ได้ตลอด 24 ชั่วโมง\n+ ไม่ต้องเปิดคอมเอง",
+			'dev3_items' => "+ ดูสถานะพอร์ต / ปิดไม้เองได้\n- รัน EA ไม่ได้",
+
+			/* 13 · ทีมงาน */
+			'team_btn1'         => 'ทัก LINE ปรึกษาก่อนตัดสินใจ',
+			'team_btn2'         => 'คัดลอกข้อความตัวอย่าง',
+			'team_chat_head'    => 'FENIX PRO EA',
+			'team_chat_sub'     => 'LINE Official Account',
+			'team_sample_title' => 'ขอประเมินความเหมาะสมครับ',
+			'team_sample_lines' => "ทุนที่ต้องการใช้: ____ USD\nโบรกและประเภทบัญชี MT5: ____\nเป้าหมาย: ติดตั้ง / สอบถามราคา / ตรวจความเหมาะสม\nเวลาที่สะดวกให้ติดต่อกลับ: ____",
+			'team_copy_cap'     => 'ข้อความตัวอย่างสำหรับคัดลอกไปทัก',
+			'team_copy_done'    => 'คัดลอกแล้ว',
+
+			/* 14 · แพ็กเกจ */
+			'pkg_featured_label' => 'แนะนำ',
+			'pricing_more'       => 'ดูรายละเอียดแพ็กเกจทั้งหมด',
+
+			/* 16 · คำถามที่พบบ่อย */
+			'faq_kicker'    => 'FAQ',
+			'faq_search_ph' => 'ค้นหาคำถาม เช่น ทุนเริ่มต้น, VPS',
+			'faq_empty'     => 'ไม่พบคำถามที่ตรงกับคำค้นนี้ ทัก LINE ถามทีมงานได้เลย',
+			'faq_ask_title' => 'ไม่เจอคำถามของคุณ?',
+			'faq_ask_text'  => 'ทัก LINE ถามทีมงานได้โดยตรง',
+
+			/* 18 · CTA ปิดท้าย + คำเตือน */
+			'cta_btn2_text'   => 'ไปหน้าดาวน์โหลด EA',
+			'cta_watermark'   => 'FENIX PRO',
+			'risk_link_label' => 'อ่านคำเตือนความเสี่ยงฉบับเต็ม',
 		)
 	);
 
@@ -1226,6 +1405,173 @@ function fenix_download_version_badge( $url, $override, $pos = 'under' ) {
 /**
  * อ่านค่า theme mod พร้อม fallback เป็นค่าเริ่มต้น
  */
+/* --------------------------------------------------------------
+ * ตัวช่วยของหน้าแรก (ดีไซน์ที่อนุมัติ 16 พ.ย. 2026)
+ * -------------------------------------------------------------- */
+
+/**
+ * แตกข้อมูลตารางจาก textarea ที่คั่นด้วย | บรรทัดละ 1 แถว
+ * บรรทัดที่เริ่มด้วย ! คือแถวเตือน (คืนค่า flag = '!')
+ */
+function fenix_rows( $text, $cols = 0 ) {
+	$rows = array();
+
+	foreach ( fenix_lines( $text ) as $line ) {
+		$flag = '';
+		$line = trim( $line );
+
+		if ( '' !== $line && in_array( $line[0], array( '!', '+', '-' ), true ) ) {
+			$flag = $line[0];
+			$line = trim( substr( $line, 1 ) );
+		}
+
+		$cells = array_map( 'trim', explode( '|', $line ) );
+
+		if ( $cols > 0 ) {
+			$cells = array_pad( array_slice( $cells, 0, $cols ), $cols, '' );
+		}
+
+		$rows[] = array(
+			'flag'  => $flag,
+			'cells' => $cells,
+		);
+	}
+
+	return $rows;
+}
+
+/**
+ * ข้อความที่ซ่อนบางคำบนมือถือ เขียนในวงเล็บเหลี่ยม เช่น กิน[ข้าว]
+ * คืนค่า HTML ที่ escape แล้ว (ส่วนที่อยู่ในวงเล็บห่อด้วย span.hm)
+ */
+function fenix_hm( $text ) {
+	$parts = preg_split( '/(\[[^\]]*\])/u', (string) $text, -1, PREG_SPLIT_DELIM_CAPTURE );
+	$out   = '';
+
+	foreach ( (array) $parts as $part ) {
+		if ( '' === $part ) {
+			continue;
+		}
+		if ( '[' === $part[0] ) {
+			$out .= '<span class="hm">' . esc_html( trim( $part, '[]' ) ) . '</span>';
+			continue;
+		}
+		$out .= esc_html( $part );
+	}
+
+	return $out;
+}
+
+/**
+ * ชื่อ+เวอร์ชัน EA ทุกตัวในชุด เช่น "PLUS 5.1 · DUAL 6.3 · BTC 1.1"
+ * ดึงจากไฟล์ที่ตั้งไว้หน้า /go/ จุดเดียว แก้ไฟล์แล้วหน้าแรกเปลี่ยนตาม
+ * $full = true จะคงคำว่า FENIX ไว้ด้วย
+ */
+function fenix_home_versions( $full = false ) {
+	$out = array();
+
+	foreach ( fenix_hero_deck_cards() as $card ) {
+		$name = $full ? $card['name'] : trim( preg_replace( '/^FENIX\s+/i', '', $card['name'] ) );
+
+		if ( '' === $name ) {
+			continue;
+		}
+
+		$out[] = '' !== $card['version'] ? $name . ' ' . $card['version'] : $name;
+	}
+
+	return $out;
+}
+
+/**
+ * ชุดแท่งเทียนแบบล็อกค่า (ไม่สุ่มใหม่ทุกครั้ง) ตามต้นแบบที่อนุมัติ
+ * drift รับเลขลำดับแท่ง คืนค่าการเปลี่ยนแปลงราคา
+ */
+function fenix_candle_series( $seed, $count, $drift ) {
+	$state = (int) $seed;
+	$price = 100.0;
+	$out   = array();
+
+	$rand = function () use ( &$state ) {
+		$state = ( $state * 16807 ) % 2147483647;
+		return $state / 2147483647;
+	};
+
+	for ( $i = 0; $i < $count; $i++ ) {
+		$open  = $price;
+		$close = $open + call_user_func( $drift, $i ) + ( $rand() - 0.5 ) * 2.4;
+		$high  = max( $open, $close ) + $rand() * 1.3;
+		$low   = min( $open, $close ) - $rand() * 1.3;
+
+		$out[] = array(
+			'o' => $open,
+			'c' => $close,
+			'h' => $high,
+			'l' => $low,
+		);
+
+		$price = $close;
+	}
+
+	return $out;
+}
+
+/**
+ * วาดแท่งเทียนเป็น SVG นิ่ง (ไม่ต้องรัน JS)
+ * คืน array: svg = แท่งเทียน, x/y = ฟังก์ชันหาพิกัด, step = ความกว้างต่อแท่ง
+ */
+function fenix_candles( $series, $w, $h, $pad, $args = array() ) {
+	$lows  = array();
+	$highs = array();
+
+	foreach ( $series as $candle ) {
+		$lows[]  = $candle['l'];
+		$highs[] = $candle['h'];
+	}
+
+	$lo    = min( $lows );
+	$hi    = max( $highs );
+	$span  = ( $hi - $lo ) > 0 ? ( $hi - $lo ) : 1;
+	$inner = $h - $pad['t'] - $pad['b'];
+	$step  = ( $w - $pad['l'] - $pad['r'] ) / max( 1, count( $series ) );
+
+	$y = function ( $value ) use ( $pad, $hi, $span, $inner ) {
+		return round( $pad['t'] + ( $hi - $value ) / $span * $inner, 2 );
+	};
+
+	$x = function ( $i ) use ( $pad, $step ) {
+		return round( $pad['l'] + $i * $step + $step / 2, 2 );
+	};
+
+	$svg  = '';
+	$wick = isset( $args['wick'] ) ? $args['wick'] : 1.5;
+
+	if ( ! empty( $args['grid'] ) ) {
+		for ( $g = 0; $g < 5; $g++ ) {
+			$gy = round( $pad['t'] + $g * $inner / 4, 2 );
+			$svg .= '<line x1="0" x2="' . $w . '" y1="' . $gy . '" y2="' . $gy . '" stroke="#202026" stroke-width="1"/>';
+		}
+	}
+
+	foreach ( $series as $i => $candle ) {
+		$up   = $candle['c'] >= $candle['o'];
+		$col  = $up ? '#22C55E' : '#EF4444';
+		$bw   = round( max( 2, $step * 0.56 ), 2 );
+		$cx   = $x( $i );
+		$top  = min( $y( $candle['o'] ), $y( $candle['c'] ) );
+		$body = round( max( 1.5, abs( $y( $candle['o'] ) - $y( $candle['c'] ) ) ), 2 );
+
+		$svg .= '<line x1="' . $cx . '" x2="' . $cx . '" y1="' . $y( $candle['h'] ) . '" y2="' . $y( $candle['l'] ) . '" stroke="' . $col . '" stroke-width="' . $wick . '"/>';
+		$svg .= '<rect x="' . round( $cx - $bw / 2, 2 ) . '" y="' . $top . '" width="' . $bw . '" height="' . $body . '" rx="1" fill="' . $col . '"/>';
+	}
+
+	return array(
+		'svg'  => $svg,
+		'x'    => $x,
+		'y'    => $y,
+		'step' => $step,
+	);
+}
 function fenix_mod( $key ) {
 	$defaults = fenix_defaults();
 	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
@@ -1839,6 +2185,28 @@ function fenix_icon( $name, $class = 'icon' ) {
 		'apple'    => '<path d="M16.6 13.1c0-2.1 1.7-3.1 1.8-3.2-1-1.5-2.5-1.7-3-1.7-1.3-.1-2.5.7-3.1.7-.7 0-1.7-.7-2.8-.7-1.5 0-2.9.9-3.6 2.2-1.6 2.7-.4 6.6 1.1 8.8.7 1.1 1.6 2.3 2.8 2.2 1.1 0 1.5-.7 2.8-.7 1.3 0 1.7.7 2.8.7 1.2 0 1.9-1.1 2.6-2.2.8-1.2 1.1-2.3 1.2-2.4-.1 0-2.6-1-2.6-3.7z"/><path d="M14.7 5.9c.6-.8 1-1.8.9-2.9-.9.1-1.9.6-2.5 1.3-.6.7-1.1 1.7-.9 2.8.9.1 1.9-.5 2.5-1.2z"/>',
 		'macos'    => '<rect x="4" y="4.5" width="16" height="11" rx="1.8"/><path d="M8.5 19.5h7"/><path d="M12 15.5v4"/><path d="M9.8 9.7c-.45 0-.82-.37-.82-.83 0-.45.37-.82.82-.82"/><path d="M14.2 9.7c.45 0 .82-.37.82-.83 0-.45-.37-.82-.82-.82"/><path d="M9.9 12.1c1.2.75 3 .75 4.2 0"/>',
 		'users'    => '<path d="M16.5 19.5c0-2.1-1.8-3.8-4.5-3.8s-4.5 1.7-4.5 3.8"/><circle cx="12" cy="9" r="3.2"/><path d="M20.5 18.5c0-1.7-1.2-3-3-3.4"/><path d="M16.8 6.3a2.6 2.6 0 0 1 0 5.1"/><path d="M3.5 18.5c0-1.7 1.2-3 3-3.4"/><path d="M7.2 6.3a2.6 2.6 0 0 0 0 5.1"/>',
+
+		'chev'     => '<path d="m6 9 6 6 6-6"/>',
+		'down'     => '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+		'user'     => '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+		'zap'      => '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+		'eye'      => '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+		'activity' => '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+		'plus'     => '<path d="M5 12h14M12 5v14"/>',
+		'minus'    => '<path d="M5 12h14"/>',
+		'heart'    => '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+		'pie'      => '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',
+		'brief'    => '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+		'search'   => '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+		'file'     => '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/>',
+		'image'    => '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/>',
+		'copy'     => '<rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+		'spark'    => '<path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/>',
+		'lock'     => '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+		'plusbox'  => '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/>',
+		'list'     => '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+		'cal'      => '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+		'bell'     => '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
 	);
 
 	// แบรนด์ไอคอน LINE (โลโก้จริง) · เป็น path แบบ fill ไม่ใช่ stroke จึง render แยก.

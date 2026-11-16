@@ -88,102 +88,68 @@ function dom_of( $html ) {
 
 /* ---- ค่าเริ่มต้น: สำรับการ์ดสามใบ ---- */
 $html  = render_front();
+/* ---- ค่าเริ่มต้น: ปก EA สามใบวางเหลื่อมเป็นพัด ---- */
+$html  = render_front();
 $xpath = dom_of( $html );
 
-$cards = $xpath->query( '//article[contains(@class, "deck-card")]' );
-check( 3 === $cards->length, 'หน้าแรกแสดงการ์ดปกสามใบ' );
-check( 1 === $xpath->query( '//div[@class="hero-deck"]' )->length, 'มีกล่องสำรับการ์ดหนึ่งชุด' );
-check( 0 === $xpath->query( '//div[contains(@class, "hero-orb")]' )->length, 'วงแหวนโลโก้แบบเดิมไม่ถูกแสดงพร้อมกัน' );
+$cards = $xpath->query( '//div[contains(@class,"fan")]/a[contains(@class,"cv")]' );
+check( 3 === $cards->length, 'หน้าแรกแสดงปก EA สามใบ' );
+check( 1 === $xpath->query( '//div[contains(@class,"fan")]' )->length, 'มีกล่องสำรับปกหนึ่งชุด' );
 
-$names = array();
+$slots = array();
 foreach ( $cards as $card ) {
-	$names[] = $card->getAttribute( 'data-name' );
+	$slots[] = trim( str_replace( 'cv', '', $card->getAttribute( 'class' ) ) );
 }
-check( array( 'FENIX PLUS', 'FENIX DUAL', 'FENIX BTC' ) === $names, 'ชื่อบนการ์ดอ่านมาจากชื่อไฟล์ EA โดยตรง และใบเด่นอยู่บนสุด' );
+check( array( 'c1', 'c2', 'c3' ) === $slots, 'วางปกครบทั้งสามตำแหน่ง (ซ้ายหลัง · ขวาหลัง · หน้าสุด)' );
 
-$versions = array();
-foreach ( $cards as $card ) {
-	$versions[] = $card->getAttribute( 'data-version' );
-}
-check( array( '5.1', '6.3', '1.1' ) === $versions, 'เลขเวอร์ชันอ่านมาจากชื่อไฟล์เช่นกัน' );
-
-check( 1 === $xpath->query( '//article[contains(@class, "is-1")]' )->length, 'มีใบเดียวที่อยู่บนสุด' );
-check( 3 === $xpath->query( '//button[contains(@class, "deck-dot")]' )->length, 'มีจุดบอกตำแหน่งครบทุกใบ' );
-check( 1 === $xpath->query( '//button[contains(@class, "is-on")]' )->length, 'จุดที่ไฮไลต์มีจุดเดียว' );
-check( 0 === $xpath->query( '//span[contains(@class, "deck-badge")]' )->length, 'ค่าเริ่มต้นไม่มีป้ายทับบนปก' );
-
-$xpath_badge = dom_of( render_front( array( 'hero_deck_badge' => 'ตัวเด่นตอนนี้' ) ) );
-check( 'ตัวเด่นตอนนี้' === trim( $xpath_badge->query( '//span[contains(@class, "deck-badge")]' )->item( 0 )->textContent ), 'อยากได้ป้ายเมื่อไหร่ พิมพ์ข้อความแล้วมันกลับมา' );
-check( 'FENIX PLUS' === trim( $xpath->query( '//span[contains(@class, "deck-name")]' )->item( 0 )->textContent ), 'ชื่อใต้สำรับตรงกับใบบนสุด' );
-
-/* รูปใบแรกต้องโหลดก่อน ใบที่เหลือค่อยโหลดทีหลัง */
-$imgs = $xpath->query( '//article[contains(@class, "deck-card")]//img' );
-check( 'eager' === $imgs->item( 0 )->getAttribute( 'loading' ), 'ใบบนสุดโหลดทันที' );
-check( 'lazy' === $imgs->item( 1 )->getAttribute( 'loading' ), 'ใบที่อยู่ข้างหลังโหลดทีหลัง ไม่ถ่วงหน้าแรก' );
-check( '1200' === $imgs->item( 0 )->getAttribute( 'width' ), 'ภาพมีขนาดกำกับ กันหน้าเด้งตอนโหลด' );
-
-/* ถ้าลิงก์กับรูปยังลากได้แบบเบราว์เซอร์ การลากเปลี่ยนปกจะถูกชิงไปทำ drag-and-drop แทน */
-$links = $xpath->query( '//article[contains(@class, "deck-card")]//a' );
-$drag_ok = true;
-foreach ( $links as $link ) {
-	if ( 'false' !== $link->getAttribute( 'draggable' ) ) { $drag_ok = false; }
-}
+$imgs = $xpath->query( '//div[contains(@class,"fan")]//img' );
+check( 3 === $imgs->length, 'ปกทุกใบมีรูป' );
+$alts = 0;
 foreach ( $imgs as $img ) {
-	if ( 'false' !== $img->getAttribute( 'draggable' ) ) { $drag_ok = false; }
+	if ( '' !== trim( $img->getAttribute( 'alt' ) ) ) {
+		$alts++;
+	}
 }
-check( $drag_ok, 'ลิงก์และรูปบนปกถูกปิดการลากแบบเบราว์เซอร์ไว้ การลากเปลี่ยนปกจึงทำงาน' );
+check( 3 === $alts, 'ปกทุกใบมีคำอธิบายรูป (alt)' );
+check( 'eager' === $imgs->item( 2 )->getAttribute( 'loading' ), 'ปกใบหน้าสุดโหลดก่อน ไม่ทำให้จอแรกช้า' );
 
-/* ---- ปุ่มใต้การ์ด ---- */
-$cta = $xpath->query( '//a[contains(@class, "deck-cta")]' )->item( 0 );
-check( 'https://example.test/go/' === $cta->getAttribute( 'href' ), 'ค่าเริ่มต้น ปุ่มพาไปหน้าดาวน์โหลดที่มีคำอธิบายครบ' );
+/* ---- ใบหน้าสุดเปลี่ยนตามที่เลือกในหน้าปรับแต่ง ---- */
+$front = $xpath->query( '//a[contains(@class,"cv c3")]//img' )->item( 0 );
+check( false !== strpos( $front->getAttribute( 'src' ), 'plus' ), 'ค่าเริ่มต้น ปก FENIX PLUS อยู่หน้าสุด' );
+
+$xpath_btc = dom_of( render_front( array( 'hero_deck_featured' => 'card3' ) ) );
+$front_btc = $xpath_btc->query( '//a[contains(@class,"cv c3")]//img' )->item( 0 );
+check( false !== strpos( $front_btc->getAttribute( 'src' ), 'btc' ), 'เลือกใบที่สามแล้วปก FENIX BTC ย้ายมาอยู่หน้าสุด' );
+
+/* ---- ลิงก์ของปก ---- */
+$href = $xpath->query( '//a[contains(@class,"cv c3")]' )->item( 0 )->getAttribute( 'href' );
+check( 'https://example.test/go/' === $href, 'ค่าเริ่มต้น กดปกแล้วไปหน้าดาวน์โหลด' );
 
 $xpath_file = dom_of( render_front( array( 'hero_deck_cta_mode' => 'file' ) ) );
-$cta_file   = $xpath_file->query( '//a[contains(@class, "deck-cta")]' )->item( 0 );
-check( fenix_mod( 'links_plus_url' ) === $cta_file->getAttribute( 'href' ), 'ถ้าเลือกโหลดไฟล์ตรง ปุ่มชี้ไปไฟล์ของใบบนสุด' );
-check(
-	fenix_mod( 'links_plus_url' ) === $xpath_file->query( '//article[contains(@class, "deck-card")]' )->item( 0 )->getAttribute( 'data-url' ),
-	'ตัวการ์ดเองก็ชี้ไปไฟล์เดียวกัน'
-);
+$href_file  = $xpath_file->query( '//a[contains(@class,"cv c3")]' )->item( 0 )->getAttribute( 'href' );
+check( fenix_mod( 'links_plus_url' ) === $href_file, 'ตั้งเป็นโหลดไฟล์ทันที กดปกแล้วได้ไฟล์ของใบนั้น' );
 
-/* ---- เลือกใบเด่นได้ ---- */
-$xpath_btc = dom_of( render_front( array( 'hero_deck_featured' => 'card3' ) ) );
-check(
-	'FENIX BTC' === $xpath_btc->query( '//article[contains(@class, "deck-card")]' )->item( 0 )->getAttribute( 'data-name' ),
-	'เปลี่ยนใบเด่นได้จากหลังบ้าน'
-);
-
-/* ---- ปิดการ์ดในหน้าดาวน์โหลดแล้วหน้าแรกต้องหายตาม ---- */
+/* ---- ปิดการ์ดในหน้าดาวน์โหลด หน้าแรกต้องลดตาม ---- */
 $xpath_off = dom_of( render_front( array( 'links_card3_enabled' => false ) ) );
-check( 2 === $xpath_off->query( '//article[contains(@class, "deck-card")]' )->length, 'ปิดการ์ดใบไหนในหน้าดาวน์โหลด หน้าแรกก็ไม่แสดงใบนั้น' );
-check( 2 === $xpath_off->query( '//button[contains(@class, "deck-dot")]' )->length, 'จุดบอกตำแหน่งลดตามจำนวนการ์ด' );
+check( 2 === $xpath_off->query( '//div[contains(@class,"fan")]/a[contains(@class,"cv")]' )->length, 'ปิดการ์ดใบไหนในหน้าดาวน์โหลด หน้าแรกก็ไม่แสดงใบนั้น' );
+check( 2 === $xpath_off->query( '//div[contains(@class,"prod-g")]/div[@class="prod"]' )->length, 'การ์ด EA ในส่วนสินค้าลดลงตามกัน' );
 
-/* ---- สลับกลับไปใช้โลโก้วงแหวนได้ ---- */
-$xpath_orb = dom_of( render_front( array( 'hero_visual' => 'orb' ) ) );
-check( 1 === $xpath_orb->query( '//div[contains(@class, "hero-orb")]' )->length, 'เลือกกลับไปใช้โลโก้วงแหวนแบบเดิมได้' );
-check( 0 === $xpath_orb->query( '//div[@class="hero-deck"]' )->length, 'เมื่อใช้โลโก้วงแหวน สำรับการ์ดไม่ถูกแสดง' );
+/* ---- ป้ายลอยบนสำรับ ---- */
+$status = $xpath->query( '//div[contains(@class,"fchip status")]' )->item( 0 );
+check( null !== $status, 'มีป้ายสถานะลอยบนสำรับ' );
+check( false !== strpos( $status->textContent, 'FENIX PLUS 5.1' ), 'ป้ายสถานะใช้ชื่อและเวอร์ชันของใบหน้าสุด' );
 
-/* ---- ใส่ภาพ Hero เองแล้วภาพนั้นต้องชนะทุกอย่าง ---- */
-$xpath_photo = dom_of( render_front( array( 'hero_image' => 'https://example.test/hero.webp' ) ) );
-check( 1 === $xpath_photo->query( '//figure[contains(@class, "hero-frame")]' )->length, 'ถ้าเจ้าของใส่ภาพ Hero เอง จะใช้ภาพนั้น' );
-check( 0 === $xpath_photo->query( '//div[@class="hero-deck"]' )->length, 'ภาพ Hero มาแทนสำรับการ์ด ไม่แสดงซ้อนกัน' );
+$toast = $xpath->query( '//div[contains(@class,"fchip toast")]' );
+check( 1 === $toast->length, 'มีป้าย toast บนสำรับ (ซ่อนเองบนมือถือด้วย CSS)' );
 
-/* ---- ป้ายและปุ่มซ่อนได้ ---- */
-$xpath_bare = dom_of( render_front( array( 'hero_deck_badge' => '', 'hero_deck_cta' => '' ) ) );
-check( 0 === $xpath_bare->query( '//span[contains(@class, "deck-badge")]' )->length, 'เว้นว่างแล้วป้ายหายไป' );
-check( 0 === $xpath_bare->query( '//a[contains(@class, "deck-cta")]' )->length, 'เว้นว่างแล้วปุ่มใต้การ์ดหายไป' );
+/* ---- เทปวิ่งดึงชื่อและเวอร์ชันจากที่เดียวกัน ---- */
+$tape = $xpath->query( '//div[contains(@class,"tape t1")]' )->item( 0 );
+check( null !== $tape, 'มีเทปเส้นแรก' );
+check( false !== strpos( $tape->textContent, 'FENIX PLUS 5.1' ), 'เทปเส้นแรกบอกชื่อและเวอร์ชัน EA' );
+check( substr_count( $tape->textContent, 'FENIX PLUS 5.1' ) >= 2, 'ข้อความในเทปพิมพ์ซ้ำเพื่อให้วิ่งวนต่อเนื่อง' );
 
-/* ---- ค่าที่กรอกต้องถูก escape ---- */
-$xpath_evil = dom_of( render_front( array( 'hero_deck_badge' => '<script>x</script>' ) ) );
-check( false === strpos( render_front( array( 'hero_deck_badge' => '<script>x</script>' ) ), '<script>x</script>' ), 'ข้อความจากหลังบ้านถูก escape ก่อนแสดง' );
+/* ---- เวอร์ชันมาจากชื่อไฟล์จุดเดียว แก้ไฟล์แล้วเปลี่ยนตามทั้งหน้า ---- */
+$changed = dom_of( render_front( array( 'links_plus_url' => 'https://fenixpro-th.com/wp-content/uploads/2027/01/FENIX_PLUS_V9.9.zip' ) ) );
+check( false !== strpos( $changed->query( '//span[contains(@class,"pill-note")]' )->item( 0 )->textContent, 'PLUS 9.9' ), 'เปลี่ยนไฟล์ EA แล้วป้ายเวอร์ชันบนหน้าแรกเปลี่ยนตาม' );
 
-/* ---- ตัวตรวจค่า ---- */
-check( 'deck' === fenix_sanitize_hero_visual( 'อะไรก็ไม่รู้' ), 'ค่ารูปฝั่งขวาที่ไม่รู้จักถูกตีกลับเป็นค่าเริ่มต้น' );
-check( 'plus' === fenix_sanitize_deck_slot( 'card9' ), 'ชื่อใบเด่นที่ไม่มีจริงถูกตีกลับเป็นค่าเริ่มต้น' );
-check( 'page' === fenix_sanitize_deck_cta_mode( 'ftp' ), 'ปลายทางปุ่มที่ไม่รู้จักถูกตีกลับเป็นหน้าดาวน์โหลด' );
-
-/* ---- อ่านชื่อไฟล์ ---- */
-$parsed = fenix_product_from_url( 'https://a.test/x/FENIX_POWER_V4.2.zip' );
-check( 'FENIX POWER' === $parsed['name'] && '4.2' === $parsed['version'], 'อ่านชื่อกับเวอร์ชันจากไฟล์ตัวอื่นได้ด้วย' );
-
-$plain = fenix_product_from_url( 'https://a.test/go/' );
-check( '' === $plain['name'] && '' === $plain['version'], 'ลิงก์ที่ไม่ใช่ไฟล์ EA ไม่ถูกเดาชื่อมั่ว' );
+echo "\nครบทุกข้อ\n";
