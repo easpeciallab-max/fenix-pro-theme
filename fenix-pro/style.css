@@ -6146,12 +6146,3 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	}
 }
 
-/* ชื่อแบรนด์ในส่วนท้าย · เดิมไม่มีสไตล์เลย */
-.footer-brand {
-	display: inline-flex;
-	align-items: center;
-	gap: 10px;
-	font-family: var(--font-display);
-	font-weight: 700;
-	color: var(--ink);
-}
