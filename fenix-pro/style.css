@@ -6516,9 +6516,13 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		font-size: 0.78rem !important;
 	}
 
-	/* ปลั๊กอินแถมระยะห่างบนล่างมาอีก 16px ทำให้แถวล่างสูงเกินจำเป็น */
+	/* ปลั๊กอินห่อปุ่มภาษาไว้ในกล่องสูง 72px และดันปุ่มลงมาอีก 19px
+	   ทำให้แถวล่างสูงเกินจำเป็น · บีบกล่องทุกชั้นให้เท่ากับตัวปุ่ม */
 	.nav-foot .nav-extra .gtranslate_wrapper,
+	.nav-foot .nav-extra .gtranslate_wrapper > div,
 	.nav-foot .nav-extra #gt_float_wrapper {
+		height: auto !important;
+		min-height: 0 !important;
 		margin: 0 !important;
 		padding: 0 !important;
 		line-height: 0;
@@ -6526,6 +6530,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 
 	.nav-foot .nav-extra .gt_float_switcher {
 		margin: 0 !important;
+		inset: auto !important;
 	}
 
 	.nav-foot .nav-extra .gt_float_switcher .gt-selected .gt-current-lang {
