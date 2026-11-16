@@ -6446,3 +6446,85 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		display: none;
 	}
 }
+
+
+/* ===== ส่วนล่างของเมนูมือถือ · โซเชียลซ้าย ภาษาขวา อยู่แถวเดียวกัน ===== */
+/* บนจอคอมกล่องนี้ต้องโปร่งใสต่อการจัดวาง ลูกสองตัวจึงวางตัวเหมือนเดิมทุกอย่าง */
+.nav-foot {
+	display: contents;
+}
+
+@media (max-width: 960px) {
+	.nav-foot {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		order: 9;
+		width: 100%;
+		margin-top: auto;
+		padding-top: 16px;
+		border-top: 1px solid var(--border);
+	}
+
+	.nav-foot .nav-social {
+		flex: 0 1 auto;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		gap: 10px;
+		margin: 0;
+		padding: 0;
+		border-top: 0;
+	}
+
+	.nav-foot .social-link {
+		width: 34px;
+		height: 34px;
+	}
+
+	.nav-foot .social-link .icon {
+		width: 16px;
+		height: 16px;
+	}
+
+	.nav-foot .nav-extra {
+		flex: none;
+		width: auto;
+		margin: 0;
+		padding: 0;
+		border-top: 0;
+	}
+
+	/* ปุ่มภาษาของปลั๊กอินชอบกางเต็มแถวและลอยเอง · บีบให้เป็นเม็ดเล็กในแถว */
+	.nav-foot .nav-extra .language-switcher,
+	.nav-foot .nav-extra .gtranslate_wrapper,
+	.nav-foot .nav-extra #gt_float_wrapper,
+	.nav-foot .nav-extra .gt_float_switcher,
+	.nav-foot .nav-extra .gt_float_switcher .gt-selected,
+	.nav-foot .nav-extra .gt_float_switcher .gt-selected .gt-current-lang {
+		width: auto !important;
+		min-width: 0 !important;
+	}
+
+	.nav-foot .nav-extra .gt_float_switcher {
+		position: relative !important;
+		border: 1px solid var(--border) !important;
+		border-radius: 999px !important;
+		background: var(--coal-2) !important;
+		box-shadow: none !important;
+		font-family: var(--font-display) !important;
+		font-size: 0.78rem !important;
+	}
+
+	.nav-foot .nav-extra .gt_float_switcher .gt-selected .gt-current-lang {
+		justify-content: center;
+		min-height: 34px;
+		padding-inline: 12px !important;
+	}
+
+	.nav-foot .nav-extra .language-switcher summary {
+		width: auto;
+		min-height: 34px;
+		padding: 0 12px;
+	}
+}

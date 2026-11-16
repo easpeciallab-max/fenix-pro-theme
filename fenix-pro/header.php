@@ -40,11 +40,13 @@
 			);
 			?>
 
-			<div class="nav-extra">
-				<?php fenix_language_switcher(); ?>
-			</div>
+			<div class="nav-foot">
+				<?php fenix_social_row( 'nav-social' ); ?>
 
-			<?php fenix_social_row( 'nav-social' ); ?>
+				<div class="nav-extra">
+					<?php fenix_language_switcher(); ?>
+				</div>
+			</div>
 		</nav>
 
 		<?php if ( fenix_mod( 'show_header_auth' ) && $fenix_dash_url ) : ?>
