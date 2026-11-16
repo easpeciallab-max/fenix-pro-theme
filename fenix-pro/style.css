@@ -872,8 +872,8 @@ h3 {
 .nav-toggle {
 	display: none;
 	margin-left: auto;
-	width: 44px;
-	height: 44px;
+	width: 45px;
+	height: 45px;
 	border: 0;
 	border-radius: 0;
 	background: none;
@@ -886,15 +886,15 @@ h3 {
 
 .nav-toggle span {
 	display: block;
-	width: 18px;
-	height: 2px;
-	border-radius: 2px;
+	width: 20px;
+	height: 3px;
+	border-radius: 3px;
 	background: var(--ink);
 	transition: transform 0.22s ease, opacity 0.22s ease;
 }
 
 .nav-open .nav-toggle span:nth-child(1) {
-	transform: translateY(7px) rotate(45deg);
+	transform: translateY(8px) rotate(45deg);
 }
 
 .nav-open .nav-toggle span:nth-child(2) {
@@ -902,7 +902,7 @@ h3 {
 }
 
 .nav-open .nav-toggle span:nth-child(3) {
-	transform: translateY(-7px) rotate(-45deg);
+	transform: translateY(-8px) rotate(-45deg);
 }
 
 /* ==========================================================
@@ -2161,13 +2161,27 @@ h3 {
 		transform: scale(0.94);
 	}
 
-	.mobile-app-nav-item.is-active::before {
-		content: "";
+	.mobile-app-nav-marker {
 		position: absolute;
 		top: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 26px;
+		left: 0;
+		width: 20%;
+		height: 3px;
+		display: flex;
+		justify-content: center;
+		opacity: 0;
+		transform: translateX(calc(var(--nav-i, 0) * 100%));
+		transition: transform 0.34s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease;
+		pointer-events: none;
+	}
+
+	.mobile-app-nav.has-active .mobile-app-nav-marker {
+		opacity: 1;
+	}
+
+	.mobile-app-nav-marker::after {
+		content: "";
+		width: 30px;
 		height: 3px;
 		border-radius: 0 0 3px 3px;
 		background: #FFFFFF;
@@ -3184,10 +3198,10 @@ h3 {
 		flex-direction: column;
 		align-items: stretch;
 		gap: 0;
-		padding: 20px 22px 32px;
+		padding: 16px 16px 28px;
 		overflow-y: auto;
 		overscroll-behavior: contain;
-		background: #202026;
+		background: var(--void);
 		border: 0;
 		border-top: 1px solid var(--border);
 		border-radius: 0;
@@ -3207,12 +3221,16 @@ h3 {
 	.nav-list {
 		flex-direction: column;
 		align-items: stretch;
-		gap: 2px;
+		gap: 10px;
 	}
 
 	.nav-list > li {
 		height: auto;
 		display: block;
+		overflow: hidden;
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		background: var(--coal);
 	}
 
 	.nav-list .menu-item-has-children > a {
@@ -3227,11 +3245,12 @@ h3 {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 13px 14px;
+		padding: 15px 16px;
 		border-bottom: 0;
-		border-radius: 12px;
+		border-radius: 0;
 		font-size: 1rem;
-		color: var(--ash);
+		font-weight: 600;
+		color: var(--ink);
 		transition: background-color 0.16s ease, color 0.16s ease;
 	}
 
@@ -3241,7 +3260,7 @@ h3 {
 
 	.nav-list a:hover,
 	.nav-list a:focus-visible {
-		background: #202026;
+		background: var(--coal-2);
 		color: var(--ink);
 	}
 
@@ -3249,16 +3268,16 @@ h3 {
 		position: static;
 		display: grid;
 		width: auto;
-		margin: 2px 0 6px 10px;
-		padding: 2px 0 2px 12px;
+		margin: 0;
+		padding: 0;
 		border: 0;
-		border-left: 2px solid var(--ember-deep);
+		border-top: 1px solid var(--border);
 		border-radius: 0;
 		opacity: 1;
 		visibility: visible;
 		transform: none;
 		box-shadow: none;
-		background: transparent;
+		background: var(--void);
 	}
 
 	.nav-list .sub-menu::before {
@@ -3266,9 +3285,29 @@ h3 {
 	}
 
 	.nav-list .sub-menu a {
-		padding: 10px 12px;
+		padding: 13px 16px 13px 28px;
 		border-bottom: 0;
 		font-size: 0.92rem;
+		font-weight: 500;
+		color: var(--ash);
+	}
+
+	.nav-list .sub-menu li + li a {
+		border-top: 1px solid var(--border);
+	}
+
+	.nav-list .sub-menu a::before {
+		content: "";
+		position: absolute;
+		left: 16px;
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: var(--ember);
+	}
+
+	.nav-list .sub-menu a {
+		position: relative;
 	}
 
 	/* ตัวเปลี่ยนภาษาอยู่บนบาร์เหมือนเดสก์ท็อป (กด pill แล้วเปิด dropdown) ดันชิดขวาติดปุ่มเมนู */
@@ -6233,5 +6272,32 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 
 	.nav-extra {
 		gap: 10px;
+	}
+}
+
+
+/* ===== แถบหัวบนจอมือถือ · ให้แยกออกจากเนื้อหาข้างหลังชัดเจน ===== */
+@media (max-width: 960px) {
+	.site-header {
+		background: var(--coal);
+		border-bottom-color: var(--border);
+	}
+
+	.site-header.scrolled {
+		background: var(--coal);
+	}
+
+	.nav-extra {
+		margin-bottom: 14px;
+		padding-bottom: 16px;
+	}
+
+	.nav-extra .language-switcher {
+		display: flex;
+		justify-content: center;
+		padding: 2px;
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		background: var(--coal);
 	}
 }

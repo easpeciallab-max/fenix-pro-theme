@@ -89,6 +89,7 @@ $fenix_mobile_nav = fenix_mobile_nav_items();
 
 <?php if ( fenix_mod( 'show_mobile_nav' ) ) : ?>
 <nav class="mobile-app-nav" aria-label="เมนูลัดมือถือ">
+	<span class="mobile-app-nav-marker" aria-hidden="true"></span>
 	<?php foreach ( $fenix_mobile_nav as $fenix_item ) : ?>
 	<a class="mobile-app-nav-item<?php echo ! empty( $fenix_item['is_action'] ) ? ' is-action' : ''; ?>" href="<?php echo esc_url( $fenix_item['url'] ); ?>"<?php echo ! empty( $fenix_item['target_blank'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
 		<span class="mobile-app-nav-icon"><?php echo fenix_icon( $fenix_item['icon'], 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>

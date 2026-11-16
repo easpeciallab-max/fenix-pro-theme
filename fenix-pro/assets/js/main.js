@@ -113,9 +113,32 @@
 			});
 		});
 
+		var navBar = document.querySelector('.mobile-app-nav');
+		var itemList = Array.prototype.slice.call(mobileItems);
+
+		function moveMarker(item) {
+			if (!navBar || !item) {
+				return;
+			}
+			var index = itemList.indexOf(item);
+			if (index < 0) {
+				return;
+			}
+			navBar.style.setProperty('--nav-i', String(index));
+			navBar.classList.add('has-active');
+		}
+
 		if (activeItem) {
 			activeItem.classList.add('is-active');
+			moveMarker(activeItem);
 		}
+
+		/* กดปุ่มไหน ขีดเลื่อนไปทันที ไม่ต้องรอหน้าโหลดเสร็จ */
+		itemList.forEach(function (item) {
+			item.addEventListener('pointerdown', function () {
+				moveMarker(item);
+			});
+		});
 	}
 
 	/* Analytics · dedicated LINE click event for GA4/Site Kit */
