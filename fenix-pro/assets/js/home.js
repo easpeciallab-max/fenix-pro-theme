@@ -11,6 +11,9 @@
 
 	var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+	/* บอก CSS ว่าสคริปต์ทำงานแล้ว · ถ้าสคริปต์ไม่ทำงาน เนื้อหาจะไม่ถูกซ่อน */
+	root.classList.add('has-js');
+
 	/* ---------- โผล่ขึ้นมาเบา ๆ ตอนเลื่อนถึง ---------- */
 	var ups = root.querySelectorAll('.up');
 	if (calm || !('IntersectionObserver' in window)) {
