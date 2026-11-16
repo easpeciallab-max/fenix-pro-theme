@@ -7529,3 +7529,17 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		font-size: 1.18rem;
 	}
 }
+
+/* เนื้อหาเดิมบางหน้ามีแถบสีและหัวเรื่องของตัวเองอยู่แล้ว · เทมเพลตทำให้แล้วจึงซ่อนของเดิม */
+.guide-content .topbar,
+.guide-content .guide-head {
+	display: none !important;
+}
+
+.guide-content .page {
+	width: 100% !important;
+	max-width: 100% !important;
+	margin: 0 !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}

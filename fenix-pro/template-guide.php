@@ -17,7 +17,8 @@ if ( have_posts() ) {
 }
 
 $fenix_guide = fenix_guide_meta( get_post_field( 'post_name', get_the_ID() ) );
-$fenix_sub   = trim( (string) get_the_excerpt() );
+/* ใช้เฉพาะคำโปรยที่เจ้าของเขียนเอง ไม่เอาคำโปรยอัตโนมัติที่ตัดมาจากเนื้อหา */
+$fenix_sub = has_excerpt() ? trim( (string) get_the_excerpt() ) : '';
 ?>
 
 <header class="page-hero guide-hero">
