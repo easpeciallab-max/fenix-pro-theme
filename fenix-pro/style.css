@@ -6173,4 +6173,20 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		justify-content: center;
 		min-height: 48px;
 	}
+
+	.nav-extra .gt_float_switcher,
+	.nav-extra .gt_float_switcher .gt-selected,
+	.nav-extra .gt_float_switcher .gt-selected .gt-current-lang {
+		width: 100% !important;
+	}
+
+	.nav-extra .gt_float_switcher .gt-selected .gt-current-lang {
+		justify-content: center;
+		min-height: 48px;
+	}
+
+	.nav-extra #gt_float_wrapper,
+	.nav-extra .gtranslate_wrapper {
+		width: 100%;
+	}
 }
