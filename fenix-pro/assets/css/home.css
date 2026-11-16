@@ -3709,7 +3709,64 @@ body.fenix-home .container {
 	}
 }
 
+/* ช่องในกริดต้องยอมแคบลงได้ ไม่งั้นของข้างในจะดันกรอบจนล้น */
+.fxh .shead > *,
+.fxh .hero-g > *,
+.fxh .about-g > *,
+.fxh .dash-g > *,
+.fxh .ev-g > *,
+.fxh .fit-g > *,
+.fxh .team-g > *,
+.fxh .faq-g > *,
+.fxh .consult > *,
+.fxh .bento > *,
+.fxh .prod-g > *,
+.fxh .wf-g > *,
+.fxh .req-g > *,
+.fxh .art-g > *,
+.fxh .price-g > *,
+.fxh .vs-row > *,
+.fxh .vs-head > *,
+.fxh .db > *,
+.fxh .db-row > *,
+.fxh .kpis > *,
+.fxh .feat-l > * {
+	min-width: 0;
+}
+
 @media (min-width: 761px) and (max-width: 1049px) {
+	.fxh .hero-g,
+	.fxh .about-g,
+	.fxh .dash-g,
+	.fxh .ev-g,
+	.fxh .fit-g,
+	.fxh .team-g,
+	.fxh .faq-g,
+	.fxh .consult {
+		grid-template-columns: 1fr;
+	}
+
+	.fxh .about-g,
+	.fxh .dash-g,
+	.fxh .ev-g,
+	.fxh .team-g,
+	.fxh .faq-g {
+		gap: 36px;
+	}
+
+	.fxh .fan {
+		max-width: 580px;
+	}
+
+	.fxh .chat {
+		max-width: 320px;
+		margin: 0 auto;
+	}
+
+	.fxh .tk .pp b {
+		font-size: 44px;
+	}
+
 	.fxh .bento {
 		grid-template-columns: repeat(2, 1fr);
 	}
