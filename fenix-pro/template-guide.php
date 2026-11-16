@@ -69,6 +69,11 @@ $fenix_sub = has_excerpt() ? trim( (string) get_the_excerpt() ) : '';
 			</div>
 		<?php endif; ?>
 
+		<nav class="guide-toc" data-guide-toc hidden aria-label="สารบัญในหน้านี้">
+			<h2>ในหน้านี้มีอะไรบ้าง</h2>
+			<ol></ol>
+		</nav>
+
 		<div class="guide-content">
 			<?php the_content(); ?>
 		</div>

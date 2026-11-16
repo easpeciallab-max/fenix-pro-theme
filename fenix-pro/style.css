@@ -7543,3 +7543,106 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
 }
+
+
+/* ==========================================================
+   43) หน้าคู่มือ · คำบรรยายรูป และสารบัญในหน้า
+   ========================================================== */
+
+/* คำบรรยายรูปเดิมอยู่เหนือรูป ตัวหนาสีส้ม เลยอ่านเหมือนหัวข้อซ้ำกับชื่อขั้น
+   ย้ายลงใต้รูปและทำให้เบาลง ให้ทำหน้าที่อธิบายรูปจริง ๆ */
+.guide-content figure {
+	display: flex;
+	flex-direction: column;
+}
+
+.guide-content figure > figcaption {
+	order: 9;
+	margin: 9px 0 0 !important;
+	color: var(--ash-2) !important;
+	font-size: 0.82rem !important;
+	font-weight: 400 !important;
+	line-height: 1.6;
+}
+
+/* ---------- สารบัญในหน้า ---------- */
+.guide-toc {
+	margin: 0 0 34px;
+	padding: 18px 20px;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background: var(--card-bg);
+}
+
+.guide-toc h2 {
+	margin: 0 0 12px;
+	padding: 0;
+	font-size: 0.72rem;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--ash-2);
+}
+
+.guide-toc h2::before {
+	display: none;
+}
+
+.guide-toc ol {
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 7px 20px;
+	margin: 0;
+	padding: 0;
+	counter-reset: toc;
+}
+
+.guide-toc li {
+	counter-increment: toc;
+	margin: 0;
+}
+
+.guide-toc a {
+	display: flex;
+	gap: 9px;
+	padding: 5px 0;
+	font-size: 0.9rem;
+	color: var(--ash);
+	line-height: 1.5;
+	text-decoration: none;
+}
+
+.guide-toc a::before {
+	content: counter(toc);
+	flex: none;
+	width: 20px;
+	height: 20px;
+	margin-top: 2px;
+	border-radius: 50%;
+	background: var(--coal-2);
+	color: var(--ash-2);
+	font-size: 0.66rem;
+	font-weight: 700;
+	display: grid;
+	place-items: center;
+}
+
+.guide-toc a:hover {
+	color: var(--ink);
+}
+
+.guide-toc .is-reading a {
+	color: var(--flare);
+	font-weight: 600;
+}
+
+.guide-toc .is-reading a::before {
+	background: var(--ember);
+	color: #FFFFFF;
+}
+
+@media (max-width: 760px) {
+	.guide-toc ol {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}

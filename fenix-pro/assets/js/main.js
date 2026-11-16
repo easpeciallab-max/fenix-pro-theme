@@ -624,3 +624,49 @@
 	paint();
 	start();
 })();
+
+/* ----------------------------------------------------------
+ * สารบัญในหน้าคู่มือ · สร้างจากหัวข้อในเนื้อหาเอง
+ * คู่มือที่มีหัวข้อตั้งแต่ 4 อันขึ้นไปถึงจะแสดง หน้าสั้น ๆ ไม่ต้องมี
+ * -------------------------------------------------------- */
+(function () {
+	var box = document.querySelector('[data-guide-toc]');
+	var body = document.querySelector('.guide-content');
+	if (!box || !body) { return; }
+
+	var list = box.querySelector('ol');
+	var heads = Array.prototype.slice.call(body.querySelectorAll('h2')).filter(function (h) {
+		return h.textContent.trim() !== '';
+	});
+
+	if (heads.length < 4) { return; }
+
+	heads.forEach(function (h, i) {
+		if (!h.id) { h.id = 'guide-step-' + (i + 1); }
+
+		var li = document.createElement('li');
+		var a = document.createElement('a');
+		a.href = '#' + h.id;
+		a.textContent = h.textContent.trim();
+		li.appendChild(a);
+		list.appendChild(li);
+	});
+
+	box.hidden = false;
+
+	/* ไฮไลต์หัวข้อที่กำลังอ่านอยู่ */
+	if (!('IntersectionObserver' in window)) { return; }
+
+	var items = Array.prototype.slice.call(list.children);
+	var spy = new IntersectionObserver(function (entries) {
+		entries.forEach(function (entry) {
+			if (!entry.isIntersecting) { return; }
+			var at = heads.indexOf(entry.target);
+			items.forEach(function (li, i) {
+				li.classList.toggle('is-reading', i === at);
+			});
+		});
+	}, { rootMargin: '-80px 0px -70% 0px' });
+
+	heads.forEach(function (h) { spy.observe(h); });
+})();
