@@ -320,7 +320,7 @@ function fenix_defaults() {
 
 		/* Hero */
 		'show_hero'      => true,
-		'hero_badge'     => 'Automated Trading System • MT5',
+		'hero_badge'     => '',
 		'hero_title'     => 'FENIX PRO EA',
 		'hero_subtitle'  => 'ระบบช่วยเทรดอัตโนมัติ เพื่อการเทรดที่มีวินัยมากขึ้น',
 		'hero_desc'      => 'ออกแบบมาเพื่อช่วยให้การเทรดเป็นระบบ ลดการตัดสินใจตามอารมณ์ พร้อมแนวคิดบริหารความเสี่ยงสำหรับผู้ใช้งาน MetaTrader 5',

@@ -24,6 +24,8 @@
 			<span class="brand-name">FENIX <em>PRO</em><small>EA&nbsp;for&nbsp;MT5</small></span>
 		</a>
 
+		<?php $fenix_dash_url = trim( (string) fenix_mod( 'dashboard_url' ) ); ?>
+
 		<nav class="site-nav" id="site-nav" aria-label="เมนูหลัก">
 			<?php
 			wp_nav_menu(
@@ -36,22 +38,19 @@
 				)
 			);
 			?>
+
+			<div class="nav-extra">
+				<?php if ( fenix_mod( 'show_header_auth' ) && $fenix_dash_url ) : ?>
+					<a class="btn btn-fire nav-dash" href="<?php echo esc_url( $fenix_dash_url ); ?>">
+						<?php echo fenix_icon( 'gauge', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<span><?php echo esc_html( fenix_mod( 'header_dash_label' ) ); ?></span>
+					</a>
+				<?php endif; ?>
+				<?php fenix_language_switcher(); ?>
+			</div>
+
 			<?php fenix_social_row( 'nav-social' ); ?>
 		</nav>
-
-		<?php fenix_language_switcher(); ?>
-
-		<?php
-		$fenix_dash_url = trim( (string) fenix_mod( 'dashboard_url' ) );
-		if ( fenix_mod( 'show_header_auth' ) && $fenix_dash_url ) :
-			?>
-			<div class="header-auth">
-				<a class="btn btn-fire btn-sm header-auth-dash" href="<?php echo esc_url( $fenix_dash_url ); ?>">
-					<?php echo fenix_icon( 'gauge', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-					<span><?php echo esc_html( fenix_mod( 'header_dash_label' ) ); ?></span>
-				</a>
-			</div>
-		<?php endif; ?>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="เปิด/ปิดเมนู">
 			<span></span><span></span><span></span>

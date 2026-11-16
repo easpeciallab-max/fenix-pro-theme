@@ -39,7 +39,10 @@ check( true === fenix_mod( 'show_header_auth' ), 'The header button is on out of
 check( 'แดชบอร์ด' === fenix_mod( 'header_dash_label' ), 'The button label is an editable setting, not hardcoded copy' );
 
 $header = file_get_contents( get_template_directory() . '/header.php' );
-check( 1 === substr_count( $header, 'header-auth-dash' ), 'The header renders exactly one dashboard button' );
+check( 1 === substr_count( $header, 'nav-dash' ), 'The header renders exactly one dashboard button' );
+check( strpos( $header, 'nav-dash' ) > strpos( $header, '<nav' ) && strpos( $header, 'nav-dash' ) < strpos( $header, '</nav>' ), 'ปุ่มแดชบอร์ดอยู่ในเมนู ไม่ใช่ลอยอยู่บนแถบหัว' );
+check( strpos( $header, 'fenix_language_switcher' ) > strpos( $header, '<nav' ) && strpos( $header, 'fenix_language_switcher' ) < strpos( $header, '</nav>' ), 'ตัวเปลี่ยนภาษาอยู่ในเมนูเช่นกัน' );
+check( 1 === substr_count( $header, 'nav-toggle' ), 'มีปุ่มสามขีดปุ่มเดียว' );
 check( false === strpos( $header, 'header_signup_label' ) && false === strpos( $header, 'header_login_label' ), 'The retired sign-up and log-in buttons are gone' );
 check( false === strpos( $header, 'https://dashboard.fenixpro-th.com' ), 'The header template keeps the URL in a setting' );
 

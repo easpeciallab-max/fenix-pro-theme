@@ -874,9 +874,9 @@ h3 {
 	margin-left: auto;
 	width: 44px;
 	height: 44px;
-	border: 1px solid var(--border);
-	border-radius: 12px;
-	background: var(--coal-2);
+	border: 0;
+	border-radius: 0;
+	background: none;
 	cursor: pointer;
 	flex-direction: column;
 	align-items: center;
@@ -6117,22 +6117,6 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		display: none;
 	}
 
-	.header-auth-dash {
-		width: 44px;
-		height: 44px;
-		padding: 0;
-		border-radius: 50%;
-	}
-
-	.header-auth-dash span {
-		display: none;
-	}
-
-	.header-auth-dash .icon {
-		width: 1.3rem;
-		height: 1.3rem;
-	}
-
 	.language-switcher summary {
 		padding: 6px 10px;
 	}
@@ -6146,3 +6130,47 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	}
 }
 
+
+
+/* ===== ปุ่มแดชบอร์ดและตัวเปลี่ยนภาษา · อยู่ในเมนูทั้งคู่ ===== */
+.nav-extra {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.nav-dash {
+	gap: 8px;
+	padding: 0 18px;
+	font-size: 0.92rem;
+}
+
+@media (max-width: 960px) {
+	.nav-extra {
+		order: -1;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 14px;
+		width: 100%;
+		margin-bottom: 6px;
+		padding-bottom: 18px;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.nav-dash {
+		width: 100%;
+		justify-content: center;
+		min-height: 52px;
+		font-size: 1rem;
+	}
+
+	.nav-extra .language-switcher {
+		width: 100%;
+	}
+
+	.nav-extra .language-switcher summary {
+		width: 100%;
+		justify-content: center;
+		min-height: 48px;
+	}
+}

@@ -51,10 +51,12 @@ $fenix_line = fenix_mod( 'line_url' );
 
 	<div class="container hero-inner">
 		<div class="hero-copy reveal">
+			<?php if ( fenix_mod( 'hero_badge' ) ) : ?>
 			<span class="badge">
 				<?php echo fenix_icon( 'flame', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<?php echo esc_html( fenix_mod( 'hero_badge' ) ); ?>
 			</span>
+			<?php endif; ?>
 			<h1 class="hero-title"><?php echo esc_html( fenix_mod( 'hero_title' ) ); ?></h1>
 			<p class="hero-sub"><?php echo esc_html( fenix_mod( 'hero_subtitle' ) ); ?></p>
 			<p class="hero-desc"><?php echo esc_html( fenix_mod( 'hero_desc' ) ); ?></p>
