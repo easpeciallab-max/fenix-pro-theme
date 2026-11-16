@@ -1112,18 +1112,96 @@ function fenix_menu_tree() {
 	);
 }
 
+/**
+ * path ของลิงก์ในรูปแบบเดียวกัน เช่น https://a.com/go/?x=1 -> /go/
+ */
+function fenix_menu_path( $url ) {
+	$path = wp_parse_url( (string) $url, PHP_URL_PATH );
+	$path = trim( (string) $path, '/' );
+
+	return '' === $path ? '/' : '/' . $path . '/';
+}
+
+/**
+ * ไอคอนและชื่อสั้นของแต่ละหน้า ใช้ตอนเมนูมือถือแสดงเป็นกริด
+ * คีย์เป็น path จึงใช้ได้ทั้งเมนูสำรองและเมนูที่ตั้งเองใน WordPress
+ */
+function fenix_menu_meta( $url ) {
+	$map = array(
+		'/'                            => array( 'home', 'หน้าแรก' ),
+		'/go/'                         => array( 'download', 'ดาวน์โหลด' ),
+		'/backtest/'                   => array( 'chart', 'BACKTEST' ),
+		'/forward-test/'               => array( 'pulse', 'FORWARD' ),
+		'/pricing/'                    => array( 'tag', 'แพ็กเกจ' ),
+		'/articles/'                   => array( 'guide', 'บทความ' ),
+		'/open-mt5-account/'           => array( 'account', 'เปิดบัญชี' ),
+		'/mt5-login-zaurix-server/'    => array( 'layout', 'ติดตั้ง MT5' ),
+		'/deposit-zaurix/'             => array( 'wallet', 'ฝากเงิน' ),
+		'/fenix-pro-ea-install-guide/' => array( 'cpu', 'ติดตั้ง EA' ),
+		'/fenix-dual-presets/'         => array( 'sliders', 'คูณ LOT' ),
+		'/vps-desktop-windows/'        => array( 'windows', 'VPS WIN' ),
+		'/vps-android/'                => array( 'android', 'ANDROID' ),
+		'/vps-iphone-ios/'             => array( 'apple', 'IPHONE' ),
+	);
+
+	$path = fenix_menu_path( $url );
+
+	return isset( $map[ $path ] ) ? $map[ $path ] : array( '', '' );
+}
+
+/**
+ * หน้านี้คือหน้าที่กำลังเปิดอยู่หรือไม่ (ใช้ไฮไลต์ช่องในเมนู)
+ */
+function fenix_menu_is_current( $url ) {
+	$request = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '/'; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+	return fenix_menu_path( $url ) === fenix_menu_path( $request );
+}
+
+/**
+ * ลิงก์หนึ่งช่องในเมนู
+ * $is_tile = true สำหรับช่องที่มีไอคอน (หัวข้อที่มีเมนูย่อยจะกลายเป็นชื่อหมวดแทน)
+ */
+function fenix_menu_link( $url, $label, $is_tile ) {
+	list( $icon, $short ) = fenix_menu_meta( $url );
+	$has_icon = $is_tile && '' !== $icon;
+
+	$attrs = '';
+	if ( $has_icon && fenix_menu_is_current( $url ) ) {
+		$attrs .= ' aria-current="page"';
+	}
+	if ( $has_icon && $short !== $label ) {
+		$attrs .= ' aria-label="' . esc_attr( $label ) . '"';
+	}
+
+	$out = '<a href="' . esc_url( home_url( $url ) ) . '"' . $attrs . '>';
+
+	if ( $has_icon ) {
+		$out .= '<span class="nav-ic">' . fenix_icon( $icon ) . '</span>';
+	}
+
+	$out .= '<span class="nav-label">' . esc_html( $label ) . '</span>';
+
+	if ( $has_icon ) {
+		$out .= '<span class="nav-label-short">' . esc_html( $short ) . '</span>';
+	}
+
+	return $out . '</a>';
+}
+
 function fenix_fallback_menu() {
 	echo '<ul class="nav-list">';
+	echo '<li class="nav-group-label">เมนูหลัก</li>';
 
 	foreach ( fenix_menu_tree() as $item ) {
 		$has_children = ! empty( $item['children'] );
 		echo '<li' . ( $has_children ? ' class="menu-item-has-children"' : '' ) . '>';
-		echo '<a href="' . esc_url( home_url( $item['url'] ) ) . '">' . esc_html( $item['label'] ) . '</a>';
+		echo fenix_menu_link( $item['url'], $item['label'], ! $has_children ); // phpcs:ignore WordPress.Security.EscapeOutput
 
 		if ( $has_children ) {
 			echo '<ul class="sub-menu">';
 			foreach ( $item['children'] as $child ) {
-				echo '<li><a href="' . esc_url( home_url( $child['url'] ) ) . '">' . esc_html( $child['label'] ) . '</a></li>';
+				echo '<li>' . fenix_menu_link( $child['url'], $child['label'], true ) . '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput
 			}
 			echo '</ul>';
 		}
@@ -1407,6 +1485,8 @@ function fenix_icon( $name, $class = 'icon' ) {
 		'quote'    => '<path d="M7.5 11c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3V9.5C10.5 7 9 5.5 7 5M17.5 11c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3V9.5C20.5 7 19 5.5 17 5"/>',
 		'mail'     => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
 		'download' => '<path d="M12 4v10M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/>',
+		'wallet'   => '<path d="M4 7.8h13.4a2 2 0 0 1 2 2v6.4a2 2 0 0 1-2 2H5.6A1.6 1.6 0 0 1 4 16.6z"/><path d="M4 7.8V6.4A1.9 1.9 0 0 1 5.9 4.5H16"/><circle cx="16.2" cy="13" r="1"/>',
+		'sliders'  => '<path d="M4 8.5h16M4 15.5h16"/><circle cx="10" cy="8.5" r="2.1"/><circle cx="15" cy="15.5" r="2.1"/>',
 		'link'     => '<path d="M9.5 14.5l5-5"/><path d="M11.5 6.5l1-1a4 4 0 0 1 5.7 5.7l-2 2"/><path d="M12.5 17.5l-1 1a4 4 0 0 1-5.7-5.7l2-2"/>',
 		'windows'  => '<path d="M3.5 5.5 10.5 4.5v6.8h-7z"/><path d="M13 4.1 20.5 3v8.3H13z"/><path d="M3.5 12.7h7v6.8l-7-1z"/><path d="M13 12.7h7.5V21L13 19.9z"/>',
 		'android'  => '<path d="M8 8.5h8a3 3 0 0 1 3 3V17a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-5.5a3 3 0 0 1 3-3z"/><path d="M8.5 5 7 2.8M15.5 5 17 2.8"/><path d="M9 19v2M15 19v2M3 12v4M21 12v4"/><path d="M9.2 12h.01M14.8 12h.01"/>',

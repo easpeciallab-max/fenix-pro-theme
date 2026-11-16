@@ -47,6 +47,11 @@
 		link.setAttribute('aria-haspopup', 'true');
 		link.setAttribute('aria-expanded', 'false');
 		link.addEventListener('click', function (e) {
+			/* บนมือถือหัวข้อนี้เป็นชื่อหมวด เมนูย่อยกางอยู่แล้ว กดแล้วให้ไปหน้านั้นเลย */
+			if (window.matchMedia('(max-width: 960px)').matches) {
+				return;
+			}
+
 			e.preventDefault();
 			var li = link.parentNode;
 			var willOpen = !li.classList.contains('is-open');

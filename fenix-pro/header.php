@@ -34,6 +34,7 @@
 					'container'      => false,
 					'menu_class'     => 'nav-list',
 					'fallback_cb'    => 'fenix_fallback_menu',
+					'items_wrap'     => '<ul id="%1$s" class="%2$s"><li class="nav-group-label">เมนูหลัก</li>%3$s</ul>',
 					'depth'          => 2,
 				)
 			);
