@@ -6549,4 +6549,13 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		min-height: 34px;
 		padding: 0 12px;
 	}
+
+	/* กรอบรอบนอกของตัวเลือกภาษาจากดีไซน์เก่า ทำให้เม็ดภาษาไม่ชิดขอบขวา */
+	.nav-foot .nav-extra .language-switcher {
+		display: block;
+		padding: 0 !important;
+		border: 0 !important;
+		border-radius: 0 !important;
+		background: none !important;
+	}
 }
