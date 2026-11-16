@@ -921,6 +921,168 @@ function fenix_section_figure( $img_key, $alt_key = '', $class = 'sec-figure' ) 
 		. '<img src="' . esc_url( $img ) . '" alt="' . esc_attr( $alt ) . '" loading="lazy" decoding="async">'
 		. '</figure>';
 }
+/* --------------------------------------------------------------
+ * หน้าคู่มือ (template-guide.php)
+ * -------------------------------------------------------------- */
+
+/**
+ * ลำดับคู่มือทั้งชุด · เรียงตามที่ผู้ใช้งานต้องทำจริง
+ * ใช้คุมทั้งเลขขั้น แถบบอกตำแหน่ง และปุ่มขั้นก่อนหน้า/ถัดไป
+ */
+function fenix_guides() {
+	return array(
+		'open-mt5-account' => array(
+			'label' => 'เปิดบัญชี MT5',
+			'short' => 'เปิดบัญชี',
+			'time'  => '10 นาที',
+			'level' => 'มือใหม่ทำเองได้',
+			'prep'  => array(
+				'อีเมลและเบอร์โทรที่ใช้งานได้จริง',
+				'บัตรประชาชนสำหรับยืนยันตัวตน',
+			),
+		),
+		'mt5-login-zaurix-server' => array(
+			'label' => 'ติดตั้ง MT5 และ LOGIN',
+			'short' => 'ติดตั้ง MT5',
+			'time'  => '10 นาที',
+			'level' => 'มือใหม่ทำเองได้',
+			'prep'  => array(
+				'Login และ Password ของบัญชีเทรดจากอีเมล',
+				'ชื่อเซิร์ฟเวอร์ Zaurix-Server',
+			),
+		),
+		'deposit-zaurix' => array(
+			'label' => 'ฝากเงินเข้าบัญชี',
+			'short' => 'ฝากเงิน',
+			'time'  => '10 นาที',
+			'level' => 'มือใหม่ทำเองได้',
+			'prep'  => array(
+				'บัญชีธนาคารที่เป็นชื่อเดียวกับบัญชีเทรด',
+				'เข้า Portal ของโบรกเกอร์ได้แล้ว',
+			),
+		),
+		'fenix-pro-ea-install-guide' => array(
+			'label' => 'ติดตั้ง EA บน MT5',
+			'short' => 'ติดตั้ง EA',
+			'time'  => '10 นาที',
+			'level' => 'มือใหม่ทำเองได้',
+			'prep'  => array(
+				'ไฟล์ EA ที่โหลดมาจากหน้าดาวน์โหลด',
+				'MT5 ที่ติดตั้งและล็อกอินเรียบร้อยแล้ว',
+			),
+		),
+		'fenix-dual-presets' => array(
+			'label' => 'เลือกคูณ LOT ของ FENIX DUAL',
+			'short' => 'คูณ LOT',
+			'time'  => '5 นาที',
+			'level' => 'ควรอ่านก่อนเปิดจริง',
+			'prep'  => array(
+				'รู้ว่าทุนในบัญชีมีเท่าไร',
+				'ติดตั้ง FENIX DUAL บน MT5 แล้ว',
+			),
+		),
+		'vps-desktop-windows' => array(
+			'label' => 'VPS บน WINDOWS',
+			'short' => 'VPS WINDOWS',
+			'time'  => '10 นาที',
+			'level' => 'มือใหม่ทำเองได้',
+			'prep'  => array(
+				'IP Address, Username และ Password ของ VPS ที่ทีมงานส่งให้',
+				'เครื่องคอมพิวเตอร์ที่ใช้ Windows',
+			),
+		),
+		'vps-android' => array(
+			'label' => 'VPS บน ANDROID',
+			'short' => 'VPS ANDROID',
+			'time'  => '10 นาที',
+			'level' => 'มือใหม่ทำเองได้',
+			'prep'  => array(
+				'IP Address, Username และ Password ของ VPS ที่ทีมงานส่งให้',
+				'มือถือ Android ที่ต่ออินเทอร์เน็ตได้',
+			),
+		),
+		'vps-iphone-ios' => array(
+			'label' => 'VPS บน IPHONE',
+			'short' => 'VPS IPHONE',
+			'time'  => '10 นาที',
+			'level' => 'มือใหม่ทำเองได้',
+			'prep'  => array(
+				'IP Address, Username และ Password ของ VPS ที่ทีมงานส่งให้',
+				'iPhone หรือ iPad ที่ต่ออินเทอร์เน็ตได้',
+			),
+		),
+	);
+}
+
+/**
+ * ข้อมูลของคู่มือหน้าหนึ่ง พร้อมเลขขั้นและหน้าก่อนหน้า/ถัดไป
+ */
+function fenix_guide_meta( $slug ) {
+	$guides = fenix_guides();
+	$slugs  = array_keys( $guides );
+	$pos    = array_search( $slug, $slugs, true );
+
+	$meta = array(
+		'slug'  => (string) $slug,
+		'index' => 0,
+		'total' => count( $slugs ),
+		'time'  => '',
+		'level' => '',
+		'prep'  => array(),
+		'prev'  => null,
+		'next'  => null,
+	);
+
+	if ( false === $pos ) {
+		return $meta;
+	}
+
+	$meta['index'] = $pos + 1;
+	$meta['time']  = $guides[ $slug ]['time'];
+	$meta['level'] = $guides[ $slug ]['level'];
+	$meta['prep']  = $guides[ $slug ]['prep'];
+
+	if ( $pos > 0 ) {
+		$prev         = $slugs[ $pos - 1 ];
+		$meta['prev'] = array( 'slug' => $prev, 'label' => $guides[ $prev ]['label'] );
+	}
+
+	if ( $pos < count( $slugs ) - 1 ) {
+		$next         = $slugs[ $pos + 1 ];
+		$meta['next'] = array( 'slug' => $next, 'label' => $guides[ $next ]['label'] );
+	}
+
+	return $meta;
+}
+
+/**
+ * แถบบอกตำแหน่งด้านบนของหน้าคู่มือ
+ * ขั้นที่ผ่านมาแล้วติดเครื่องหมายถูก ขั้นปัจจุบันเป็นสีส้ม
+ */
+function fenix_guide_rail( $current ) {
+	$guides = fenix_guides();
+	$pos    = array_search( $current, array_keys( $guides ), true );
+	$out    = '<ol class="guide-rail" aria-label="ลำดับขั้นตอนทั้งหมด">';
+	$i      = 0;
+
+	foreach ( $guides as $slug => $guide ) {
+		$i++;
+		$class = '';
+		$mark  = (string) $i;
+
+		if ( false !== $pos && $i - 1 < $pos ) {
+			$class = ' class="is-done"';
+			$mark  = '&#10003;';
+		} elseif ( $slug === $current ) {
+			$class = ' class="is-now"';
+		}
+
+		$out .= '<li' . $class . '><a href="' . esc_url( home_url( '/' . $slug . '/' ) ) . '">'
+			. '<b>' . $mark . '</b> ' . esc_html( $guide['short'] ) . '</a></li>';
+	}
+
+	return $out . '</ol>';
+}
 function fenix_product_from_url( $url ) {
 	$name = basename( (string) parse_url( (string) $url, PHP_URL_PATH ) );
 	$out  = array(
