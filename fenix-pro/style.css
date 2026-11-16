@@ -7123,3 +7123,114 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 .profile-grid + .fit-card.fit-bad h3 {
 	color: var(--flare);
 }
+
+
+/* ==========================================================
+   41) แถบข้อเท็จจริงใต้ Hero · พื้นส้มตัวหนังสือดำ
+   ขาวบนส้มอ่านยาก (คอนทราสต์ ~3:1) ดำบนส้มได้ ~8:1 และตรงกับปกสินค้า
+   ========================================================== */
+.highlight-bar {
+	background: var(--ember);
+	border-top: 0;
+	border-bottom: 0;
+}
+
+.highlight-list {
+	gap: 0;
+	padding: 20px 0;
+}
+
+.highlight-list li {
+	justify-content: flex-start;
+	gap: 13px;
+	padding: 4px 22px;
+	color: #120A04;
+	font-weight: 600;
+	font-size: 0.95rem;
+	line-height: 1.45;
+	letter-spacing: 0.01em;
+}
+
+.highlight-list li:first-child {
+	padding-left: 0;
+}
+
+.highlight-list li:last-child {
+	padding-right: 0;
+}
+
+.highlight-list li + li {
+	padding-left: 22px;
+	border-left: 1px solid rgba(18, 10, 4, 0.22);
+}
+
+.hl-icon {
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+	color: #120A04;
+	background: rgba(255, 255, 255, 0.24);
+	border: 0;
+}
+
+.hl-icon .icon {
+	width: 20px;
+	height: 20px;
+	stroke-width: 1.9;
+}
+
+/* เส้นคั่นบาง ๆ ใต้แถบ กันไม่ให้ส้มชนดำแบบแข็ง ๆ */
+.highlight-bar + .section,
+.highlight-bar + .section-alt {
+	border-top: 0;
+}
+
+@media (max-width: 1100px) {
+	.highlight-list li {
+		font-size: 0.9rem;
+		padding-inline: 16px;
+	}
+
+	.highlight-list li + li {
+		padding-left: 16px;
+	}
+}
+
+@media (max-width: 860px) {
+	.highlight-list {
+		gap: 4px 0;
+		padding: 16px 0;
+	}
+
+	.highlight-list li,
+	.highlight-list li:first-child,
+	.highlight-list li:last-child {
+		padding: 10px 0;
+	}
+
+	.highlight-list li + li {
+		padding-left: 0;
+		border-left: 0;
+	}
+
+	.highlight-list li:nth-child(even) {
+		padding-left: 16px;
+		border-left: 1px solid rgba(18, 10, 4, 0.22);
+	}
+
+	.hl-icon {
+		width: 36px;
+		height: 36px;
+	}
+}
+
+@media (max-width: 560px) {
+	.highlight-list li:nth-child(even) {
+		padding-left: 0;
+		border-left: 0;
+	}
+
+	.highlight-list li + li {
+		border-top: 1px solid rgba(18, 10, 4, 0.18);
+	}
+}
