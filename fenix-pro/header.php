@@ -40,13 +40,13 @@
 			?>
 
 			<div class="nav-extra">
+				<?php fenix_language_switcher(); ?>
 				<?php if ( fenix_mod( 'show_header_auth' ) && $fenix_dash_url ) : ?>
 					<a class="btn btn-fire nav-dash" href="<?php echo esc_url( $fenix_dash_url ); ?>">
 						<?php echo fenix_icon( 'gauge', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						<span><?php echo esc_html( fenix_mod( 'header_dash_label' ) ); ?></span>
 					</a>
 				<?php endif; ?>
-				<?php fenix_language_switcher(); ?>
 			</div>
 
 			<?php fenix_social_row( 'nav-social' ); ?>

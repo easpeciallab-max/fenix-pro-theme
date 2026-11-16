@@ -6190,3 +6190,48 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		width: 100%;
 	}
 }
+
+/* บนจอเล็ก ปุ่มแดชบอร์ดยังอยู่บนสุดของเมนู ส่วนบนแถบคอมอยู่ท้ายสุด */
+@media (max-width: 960px) {
+	.nav-extra .nav-dash {
+		order: -1;
+	}
+}
+
+/* ตัวเปลี่ยนภาษาบนแถบคอม · เล็กลง แค่ให้รู้ว่ามี */
+@media (min-width: 961px) {
+	.site-header .language-switcher--gtranslate .gtranslate_wrapper,
+	.site-header .language-switcher--gtranslate .gt_float_switcher,
+	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected,
+	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected .gt-current-lang {
+		min-width: 0 !important;
+	}
+
+	.site-header .language-switcher--gtranslate .gt_float_switcher {
+		border-color: transparent !important;
+		background: none !important;
+		font-size: 0.74rem !important;
+	}
+
+	.site-header .language-switcher--gtranslate .gt_float_switcher:hover {
+		border-color: transparent !important;
+		background: none !important;
+	}
+
+	.site-header .language-switcher--gtranslate .gt_float_switcher .gt-selected .gt-current-lang {
+		gap: 5px !important;
+		height: 32px !important;
+		padding: 0 4px !important;
+		color: var(--ash) !important;
+		font-weight: 600 !important;
+	}
+
+	.site-header .language-switcher--gtranslate .gt_float_switcher img {
+		width: 16px !important;
+		height: 16px !important;
+	}
+
+	.nav-extra {
+		gap: 10px;
+	}
+}
