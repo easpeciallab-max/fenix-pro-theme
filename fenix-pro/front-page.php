@@ -111,8 +111,8 @@ $fenix_line = fenix_mod( 'line_url' );
 								data-name="<?php echo esc_attr( $fenix_card['name'] ); ?>"
 								data-version="<?php echo esc_attr( $fenix_card['version'] ); ?>"
 								data-url="<?php echo esc_url( $fenix_card_url ); ?>">
-								<a href="<?php echo esc_url( $fenix_card_url ); ?>">
-									<img src="<?php echo esc_url( $fenix_card['img'] ); ?>" alt="<?php echo esc_attr( $fenix_card['alt'] ); ?>" width="1200" height="675" <?php echo 0 === $fenix_i ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'; ?> decoding="async">
+								<a href="<?php echo esc_url( $fenix_card_url ); ?>" draggable="false">
+									<img src="<?php echo esc_url( $fenix_card['img'] ); ?>" alt="<?php echo esc_attr( $fenix_card['alt'] ); ?>" width="1200" height="675" <?php echo 0 === $fenix_i ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'; ?> decoding="async" draggable="false">
 								</a>
 							</article>
 						<?php endforeach; ?>

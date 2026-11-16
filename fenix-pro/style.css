@@ -6605,6 +6605,7 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 .deck-card a {
 	display: block;
 	line-height: 0;
+	-webkit-user-drag: none;
 }
 
 .deck-card img {

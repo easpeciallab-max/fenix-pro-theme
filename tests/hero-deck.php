@@ -122,6 +122,17 @@ check( 'eager' === $imgs->item( 0 )->getAttribute( 'loading' ), 'ใบบนส
 check( 'lazy' === $imgs->item( 1 )->getAttribute( 'loading' ), 'ใบที่อยู่ข้างหลังโหลดทีหลัง ไม่ถ่วงหน้าแรก' );
 check( '1200' === $imgs->item( 0 )->getAttribute( 'width' ), 'ภาพมีขนาดกำกับ กันหน้าเด้งตอนโหลด' );
 
+/* ถ้าลิงก์กับรูปยังลากได้แบบเบราว์เซอร์ การลากเปลี่ยนปกจะถูกชิงไปทำ drag-and-drop แทน */
+$links = $xpath->query( '//article[contains(@class, "deck-card")]//a' );
+$drag_ok = true;
+foreach ( $links as $link ) {
+	if ( 'false' !== $link->getAttribute( 'draggable' ) ) { $drag_ok = false; }
+}
+foreach ( $imgs as $img ) {
+	if ( 'false' !== $img->getAttribute( 'draggable' ) ) { $drag_ok = false; }
+}
+check( $drag_ok, 'ลิงก์และรูปบนปกถูกปิดการลากแบบเบราว์เซอร์ไว้ การลากเปลี่ยนปกจึงทำงาน' );
+
 /* ---- ปุ่มใต้การ์ด ---- */
 $cta = $xpath->query( '//a[contains(@class, "deck-cta")]' )->item( 0 );
 check( 'https://example.test/go/' === $cta->getAttribute( 'href' ), 'ค่าเริ่มต้น ปุ่มพาไปหน้าดาวน์โหลดที่มีคำอธิบายครบ' );

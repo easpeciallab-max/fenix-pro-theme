@@ -536,6 +536,9 @@
 		stack.classList.toggle('is-dragging', on);
 	}
 
+	/* เบราว์เซอร์จะชิงเอาการลากไปทำ drag-and-drop ของมันเอง ต้องห้ามไว้ก่อน */
+	stack.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
 	stack.addEventListener('pointerdown', function (e) {
 		if (busy || e.button > 0) { return; }
 		startX = e.clientX;
@@ -547,7 +550,7 @@
 		}
 	});
 
-	stack.addEventListener('pointermove', function (e) {
+	function onMove(e) {
 		if (!dragging) { return; }
 		moved = e.clientX - startX;
 
@@ -555,7 +558,7 @@
 		var top = order[0];
 		top.style.transition = 'none';
 		top.style.transform = 'translateX(' + moved + 'px) rotate(' + (moved / 26) + 'deg)';
-	});
+	}
 
 	function release(e) {
 		if (!dragging) { return; }
@@ -565,17 +568,22 @@
 		top.style.transition = '';
 		top.style.transform = '';
 
-		if (moved < -60) {
+		if (moved < -50) {
 			advance();
-		} else if (moved > 60) {
+		} else if (moved > 50) {
 			back();
 		}
 
 		start();
 	}
 
+	/* ฟังที่หน้าต่างด้วย เผื่อเมาส์ถูกลากออกนอกกรอบการ์ดก่อนปล่อย */
+	stack.addEventListener('pointermove', onMove);
+	window.addEventListener('pointermove', onMove);
 	stack.addEventListener('pointerup', release);
+	window.addEventListener('pointerup', release);
 	stack.addEventListener('pointercancel', release);
+	window.addEventListener('pointercancel', release);
 	stack.addEventListener('lostpointercapture', release);
 
 	/* ล้อเมาส์แนวนอนหรือแทร็กแพด ก็เปลี่ยนใบได้ (ไม่แตะการเลื่อนหน้าแนวตั้ง) */
