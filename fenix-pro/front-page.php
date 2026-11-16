@@ -162,11 +162,11 @@ $fenix_line = fenix_mod( 'line_url' );
 
 <?php /* ============ แถบไฮไลต์ ============ */ ?>
 <?php if ( fenix_mod( 'show_highlight' ) ) : ?>
-<section class="highlight-bar" aria-label="จุดเด่นโดยสรุป">
+<section class="highlight-bar" aria-label="ข้อเท็จจริงของระบบ">
 	<div class="container">
 		<ul class="highlight-list reveal">
 			<?php
-			$fenix_hl_icons = array( 'cpu', 'pulse', 'gauge', 'headset' );
+			$fenix_hl_icons = array( 'cpu', 'clock', 'gauge', 'shield' );
 			for ( $i = 1; $i <= 4; $i++ ) :
 				$hl = fenix_mod( 'highlight' . $i );
 				if ( ! $hl ) {
@@ -178,6 +178,24 @@ $fenix_line = fenix_mod( 'line_url' );
 					<span><?php echo esc_html( $hl ); ?></span>
 				</li>
 			<?php endfor; ?>
+
+			<?php
+			/* ชิปเวอร์ชัน อ่านจากชื่อไฟล์ EA จริง เปลี่ยนไฟล์เมื่อไหร่หน้าแรกเปลี่ยนตาม */
+			$fenix_vers = array();
+			if ( fenix_mod( 'highlight_versions' ) ) {
+				foreach ( fenix_hero_deck_cards() as $fenix_v ) {
+					if ( '' !== $fenix_v['name'] && '' !== $fenix_v['version'] ) {
+						$fenix_vers[] = trim( str_ireplace( 'FENIX', '', $fenix_v['name'] ) ) . ' ' . $fenix_v['version'];
+					}
+				}
+			}
+			if ( $fenix_vers ) :
+				?>
+				<li>
+					<span class="hl-icon"><?php echo fenix_icon( 'download' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<span>เวอร์ชันล่าสุด <?php echo esc_html( implode( ' · ', $fenix_vers ) ); ?></span>
+				</li>
+			<?php endif; ?>
 		</ul>
 	</div>
 </section>
@@ -214,6 +232,91 @@ $fenix_live_items = fenix_lines( fenix_mod( 'live_status_items' ) );
 </section>
 <?php endif; ?>
 
+<?php /* ============ เราไม่ใช่อะไร ============ */ ?>
+<?php
+$fenix_notus = fenix_lines( fenix_mod( 'notus_items' ) );
+if ( fenix_mod( 'show_notus' ) && $fenix_notus ) :
+	?>
+<section class="section notus-section" id="notus">
+	<div class="container container-narrow">
+		<div class="sec-head reveal">
+			<?php if ( fenix_mod( 'notus_kicker' ) ) : ?>
+				<span class="kicker"><?php echo esc_html( fenix_mod( 'notus_kicker' ) ); ?></span>
+			<?php endif; ?>
+			<h2><?php echo esc_html( fenix_mod( 'notus_title' ) ); ?></h2>
+			<?php if ( fenix_mod( 'notus_sub' ) ) : ?>
+				<p><?php echo esc_html( fenix_mod( 'notus_sub' ) ); ?></p>
+			<?php endif; ?>
+		</div>
+		<ul class="notus-list reveal">
+			<?php
+			foreach ( $fenix_notus as $fenix_line ) :
+				$fenix_bits = array_map( 'trim', explode( '—', $fenix_line, 2 ) );
+				?>
+				<li>
+					<span class="notus-mark"><?php echo fenix_icon( 'x', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<span class="notus-body">
+						<strong><?php echo esc_html( $fenix_bits[0] ); ?></strong>
+						<?php if ( isset( $fenix_bits[1] ) && '' !== $fenix_bits[1] ) : ?>
+							<span><?php echo esc_html( $fenix_bits[1] ); ?></span>
+						<?php endif; ?>
+					</span>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+</section>
+<?php endif; ?>
+<?php /* ============ FENIX PRO EA คืออะไร ============ */ ?>
+<?php if ( fenix_mod( 'show_about' ) ) : ?>
+<section class="section section-alt" id="about">
+	<div class="container">
+		<div class="sec-head reveal">
+			<span class="kicker">About</span>
+			<h2><?php echo esc_html( fenix_mod( 'about_title' ) ); ?></h2>
+		</div>
+
+		<div class="about-layout<?php echo fenix_mod( 'about_img' ) ? '' : ' about-layout--solo'; ?>">
+			<div class="about-panel reveal">
+				<?php
+				foreach ( preg_split( '/\n\s*\n/', (string) fenix_mod( 'about_text' ) ) as $fenix_para ) {
+					$fenix_para = trim( $fenix_para );
+					if ( '' === $fenix_para ) {
+						continue;
+					}
+					echo '<p>' . nl2br( esc_html( $fenix_para ) ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput
+				}
+				?>
+			</div>
+			<?php echo fenix_section_figure( 'about_img', 'about_img_alt' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		</div>
+
+		<?php
+		$fenix_flow = array();
+		for ( $i = 1; $i <= 3; $i++ ) {
+			$fenix_step = trim( (string) fenix_mod( 'about_flow' . $i ) );
+			if ( '' !== $fenix_step ) {
+				$fenix_flow[] = $fenix_step;
+			}
+		}
+		if ( $fenix_flow ) :
+			?>
+			<ol class="ea-flow reveal" aria-label="ลำดับการทำงานของ EA">
+				<?php
+				$fenix_flow_icons = array( 'candles', 'pulse', 'check' );
+				foreach ( $fenix_flow as $fenix_i => $fenix_step ) :
+					?>
+					<li>
+						<span class="ea-flow-ic"><?php echo fenix_icon( $fenix_flow_icons[ $fenix_i % 3 ] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+						<span><?php echo esc_html( $fenix_step ); ?></span>
+					</li>
+				<?php endforeach; ?>
+			</ol>
+		<?php endif; ?>
+	</div>
+</section>
+<?php endif; ?>
+
 <?php /* ============ ปัญหา ============ */ ?>
 <?php if ( fenix_mod( 'show_pain' ) ) : ?>
 <section class="section" id="pain">
@@ -223,6 +326,8 @@ $fenix_live_items = fenix_lines( fenix_mod( 'live_status_items' ) );
 			<h2><?php echo esc_html( fenix_mod( 'pain_title' ) ); ?></h2>
 			<p><?php echo esc_html( fenix_mod( 'pain_subtitle' ) ); ?></p>
 		</div>
+		<?php echo fenix_section_figure( 'pain_img', 'pain_img_alt', 'sec-figure sec-figure--band' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+
 		<div class="grid grid-4">
 			<?php
 			$fenix_pain_icons = array( 'pulse', 'clock', 'gauge', 'flag' );
@@ -244,63 +349,64 @@ $fenix_live_items = fenix_lines( fenix_mod( 'live_status_items' ) );
 </section>
 <?php endif; ?>
 
-<?php /* ============ FENIX PRO EA คืออะไร ============ */ ?>
-<?php if ( fenix_mod( 'show_about' ) ) : ?>
-<section class="section section-alt" id="about">
-	<div class="container container-narrow">
+<?php /* ============ ขั้นตอนใช้งาน ============ */ ?>
+<?php if ( fenix_mod( 'show_steps' ) ) : ?>
+<section class="section steps-section" id="how-it-works">
+	<div class="container">
 		<div class="sec-head reveal">
-			<span class="kicker">About</span>
-			<h2><?php echo esc_html( fenix_mod( 'about_title' ) ); ?></h2>
+			<span class="kicker"><?php echo esc_html( fenix_mod( 'steps_kicker' ) ); ?></span>
+			<h2><?php echo esc_html( fenix_mod( 'steps_title' ) ); ?></h2>
+			<p><?php echo esc_html( fenix_mod( 'steps_subtitle' ) ); ?></p>
 		</div>
-		<div class="about-panel reveal">
-			<?php
-			foreach ( preg_split( '/\n\s*\n/', (string) fenix_mod( 'about_text' ) ) as $fenix_para ) {
-				$fenix_para = trim( $fenix_para );
-				if ( '' === $fenix_para ) {
+		<?php echo fenix_section_figure( 'steps_img', 'steps_img_alt', 'sec-figure sec-figure--band' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+
+		<ol class="steps steps-timeline">
+			<?php for ( $i = 1; $i <= 4; $i++ ) : ?>
+				<?php
+				$step_title = fenix_mod( 'step' . $i . '_title' );
+				$step_desc  = fenix_mod( 'step' . $i . '_desc' );
+				if ( ! $step_title && ! $step_desc ) {
 					continue;
 				}
-				echo '<p>' . nl2br( esc_html( $fenix_para ) ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput
-			}
-			?>
-		</div>
+				?>
+				<li class="step reveal">
+					<span class="step-num">0<?php echo esc_html( (string) $i ); ?></span>
+					<h3><?php echo esc_html( $step_title ); ?></h3>
+					<p><?php echo esc_html( $step_desc ); ?></p>
+				</li>
+			<?php endfor; ?>
+		</ol>
 	</div>
 </section>
 <?php endif; ?>
 
-<?php /* ============ ทีมงาน / ใครอยู่เบื้องหลัง ============ */ ?>
-<?php if ( fenix_mod( 'show_team' ) ) : ?>
-<section class="section team-section" id="team">
-	<div class="container container-narrow">
+<?php /* ============ จุดเด่น ============ */ ?>
+<?php if ( fenix_mod( 'show_features' ) ) : ?>
+<section class="section" id="features">
+	<div class="container">
 		<div class="sec-head reveal">
-			<span class="kicker"><?php echo esc_html( fenix_mod( 'team_kicker' ) ); ?></span>
-			<h2><?php echo esc_html( fenix_mod( 'team_title' ) ); ?></h2>
+			<span class="kicker">Key Features</span>
+			<h2><?php echo esc_html( fenix_mod( 'features_title' ) ); ?></h2>
+			<p><?php echo esc_html( fenix_mod( 'features_subtitle' ) ); ?></p>
 		</div>
-		<?php $fenix_team_img = fenix_mod( 'team_img' ); ?>
-		<div class="team-layout<?php echo $fenix_team_img ? '' : ' team-layout--solo'; ?> reveal">
-			<?php if ( $fenix_team_img ) : ?>
-				<figure class="team-photo">
-					<img src="<?php echo esc_url( $fenix_team_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'team_title' ) ); ?>" loading="lazy">
-				</figure>
-			<?php endif; ?>
-			<div class="team-body">
-				<?php
-				foreach ( preg_split( '/\n\s*\n/', (string) fenix_mod( 'team_text' ) ) as $fenix_para ) {
-					$fenix_para = trim( $fenix_para );
-					if ( '' === $fenix_para ) {
-						continue;
-					}
-					echo '<p>' . nl2br( esc_html( $fenix_para ) ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		<?php echo fenix_section_figure( 'features_img', 'features_img_alt', 'sec-figure sec-figure--band' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+
+		<div class="grid grid-3 features-grid">
+			<?php
+			$fenix_feat_icons = array( 'cpu', 'candles', 'layout', 'shield', 'moon', 'headset' );
+			for ( $i = 1; $i <= 6; $i++ ) :
+				$f_title = fenix_mod( 'feat' . $i . '_title' );
+				$f_desc  = fenix_mod( 'feat' . $i . '_desc' );
+				if ( ! $f_title && ! $f_desc ) {
+					continue;
 				}
-				$fenix_team_points = fenix_lines( fenix_mod( 'team_points' ) );
 				?>
-				<?php if ( ! empty( $fenix_team_points ) ) : ?>
-					<ul class="team-points">
-						<?php foreach ( $fenix_team_points as $fenix_point ) : ?>
-							<li><?php echo fenix_icon( 'check', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php echo esc_html( $fenix_point ); ?></span></li>
-						<?php endforeach; ?>
-					</ul>
-				<?php endif; ?>
-			</div>
+				<article class="card feat-card feat-card-<?php echo esc_attr( $i ); ?> reveal">
+					<span class="card-icon"><?php echo fenix_icon( $fenix_feat_icons[ $i - 1 ] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<h3><?php echo esc_html( $f_title ); ?></h3>
+					<p><?php echo esc_html( $f_desc ); ?></p>
+				</article>
+			<?php endfor; ?>
 		</div>
 	</div>
 </section>
@@ -355,131 +461,74 @@ $fenix_live_items = fenix_lines( fenix_mod( 'live_status_items' ) );
 </section>
 <?php endif; ?>
 
-<?php /* ============ จุดเด่น ============ */ ?>
-<?php if ( fenix_mod( 'show_features' ) ) : ?>
-<section class="section" id="features">
+<?php /* ============ เหมาะกับใคร ============ */ ?>
+<?php if ( fenix_mod( 'show_fit' ) ) : ?>
+<section class="section" id="fit">
 	<div class="container">
 		<div class="sec-head reveal">
-			<span class="kicker">Key Features</span>
-			<h2><?php echo esc_html( fenix_mod( 'features_title' ) ); ?></h2>
-			<p><?php echo esc_html( fenix_mod( 'features_subtitle' ) ); ?></p>
+			<span class="kicker">Honest Check</span>
+			<h2><?php echo esc_html( fenix_mod( 'fit_title' ) ); ?></h2>
+			<p><?php echo esc_html( fenix_mod( 'fit_subtitle' ) ); ?></p>
 		</div>
-		<div class="grid grid-3 features-grid">
+		<div class="grid grid-3 profile-grid">
 			<?php
-			$fenix_feat_icons = array( 'cpu', 'candles', 'layout', 'shield', 'moon', 'headset' );
-			for ( $i = 1; $i <= 6; $i++ ) :
-				$f_title = fenix_mod( 'feat' . $i . '_title' );
-				$f_desc  = fenix_mod( 'feat' . $i . '_desc' );
-				if ( ! $f_title && ! $f_desc ) {
+			$fenix_prof_icons = array( 'clock', 'pulse', 'layout' );
+			for ( $i = 1; $i <= 3; $i++ ) :
+				$fenix_pt = fenix_mod( 'prof' . $i . '_title' );
+				$fenix_pd = fenix_mod( 'prof' . $i . '_desc' );
+				if ( ! $fenix_pt && ! $fenix_pd ) {
 					continue;
 				}
 				?>
-				<article class="card feat-card feat-card-<?php echo esc_attr( $i ); ?> reveal">
-					<span class="card-icon"><?php echo fenix_icon( $fenix_feat_icons[ $i - 1 ] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-					<h3><?php echo esc_html( $f_title ); ?></h3>
-					<p><?php echo esc_html( $f_desc ); ?></p>
+				<article class="card profile-card reveal">
+					<span class="card-icon"><?php echo fenix_icon( $fenix_prof_icons[ $i - 1 ] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<h3><?php echo esc_html( $fenix_pt ); ?></h3>
+					<p><?php echo esc_html( $fenix_pd ); ?></p>
 				</article>
 			<?php endfor; ?>
 		</div>
-	</div>
-</section>
-<?php endif; ?>
 
-<?php /* ============ ภาพ Dashboard ============ */ ?>
-<?php if ( fenix_mod( 'show_gallery' ) ) : ?>
-<section class="section section-alt" id="screenshots">
-	<div class="container">
-		<div class="sec-head reveal">
-			<span class="kicker">Screenshots</span>
-			<h2><?php echo esc_html( fenix_mod( 'gallery_title' ) ); ?></h2>
-			<p><?php echo esc_html( fenix_mod( 'gallery_subtitle' ) ); ?></p>
-		</div>
-		<?php
-		$fenix_shots = array();
-		for ( $i = 1; $i <= 4; $i++ ) {
-			$g_img = fenix_mod( 'gallery_img' . $i );
-			if ( $g_img ) {
-				$fenix_shots[] = array(
-					'src' => $g_img,
-					'cap' => fenix_mod( 'gallery_cap' . $i ),
-				);
-			}
-		}
-		?>
-		<?php if ( ! empty( $fenix_shots ) ) : ?>
-			<div class="shots-grid">
-				<?php foreach ( $fenix_shots as $fenix_shot ) : ?>
-					<figure class="shot reveal">
-						<img src="<?php echo esc_url( $fenix_shot['src'] ); ?>" alt="<?php echo esc_attr( $fenix_shot['cap'] ); ?>" loading="lazy">
-						<?php if ( $fenix_shot['cap'] ) : ?>
-							<figcaption><?php echo esc_html( $fenix_shot['cap'] ); ?></figcaption>
-						<?php endif; ?>
-					</figure>
-				<?php endforeach; ?>
+		<?php $fenix_bad = fenix_lines( fenix_mod( 'fit_bad_items' ) ); ?>
+		<?php if ( $fenix_bad ) : ?>
+			<div class="fit-card fit-bad reveal">
+				<h3><?php echo fenix_icon( 'warn' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( fenix_mod( 'fit_bad_title' ) ); ?></h3>
+				<ul>
+					<?php foreach ( $fenix_bad as $fenix_item ) : ?>
+						<li><?php echo fenix_icon( 'x', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php echo esc_html( $fenix_item ); ?></span></li>
+					<?php endforeach; ?>
+				</ul>
 			</div>
-		<?php else : ?>
-			<div class="shots-grid">
-				<?php for ( $i = 1; $i <= 2; $i++ ) : ?>
-					<figure class="shot shot-placeholder reveal">
-						<div class="shot-empty">
-							<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo.png' ); ?>" alt="" loading="lazy" width="120" height="120">
-							<span class="chip">ภาพประกอบ</span>
-							<p>อัปโหลดภาพ Dashboard ได้ที่หน้า ปรับแต่ง → ภาพ Dashboard / ระบบจริง</p>
-						</div>
-						<figcaption><?php echo esc_html( fenix_mod( 'gallery_cap' . $i ) ); ?></figcaption>
-					</figure>
-				<?php endfor; ?>
-			</div>
-		<?php endif; ?>
-		<?php if ( fenix_mod( 'gallery_note' ) ) : ?>
-			<p class="sec-note reveal"><?php echo esc_html( fenix_mod( 'gallery_note' ) ); ?></p>
 		<?php endif; ?>
 	</div>
 </section>
 <?php endif; ?>
 
-<?php /* ============ ขั้นตอนใช้งาน ============ */ ?>
-<?php if ( fenix_mod( 'show_steps' ) ) : ?>
-<section class="section steps-section" id="how-it-works">
+<?php /* ============ รีวิวลูกค้า (เปิดเมื่อมีรีวิวจริง) ============ */ ?>
+<?php if ( fenix_mod( 'show_reviews' ) ) : ?>
+<section class="section reviews-section" id="reviews">
 	<div class="container">
 		<div class="sec-head reveal">
-			<span class="kicker"><?php echo esc_html( fenix_mod( 'steps_kicker' ) ); ?></span>
-			<h2><?php echo esc_html( fenix_mod( 'steps_title' ) ); ?></h2>
-			<p><?php echo esc_html( fenix_mod( 'steps_subtitle' ) ); ?></p>
+			<span class="kicker">Reviews</span>
+			<h2><?php echo esc_html( fenix_mod( 'reviews_title' ) ); ?></h2>
+			<p><?php echo esc_html( fenix_mod( 'reviews_subtitle' ) ); ?></p>
 		</div>
-		<ol class="steps steps-timeline">
-			<?php for ( $i = 1; $i <= 4; $i++ ) : ?>
+		<div class="grid grid-3 reviews-grid">
+			<?php for ( $i = 1; $i <= 3; $i++ ) : ?>
 				<?php
-				$step_title = fenix_mod( 'step' . $i . '_title' );
-				$step_desc  = fenix_mod( 'step' . $i . '_desc' );
-				if ( ! $step_title && ! $step_desc ) {
+				$fenix_rev_text = fenix_mod( 'rev' . $i . '_text' );
+				$fenix_rev_name = fenix_mod( 'rev' . $i . '_name' );
+				if ( ! $fenix_rev_text ) {
 					continue;
 				}
 				?>
-				<li class="step reveal">
-					<span class="step-num">0<?php echo esc_html( (string) $i ); ?></span>
-					<h3><?php echo esc_html( $step_title ); ?></h3>
-					<p><?php echo esc_html( $step_desc ); ?></p>
-				</li>
+				<figure class="card review-card reveal">
+					<span class="card-icon"><?php echo fenix_icon( 'quote' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<blockquote><?php echo esc_html( $fenix_rev_text ); ?></blockquote>
+					<?php if ( $fenix_rev_name ) : ?>
+						<figcaption><?php echo esc_html( $fenix_rev_name ); ?></figcaption>
+					<?php endif; ?>
+				</figure>
 			<?php endfor; ?>
-		</ol>
-	</div>
-</section>
-<?php endif; ?>
-
-<?php /* ============ Mid CTA (ทัก LINE คั่นกลางหน้า) ============ */ ?>
-<?php if ( fenix_mod( 'show_mid_cta' ) ) : ?>
-<section class="mid-cta" aria-label="ทัก LINE ปรึกษา">
-	<div class="container container-narrow">
-		<div class="mid-cta-inner reveal">
-			<div class="mid-cta-copy">
-				<h2><?php echo esc_html( fenix_mod( 'mid_cta_title' ) ); ?></h2>
-				<p><?php echo esc_html( fenix_mod( 'mid_cta_text' ) ); ?></p>
-			</div>
-			<a class="btn btn-line" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
-				<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				ทัก LINE ปรึกษาก่อนตัดสินใจ
-			</a>
 		</div>
 	</div>
 </section>
@@ -541,6 +590,22 @@ $fenix_has_perf     = ! empty( $fenix_perf_stats ) || $fenix_perf_img || $fenix_
 			</p>
 		<?php endif; ?>
 
+		<?php if ( fenix_mod( 'perf_conditions' ) ) : ?>
+			<p class="perf-conditions reveal"><?php echo esc_html( fenix_mod( 'perf_conditions' ) ); ?></p>
+		<?php endif; ?>
+
+		<?php $fenix_verify = fenix_lines( fenix_mod( 'verify_items' ) ); ?>
+		<?php if ( $fenix_verify ) : ?>
+			<div class="verify-box reveal">
+				<h3><?php echo fenix_icon( 'shield' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( fenix_mod( 'verify_title' ) ); ?></h3>
+				<ol class="verify-list">
+					<?php foreach ( $fenix_verify as $fenix_i => $fenix_v ) : ?>
+						<li><span class="verify-num"><?php echo (int) ( $fenix_i + 1 ); ?></span><span><?php echo esc_html( $fenix_v ); ?></span></li>
+					<?php endforeach; ?>
+				</ol>
+			</div>
+		<?php endif; ?>
+
 		<?php if ( fenix_mod( 'perf_note' ) ) : ?>
 			<p class="sec-note reveal"><?php echo esc_html( fenix_mod( 'perf_note' ) ); ?></p>
 		<?php endif; ?>
@@ -555,63 +620,221 @@ $fenix_has_perf     = ! empty( $fenix_perf_stats ) || $fenix_perf_img || $fenix_
 </section>
 <?php endif; ?>
 
-<?php /* ============ เหมาะกับใคร ============ */ ?>
-<?php if ( fenix_mod( 'show_fit' ) ) : ?>
-<section class="section" id="fit">
+<?php /* ============ ภาพ Dashboard ============ */ ?>
+<?php if ( fenix_mod( 'show_gallery' ) ) : ?>
+<section class="section section-alt" id="screenshots">
 	<div class="container">
 		<div class="sec-head reveal">
-			<span class="kicker">Honest Check</span>
-			<h2><?php echo esc_html( fenix_mod( 'fit_title' ) ); ?></h2>
-			<p><?php echo esc_html( fenix_mod( 'fit_subtitle' ) ); ?></p>
+			<span class="kicker">Screenshots</span>
+			<h2><?php echo esc_html( fenix_mod( 'gallery_title' ) ); ?></h2>
+			<p><?php echo esc_html( fenix_mod( 'gallery_subtitle' ) ); ?></p>
 		</div>
-		<div class="fit-grid">
-			<div class="fit-card fit-good reveal">
-				<h3><?php echo fenix_icon( 'check' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( fenix_mod( 'fit_good_title' ) ); ?></h3>
-				<ul>
-					<?php foreach ( fenix_lines( fenix_mod( 'fit_good_items' ) ) as $fenix_item ) : ?>
-						<li><?php echo fenix_icon( 'check', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php echo esc_html( $fenix_item ); ?></span></li>
-					<?php endforeach; ?>
-				</ul>
+		<?php
+		$fenix_shots = array();
+		for ( $i = 1; $i <= 4; $i++ ) {
+			$g_img = fenix_mod( 'gallery_img' . $i );
+			if ( $g_img ) {
+				$fenix_shots[] = array(
+					'src' => $g_img,
+					'cap' => fenix_mod( 'gallery_cap' . $i ),
+				);
+			}
+		}
+		?>
+		<?php if ( ! empty( $fenix_shots ) ) : ?>
+			<div class="shots-grid">
+				<?php foreach ( $fenix_shots as $fenix_shot ) : ?>
+					<figure class="shot reveal">
+						<img src="<?php echo esc_url( $fenix_shot['src'] ); ?>" alt="<?php echo esc_attr( $fenix_shot['cap'] ); ?>" loading="lazy">
+						<?php if ( $fenix_shot['cap'] ) : ?>
+							<figcaption><?php echo esc_html( $fenix_shot['cap'] ); ?></figcaption>
+						<?php endif; ?>
+					</figure>
+				<?php endforeach; ?>
 			</div>
-			<div class="fit-card fit-bad reveal">
-				<h3><?php echo fenix_icon( 'x' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( fenix_mod( 'fit_bad_title' ) ); ?></h3>
-				<ul>
-					<?php foreach ( fenix_lines( fenix_mod( 'fit_bad_items' ) ) as $fenix_item ) : ?>
-						<li><?php echo fenix_icon( 'x', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php echo esc_html( $fenix_item ); ?></span></li>
-					<?php endforeach; ?>
-				</ul>
+		<?php else : ?>
+			<div class="shots-grid">
+				<?php for ( $i = 1; $i <= 2; $i++ ) : ?>
+					<figure class="shot shot-placeholder reveal">
+						<div class="shot-empty">
+							<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo.png' ); ?>" alt="" loading="lazy" width="120" height="120">
+							<span class="chip">ภาพประกอบ</span>
+							<p>อัปโหลดภาพ Dashboard ได้ที่หน้า ปรับแต่ง → ภาพ Dashboard / ระบบจริง</p>
+						</div>
+						<figcaption><?php echo esc_html( fenix_mod( 'gallery_cap' . $i ) ); ?></figcaption>
+					</figure>
+				<?php endfor; ?>
 			</div>
-		</div>
+		<?php endif; ?>
+		<?php if ( fenix_mod( 'gallery_note' ) ) : ?>
+			<p class="sec-note reveal"><?php echo esc_html( fenix_mod( 'gallery_note' ) ); ?></p>
+		<?php endif; ?>
 	</div>
 </section>
 <?php endif; ?>
 
-<?php /* ============ รีวิวลูกค้า (เปิดเมื่อมีรีวิวจริง) ============ */ ?>
-<?php if ( fenix_mod( 'show_reviews' ) ) : ?>
-<section class="section reviews-section" id="reviews">
+<?php /* ============ ใช้กับอะไรได้บ้าง ============ */ ?>
+<?php if ( fenix_mod( 'show_devices' ) ) : ?>
+<section class="section section-alt devices-section" id="devices">
 	<div class="container">
 		<div class="sec-head reveal">
-			<span class="kicker">Reviews</span>
-			<h2><?php echo esc_html( fenix_mod( 'reviews_title' ) ); ?></h2>
-			<p><?php echo esc_html( fenix_mod( 'reviews_subtitle' ) ); ?></p>
+			<?php if ( fenix_mod( 'dev_kicker' ) ) : ?>
+				<span class="kicker"><?php echo esc_html( fenix_mod( 'dev_kicker' ) ); ?></span>
+			<?php endif; ?>
+			<h2><?php echo esc_html( fenix_mod( 'dev_title' ) ); ?></h2>
+			<?php if ( fenix_mod( 'dev_sub' ) ) : ?>
+				<p><?php echo esc_html( fenix_mod( 'dev_sub' ) ); ?></p>
+			<?php endif; ?>
 		</div>
-		<div class="grid grid-3 reviews-grid">
-			<?php for ( $i = 1; $i <= 3; $i++ ) : ?>
+
+		<div class="dev-layout">
+			<div class="grid grid-3 dev-grid">
 				<?php
-				$fenix_rev_text = fenix_mod( 'rev' . $i . '_text' );
-				$fenix_rev_name = fenix_mod( 'rev' . $i . '_name' );
-				if ( ! $fenix_rev_text ) {
-					continue;
-				}
-				?>
-				<figure class="card review-card reveal">
-					<span class="card-icon"><?php echo fenix_icon( 'quote' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-					<blockquote><?php echo esc_html( $fenix_rev_text ); ?></blockquote>
-					<?php if ( $fenix_rev_name ) : ?>
-						<figcaption><?php echo esc_html( $fenix_rev_name ); ?></figcaption>
-					<?php endif; ?>
+				$fenix_dev_icons = array( 'layout', 'cpu', 'headset' );
+				for ( $i = 1; $i <= 3; $i++ ) :
+					$fenix_dt = fenix_mod( 'dev' . $i . '_title' );
+					$fenix_dn = fenix_mod( 'dev' . $i . '_note' );
+					if ( ! $fenix_dt && ! $fenix_dn ) {
+						continue;
+					}
+					$fenix_db = trim( (string) fenix_mod( 'dev' . $i . '_badge' ) );
+					?>
+					<article class="card dev-card<?php echo $fenix_db ? ' is-pick' : ''; ?> reveal">
+						<span class="card-icon"><?php echo fenix_icon( $fenix_dev_icons[ $i - 1 ] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+						<h3><?php echo esc_html( $fenix_dt ); ?><?php if ( $fenix_db ) : ?><span class="dev-badge"><?php echo esc_html( $fenix_db ); ?></span><?php endif; ?></h3>
+						<p><?php echo esc_html( $fenix_dn ); ?></p>
+					</article>
+				<?php endfor; ?>
+			</div>
+
+			<?php echo fenix_section_figure( 'dev_img', 'dev_img_alt', 'sec-figure sec-figure--side' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		</div>
+
+		<?php if ( fenix_mod( 'dev_req' ) ) : ?>
+			<p class="dev-req reveal"><?php echo fenix_icon( 'check', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php echo esc_html( fenix_mod( 'dev_req' ) ); ?></span></p>
+		<?php endif; ?>
+
+		<?php if ( fenix_mod( 'dev_btn_label' ) || fenix_mod( 'dev_btn2_label' ) ) : ?>
+			<p class="dev-actions reveal">
+				<?php if ( fenix_mod( 'dev_btn_label' ) ) : ?>
+					<a class="btn btn-fire" href="<?php echo esc_url( fenix_link_url( 'dev_btn_url' ) ); ?>">
+						<?php echo fenix_icon( 'download', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<?php echo esc_html( fenix_mod( 'dev_btn_label' ) ); ?>
+					</a>
+				<?php endif; ?>
+				<?php if ( fenix_mod( 'dev_btn2_label' ) ) : ?>
+					<a class="btn btn-ghost" href="<?php echo esc_url( fenix_link_url( 'dev_btn2_url' ) ); ?>">
+						<?php echo esc_html( fenix_mod( 'dev_btn2_label' ) ); ?>
+					</a>
+				<?php endif; ?>
+			</p>
+		<?php endif; ?>
+	</div>
+</section>
+<?php endif; ?>
+
+<?php /* ============ สิ่งที่ยังเป็นของคุณ ============ */ ?>
+<?php
+$fenix_own = fenix_lines( fenix_mod( 'own_items' ) );
+if ( fenix_mod( 'show_own' ) && $fenix_own ) :
+	?>
+<section class="section own-section" id="own">
+	<div class="container container-narrow">
+		<div class="sec-head reveal">
+			<?php if ( fenix_mod( 'own_kicker' ) ) : ?>
+				<span class="kicker"><?php echo esc_html( fenix_mod( 'own_kicker' ) ); ?></span>
+			<?php endif; ?>
+			<h2><?php echo esc_html( fenix_mod( 'own_title' ) ); ?></h2>
+			<?php if ( fenix_mod( 'own_sub' ) ) : ?>
+				<p><?php echo esc_html( fenix_mod( 'own_sub' ) ); ?></p>
+			<?php endif; ?>
+		</div>
+		<ul class="own-list reveal">
+			<?php foreach ( $fenix_own as $fenix_item ) : ?>
+				<li><?php echo fenix_icon( 'check', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php echo esc_html( $fenix_item ); ?></span></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+</section>
+<?php endif; ?>
+<?php /* ============ ทีมงาน / ใครอยู่เบื้องหลัง ============ */ ?>
+<?php if ( fenix_mod( 'show_team' ) ) : ?>
+<section class="section team-section" id="team">
+	<div class="container container-narrow">
+		<div class="sec-head reveal">
+			<span class="kicker"><?php echo esc_html( fenix_mod( 'team_kicker' ) ); ?></span>
+			<h2><?php echo esc_html( fenix_mod( 'team_title' ) ); ?></h2>
+		</div>
+		<?php $fenix_team_img = fenix_mod( 'team_img' ); ?>
+		<div class="team-layout<?php echo $fenix_team_img ? '' : ' team-layout--solo'; ?> reveal">
+			<?php if ( $fenix_team_img ) : ?>
+				<figure class="team-photo">
+					<img src="<?php echo esc_url( $fenix_team_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'team_title' ) ); ?>" loading="lazy">
 				</figure>
-			<?php endfor; ?>
+			<?php endif; ?>
+			<div class="team-body">
+				<?php
+				foreach ( preg_split( '/\n\s*\n/', (string) fenix_mod( 'team_text' ) ) as $fenix_para ) {
+					$fenix_para = trim( $fenix_para );
+					if ( '' === $fenix_para ) {
+						continue;
+					}
+					echo '<p>' . nl2br( esc_html( $fenix_para ) ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput
+				}
+				$fenix_team_points = fenix_lines( fenix_mod( 'team_points' ) );
+				?>
+				<?php if ( ! empty( $fenix_team_points ) ) : ?>
+					<ul class="team-points">
+						<?php foreach ( $fenix_team_points as $fenix_point ) : ?>
+							<li><?php echo fenix_icon( 'check', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php echo esc_html( $fenix_point ); ?></span></li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</div>
+		</div>
+
+		<?php
+		$fenix_ident = array();
+		foreach ( array( 'company_name', 'company_reg', 'company_address', 'company_email' ) as $fenix_key ) {
+			$fenix_val = trim( (string) fenix_mod( $fenix_key ) );
+			if ( '' !== $fenix_val ) {
+				$fenix_ident[ $fenix_key ] = $fenix_val;
+			}
+		}
+		if ( $fenix_ident ) :
+			?>
+			<ul class="identity-list reveal">
+				<?php if ( isset( $fenix_ident['company_name'] ) ) : ?>
+					<li><span>ดำเนินการโดย</span><strong><?php echo esc_html( $fenix_ident['company_name'] ); ?></strong></li>
+				<?php endif; ?>
+				<?php if ( isset( $fenix_ident['company_reg'] ) ) : ?>
+					<li><span>ทะเบียน</span><strong><?php echo esc_html( $fenix_ident['company_reg'] ); ?></strong></li>
+				<?php endif; ?>
+				<?php if ( isset( $fenix_ident['company_address'] ) ) : ?>
+					<li><span>ที่อยู่</span><strong><?php echo esc_html( $fenix_ident['company_address'] ); ?></strong></li>
+				<?php endif; ?>
+				<?php if ( isset( $fenix_ident['company_email'] ) ) : ?>
+					<li><span>อีเมล</span><strong class="keep-case"><?php echo esc_html( $fenix_ident['company_email'] ); ?></strong></li>
+				<?php endif; ?>
+			</ul>
+		<?php endif; ?>
+	</div>
+</section>
+<?php endif; ?>
+
+<?php /* ============ Mid CTA (ทัก LINE คั่นกลางหน้า) ============ */ ?>
+<?php if ( fenix_mod( 'show_mid_cta' ) ) : ?>
+<section class="mid-cta" aria-label="ทัก LINE ปรึกษา">
+	<div class="container container-narrow">
+		<div class="mid-cta-inner reveal">
+			<div class="mid-cta-copy">
+				<h2><?php echo esc_html( fenix_mod( 'mid_cta_title' ) ); ?></h2>
+				<p><?php echo esc_html( fenix_mod( 'mid_cta_text' ) ); ?></p>
+			</div>
+			<a class="btn btn-line" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
+				<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				ทัก LINE ปรึกษาก่อนตัดสินใจ
+			</a>
 		</div>
 	</div>
 </section>
