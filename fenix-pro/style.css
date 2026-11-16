@@ -6582,6 +6582,12 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	aspect-ratio: 1200 / 675;
 	margin-bottom: 16px;
 	touch-action: pan-y;
+	user-select: none;
+	cursor: grab;
+}
+
+.hero-deck-stack.is-dragging {
+	cursor: grabbing;
 }
 
 .deck-card {
@@ -6605,6 +6611,9 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 	display: block;
 	width: 100%;
 	height: auto;
+	-webkit-user-drag: none;
+	user-select: none;
+	pointer-events: none;
 }
 
 .deck-card.is-1 {

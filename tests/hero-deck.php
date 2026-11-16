@@ -110,7 +110,10 @@ check( array( '5.1', '6.3', '1.1' ) === $versions, 'เลขเวอร์ช�
 check( 1 === $xpath->query( '//article[contains(@class, "is-1")]' )->length, 'มีใบเดียวที่อยู่บนสุด' );
 check( 3 === $xpath->query( '//button[contains(@class, "deck-dot")]' )->length, 'มีจุดบอกตำแหน่งครบทุกใบ' );
 check( 1 === $xpath->query( '//button[contains(@class, "is-on")]' )->length, 'จุดที่ไฮไลต์มีจุดเดียว' );
-check( 'ตัวเด่นตอนนี้' === trim( $xpath->query( '//span[contains(@class, "deck-badge")]' )->item( 0 )->textContent ), 'ป้ายบนใบเด่นใช้ข้อความจากค่าที่ตั้งไว้' );
+check( 0 === $xpath->query( '//span[contains(@class, "deck-badge")]' )->length, 'ค่าเริ่มต้นไม่มีป้ายทับบนปก' );
+
+$xpath_badge = dom_of( render_front( array( 'hero_deck_badge' => 'ตัวเด่นตอนนี้' ) ) );
+check( 'ตัวเด่นตอนนี้' === trim( $xpath_badge->query( '//span[contains(@class, "deck-badge")]' )->item( 0 )->textContent ), 'อยากได้ป้ายเมื่อไหร่ พิมพ์ข้อความแล้วมันกลับมา' );
 check( 'FENIX PLUS' === trim( $xpath->query( '//span[contains(@class, "deck-name")]' )->item( 0 )->textContent ), 'ชื่อใต้สำรับตรงกับใบบนสุด' );
 
 /* รูปใบแรกต้องโหลดก่อน ใบที่เหลือค่อยโหลดทีหลัง */

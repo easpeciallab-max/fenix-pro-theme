@@ -330,7 +330,7 @@ function fenix_defaults() {
 		'hero_image'     => '',
 		'hero_visual'        => 'deck',
 		'hero_deck_featured' => 'plus',
-		'hero_deck_badge'    => 'ตัวเด่นตอนนี้',
+		'hero_deck_badge'    => '',
 		'hero_deck_cta'      => 'ดูรายละเอียดและโหลด',
 		'hero_deck_cta_mode' => 'page',
 

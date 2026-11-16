@@ -477,6 +477,23 @@
 		}, still.matches ? 0 : 420);
 	}
 
+	function back() {
+		if (busy) { return; }
+		busy = true;
+
+		/* เอาใบท้ายสำรับไปตั้งไว้นอกจอซ้ายก่อน แล้วค่อยปล่อยให้มันไหลกลับเข้ามา */
+		var last = order[order.length - 1];
+		last.style.transition = 'none';
+		last.className = 'deck-card is-out';
+		void last.offsetWidth;
+		last.style.transition = '';
+
+		order.unshift(order.pop());
+		paint();
+
+		window.setTimeout(function () { busy = false; }, still.matches ? 0 : 420);
+	}
+
 	function goTo(index) {
 		var guard = 0;
 		while (cards.indexOf(order[0]) !== index && guard < cards.length) {
@@ -509,18 +526,74 @@
 		});
 	});
 
-	/* ปัดซ้าย = ใบถัดไป · กดใบที่อยู่ข้างหลัง = ดึงขึ้นมาแทนที่จะเปิดลิงก์ */
+	/* ----- ลากเปลี่ยนการ์ดเองได้ ไม่ต้องรอเวลา ----- */
 	var startX = 0;
 	var moved = 0;
+	var dragging = false;
+
+	function grip(on) {
+		dragging = on;
+		stack.classList.toggle('is-dragging', on);
+	}
 
 	stack.addEventListener('pointerdown', function (e) {
+		if (busy || e.button > 0) { return; }
 		startX = e.clientX;
 		moved = 0;
+		grip(true);
+		stop();
+		if (stack.setPointerCapture) {
+			try { stack.setPointerCapture(e.pointerId); } catch (err) { /* เบราว์เซอร์บางตัวไม่ยอม ก็ลากได้ตามปกติ */ }
+		}
 	});
 
-	stack.addEventListener('pointerup', function (e) {
+	stack.addEventListener('pointermove', function (e) {
+		if (!dragging) { return; }
 		moved = e.clientX - startX;
-		if (moved < -40) { advance(); start(); }
+
+		/* ใบบนสุดวิ่งตามมือไปเลย จะได้รู้ว่ามันลากได้ */
+		var top = order[0];
+		top.style.transition = 'none';
+		top.style.transform = 'translateX(' + moved + 'px) rotate(' + (moved / 26) + 'deg)';
+	});
+
+	function release(e) {
+		if (!dragging) { return; }
+		grip(false);
+
+		var top = order[0];
+		top.style.transition = '';
+		top.style.transform = '';
+
+		if (moved < -60) {
+			advance();
+		} else if (moved > 60) {
+			back();
+		}
+
+		start();
+	}
+
+	stack.addEventListener('pointerup', release);
+	stack.addEventListener('pointercancel', release);
+	stack.addEventListener('lostpointercapture', release);
+
+	/* ล้อเมาส์แนวนอนหรือแทร็กแพด ก็เปลี่ยนใบได้ (ไม่แตะการเลื่อนหน้าแนวตั้ง) */
+	var wheelAt = 0;
+	stack.addEventListener('wheel', function (e) {
+		if (Math.abs(e.deltaX) < 12 || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) { return; }
+		var now = Date.now();
+		if (now - wheelAt < 500) { return; }
+		wheelAt = now;
+		e.preventDefault();
+		if (e.deltaX > 0) { advance(); } else { back(); }
+		start();
+	}, { passive: false });
+
+	/* ปุ่มลูกศรซ้ายขวา ตอนโฟกัสอยู่ในสำรับ */
+	deck.addEventListener('keydown', function (e) {
+		if ('ArrowRight' === e.key) { e.preventDefault(); advance(); start(); }
+		if ('ArrowLeft' === e.key) { e.preventDefault(); back(); start(); }
 	});
 
 	stack.addEventListener('click', function (e) {
@@ -528,7 +601,7 @@
 		if (!card) { return; }
 		if (Math.abs(moved) > 10 || card !== order[0]) {
 			e.preventDefault();
-			if (card !== order[0]) { goTo(cards.indexOf(card)); }
+			if (card !== order[0] && Math.abs(moved) <= 10) { goTo(cards.indexOf(card)); }
 			start();
 		}
 	});
