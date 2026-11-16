@@ -929,6 +929,28 @@ function fenix_section_figure( $img_key, $alt_key = '', $class = 'sec-figure' ) 
  * ลำดับคู่มือทั้งชุด · เรียงตามที่ผู้ใช้งานต้องทำจริง
  * ใช้คุมทั้งเลขขั้น แถบบอกตำแหน่ง และปุ่มขั้นก่อนหน้า/ถัดไป
  */
+/**
+ * หน้าคู่มือ: เอาหัวเรื่องเดิมที่อยู่ในเนื้อหาออก เพราะเทมเพลตพิมพ์ชื่อหน้าให้แล้ว
+ * ถ้าปล่อยไว้ หน้าเดียวจะมี h1 สองอัน และผู้อ่านเห็นชื่อเรื่องซ้ำสองรอบ
+ */
+function fenix_guide_drop_inner_title( $content ) {
+	if ( ! is_page_template( 'template-guide.php' ) || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	return fenix_strip_first_h1( $content );
+}
+add_filter( 'the_content', 'fenix_guide_drop_inner_title', 20 );
+
+/**
+ * ตัดแท็ก h1 ตัวแรกออกจากข้อความ (แยกไว้ต่างหากเพื่อให้เทสต์ได้)
+ */
+function fenix_strip_first_h1( $html ) {
+	$out = preg_replace( '#<h1\b[^>]*>.*?</h1>\s*#su', '', (string) $html, 1 );
+
+	return null === $out ? $html : $out;
+}
+
 function fenix_guides() {
 	return array(
 		'open-mt5-account' => array(

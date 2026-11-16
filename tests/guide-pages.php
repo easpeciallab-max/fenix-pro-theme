@@ -104,6 +104,19 @@ check( 8 === $xpath->query( '//a[starts-with(@href,"https://example.test/")]' )-
 $rail_home = fenix_guide_rail( 'open-mt5-account' );
 check( false === strpos( $rail_home, 'is-done' ), 'อยู่ขั้นแรก ยังไม่มีขั้นไหนถูกทำเครื่องหมายว่าผ่านแล้ว' );
 
+/* ---- ตัดหัวเรื่องซ้ำในเนื้อหาเดิม ---- */
+$with_h1 = '<div class="guide-head"><div class="brand">FENIX PRO</div><h1 class="x">คู่มือใช้งาน VPS</h1><p class="lead">คำโปรย</p></div><h2>ขั้นที่ 1</h2>';
+$clean   = fenix_strip_first_h1( $with_h1 );
+check( false === strpos( $clean, '<h1' ), 'หัวเรื่อง h1 ที่ซ้ำกับชื่อหน้าถูกตัดออก' );
+check( false !== strpos( $clean, 'FENIX PRO' ) && false !== strpos( $clean, 'คำโปรย' ), 'ส่วนอื่นในเนื้อหายังอยู่ครบ' );
+check( false !== strpos( $clean, '<h2>ขั้นที่ 1</h2>' ), 'หัวข้อขั้นตอนไม่ถูกแตะ' );
+
+$two = fenix_strip_first_h1( '<h1>หนึ่ง</h1><p>ก</p><h1>สอง</h1>' );
+check( 1 === substr_count( $two, '<h1' ), 'ตัดเฉพาะตัวแรก ไม่ไล่ลบทั้งหน้า' );
+
+$none = '<h2>ไม่มี h1</h2>';
+check( $none === fenix_strip_first_h1( $none ), 'หน้าที่ไม่มี h1 ในเนื้อหา ไม่ถูกเปลี่ยนอะไรเลย' );
+
 /* ---- เทมเพลตมีชื่อให้เลือกใน WordPress ---- */
 $tpl = file_get_contents( get_template_directory() . '/template-guide.php' );
 check( false !== strpos( $tpl, 'Template Name:' ), 'เทมเพลตหน้าคู่มือมีชื่อให้เลือกใน Page Attributes' );
