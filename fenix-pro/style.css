@@ -3166,7 +3166,7 @@ h3 {
 	/* Mobile nav · full-screen drawer */
 	.nav-toggle {
 		display: inline-flex;
-		margin-left: 0;
+		margin-left: auto;
 	}
 
 	/* ยกเลเยอร์ header (และ drawer ที่เป็นลูก) ให้อยู่เหนือบาร์ล่าง (z-index 120) */
