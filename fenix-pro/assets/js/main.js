@@ -93,7 +93,8 @@
 		mobileItems.forEach(function (item) {
 			var itemUrl = new URL(item.href, window.location.origin);
 			var itemPath = itemUrl.pathname.replace(/\/+$/, '') || '/';
-			var isMatch = itemPath === '/' ? currentPath === '/' : (currentPath === itemPath || currentPath.indexOf(itemPath + '/') === 0);
+			var sameSite = itemUrl.host === window.location.host;
+			var isMatch = sameSite && (itemPath === '/' ? currentPath === '/' : (currentPath === itemPath || currentPath.indexOf(itemPath + '/') === 0));
 
 			if (!item.classList.contains('is-action') && isMatch && itemPath.length >= activeLength) {
 				activeItem = item;
@@ -135,6 +136,11 @@
 
 		/* กดปุ่มไหน ขีดเลื่อนไปทันที ไม่ต้องรอหน้าโหลดเสร็จ */
 		itemList.forEach(function (item) {
+			var sameHost = new URL(item.href, window.location.origin).host === window.location.host;
+			if (!sameHost || item.classList.contains('is-action')) {
+				return;
+			}
+
 			item.addEventListener('pointerdown', function () {
 				moveMarker(item);
 			});

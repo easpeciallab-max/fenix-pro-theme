@@ -3221,16 +3221,16 @@ h3 {
 	.nav-list {
 		flex-direction: column;
 		align-items: stretch;
-		gap: 10px;
+		gap: 0;
 	}
 
 	.nav-list > li {
 		height: auto;
 		display: block;
-		overflow: hidden;
-		border: 1px solid var(--border);
-		border-radius: 14px;
-		background: var(--coal);
+	}
+
+	.nav-list > li + li {
+		border-top: 1px solid var(--border);
 	}
 
 	.nav-list .menu-item-has-children > a {
@@ -3245,13 +3245,13 @@ h3 {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 15px 16px;
+		padding: 17px 4px;
 		border-bottom: 0;
 		border-radius: 0;
-		font-size: 1rem;
+		font-size: 1.05rem;
 		font-weight: 600;
 		color: var(--ink);
-		transition: background-color 0.16s ease, color 0.16s ease;
+		transition: color 0.16s ease;
 	}
 
 	.nav-list a::after {
@@ -3260,24 +3260,23 @@ h3 {
 
 	.nav-list a:hover,
 	.nav-list a:focus-visible {
-		background: var(--coal-2);
-		color: var(--ink);
+		background: none;
+		color: var(--ember);
 	}
 
 	.nav-list .sub-menu {
 		position: static;
 		display: grid;
 		width: auto;
-		margin: 0;
+		margin: -6px 0 12px;
 		padding: 0;
 		border: 0;
-		border-top: 1px solid var(--border);
 		border-radius: 0;
 		opacity: 1;
 		visibility: visible;
 		transform: none;
 		box-shadow: none;
-		background: var(--void);
+		background: none;
 	}
 
 	.nav-list .sub-menu::before {
@@ -3285,29 +3284,22 @@ h3 {
 	}
 
 	.nav-list .sub-menu a {
-		padding: 13px 16px 13px 28px;
+		position: relative;
+		padding: 10px 4px 10px 18px;
 		border-bottom: 0;
-		font-size: 0.92rem;
-		font-weight: 500;
+		font-size: 0.95rem;
+		font-weight: 400;
 		color: var(--ash);
-	}
-
-	.nav-list .sub-menu li + li a {
-		border-top: 1px solid var(--border);
 	}
 
 	.nav-list .sub-menu a::before {
 		content: "";
 		position: absolute;
-		left: 16px;
-		width: 4px;
-		height: 4px;
-		border-radius: 50%;
-		background: var(--ember);
-	}
-
-	.nav-list .sub-menu a {
-		position: relative;
+		left: 2px;
+		top: 50%;
+		width: 6px;
+		height: 1px;
+		background: var(--ash-2);
 	}
 
 	/* ตัวเปลี่ยนภาษาอยู่บนบาร์เหมือนเดสก์ท็อป (กด pill แล้วเปิด dropdown) ดันชิดขวาติดปุ่มเมนู */
@@ -6186,14 +6178,14 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 
 @media (max-width: 960px) {
 	.nav-extra {
-		order: -1;
+		order: 9;
 		flex-direction: column;
-		align-items: stretch;
+		align-items: center;
 		gap: 14px;
 		width: 100%;
-		margin-bottom: 6px;
-		padding-bottom: 18px;
-		border-bottom: 1px solid var(--border);
+		margin-top: auto;
+		padding-top: 22px;
+		border-top: 1px solid var(--border);
 	}
 
 	.nav-dash {
@@ -6299,5 +6291,48 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		border: 1px solid var(--border);
 		border-radius: 12px;
 		background: var(--coal);
+	}
+}
+
+
+/* ===== แถบหัวบนมือถือ · มีชื่อแบรนด์ข้างโลโก้ และปุ่มแดชบอร์ดอยู่ข้างนอกเมนู ===== */
+@media (max-width: 600px) {
+	.brand-name {
+		display: inline-block;
+		font-size: 0.92rem;
+	}
+
+	.brand-logo {
+		width: 38px;
+		height: 38px;
+	}
+}
+
+@media (max-width: 960px) {
+	.header-dash {
+		margin-left: auto;
+		min-height: 40px;
+		padding: 0 14px;
+		font-size: 0.86rem;
+	}
+
+	.header-dash + .nav-toggle {
+		margin-left: 4px;
+	}
+
+	.nav-extra .language-switcher {
+		width: auto;
+	}
+}
+
+@media (max-width: 430px) {
+	.header-dash span {
+		display: none;
+	}
+
+	.header-dash {
+		width: 40px;
+		padding: 0;
+		border-radius: 50%;
 	}
 }
