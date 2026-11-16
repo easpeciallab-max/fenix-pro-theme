@@ -6516,10 +6516,27 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		font-size: 0.78rem !important;
 	}
 
+	/* ปลั๊กอินแถมระยะห่างบนล่างมาอีก 16px ทำให้แถวล่างสูงเกินจำเป็น */
+	.nav-foot .nav-extra .gtranslate_wrapper,
+	.nav-foot .nav-extra #gt_float_wrapper {
+		margin: 0 !important;
+		padding: 0 !important;
+		line-height: 0;
+	}
+
+	.nav-foot .nav-extra .gt_float_switcher {
+		margin: 0 !important;
+	}
+
 	.nav-foot .nav-extra .gt_float_switcher .gt-selected .gt-current-lang {
+		display: flex;
+		align-items: center;
 		justify-content: center;
-		min-height: 34px;
+		height: 32px !important;
+		min-height: 0 !important;
+		padding-block: 0 !important;
 		padding-inline: 12px !important;
+		line-height: 1;
 	}
 
 	.nav-foot .nav-extra .language-switcher summary {
