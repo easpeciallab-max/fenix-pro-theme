@@ -647,7 +647,10 @@
 		var li = document.createElement('li');
 		var a = document.createElement('a');
 		a.href = '#' + h.id;
-		a.textContent = h.textContent.trim();
+		/* บางหัวข้อมีป้ายเล็ก ๆ ติดอยู่ ต้องเว้นวรรคให้ ไม่งั้นคำจะติดกัน */
+		a.textContent = Array.prototype.map.call(h.childNodes, function (n) {
+			return (n.textContent || '').trim();
+		}).filter(Boolean).join(' ');
 		li.appendChild(a);
 		list.appendChild(li);
 	});
