@@ -84,12 +84,65 @@ $fenix_line = fenix_mod( 'line_url' );
 		$fenix_hero_img = fenix_mod( 'hero_image' );
 		$fenix_is_photo = ! empty( $fenix_hero_img );
 		$fenix_hero_src = $fenix_is_photo ? $fenix_hero_img : get_template_directory_uri() . '/assets/img/logo.png';
+		$fenix_deck     = ( ! $fenix_is_photo && 'deck' === fenix_mod( 'hero_visual' ) ) ? fenix_hero_deck_cards() : array();
+		$fenix_deck_cta = trim( (string) fenix_mod( 'hero_deck_cta' ) );
+		$fenix_deck_to  = 'file' === fenix_mod( 'hero_deck_cta_mode' ) ? 'file' : 'page';
+		$fenix_go_url   = home_url( '/go/' );
+
+		if ( $fenix_is_photo ) {
+			$fenix_visual_class = 'hero-visual--photo';
+		} elseif ( $fenix_deck ) {
+			$fenix_visual_class = 'hero-visual--deck';
+		} else {
+			$fenix_visual_class = 'hero-visual--orb';
+		}
 		?>
-		<div class="hero-visual <?php echo $fenix_is_photo ? 'hero-visual--photo' : 'hero-visual--orb'; ?> reveal">
+		<div class="hero-visual <?php echo esc_attr( $fenix_visual_class ); ?> reveal">
 			<?php if ( $fenix_is_photo ) : ?>
 				<figure class="hero-frame">
 					<img src="<?php echo esc_url( $fenix_hero_src ); ?>" alt="<?php echo esc_attr( fenix_mod( 'hero_title' ) ); ?>" loading="eager" fetchpriority="high" decoding="async">
 				</figure>
+			<?php elseif ( $fenix_deck ) : ?>
+				<div class="hero-deck" data-deck>
+					<div class="hero-deck-stack" role="group" aria-label="ปก EA ของ FENIX PRO">
+						<?php foreach ( $fenix_deck as $fenix_i => $fenix_card ) : ?>
+							<?php $fenix_card_url = 'file' === $fenix_deck_to && $fenix_card['file'] ? $fenix_card['file'] : $fenix_go_url; ?>
+							<article class="deck-card is-<?php echo (int) ( $fenix_i + 1 ); ?>"
+								data-name="<?php echo esc_attr( $fenix_card['name'] ); ?>"
+								data-version="<?php echo esc_attr( $fenix_card['version'] ); ?>"
+								data-url="<?php echo esc_url( $fenix_card_url ); ?>">
+								<a href="<?php echo esc_url( $fenix_card_url ); ?>">
+									<img src="<?php echo esc_url( $fenix_card['img'] ); ?>" alt="<?php echo esc_attr( $fenix_card['alt'] ); ?>" width="1200" height="675" <?php echo 0 === $fenix_i ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'; ?> decoding="async">
+								</a>
+							</article>
+						<?php endforeach; ?>
+						<?php if ( fenix_mod( 'hero_deck_badge' ) ) : ?>
+							<span class="deck-badge"><?php echo esc_html( fenix_mod( 'hero_deck_badge' ) ); ?></span>
+						<?php endif; ?>
+					</div>
+
+					<p class="hero-deck-meta">
+						<span class="deck-name"><?php echo esc_html( $fenix_deck[0]['name'] ); ?></span>
+						<?php if ( $fenix_deck[0]['version'] ) : ?>
+							<span class="deck-version">เวอร์ชัน <?php echo esc_html( $fenix_deck[0]['version'] ); ?></span>
+						<?php endif; ?>
+					</p>
+
+					<?php if ( '' !== $fenix_deck_cta ) : ?>
+						<a class="btn btn-fire deck-cta" href="<?php echo esc_url( 'file' === $fenix_deck_to && $fenix_deck[0]['file'] ? $fenix_deck[0]['file'] : $fenix_go_url ); ?>">
+							<?php echo fenix_icon( 'download', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							<span><?php echo esc_html( $fenix_deck_cta ); ?></span>
+						</a>
+					<?php endif; ?>
+
+					<?php if ( count( $fenix_deck ) > 1 ) : ?>
+						<div class="deck-dots">
+							<?php foreach ( $fenix_deck as $fenix_i => $fenix_card ) : ?>
+								<button type="button" class="deck-dot<?php echo 0 === $fenix_i ? ' is-on' : ''; ?>" data-deck-dot="<?php echo (int) $fenix_i; ?>" aria-label="<?php echo esc_attr( 'ดูปกใบที่ ' . ( $fenix_i + 1 ) ); ?>"></button>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
+				</div>
 			<?php else : ?>
 				<div class="hero-orb">
 					<span class="orb-ring orb-ring-a"></span>

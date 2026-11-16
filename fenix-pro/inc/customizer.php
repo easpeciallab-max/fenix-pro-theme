@@ -69,7 +69,12 @@ function fenix_customize_register( $wp_customize ) {
 				'hero_btn1_text' => array( 'ข้อความปุ่มหลัก (ลิงก์ไป LINE)', 'text' ),
 				'hero_btn2_text' => array( 'ข้อความปุ่มรอง (เลื่อนไปส่วนรู้จักระบบ)', 'text' ),
 				'hero_note'      => array( 'ข้อความเตือนความเสี่ยงใต้ปุ่ม', 'text' ),
-				'hero_image'     => array( 'ภาพประกอบ Hero (ไม่ใส่ = ใช้โลโก้)', 'image', 'แนะนำภาพ Dashboard หรือหน้าจอ MT5 ขนาดกว้างอย่างน้อย 900px' ),
+				'hero_image'     => array( 'ภาพประกอบ Hero (ใส่แล้วจะใช้ภาพนี้แทนการ์ด)', 'image', 'แนะนำภาพ Dashboard หรือหน้าจอ MT5 ขนาดกว้างอย่างน้อย 900px' ),
+				'hero_visual'        => array( 'รูปฝั่งขวาของ Hero', 'radio', array( 'deck' => 'การ์ดปก EA ซ้อนกัน (สลับเอง)', 'orb' => 'โลโก้ในวงแหวน (แบบเดิม)' ) ),
+				'hero_deck_featured' => array( 'ใบที่อยู่บนสุด', 'radio', array( 'plus' => 'การ์ดใบ FENIX PLUS', 'fast' => 'การ์ดใบแรกของหน้าดาวน์โหลด', 'card3' => 'การ์ดใบที่สามของหน้าดาวน์โหลด' ) ),
+				'hero_deck_badge'    => array( 'ป้ายบนใบเด่น (เว้นว่าง = ไม่แสดง)', 'text' ),
+				'hero_deck_cta'      => array( 'ข้อความปุ่มใต้การ์ด (เว้นว่าง = ไม่แสดง)', 'text' ),
+				'hero_deck_cta_mode' => array( 'ปุ่มใต้การ์ดพาไปไหน', 'radio', array( 'page' => 'หน้าดาวน์โหลด (มีคำอธิบายครบ)', 'file' => 'โหลดไฟล์ของใบนั้นทันที' ) ),
 			),
 		),
 
@@ -721,6 +726,9 @@ function fenix_customize_register( $wp_customize ) {
 					$radio_sanitizers = array(
 						'links_download_pos' => 'fenix_sanitize_download_pos',
 						'links_version_pos'  => 'fenix_sanitize_version_pos',
+						'hero_visual'        => 'fenix_sanitize_hero_visual',
+						'hero_deck_featured' => 'fenix_sanitize_deck_slot',
+						'hero_deck_cta_mode' => 'fenix_sanitize_deck_cta_mode',
 					);
 					$sanitize = isset( $radio_sanitizers[ $field_id ] ) ? $radio_sanitizers[ $field_id ] : 'fenix_sanitize_pricing_mode';
 					break;

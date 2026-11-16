@@ -411,3 +411,135 @@
 		}
 	}
 })();
+
+
+/* ----------------------------------------------------------
+ * สำรับการ์ดปก EA ในหน้าแรก
+ * ใบบนสุดสไลด์ออกไปอยู่ท้ายสำรับทุก 5 วินาที · ปัดเองได้ · กดจุดเพื่อข้ามได้
+ * -------------------------------------------------------- */
+(function () {
+	var deck = document.querySelector('[data-deck]');
+	if (!deck) { return; }
+
+	var stack = deck.querySelector('.hero-deck-stack');
+	var cards = Array.prototype.slice.call(deck.querySelectorAll('.deck-card'));
+	if (!stack || cards.length < 2) { return; }
+
+	var nameEl = deck.querySelector('.deck-name');
+	var verEl = deck.querySelector('.deck-version');
+	var cta = deck.querySelector('.deck-cta');
+	var dots = Array.prototype.slice.call(deck.querySelectorAll('.deck-dot'));
+	var order = cards.slice();
+	var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+	var timer = null;
+	var busy = false;
+	var held = false;
+	var seen = true;
+
+	function paint() {
+		order.forEach(function (card, i) {
+			card.className = 'deck-card is-' + Math.min(i + 1, 3);
+		});
+
+		var top = order[0];
+
+		if (nameEl) { nameEl.textContent = top.getAttribute('data-name') || ''; }
+
+		if (verEl) {
+			var version = top.getAttribute('data-version') || '';
+			verEl.textContent = version ? 'เวอร์ชัน ' + version : '';
+			verEl.hidden = !version;
+		}
+
+		if (cta && top.getAttribute('data-url')) { cta.setAttribute('href', top.getAttribute('data-url')); }
+
+		var active = cards.indexOf(top);
+		dots.forEach(function (dot, i) {
+			dot.classList.toggle('is-on', i === active);
+		});
+	}
+
+	function advance() {
+		if (busy) { return; }
+		busy = true;
+
+		var top = order[0];
+		top.classList.add('is-out');
+
+		window.setTimeout(function () {
+			/* ย้ายใบที่ปลิวออกไปไว้ท้ายสำรับแบบไม่ให้เห็นมันวิ่งกลับ */
+			top.style.transition = 'none';
+			order.push(order.shift());
+			paint();
+			void top.offsetWidth;
+			top.style.transition = '';
+			busy = false;
+		}, still.matches ? 0 : 420);
+	}
+
+	function goTo(index) {
+		var guard = 0;
+		while (cards.indexOf(order[0]) !== index && guard < cards.length) {
+			order.push(order.shift());
+			guard += 1;
+		}
+		paint();
+	}
+
+	function stop() {
+		if (timer) { window.clearInterval(timer); timer = null; }
+	}
+
+	function start() {
+		stop();
+		if (still.matches || held || !seen || document.hidden) { return; }
+		timer = window.setInterval(advance, 5000);
+	}
+
+	stack.addEventListener('mouseenter', function () { held = true; stop(); });
+	stack.addEventListener('mouseleave', function () { held = false; start(); });
+	deck.addEventListener('focusin', function () { held = true; stop(); });
+	deck.addEventListener('focusout', function () { held = false; start(); });
+	document.addEventListener('visibilitychange', start);
+
+	dots.forEach(function (dot, i) {
+		dot.addEventListener('click', function () {
+			goTo(i);
+			start();
+		});
+	});
+
+	/* ปัดซ้าย = ใบถัดไป · กดใบที่อยู่ข้างหลัง = ดึงขึ้นมาแทนที่จะเปิดลิงก์ */
+	var startX = 0;
+	var moved = 0;
+
+	stack.addEventListener('pointerdown', function (e) {
+		startX = e.clientX;
+		moved = 0;
+	});
+
+	stack.addEventListener('pointerup', function (e) {
+		moved = e.clientX - startX;
+		if (moved < -40) { advance(); start(); }
+	});
+
+	stack.addEventListener('click', function (e) {
+		var card = e.target.closest('.deck-card');
+		if (!card) { return; }
+		if (Math.abs(moved) > 10 || card !== order[0]) {
+			e.preventDefault();
+			if (card !== order[0]) { goTo(cards.indexOf(card)); }
+			start();
+		}
+	});
+
+	if ('IntersectionObserver' in window) {
+		new IntersectionObserver(function (entries) {
+			seen = entries[0].isIntersecting;
+			start();
+		}, { threshold: 0.2 }).observe(stack);
+	}
+
+	paint();
+	start();
+})();

@@ -6559,3 +6559,154 @@ a.lh-feature-frame:hover .lh-dl-chip .lh-dl-ic {
 		background: none !important;
 	}
 }
+
+/* ==========================================================
+   39) สำรับการ์ดปก EA ในหน้าแรก · ใบบนสุดคือตัวเด่น สลับเองเรื่อย ๆ
+   ========================================================== */
+.hero-visual--deck {
+	display: flex;
+	justify-content: center;
+}
+
+.hero-deck {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	width: min(460px, 100%);
+}
+
+.hero-deck-stack {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 1200 / 675;
+	margin-bottom: 16px;
+	touch-action: pan-y;
+}
+
+.deck-card {
+	position: absolute;
+	inset: 0;
+	border-radius: 16px;
+	overflow: hidden;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	background: var(--coal);
+	box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+	transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, box-shadow 0.35s ease;
+	will-change: transform;
+}
+
+.deck-card a {
+	display: block;
+	line-height: 0;
+}
+
+.deck-card img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.deck-card.is-1 {
+	transform: none;
+	opacity: 1;
+	z-index: 3;
+	box-shadow: 0 26px 54px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--ember-deep);
+}
+
+.deck-card.is-2 {
+	transform: rotate(4deg) translateY(11px) scale(0.965);
+	opacity: 0.6;
+	z-index: 2;
+}
+
+.deck-card.is-3 {
+	transform: rotate(-7deg) translateY(19px) scale(0.93);
+	opacity: 0.35;
+	z-index: 1;
+}
+
+.deck-card.is-out {
+	transform: translateX(-120%) rotate(-12deg);
+	opacity: 0;
+	z-index: 4;
+}
+
+.deck-badge {
+	position: absolute;
+	top: -13px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 4;
+	padding: 6px 14px;
+	border-radius: 999px;
+	background: var(--ember);
+	color: #FFFFFF;
+	font-family: var(--font-display);
+	font-size: 0.72rem;
+	font-weight: 700;
+	white-space: nowrap;
+	box-shadow: 0 10px 22px rgba(255, 106, 0, 0.3);
+}
+
+.hero-deck-meta {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	margin: 0;
+}
+
+.deck-name {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 1.05rem;
+	letter-spacing: 0.03em;
+}
+
+.deck-version {
+	font-size: 0.74rem;
+	color: var(--ash-2);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	padding: 3px 10px;
+}
+
+.deck-cta {
+	min-height: 46px;
+	padding: 0 22px;
+	font-size: 0.95rem;
+}
+
+.deck-dots {
+	display: flex;
+	gap: 7px;
+}
+
+.deck-dot {
+	width: 22px;
+	height: 5px;
+	padding: 0;
+	border: 0;
+	border-radius: 5px;
+	background: var(--coal-3);
+	cursor: pointer;
+	transition: background-color 0.2s ease, width 0.2s ease;
+}
+
+.deck-dot.is-on {
+	width: 34px;
+	background: var(--ember);
+}
+
+@media (max-width: 960px) {
+	.hero-deck {
+		width: min(420px, 100%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.deck-card {
+		transition: none;
+	}
+}

@@ -328,6 +328,11 @@ function fenix_defaults() {
 		'hero_btn2_text' => 'รู้จักระบบ',
 		'hero_note'      => '',
 		'hero_image'     => '',
+		'hero_visual'        => 'deck',
+		'hero_deck_featured' => 'plus',
+		'hero_deck_badge'    => 'ตัวเด่นตอนนี้',
+		'hero_deck_cta'      => 'ดูรายละเอียดและโหลด',
+		'hero_deck_cta_mode' => 'page',
 
 		/* ปัญหานักเทรด */
 		'show_pain'     => true,
@@ -828,6 +833,79 @@ function fenix_mobile_nav_items() {
  * @param string $value ค่าที่กรอกมา.
  * @return string
  */
+/**
+ * ชื่อสินค้ากับเลขเวอร์ชันจากชื่อไฟล์ เช่น FENIX_PLUS_V5.1.zip -> FENIX PLUS / 5.1
+ * ใช้ชื่อไฟล์เป็นแหล่งข้อมูล เพื่อให้เปลี่ยนไฟล์ EA แล้วหน้าแรกเปลี่ยนตามเอง
+ */
+function fenix_product_from_url( $url ) {
+	$name = basename( (string) parse_url( (string) $url, PHP_URL_PATH ) );
+	$out  = array(
+		'name'    => '',
+		'version' => fenix_version_from_url( $url ),
+	);
+
+	if ( preg_match( '/^([A-Za-z0-9]+(?:_[A-Za-z0-9]+)*?)_v\.?\s*\d/i', $name, $match ) ) {
+		$out['name'] = strtoupper( str_replace( '_', ' ', $match[1] ) );
+	}
+
+	return $out;
+}
+
+/**
+ * การ์ดในสำรับหน้าแรก · ใช้รูปและลิงก์ชุดเดียวกับหน้าดาวน์โหลด
+ * เปลี่ยนไฟล์ EA ที่หน้า /go/ แล้วหน้าแรกเปลี่ยนตามทันที ไม่ต้องตั้งค่าซ้ำ
+ */
+function fenix_hero_deck_cards() {
+	$slots    = array( 'fast', 'plus', 'card3' );
+	$featured = (string) fenix_mod( 'hero_deck_featured' );
+
+	if ( in_array( $featured, $slots, true ) ) {
+		$slots = array_merge( array( $featured ), array_values( array_diff( $slots, array( $featured ) ) ) );
+	}
+
+	$cards = array();
+
+	foreach ( $slots as $slot ) {
+		if ( ! fenix_mod( 'links_' . $slot . '_enabled' ) ) {
+			continue;
+		}
+		if ( 'fast' === $slot && ! fenix_mod( 'links_fast_show' ) ) {
+			continue;
+		}
+
+		$img = trim( (string) fenix_mod( 'links_' . $slot . '_img' ) );
+		if ( '' === $img ) {
+			continue;
+		}
+
+		$url     = trim( (string) fenix_mod( 'links_' . $slot . '_url' ) );
+		$product = fenix_product_from_url( $url );
+		$version = trim( (string) fenix_mod( 'links_' . $slot . '_version' ) );
+
+		$cards[] = array(
+			'slot'    => $slot,
+			'img'     => $img,
+			'file'    => $url,
+			'alt'     => trim( (string) fenix_mod( 'links_' . $slot . '_alt' ) ),
+			'name'    => $product['name'],
+			'version' => '' !== $version ? $version : $product['version'],
+		);
+	}
+
+	return $cards;
+}
+
+function fenix_sanitize_hero_visual( $value ) {
+	return in_array( $value, array( 'deck', 'orb' ), true ) ? $value : 'deck';
+}
+
+function fenix_sanitize_deck_slot( $value ) {
+	return in_array( $value, array( 'fast', 'plus', 'card3' ), true ) ? $value : 'plus';
+}
+
+function fenix_sanitize_deck_cta_mode( $value ) {
+	return in_array( $value, array( 'page', 'file' ), true ) ? $value : 'page';
+}
 function fenix_sanitize_download_pos( $value ) {
 	$allowed = array( 'bl', 'br', 'bc' );
 
