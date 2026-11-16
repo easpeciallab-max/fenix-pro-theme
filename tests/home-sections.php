@@ -99,9 +99,12 @@ foreach ( array( 'notus', 'system', 'assurance', 'screenshots', 'reviews' ) as $
 	check( ! in_array( $gone, $ids, true ), "หัวข้อ #$gone ถูกยุบแล้ว ไม่แสดงบนหน้าแรก" );
 }
 
-/* ---- แถบข้อเท็จจริง ---- */
-$chips = $x->query( '//section[contains(@class,"highlight-bar")]//li' );
-check( 4 === $chips->length, 'แถบข้อเท็จจริงมี 4 ชิป (3 ข้อความ + เวอร์ชันอัตโนมัติ)' );
+/* ---- แถบข้อเท็จจริง: ปิดไว้ตามที่เจ้าของสั่ง แต่ยังเปิดกลับได้ ---- */
+check( 0 === $x->query( '//section[contains(@class,"highlight-bar")]' )->length, 'แถบข้อเท็จจริงถูกปิดไว้ ไม่แสดงบนหน้าแรก' );
+
+$xh    = xp( render_front( array( 'show_highlight' => true ) ) );
+$chips = $xh->query( '//section[contains(@class,"highlight-bar")]//li' );
+check( 4 === $chips->length, 'เปิดกลับมาได้ และมี 4 ชิป (3 ข้อความ + เวอร์ชันอัตโนมัติ)' );
 check(
 	false !== strpos( $chips->item( 3 )->textContent, 'PLUS 5.1' ) && false !== strpos( $chips->item( 3 )->textContent, 'BTC 1.1' ),
 	'ชิปสุดท้ายดึงเลขเวอร์ชันมาจากชื่อไฟล์ EA จริง'

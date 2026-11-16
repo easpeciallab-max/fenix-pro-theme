@@ -589,7 +589,7 @@ function fenix_defaults() {
 		array(
 
 			/* หน้าแรก · แถบไฮไลต์ */
-			'show_highlight' => true,
+			'show_highlight' => false,
 			'highlight1'     => 'ทำงานบน METATRADER 5 เท่านั้น',
 			'highlight2'     => 'ต้องรันต่อเนื่องบนคอมหรือ VPS',
 			'highlight3'     => 'ตั้งค่าความเสี่ยงเองได้ทุกตัว',
