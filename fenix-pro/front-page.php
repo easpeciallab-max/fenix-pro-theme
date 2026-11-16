@@ -72,10 +72,12 @@ $fenix_line = fenix_mod( 'line_url' );
 				</a>
 			</div>
 
+			<?php if ( fenix_mod( 'hero_note' ) ) : ?>
 			<p class="hero-note">
 				<?php echo fenix_icon( 'warn', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<?php echo esc_html( fenix_mod( 'hero_note' ) ); ?>
 			</p>
+			<?php endif; ?>
 		</div>
 
 		<?php

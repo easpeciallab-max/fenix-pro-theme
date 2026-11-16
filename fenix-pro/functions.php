@@ -326,7 +326,7 @@ function fenix_defaults() {
 		'hero_desc'      => 'ออกแบบมาเพื่อช่วยให้การเทรดเป็นระบบ ลดการตัดสินใจตามอารมณ์ พร้อมแนวคิดบริหารความเสี่ยงสำหรับผู้ใช้งาน MetaTrader 5',
 		'hero_btn1_text' => 'สอบถามรายละเอียด',
 		'hero_btn2_text' => 'รู้จักระบบ',
-		'hero_note'      => 'การเทรดมีความเสี่ยง โปรดศึกษาข้อมูลก่อนตัดสินใจใช้งาน',
+		'hero_note'      => '',
 		'hero_image'     => '',
 
 		/* ปัญหานักเทรด */
@@ -368,7 +368,7 @@ function fenix_defaults() {
 		'show_gallery'     => true,
 		'gallery_title'    => 'หน้าตาระบบจริง',
 		'gallery_subtitle' => 'Dashboard ออกแบบให้ดูง่าย เห็นสถานะระบบ เงื่อนไขหลัก และผลการทำงานในบัญชีได้ชัดเจน',
-		'gallery_note'     => '* ภาพใช้เพื่อประกอบการนำเสนอ ไม่ใช่การรับประกันผลลัพธ์',
+		'gallery_note'     => '',
 		'gallery_img1'     => $install_assets . 'step-05.jpg',
 		'gallery_cap1'     => 'Dashboard แสดงสถานะการทำงานของ FENIX PRO EA',
 		'gallery_img2'     => $install_assets . 'step-06.jpg',
@@ -411,7 +411,7 @@ function fenix_defaults() {
 		'stat6_value'       => 'ระบุจำนวน',
 		'perf_image'        => '',
 		'perf_image_caption'=> 'กราฟผลการทดสอบระบบ (Backtest / Forward Test)',
-		'perf_note'         => 'หมายเหตุ: ผลการทดสอบขึ้นอยู่กับ Spread, Commission และ Slippage ของแต่ละโบรกเกอร์',
+		'perf_note'         => '',
 		'perf_disclaimer'   => 'ผลการทดสอบใช้เพื่อประกอบการศึกษาเท่านั้น ผลลัพธ์ในอดีตไม่ได้รับประกันผลลัพธ์ในอนาคต ผู้ใช้งานควรเข้าใจความเสี่ยงก่อนตัดสินใจใช้งานระบบ',
 
 		/* เหมาะกับใคร */
