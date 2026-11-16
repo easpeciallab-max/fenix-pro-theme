@@ -51,6 +51,7 @@ $items = fenix_mobile_nav_items();
 check( 5 === count( $items ), 'The bottom bar still holds five buttons' );
 $labels = array_column( $items, 'label' );
 check( array( 'หน้าแรก', 'ผลทดสอบ', 'แพ็กเกจ', 'แดชบอร์ด', 'ทัก LINE' ) === $labels, 'Dashboard took the slot the install guide used to hold' );
+check( 'https://example.test/backtest/' === $items[1]['url'], 'ปุ่มผลทดสอบในแถบล่างไปหน้า Backtest ที่มีตัวเลขจริง' );
 check( 'gauge' === $items[3]['icon'], 'The dashboard button carries its own icon' );
 check( 'https://dashboard.fenixpro-th.com/' === $items[3]['url'], 'Without its own link the button follows the dashboard setting' );
 

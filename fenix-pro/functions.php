@@ -200,7 +200,7 @@ function fenix_defaults() {
 		'mobile_nav_home_label'   => 'หน้าแรก',
 		'mobile_nav_home_url'     => '/',
 		'mobile_nav_test_label'   => 'ผลทดสอบ',
-		'mobile_nav_test_url'     => '/forward-test/',
+		'mobile_nav_test_url'     => '/backtest/',
 		'mobile_nav_price_label'   => 'แพ็กเกจ',
 		'mobile_nav_price_url'     => '/pricing/',
 		'mobile_nav_dash_label'    => 'แดชบอร์ด',
