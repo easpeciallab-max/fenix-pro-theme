@@ -323,6 +323,7 @@ check( false !== strpos( $css, 'min-width: 761px' ), 'บนคอมกล่�
 $js = file_get_contents( get_template_directory() . '/assets/js/legal.js' );
 check( false === strpos( $js, 'localStorage' ), 'สคริปต์หน้ากฎหมายไม่บันทึกอะไรลงเครื่องผู้ใช้' );
 check( false !== strpos( $js, 'max-width: 760px' ), 'พับกล่องสารบัญเฉพาะบนมือถือ' );
+check( preg_match( '/addEventListener\(\s*.change./', $js ), 'จอกว้างข้ามเส้น 760px ทีหลัง กล่องสารบัญกางกลับให้เอง' );
 
 /* ==========================================================
    6) ธีมต่อสายไฟล์ให้ครบ
