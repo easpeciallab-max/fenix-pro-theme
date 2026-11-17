@@ -232,6 +232,18 @@ foreach ( array( '.fxh .fx-btn-or {', '.fxh .fx-btn-or:hover {' ) as $rule ) {
 	check( false === strpos( $block, 'var(--on-or)' ), "ปุ่มสีส้มไม่ใช้ตัวหนังสือสีเข้ม ($rule)" );
 }
 
+/* ปุ่มรอง · พื้นใส ขอบขาว ตัวหนังสือขาว */
+$at    = strpos( $css, '.fxh .fx-btn-dark {' );
+$block = false !== $at ? substr( $css, $at, strpos( $css, '}', $at ) - $at ) : '';
+check( false !== strpos( $block, 'background: transparent' ), 'ปุ่มรองพื้นใส' );
+check( false !== strpos( $block, 'inset 0 0 0 2px #FFFFFF' ), 'ปุ่มรองมีขอบสีขาว' );
+check( false !== strpos( $block, 'color: #FFFFFF' ), 'ปุ่มรองใช้ตัวหนังสือสีขาว' );
+
+/* ยกเว้นบนการ์ดแพ็กเกจพื้นขาว ที่ต้องเป็นปุ่มทึบ ไม่งั้นมองไม่เห็น */
+$at    = strpos( $css, '.fxh .tk.hl .fx-btn-dark {' );
+$block = false !== $at ? substr( $css, $at, strpos( $css, '}', $at ) - $at ) : '';
+check( false !== strpos( $block, 'box-shadow: none' ), 'ปุ่มรองบนการ์ดพื้นขาวไม่ใช้ขอบขาว' );
+
 /* ---------- รูปทุกใบต้องมี alt ---------- */
 $no_alt = 0;
 foreach ( $x->query( '//img' ) as $img ) {
