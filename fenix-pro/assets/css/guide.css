@@ -785,7 +785,6 @@
 	border-collapse: separate;
 	border-spacing: 0;
 	background: var(--surface);
-	border-radius: 18px;
 	overflow: hidden;
 	font-size: 14.5px;
 }
@@ -1091,6 +1090,17 @@
 /* ==========================================================
    ระยะห่าง · ห้ามมีบล็อกไหนชิดกันสนิท (สเปกข้อ 2)
    ========================================================== */
+
+/* หัวข้อช่วง (✓ + หัวข้อ) ห้ามชิดกล่องที่ตามมา */
+.fxg .gc :is(.zag-section-title, .mt5g-group-title) + * {
+	margin-top: 24px;
+}
+
+/* กล่องห่อของตัวสร้างหน้าเดิมโดนล้าง margin ไปตอนรีเซ็ต ต้องเว้นจากของที่อยู่ข้างบนด้วย */
+.fxg .gc * + :is(.zag-steps, .mt5g-steps, .mt5g-device, .mt5g-win, .mt5g-trouble, .mt5g-install-grid-1) {
+	margin-top: 24px;
+}
+
 .fxg .gc :is(.zag-step, .mt5g-step, .step) + :is(.zag-step, .mt5g-step, .step),
 .fxg .gc :is(.zag-final-card, .mt5g-store-card, .mt5g-device-card) + :is(.zag-final-card, .mt5g-store-card, .mt5g-device-card) {
 	margin-top: 18px;

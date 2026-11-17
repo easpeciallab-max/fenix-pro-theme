@@ -452,7 +452,6 @@ body.fenix-pages {
 	border-collapse: separate;
 	border-spacing: 0;
 	background: var(--surface);
-	border-radius: 20px;
 	overflow: hidden;
 	font-size: 15px;
 }
@@ -498,6 +497,19 @@ body.fenix-pages {
 
 .fxp .dtable td.m {
 	color: var(--t3);
+}
+
+/* บล็อกตารางของ WordPress สั่ง border ให้ทุกช่องโดยไม่ระบุสี เส้นจึงกลายเป็นสีตัวหนังสือ
+   ตัวเลขสีเขียว/แดงเลยลามไปอยู่ที่เส้นตาราง · บังคับให้เส้นเป็นสีเดียวกันทั้งตาราง
+   และตัดเส้นที่ซ้อนกันออก (ขอบล่างของแถวบนทับกับขอบบนของแถวล่าง) */
+.fxp :is(.table-scroll, .wp-block-table) :is(th, td) {
+	border-left: 0;
+	border-bottom: 0;
+	border-right: 1px solid var(--line);
+}
+
+.fxp :is(.table-scroll, .wp-block-table) :is(th, td):last-child {
+	border-right: 0;
 }
 
 .fxp .cap {
@@ -1037,25 +1049,9 @@ body.fenix-pages {
 	text-align: left;
 }
 
-.fxp .cmp th:first-child {
-	border-radius: 20px 0 0 0;
-}
-
-.fxp .cmp th:last-child {
-	border-radius: 0 20px 0 0;
-}
-
 .fxp .cmp td {
 	background: var(--surface);
 	border-top: 1px solid var(--line);
-}
-
-.fxp .cmp tr:last-child td:first-child {
-	border-radius: 0 0 0 20px;
-}
-
-.fxp .cmp tr:last-child td:last-child {
-	border-radius: 0 0 20px 0;
 }
 
 .fxp .cmp td:first-child {
@@ -1430,7 +1426,6 @@ body.fenix-pages {
 
 	.fxp .dtable {
 		font-size: 13.5px;
-		border-radius: 16px;
 	}
 
 	.fxp .dtable th,

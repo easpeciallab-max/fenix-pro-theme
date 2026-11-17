@@ -277,6 +277,15 @@ preg_match( '/--or:\s*(#[0-9A-Fa-f]{6})/', $css, $m_token );
 check( ! empty( $m_token ) && 0 === strcasecmp( $m_token[1], '#FF6A00' ), 'สีส้มของหน้าภายในคือ #FF6A00' );
 
 preg_match( '/\.fxp \.fx-btn-or\s*\{([^}]*)\}/', $css, $m_or );
+
+/* ตาราง: เส้นสีเดียวกันทั้งตาราง (ไม่เอาสีตัวหนังสือมาเป็นสีเส้น) และมุมตรง */
+preg_match( '/\.fxp :is\(\.table-scroll, \.wp-block-table\) :is\(th, td\)\s*\{([^}]*)\}/', $css, $m_tb );
+check( ! empty( $m_tb ) && preg_match( '/border-right:\s*1px solid var\(--line\)/', $m_tb[1] ), 'เส้นตารางใช้สีเส้นมาตรฐาน ไม่ใช่สีตัวหนังสือ' );
+check( ! empty( $m_tb ) && preg_match( '/border-left:\s*0/', $m_tb[1] ) && preg_match( '/border-bottom:\s*0/', $m_tb[1] ), 'ตัดเส้นที่ซ้อนกันออก เหลือเส้นละชุด' );
+
+preg_match( '/\.fxp \.dtable\s*\{([^}]*)\}/', $css, $m_dt );
+check( ! empty( $m_dt ) && false === strpos( $m_dt[1], 'border-radius' ), 'ตารางตัวเลขเป็นมุมตรง ไม่ตัดเส้น' );
+check( false === strpos( $css, 'border-radius: 20px 0 0 0' ), 'ตารางเปรียบเทียบในหน้าราคาเป็นมุมตรงเหมือนกัน' );
 check( ! empty( $m_or ) && preg_match( '/background:[^;]*(var\(--or\)|#FF6A00)/i', $m_or[1] ), 'ปุ่มหลักใช้พื้นส้ม #FF6A00' );
 check( ! empty( $m_or ) && preg_match( '/color:\s*#FFFFFF/i', $m_or[1] ), 'ปุ่มหลักใช้ตัวหนังสือสีขาว' );
 

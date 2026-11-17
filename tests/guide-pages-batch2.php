@@ -267,6 +267,16 @@ check( false !== strpos( $out, 'left:5%;top:10%;width:20%;height:8%;' ), 'ตำ
 $css = file_get_contents( get_template_directory() . '/assets/css/guide.css' );
 
 check( false === strpos( $css, 'position: fixed' ), 'guide.css ไม่มีอะไรตรึงจอ จึงไม่บังแถบเมนูล่างบนมือถือ' );
+
+/* ตารางในคู่มือ: มุมตรง · หัวข้อช่วงต้องไม่ชิดกล่องที่ตามมา */
+preg_match( '/\.fxg \.gc table\s*\{([^}]*)\}/', $css, $m_gt );
+check( ! empty( $m_gt ) && false === strpos( $m_gt[1], 'border-radius' ), 'ตารางในคู่มือเป็นมุมตรง ไม่ตัดเส้น' );
+
+preg_match( '/\.fxg \.gc :is\(\.zag-section-title, \.mt5g-group-title\) \+ \*\s*\{([^}]*)\}/', $css, $m_st );
+check( ! empty( $m_st ) && preg_match( '/margin-top:\s*(\d+)px/', $m_st[1], $m_stv ) && (int) $m_stv[1] >= 16, 'หัวข้อช่วงเว้นระยะจากกล่องที่ตามมา' );
+
+preg_match( '/\.fxg \.gc \* \+ :is\(\.zag-steps,[^)]*\)\s*\{([^}]*)\}/', $css, $m_sw );
+check( ! empty( $m_sw ) && preg_match( '/margin-top:\s*(\d+)px/', $m_sw[1], $m_swv ) && (int) $m_swv[1] >= 16, 'กล่องรวมขั้นตอนเว้นระยะจากของที่อยู่ข้างบน' );
 check( false === stripos( $css, 'linear-gradient' ) && false === stripos( $css, 'backdrop-filter' ), 'ไม่มีไล่สีหรือกระจกฝ้าตามสเปกข้อ 1.1' );
 
 preg_match( '/\.fxg \.gc \.mt5g-store-btn\.mt5g-download\s*\{([^}]*)\}/', $css, $m_or );
