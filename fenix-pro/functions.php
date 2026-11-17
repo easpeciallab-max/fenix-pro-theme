@@ -89,6 +89,25 @@ function fenix_assets() {
 		);
 	}
 
+	if ( is_page_template( 'template-links.php' ) ) {
+		$go_css = get_template_directory() . '/assets/css/go.css';
+		$go_js  = get_template_directory() . '/assets/js/go.js';
+
+		wp_enqueue_style(
+			'fenix-go',
+			get_template_directory_uri() . '/assets/css/go.css',
+			array( 'fenix-style' ),
+			file_exists( $go_css ) ? filemtime( $go_css ) : FENIX_VERSION
+		);
+		wp_enqueue_script(
+			'fenix-go',
+			get_template_directory_uri() . '/assets/js/go.js',
+			array(),
+			file_exists( $go_js ) ? filemtime( $go_js ) : FENIX_VERSION,
+			true
+		);
+	}
+
 	if ( fenix_mod( 'ga_measurement_id' ) || fenix_mod( 'fb_pixel_id' ) ) {
 		wp_localize_script(
 			'fenix-main',
@@ -242,15 +261,36 @@ function fenix_defaults() {
 		'bing_verify'            => '',
 
 		/* หน้า Link Hub (template-links.php) · ปลายทางยิงแอด สไตล์ Linktree */
+		/* ===== หน้า /go/ ดีไซน์ใหม่ (อนุมัติ 16 พ.ย. 2026) ===== */
+		'links_cover_wm'      => 'FENIX PRO',
+		'links_cover_tape'    => 'EA for MT5',
+		'links_risk'          => 'การเทรดมีความเสี่ยง อาจขาดทุนได้บางส่วนหรือทั้งหมด ผลในอดีตไม่ได้รับประกันผลในอนาคต ศึกษาก่อนใช้งานจริง',
+		'links_steps_kicker'  => 'Getting started',
+		'links_steps_sub'     => 'ทำตามลำดับจากขั้นที่ 1 ถึง 6 ติดตรงไหนทักทีมได้ตลอด',
+		'links_shortcut_label' => 'ทางลัด',
+		'links_shortcuts'     => "ดาวน์โหลด EA | #dl | download\nคู่มือติดตั้ง | #install | book\nVPS | #vps | server\nผลเทรดจริง | https://www.myfxbook.com/portfolio/eafn/12227282 | chart",
+		'links_device_badge'  => 'อุปกรณ์ของคุณ',
+		'links_dest_prefix'   => 'ไปที่',
+		'links_btn1_sub'      => 'เปิดดูบน Myfxbook',
+		'links_btn2_sub'      => 'เริ่มต้น FREE · PRO 6,990 บาท',
+		'links_ea_note'       => "ใช้กับ MetaTrader 5 เท่านั้น\n1 ไฟล์ EA ต่อ 1 บัญชี",
+		'links_algo_label'    => 'Algo Trading',
+		'links_algo_strong'   => 'อย่าลืมเปิดปุ่มนี้',
+		'links_algo_text'     => 'ถ้าปุ่มปิดอยู่ EA จะไม่ส่งคำสั่งเลย',
+		'links_vps_labels'    => "Windows\nAndroid\niOS",
+		'links_vps_why'       => "ไม่ต้องเปิดคอมทิ้งไว้\nไฟดับหรือเน็ตบ้านหลุดก็ไม่กระทบ",
+
 		'links_title'      => 'FENIX PRO EA',
 		'links_tagline'    => 'ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5 เน้นบริหารความเสี่ยง มีทีมไทยดูแล',
-		'links_badges'     => '',
+		'links_badges'     => "3 | EA ในชุด
+MT5 | เท่านั้น
+ทีมไทยดูแล",
 		'links_logo'       => '',
 		'links_signup_label' => 'เปิดบัญชี MT5',
-		'links_signup_url'   => 'https://portal.zaurix.com?ref=202859',
+		'links_signup_url'   => 'https://portal.zaurix.com?ref=210028',
 		'links_account_guide_label' => 'สอนเปิดบัญชี',
 		'links_account_guide_url'   => '/open-mt5-account/',
-		'links_mt5_download_label'  => 'คู่มือติดตั้ง MT5',
+		'links_mt5_download_label'  => 'วิธี Login เข้า Zaurix-Server',
 		'links_mt5_download_url'    => '/mt5-login-zaurix-server/',
 		'links_mt5_install_title'   => 'ติดตั้งแอป MT5 และ Login',
 		'links_top_line_label'      => '',
@@ -263,7 +303,7 @@ function fenix_defaults() {
 		'links_deposit_label'       => 'เข้า Portal Zaurix',
 		'links_deposit_url'         => 'https://portal.zaurix.com/',
 		'links_deposit_guide_label' => 'คู่มือฝากเงิน',
-		'links_deposit_guide_url'   => '',
+		'links_deposit_guide_url'   => 'https://fenixpro-th.com/deposit-zaurix/',
 		'links_step4_title'         => 'ดาวน์โหลด EA',
 		'links_step4_desc'          => 'กดปุ่มดาวน์โหลดบนรูปของตัวที่ต้องการ',
 		'links_step5_title'         => 'ติดตั้ง EA บน MT5',
@@ -294,7 +334,7 @@ function fenix_defaults() {
 		'links_plus_img'     => 'https://fenixpro-th.com/wp-content/uploads/2026/11/link-download-fenix-plus-v3.webp',
 		'links_plus_url'     => 'https://fenixpro-th.com/wp-content/uploads/2026/11/FENIX_PLUS_V5.1.zip',
 		'links_plus_alt'     => 'ดาวน์โหลด FENIX PLUS Expert Advisor สำหรับ MetaTrader 5',
-		'links_plus_version_label' => 'เวอร์ชันล่าสุด',
+		'links_plus_version_label' => 'อัปเดตล่าสุด',
 		'links_plus_version'       => '',
 		'links_card3_enabled' => true,
 		'links_card3_img'     => 'https://fenixpro-th.com/wp-content/uploads/2026/11/link-download-fenix-btc-v3.webp',
@@ -331,8 +371,8 @@ function fenix_defaults() {
 		'links_guide3_url'   => '/vps-android/',
 		'links_guide4_label' => 'ใช้งาน VPS ผ่าน iPhone / iOS',
 		'links_guide4_url'   => '/vps-iphone-ios/',
-		'links_guide5_label' => 'ใช้งาน VPS บน macOS',
-		'links_guide5_url'   => '',
+		'links_guide5_label' => 'คู่มือการใช้งาน FENIX DUAL 6.3 (PDF)',
+		'links_guide5_url'   => 'https://fenixpro-th.com/wp-content/uploads/2026/11/fenix-dual-63-manual-th.pdf',
 		'links_note'       => '',
 
 		/* คุกกี้ / Consent + Tracking (โหลด tracking เฉพาะหลังกดยอมรับ) */
@@ -1572,6 +1612,33 @@ function fenix_candles( $series, $w, $h, $pad, $args = array() ) {
 		'step' => $step,
 	);
 }
+/* --------------------------------------------------------------
+ * ตัวช่วยของหน้า /go/
+ * -------------------------------------------------------------- */
+
+/** ลิงก์ออกนอกเว็บหรือไม่ (ใช้เลือกไอคอนท้ายปุ่มและการเปิดแท็บใหม่) */
+function fenix_go_is_external( $url, $home ) {
+	$host = wp_parse_url( (string) $url, PHP_URL_HOST );
+
+	return $host && $host !== $home;
+}
+
+/** แอตทริบิวต์เปิดแท็บใหม่สำหรับลิงก์นอกเว็บ */
+function fenix_go_target( $external ) {
+	return $external ? ' target="_blank" rel="noopener"' : '';
+}
+
+/** บรรทัดบอกปลายทางใต้ปุ่มที่ออกไปเว็บอื่น */
+function fenix_go_dest( $url, $prefix ) {
+	$host = wp_parse_url( (string) $url, PHP_URL_HOST );
+
+	if ( ! $host || '' === $prefix ) {
+		return '';
+	}
+
+	return '<span class="dest">' . fenix_icon( 'lock', 'i' ) . esc_html( $prefix ) . ' <span class="keep-case">' . esc_html( $host ) . '</span></span>';
+}
+
 function fenix_mod( $key ) {
 	$defaults = fenix_defaults();
 	$default  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
@@ -2186,6 +2253,12 @@ function fenix_icon( $name, $class = 'icon' ) {
 		'macos'    => '<rect x="4" y="4.5" width="16" height="11" rx="1.8"/><path d="M8.5 19.5h7"/><path d="M12 15.5v4"/><path d="M9.8 9.7c-.45 0-.82-.37-.82-.83 0-.45.37-.82.82-.82"/><path d="M14.2 9.7c.45 0 .82-.37.82-.83 0-.45-.37-.82-.82-.82"/><path d="M9.9 12.1c1.2.75 3 .75 4.2 0"/>',
 		'users'    => '<path d="M16.5 19.5c0-2.1-1.8-3.8-4.5-3.8s-4.5 1.7-4.5 3.8"/><circle cx="12" cy="9" r="3.2"/><path d="M20.5 18.5c0-1.7-1.2-3-3-3.4"/><path d="M16.8 6.3a2.6 2.6 0 0 1 0 5.1"/><path d="M3.5 18.5c0-1.7 1.2-3 3-3.4"/><path d="M7.2 6.3a2.6 2.6 0 0 0 0 5.1"/>',
 
+		'chev-r'   => '<path d="m9 6 6 6-6 6"/>',
+		'ext'      => '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+		'book'     => '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>',
+		'server'   => '<rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/>',
+		'play'     => '<circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4z"/>',
+		'user-plus' => '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
 		'chev'     => '<path d="m6 9 6 6 6-6"/>',
 		'down'     => '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
 		'user'     => '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',

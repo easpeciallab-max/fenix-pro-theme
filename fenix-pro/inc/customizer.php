@@ -920,6 +920,31 @@ function fenix_customize_register( $wp_customize ) {
 		),
 	);
 
+	$sections['fenix_go_new'] = array(
+		'title'       => '27) หน้า /go/ · ส่วนที่เพิ่มในดีไซน์ใหม่',
+		'description' => 'รูปปก ชื่อ และเลขเวอร์ชันของการ์ด EA ยังดึงจากหมวด 12 เหมือนเดิม · ทางลัดกรอกเป็น ชื่อปุ่ม | ปลายทาง | ไอคอน (ปลายทางเป็น #dl #install #vps หรือลิงก์เต็มก็ได้)',
+		'fields'      => array(
+			'links_cover_wm'       => array( 'ลายน้ำบนแถบส้ม', 'text' ),
+			'links_cover_tape'     => array( 'เทปดำมุมขวาบน', 'text' ),
+			'links_badges'         => array( 'ชิปใต้ชื่อ (ตัวหนา | ข้อความ บรรทัดละ 1 ชิป)', 'textarea' ),
+			'links_btn1_sub'       => array( 'แถวผลเทรดจริง · บรรทัดรอง', 'text' ),
+			'links_btn2_sub'       => array( 'แถวแพ็กเกจ · บรรทัดรอง (ตรวจกับหน้า /pricing/)', 'text' ),
+			'links_risk'           => array( 'กล่องคำเตือนความเสี่ยง (ห้ามลบ)', 'textarea' ),
+			'links_steps_kicker'   => array( 'ป้ายบนหัวข้อขั้นตอน', 'text' ),
+			'links_steps_sub'      => array( 'คำโปรยใต้หัวข้อขั้นตอน', 'textarea' ),
+			'links_shortcut_label' => array( 'คำนำหน้าแถวทางลัด', 'text' ),
+			'links_shortcuts'      => array( 'ปุ่มทางลัด', 'textarea' ),
+			'links_dest_prefix'    => array( 'คำนำหน้าบรรทัดบอกปลายทาง', 'text', 'ชื่อเว็บปลายทางดึงจากลิงก์ให้เอง' ),
+			'links_device_badge'   => array( 'ป้ายบนช่องอุปกรณ์ของผู้ใช้', 'text' ),
+			'links_ea_note'        => array( 'บรรทัดเงื่อนไขใต้การ์ด EA (บรรทัดละ 1 ข้อ)', 'textarea' ),
+			'links_algo_label'     => array( 'ภาพจำลอง · ชื่อปุ่ม', 'text' ),
+			'links_algo_strong'    => array( 'ภาพจำลอง · ข้อความตัวหนา', 'text' ),
+			'links_algo_text'      => array( 'ภาพจำลอง · ข้อความต่อท้าย', 'text' ),
+			'links_vps_labels'     => array( 'ชื่อสั้นบนช่อง VPS (บรรทัดละ 1 ชื่อ เรียงตามคู่มือ 2-3-4)', 'textarea' ),
+			'links_vps_why'        => array( 'ประโยชน์ของ VPS (บรรทัดละ 1 ข้อ)', 'textarea' ),
+		),
+	);
+
 	$priority = 10;
 
 	foreach ( $sections as $section_id => $section ) {
