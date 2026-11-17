@@ -300,6 +300,7 @@
 			data.append('nonce', window.fenixLoadMore.nonce);
 			data.append('page', next);
 			data.append('query', loadMoreBtn.getAttribute('data-query') || '');
+			data.append('card', loadMoreBtn.getAttribute('data-card') || '');
 
 			fetch(window.fenixLoadMore.ajaxUrl, {
 				method: 'POST',
@@ -308,7 +309,7 @@
 			})
 				.then(function (res) { return res.text(); })
 				.then(function (html) {
-					var grid = document.querySelector('.posts-grid');
+					var grid = document.querySelector('[data-posts-grid]') || document.querySelector('.posts-grid');
 					if (grid && html.trim()) {
 						grid.insertAdjacentHTML('beforeend', html);
 					}

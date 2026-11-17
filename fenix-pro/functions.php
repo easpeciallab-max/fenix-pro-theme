@@ -108,6 +108,20 @@ function fenix_assets() {
 		);
 	}
 
+	if (
+		is_category()
+		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php' ) )
+	) {
+		$pages_css = get_template_directory() . '/assets/css/pages.css';
+
+		wp_enqueue_style(
+			'fenix-pages',
+			get_template_directory_uri() . '/assets/css/pages.css',
+			array( 'fenix-style' ),
+			file_exists( $pages_css ) ? filemtime( $pages_css ) : FENIX_VERSION
+		);
+	}
+
 	if ( fenix_mod( 'ga_measurement_id' ) || fenix_mod( 'fb_pixel_id' ) ) {
 		wp_localize_script(
 			'fenix-main',
@@ -207,6 +221,13 @@ function fenix_body_classes( $classes ) {
 
 	if ( is_front_page() && ! is_paged() ) {
 		$classes[] = 'fenix-home';
+	}
+
+	if (
+		is_category()
+		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php' ) )
+	) {
+		$classes[] = 'fenix-pages';
 	}
 
 	return $classes;
@@ -834,6 +855,25 @@ MT5 | เท่านั้น
 			'blog_kicker'    => 'Articles',
 			'blog_title'     => 'บทความและความรู้',
 			'blog_subtitle'  => 'รวมบทความเกี่ยวกับ EA การเทรดอัตโนมัติ และการบริหารความเสี่ยงบน MetaTrader 5',
+			/* ===== หน้าภายในชุด 1 (อนุมัติ 17 พ.ย. 2026) ===== */
+			'pages_cta_btn'     => 'ทัก LINE เพื่อสอบถาม',
+			'forward_kicker'    => 'Forward Test',
+			'fw_cta_title'      => 'ติดตามผลแบบเรียลไทม์?',
+			'fw_cta_text'       => 'สอบถามผลการทดสอบล่าสุดและช่องทางติดตามได้ทาง LINE',
+			'packages_kicker'   => 'Packages',
+			'compare_kicker'    => 'Compare',
+			'pr_cta_title'      => 'ยังไม่แน่ใจว่าแพ็กเกจไหนเหมาะ?',
+			'pr_cta_text'       => 'ทักทีมงานเพื่อให้ช่วยประเมินความเหมาะสมกับทุนและเป้าหมายการใช้งานของคุณ',
+			'about_page_kicker' => '',
+			'about_page_sub'    => '',
+			'about_banner'      => 'https://fenixpro-th.com/wp-content/uploads/2026/07/fenix-pro-ea-metatrader5-auto-trading-banner-1-1024x538.webp',
+			'about_banner_alt'  => 'FENIX PRO EA ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5',
+			'blog_page_sub'     => 'ความรู้เรื่อง EA, MT5 และการบริหารความเสี่ยง',
+			'blog_count_label'  => 'บทความ',
+			'blog_more_label'   => 'โหลดเพิ่ม',
+			'bt_lot_btn'        => 'เลือกคูณ LOT ของ FENIX DUAL',
+			'bt_line_btn'       => 'ทักทีมงาน',
+
 			'blog_all_label' => 'ดูบทความทั้งหมด',
 
 			/* ===== หน้าแรกดีไซน์ใหม่ (อนุมัติ 16 พ.ย. 2026) ===== */
@@ -2254,6 +2294,8 @@ function fenix_icon( $name, $class = 'icon' ) {
 		'users'    => '<path d="M16.5 19.5c0-2.1-1.8-3.8-4.5-3.8s-4.5 1.7-4.5 3.8"/><circle cx="12" cy="9" r="3.2"/><path d="M20.5 18.5c0-1.7-1.2-3-3-3.4"/><path d="M16.8 6.3a2.6 2.6 0 0 1 0 5.1"/><path d="M3.5 18.5c0-1.7 1.2-3 3-3.4"/><path d="M7.2 6.3a2.6 2.6 0 0 0 0 5.1"/>',
 
 		'chev-r'   => '<path d="m9 6 6 6-6 6"/>',
+		'flask'    => '<path d="M9 3h6"/><path d="M10 3v6.5L4.6 18A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.7-3L14 9.5V3"/><path d="M7.5 15h9"/>',
+		'info'     => '<circle cx="12" cy="12" r="10"/><path d="M12 16v-5M12 8h.01"/>',
 		'ext'      => '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
 		'book'     => '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>',
 		'server'   => '<rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/>',
@@ -2756,10 +2798,18 @@ function fenix_load_more() {
 	$query['posts_per_page']      = (int) get_option( 'posts_per_page' );
 	$query['ignore_sticky_posts'] = true;
 
+	$card = isset( $_POST['card'] ) && 'art' === $_POST['card'] ? 'art' : '';
+
 	$loop = new WP_Query( $query );
 	if ( $loop->have_posts() ) {
 		while ( $loop->have_posts() ) {
 			$loop->the_post();
+
+			if ( 'art' === $card && function_exists( 'fenix_article_card' ) ) {
+				fenix_article_card();
+				continue;
+			}
+
 			fenix_post_card();
 		}
 	}
@@ -3057,6 +3107,7 @@ add_action( 'send_headers', 'fenix_remove_powered_by_header', 100 );
  * Customizer
  * -------------------------------------------------------------- */
 require get_template_directory() . '/inc/customizer.php';
+require get_template_directory() . '/inc/pages.php';
 
 /**
  * ปุ่ม "สอบถามทาง LINE" ใต้แดชบอร์ดหน้า Backtest มาจากปลั๊กอิน FENIX Performance

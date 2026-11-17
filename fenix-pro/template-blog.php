@@ -2,15 +2,19 @@
 /**
  * Template Name: FENIX · หน้ารวมบทความ
  *
- * หน้ารวมบทความทั้งหมด: สร้างเพจใหม่ เลือกเทมเพลตนี้ ตั้ง slug = articles แล้วลิงก์เข้าเมนู
- * (ใช้การ์ดบทความ + ปุ่มโหลดเพิ่มชุดเดียวกับหน้า archive)
+ * ดีไซน์ที่เจ้าของอนุมัติเมื่อ 17 พ.ย. 2026
+ * บทความเรื่องล่าสุดเป็นการ์ดใหญ่ ที่เหลือเรียงสามคอลัมน์ พร้อมปุ่มโหลดเพิ่มของเดิม
  *
  * @package fenix-pro
  */
 
 get_header();
 
-$fenix_blog_q = new WP_Query(
+if ( have_posts() ) {
+	the_post();
+}
+
+$bl_query = new WP_Query(
 	array(
 		'post_type'           => 'post',
 		'post_status'         => 'publish',
@@ -19,63 +23,19 @@ $fenix_blog_q = new WP_Query(
 		'ignore_sticky_posts' => true,
 	)
 );
+
+$bl_count = '';
+if ( $bl_query->found_posts ) {
+	$bl_count = '<div class="meta"><span class="count"><b class="num">' . esc_html( number_format_i18n( $bl_query->found_posts ) ) . '</b>'
+		. esc_html( fenix_mod( 'blog_count_label' ) ) . '</span></div>';
+}
 ?>
 
-<main id="main">
+<main id="main" class="fxp">
 
-	<div class="page-hero archive-hero">
-		<div class="container">
+	<?php fenix_phero( get_the_title(), fenix_mod( 'blog_page_sub' ), fenix_mod( 'blog_kicker' ), $bl_count ); ?>
 
-			<nav class="breadcrumb breadcrumb-center" aria-label="เส้นทางนำทาง">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">หน้าแรก</a>
-				<span class="breadcrumb-sep" aria-hidden="true">›</span>
-				<span class="breadcrumb-current"><?php the_title(); ?></span>
-			</nav>
-
-			<h1><?php the_title(); ?></h1>
-			<p class="muted">ความรู้เรื่อง EA, MT5 และการบริหารความเสี่ยง</p>
-
-			<?php if ( $fenix_blog_q->found_posts ) : ?>
-				<p class="archive-count"><?php echo esc_html( number_format_i18n( $fenix_blog_q->found_posts ) . ' บทความ' ); ?></p>
-			<?php endif; ?>
-
-		</div>
-	</div>
-
-	<div class="posts-wrap">
-		<div class="container">
-
-			<?php if ( $fenix_blog_q->have_posts() ) : ?>
-
-				<div class="posts-grid">
-					<?php
-					while ( $fenix_blog_q->have_posts() ) :
-						$fenix_blog_q->the_post();
-						fenix_post_card();
-					endwhile;
-					wp_reset_postdata();
-					?>
-				</div>
-
-				<?php if ( $fenix_blog_q->max_num_pages > 1 ) : ?>
-					<div class="load-more">
-						<button type="button" class="btn btn-ghost load-more-btn"
-							data-page="1"
-							data-max="<?php echo esc_attr( (string) (int) $fenix_blog_q->max_num_pages ); ?>"
-							data-query="<?php echo esc_attr( wp_json_encode( array() ) ); ?>">
-							โหลดเพิ่ม
-						</button>
-					</div>
-				<?php endif; ?>
-
-			<?php else : ?>
-
-				<p class="no-posts">ยังไม่มีบทความในขณะนี้</p>
-
-			<?php endif; ?>
-
-		</div>
-	</div>
+	<?php fenix_articles_body( $bl_query ); ?>
 
 </main>
 

@@ -945,6 +945,30 @@ function fenix_customize_register( $wp_customize ) {
 		),
 	);
 
+	$sections['fenix_pages_b1'] = array(
+		'title'       => '28) หน้าภายใน · Backtest · Forward Test · แพ็กเกจ · เกี่ยวกับเรา · บทความ',
+		'description' => 'เนื้อหาของหน้า BACKTEST และ เกี่ยวกับเรา ยังแก้ในตัวแก้ไขของหน้านั้นเหมือนเดิม ที่นี่เป็นข้อความประกอบรอบ ๆ',
+		'fields'      => array(
+			'pages_cta_btn'     => array( 'ปุ่มในกล่อง CTA ส้ม (ทุกหน้า)', 'text' ),
+			'forward_kicker'    => array( 'Forward Test · ป้ายบนหัวข้อ', 'text' ),
+			'fw_cta_title'      => array( 'Forward Test · หัวข้อกล่อง CTA', 'text' ),
+			'fw_cta_text'       => array( 'Forward Test · ข้อความกล่อง CTA', 'textarea' ),
+			'packages_kicker'   => array( 'แพ็กเกจ · ป้ายเหนือการ์ด', 'text' ),
+			'compare_kicker'    => array( 'แพ็กเกจ · ป้ายเหนือตารางเทียบ', 'text' ),
+			'pr_cta_title'      => array( 'แพ็กเกจ · หัวข้อกล่อง CTA', 'text' ),
+			'pr_cta_text'       => array( 'แพ็กเกจ · ข้อความกล่อง CTA', 'textarea' ),
+			'bt_lot_btn'        => array( 'Backtest · ปุ่มไปหน้าเลือกคูณ LOT', 'text' ),
+			'bt_line_btn'       => array( 'Backtest · ปุ่มทักทีมงาน', 'text' ),
+			'about_page_kicker' => array( 'เกี่ยวกับเรา · ป้ายบนหัวข้อ', 'text' ),
+			'about_page_sub'    => array( 'เกี่ยวกับเรา · คำโปรยใต้หัวข้อ', 'textarea' ),
+			'about_banner'      => array( 'เกี่ยวกับเรา · รูปแบนเนอร์', 'image' ),
+			'about_banner_alt'  => array( 'เกี่ยวกับเรา · คำอธิบายรูป', 'text' ),
+			'blog_page_sub'     => array( 'บทความ · คำโปรยใต้หัวข้อ', 'textarea' ),
+			'blog_count_label'  => array( 'บทความ · คำต่อท้ายจำนวนบทความ', 'text' ),
+			'blog_more_label'   => array( 'บทความ · ปุ่มโหลดเพิ่ม', 'text' ),
+		),
+	);
+
 	$priority = 10;
 
 	foreach ( $sections as $section_id => $section ) {

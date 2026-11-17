@@ -2,6 +2,9 @@
 /**
  * Template Name: FENIX · หน้า Forward Test
  *
+ * ดีไซน์ที่เจ้าของอนุมัติเมื่อ 17 พ.ย. 2026
+ * ข้อความทุกจุดอ่านจาก Customizer เหมือนเดิม
+ *
  * @package fenix-pro
  */
 
@@ -10,74 +13,99 @@ get_header();
 if ( have_posts() ) {
 	the_post();
 }
-$fenix_title = get_the_title();
-fenix_page_hero( 'Forward Test', $fenix_title ? $fenix_title : 'ผล Forward Test', fenix_mod( 'forward_sub' ) );
+
+$fw_title = get_the_title();
+$fw_url   = trim( (string) fenix_mod( 'forward_link_url' ) );
+$fw_host  = $fw_url ? wp_parse_url( $fw_url, PHP_URL_HOST ) : '';
+$fw_line  = trim( (string) fenix_mod( 'line_url' ) );
 ?>
 
-<main id="main">
+<main id="main" class="fxp">
 
-<section class="section">
-	<div class="container">
+	<?php fenix_phero( $fw_title ? $fw_title : 'Forward Test', fenix_mod( 'forward_sub' ), fenix_mod( 'forward_kicker' ) ); ?>
 
-		<?php if ( fenix_mod( 'forward_intro' ) ) : ?>
-			<p class="lead reveal"><?php echo esc_html( fenix_mod( 'forward_intro' ) ); ?></p>
-		<?php endif; ?>
+	<section class="sec">
+		<div class="wrap">
+			<div class="ft">
+				<div>
+					<?php if ( fenix_mod( 'forward_intro' ) ) : ?>
+						<p class="intro"><?php echo esc_html( fenix_mod( 'forward_intro' ) ); ?></p>
+					<?php endif; ?>
 
-		<?php
-		$fenix_fw_stats = array();
-		for ( $i = 1; $i <= 6; $i++ ) {
-			$s_value = trim( (string) fenix_mod( 'fw_stat' . $i . '_value' ) );
-			if ( '' === $s_value ) {
-				continue;
-			}
-			$fenix_fw_stats[] = array(
-				'label' => fenix_mod( 'fw_stat' . $i . '_label' ),
-				'value' => $s_value,
-			);
-		}
-		?>
-		<?php if ( ! empty( $fenix_fw_stats ) ) : ?>
-			<div class="stats-grid reveal">
-				<?php foreach ( $fenix_fw_stats as $fenix_fw_stat ) : ?>
-					<div class="stat">
-						<span class="stat-label"><?php echo esc_html( $fenix_fw_stat['label'] ); ?></span>
-						<span class="stat-value"><?php echo esc_html( $fenix_fw_stat['value'] ); ?></span>
+					<?php if ( '' !== $fw_url && fenix_mod( 'forward_link_label' ) ) : ?>
+						<div class="acts">
+							<a class="fx-btn fx-btn-or" href="<?php echo esc_url( $fw_url ); ?>" target="_blank" rel="noopener nofollow">
+								<?php echo fenix_icon( 'eye', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								<?php echo esc_html( fenix_mod( 'forward_link_label' ) ); ?>
+								<?php echo fenix_icon( 'ext', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							</a>
+							<?php if ( $fw_host ) : ?>
+								<span class="dest">
+									<?php echo fenix_icon( 'lock', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									<?php echo esc_html( fenix_mod( 'links_dest_prefix' ) ); ?>
+									<span class="keep-case"><?php echo esc_html( $fw_host ); ?></span>
+								</span>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
+				</div>
+
+				<?php $fw_img = trim( (string) fenix_mod( 'forward_img' ) ); ?>
+				<?php if ( '' !== $fw_img ) : ?>
+					<figure class="fx-shot">
+						<img src="<?php echo esc_url( $fw_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'forward_img_caption' ) ); ?>" loading="lazy" decoding="async">
+						<?php if ( fenix_mod( 'forward_img_caption' ) ) : ?>
+							<figcaption><?php echo esc_html( fenix_mod( 'forward_img_caption' ) ); ?></figcaption>
+						<?php endif; ?>
+					</figure>
+				<?php else : ?>
+					<?php /* ภาพประกอบกรอบเบราว์เซอร์ · ตั้งใจไม่ใส่ตัวเลข ตามข้อความในหน้า */ ?>
+					<div class="bw" aria-hidden="true">
+						<div class="bar">
+							<i></i><i></i><i></i>
+							<span class="url">
+								<?php echo fenix_icon( 'lock', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								<span class="keep-case"><?php echo esc_html( preg_replace( '~^https?://~', '', $fw_url ) ); ?></span>
+							</span>
+						</div>
+						<div class="bd">
+							<div class="row"><span class="sk"></span><span class="sk"></span><span class="sk"></span></div>
+							<div class="chart"><span><?php echo fenix_icon( 'eye', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span></div>
+							<div class="lines">
+								<span class="sk" style="width:90%"></span>
+								<span class="sk" style="width:70%"></span>
+								<span class="sk" style="width:80%"></span>
+							</div>
+						</div>
 					</div>
-				<?php endforeach; ?>
-			</div>
-		<?php endif; ?>
-
-		<?php if ( fenix_mod( 'forward_img' ) ) : ?>
-			<figure class="perf-figure reveal">
-				<img src="<?php echo esc_url( fenix_mod( 'forward_img' ) ); ?>" alt="<?php echo esc_attr( fenix_mod( 'forward_img_caption' ) ); ?>" loading="lazy">
-				<?php if ( fenix_mod( 'forward_img_caption' ) ) : ?>
-					<figcaption><?php echo esc_html( fenix_mod( 'forward_img_caption' ) ); ?></figcaption>
 				<?php endif; ?>
-			</figure>
-		<?php endif; ?>
-
-		<?php if ( fenix_mod( 'forward_link_url' ) && fenix_mod( 'forward_link_label' ) ) : ?>
-			<p class="reveal" style="text-align:center;">
-				<a class="btn btn-ghost" href="<?php echo esc_url( fenix_mod( 'forward_link_url' ) ); ?>" target="_blank" rel="noopener">
-					<?php echo esc_html( fenix_mod( 'forward_link_label' ) ); ?>
-					<?php echo fenix_icon( 'arrow', 'icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				</a>
-			</p>
-		<?php endif; ?>
-
-		<?php if ( fenix_mod( 'forward_note' ) ) : ?>
-			<p class="sec-note reveal"><?php echo esc_html( fenix_mod( 'forward_note' ) ); ?></p>
-		<?php endif; ?>
-
-		<div class="disclaimer reveal">
-			<?php echo fenix_icon( 'warn' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-			<p><?php echo esc_html( fenix_mod( 'forward_disclaimer' ) ); ?></p>
+			</div>
 		</div>
+	</section>
 
-	</div>
-</section>
+	<?php if ( fenix_mod( 'forward_note' ) || fenix_mod( 'forward_disclaimer' ) ) : ?>
+		<section class="sec tight alt">
+			<div class="wrap">
+				<div class="notes">
+					<?php if ( fenix_mod( 'forward_note' ) ) : ?>
+						<div class="note">
+							<?php echo fenix_icon( 'info', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							<span><?php echo esc_html( fenix_mod( 'forward_note' ) ); ?></span>
+						</div>
+					<?php endif; ?>
 
-<?php fenix_line_cta( 'ติดตามผลแบบเรียลไทม์?', 'สอบถามผลการทดสอบล่าสุดและช่องทางติดตามได้ทาง LINE' ); ?>
+					<?php if ( fenix_mod( 'forward_disclaimer' ) ) : ?>
+						<div class="note warn">
+							<?php echo fenix_icon( 'warn', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							<span><?php echo esc_html( fenix_mod( 'forward_disclaimer' ) ); ?></span>
+						</div>
+					<?php endif; ?>
+				</div>
+			</div>
+		</section>
+	<?php endif; ?>
+
+	<?php fenix_pages_cta( fenix_mod( 'fw_cta_title' ), fenix_mod( 'fw_cta_text' ), fenix_mod( 'pages_cta_btn' ), $fw_line ); ?>
 
 </main>
 

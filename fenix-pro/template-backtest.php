@@ -2,6 +2,10 @@
 /**
  * Template Name: FENIX · หน้า Backtest
  *
+ * ดีไซน์ที่เจ้าของอนุมัติเมื่อ 17 พ.ย. 2026
+ * เนื้อหายังอยู่ในตัวแก้ไขของ WordPress เหมือนเดิมทุกตัวอักษร
+ * เทมเพลตนี้แค่จัดวางใหม่: หัวหน้าเพจ ปุ่มกระโดด และช่วงของ EA แต่ละตัว
+ *
  * @package fenix-pro
  */
 
@@ -10,65 +14,88 @@ get_header();
 if ( have_posts() ) {
 	the_post();
 }
-$fenix_title = get_the_title();
-fenix_page_hero( 'Backtest', $fenix_title ? $fenix_title : 'ผล Backtest', fenix_mod( 'backtest_sub' ) );
+
+$bt_content = fenix_pages_dom( apply_filters( 'the_content', get_the_content() ) );
+$bt_intro   = '';
+$bt_parts   = array(
+	'intro'    => array(),
+	'sections' => array(),
+);
+
+if ( $bt_content ) {
+	$bt_parts = fenix_pages_split( $bt_content[1] );
+
+	foreach ( $bt_parts['intro'] as $bt_node ) {
+		if ( 'p' === $bt_node->nodeName && '' === $bt_intro ) {
+			$bt_intro = fenix_pages_text( $bt_node );
+		}
+	}
+}
+
+if ( '' === $bt_intro ) {
+	$bt_intro = (string) fenix_mod( 'backtest_sub' );
+}
+
+/* รหัสช่วงของ EA แต่ละตัว ใช้กับปุ่มกระโดด */
+$bt_ids = array();
+foreach ( $bt_parts['sections'] as $bt_i => $bt_sec ) {
+	$bt_slug = 'ea-' . ( $bt_i + 1 );
+
+	foreach ( array( 'btc' => 'BTC', 'plus' => 'PLUS', 'dual' => 'DUAL' ) as $bt_key => $bt_needle ) {
+		if ( false !== stripos( $bt_sec['title'], $bt_needle ) ) {
+			$bt_slug = $bt_key;
+			break;
+		}
+	}
+
+	$bt_ids[ $bt_i ] = $bt_slug;
+}
+
+/* ปุ่มกระโดดในหัวหน้าเพจ · ชื่อปุ่มตัดเอาเฉพาะชื่อ EA ก่อนเครื่องหมาย · */
+$bt_jump = '';
+foreach ( $bt_parts['sections'] as $bt_i => $bt_sec ) {
+	$bt_label = trim( (string) preg_replace( '/\s*·.*$/u', '', $bt_sec['title'] ) );
+	$bt_jump .= '<a href="#' . esc_attr( $bt_ids[ $bt_i ] ) . '"><b>' . (int) ( $bt_i + 1 ) . '</b>'
+		. esc_html( $bt_label ) . fenix_icon( 'down', 'i' ) . '</a>';
+}
+
+if ( '' !== $bt_jump ) {
+	$bt_jump = '<div class="jump">' . $bt_jump . '</div>';
+}
+
+$bt_title = get_the_title();
 ?>
 
-<main id="main">
+<main id="main" class="fxp">
 
-<section class="section">
-	<div class="container">
+	<?php fenix_phero( $bt_title ? $bt_title : 'Backtest', $bt_intro, '', $bt_jump ); ?>
 
-		<?php if ( fenix_mod( 'backtest_intro' ) ) : ?>
-			<p class="lead reveal"><?php echo esc_html( fenix_mod( 'backtest_intro' ) ); ?></p>
-		<?php endif; ?>
-
-		<div class="stats-grid stats-grid--4 reveal">
-			<?php
-			for ( $i = 1; $i <= 8; $i++ ) :
-				$s_label = fenix_mod( 'bt_stat' . $i . '_label' );
-				$s_value = fenix_mod( 'bt_stat' . $i . '_value' );
-				if ( ! $s_label && ! $s_value ) {
-					continue;
-				}
-				?>
-				<div class="stat">
-					<span class="stat-label"><?php echo esc_html( $s_label ); ?></span>
-					<span class="stat-value"><?php echo esc_html( $s_value ); ?></span>
+	<?php
+	foreach ( $bt_parts['sections'] as $bt_i => $bt_sec ) :
+		$bt_desc = fenix_pages_first_p( $bt_sec['nodes'] );
+		?>
+		<section class="sec<?php echo 1 === $bt_i % 2 ? ' alt' : ''; ?>" id="<?php echo esc_attr( $bt_ids[ $bt_i ] ); ?>">
+			<div class="wrap">
+				<div class="eahead">
+					<span class="no num"><?php echo (int) ( $bt_i + 1 ); ?></span>
+					<div>
+						<h2><?php echo esc_html( $bt_sec['title'] ); ?></h2>
+						<?php if ( '' !== $bt_desc ) : ?>
+							<p><?php echo $bt_desc; // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
+						<?php endif; ?>
+					</div>
 				</div>
-			<?php endfor; ?>
-		</div>
 
-		<?php if ( fenix_mod( 'backtest_img' ) ) : ?>
-			<figure class="perf-figure reveal">
-				<img src="<?php echo esc_url( fenix_mod( 'backtest_img' ) ); ?>" alt="<?php echo esc_attr( fenix_mod( 'backtest_img_caption' ) ); ?>" loading="lazy">
-				<?php if ( fenix_mod( 'backtest_img_caption' ) ) : ?>
-					<figcaption><?php echo esc_html( fenix_mod( 'backtest_img_caption' ) ); ?></figcaption>
-				<?php endif; ?>
-			</figure>
-		<?php else : ?>
-			<figure class="perf-figure shot-placeholder reveal">
-				<div class="shot-empty">
-					<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo.png' ); ?>" alt="" loading="lazy" width="110" height="110">
-					<span class="chip">ภาพประกอบ</span>
-					<p>อัปโหลดภาพกราฟผล Backtest ได้ที่ ปรับแต่ง → หน้า Backtest</p>
-				</div>
-			</figure>
-		<?php endif; ?>
+				<?php echo fenix_backtest_section( $bt_sec['nodes'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			</div>
+		</section>
+	<?php endforeach; ?>
 
-		<?php if ( fenix_mod( 'backtest_note' ) ) : ?>
-			<p class="sec-note reveal"><?php echo esc_html( fenix_mod( 'backtest_note' ) ); ?></p>
-		<?php endif; ?>
-
-		<div class="disclaimer reveal">
-			<?php echo fenix_icon( 'warn' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-			<p><?php echo esc_html( fenix_mod( 'backtest_disclaimer' ) ); ?></p>
-		</div>
-
-	</div>
-</section>
-
-<?php fenix_line_cta( 'อยากดูผลทดสอบชุดอื่น?', 'สอบถามรายละเอียดผลการทดสอบและเงื่อนไขเพิ่มเติมได้ทาง LINE' ); ?>
+	<?php if ( ! $bt_parts['sections'] ) : ?>
+		<section class="sec">
+			<div class="wrap"><?php the_content(); ?></div>
+		</section>
+	<?php endif; ?>
 
 </main>
 
