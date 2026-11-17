@@ -109,10 +109,12 @@ function fenix_assets() {
 	}
 
 	$is_guide = is_page_template( 'template-guide.php' );
+	$is_legal = is_page_template( array( 'template-risk.php', 'template-legal.php' ) );
 
 	if (
 		is_category()
 		|| $is_guide
+		|| $is_legal
 		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php' ) )
 	) {
 		$pages_css = get_template_directory() . '/assets/css/pages.css';
@@ -142,6 +144,27 @@ function fenix_assets() {
 			get_template_directory_uri() . '/assets/js/guide.js',
 			array(),
 			file_exists( $guide_js ) ? filemtime( $guide_js ) : FENIX_VERSION,
+			true
+		);
+	}
+
+	/* หน้ากฎหมายก็ใช้สไตล์ของชุด 1 เป็นฐานเหมือนกัน */
+	if ( $is_legal ) {
+		$legal_css = get_template_directory() . '/assets/css/legal.css';
+		$legal_js  = get_template_directory() . '/assets/js/legal.js';
+
+		wp_enqueue_style(
+			'fenix-legal',
+			get_template_directory_uri() . '/assets/css/legal.css',
+			array( 'fenix-pages' ),
+			file_exists( $legal_css ) ? filemtime( $legal_css ) : FENIX_VERSION
+		);
+
+		wp_enqueue_script(
+			'fenix-legal',
+			get_template_directory_uri() . '/assets/js/legal.js',
+			array(),
+			file_exists( $legal_js ) ? filemtime( $legal_js ) : FENIX_VERSION,
 			true
 		);
 	}
@@ -249,13 +272,17 @@ function fenix_body_classes( $classes ) {
 
 	if (
 		is_category()
-		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php', 'template-guide.php' ) )
+		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php', 'template-guide.php', 'template-risk.php', 'template-legal.php' ) )
 	) {
 		$classes[] = 'fenix-pages';
 	}
 
 	if ( is_page_template( 'template-guide.php' ) ) {
 		$classes[] = 'fenix-guide';
+	}
+
+	if ( is_page_template( array( 'template-risk.php', 'template-legal.php' ) ) ) {
+		$classes[] = 'fenix-legal';
 	}
 
 	return $classes;
@@ -3168,6 +3195,7 @@ add_action( 'send_headers', 'fenix_remove_powered_by_header', 100 );
  * -------------------------------------------------------------- */
 require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/pages.php';
+require get_template_directory() . '/inc/legal.php';
 
 /**
  * ปุ่ม "สอบถามทาง LINE" ใต้แดชบอร์ดหน้า Backtest มาจากปลั๊กอิน FENIX Performance

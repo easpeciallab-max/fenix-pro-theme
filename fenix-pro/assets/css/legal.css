@@ -1,0 +1,485 @@
+/* ==========================================================
+   FENIX PRO EA · หน้ากฎหมาย ชุด 3 (อนุมัติ 17 พ.ย. 2026)
+   /risk-disclosure/ · /privacy-policy/ · /terms/
+
+   โหลดต่อจาก pages.css จึงใช้ token ปุ่ม กล่อง CTA และหัวหน้าเพจ
+   ชุดเดียวกับหน้าภายในชุด 1 · ทุกอย่างอยู่ใต้ .fxl
+
+   เป็นเอกสารกฎหมาย ข้อความในหน้าจึงเป็นของเดิมทุกตัวอักษร
+   ไฟล์นี้จัดรูปแบบอย่างเดียว
+   ========================================================== */
+
+/* ---------- ใช้ร่วมกัน ---------- */
+.fxl .wrap.lwrap {
+	max-width: 1048px;
+}
+
+.fxl .updated {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	height: 38px;
+	padding: 0 16px 0 14px;
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1.5px var(--hover);
+	font: 600 14px/1 var(--font);
+	color: var(--t2);
+}
+
+.fxl .updated .i {
+	width: 16px;
+	height: 16px;
+	color: var(--or-text);
+	flex: none;
+}
+
+.fxl .updated b {
+	font-weight: 700;
+	color: var(--t1);
+}
+
+/* ==========================================================
+   คำเตือนความเสี่ยง
+   ========================================================== */
+.fxl .rintro {
+	display: flex;
+	gap: 18px;
+	align-items: flex-start;
+	background: var(--surface);
+	border-radius: 22px;
+	padding: 26px 28px;
+	box-shadow: inset 4px 0 0 var(--yellow);
+}
+
+.fxl .rintro .i {
+	width: 28px;
+	height: 28px;
+	color: var(--yellow);
+	flex-shrink: 0;
+	margin-top: 2px;
+}
+
+.fxl .rintro p {
+	font-size: 17px;
+	line-height: 1.85;
+	color: var(--t1);
+}
+
+.fxl .rfig {
+	margin-top: 24px;
+}
+
+/* รูปนี้มีตัวหนังสือเยอะ ต้องกว้างเต็มคอลัมน์เสมอ */
+.fxl .rfig img {
+	width: 100%;
+	height: auto;
+}
+
+.fxl .rgrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+	margin-top: 40px;
+}
+
+.fxl .rcard {
+	background: var(--surface);
+	border-radius: var(--r);
+	padding: 28px 28px 30px;
+}
+
+.fxl .rcard .n {
+	display: block;
+	font: 900 44px/1 var(--font);
+	letter-spacing: -0.03em;
+	color: var(--or-text);
+}
+
+.fxl .rcard h2 {
+	font: 800 21px/1.4 var(--font);
+	color: var(--t1);
+	margin-top: 16px;
+}
+
+.fxl .rcard p {
+	font-size: 15.5px;
+	line-height: 1.85;
+	color: var(--t2);
+	margin-top: 10px;
+}
+
+.fxl .rfoot {
+	margin-top: 28px;
+}
+
+/* กล่อง CTA กว้างเท่ากรอบเนื้อหา และต่อจากช่วงบนโดยไม่เว้นซ้ำ */
+.fxl .fx-cta {
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.fxl .sec + .sec {
+	padding-top: 0;
+}
+
+/* ==========================================================
+   แบบเอกสาร · นโยบายความเป็นส่วนตัว และเงื่อนไขการใช้บริการ
+   ========================================================== */
+.fxl .dgrid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 300px;
+	gap: 48px;
+	align-items: start;
+}
+
+.fxl .dside {
+	position: sticky;
+	top: 24px;
+	order: 2;
+}
+
+.fxl .dmain {
+	order: 1;
+	min-width: 0;
+	max-width: 780px;
+}
+
+.fxl .dside .toc {
+	background: var(--surface);
+	border-radius: 22px;
+	padding: 22px;
+}
+
+.fxl .toc summary {
+	list-style: none;
+	font: 800 15px/1.3 var(--font);
+	color: var(--t1);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: default;
+}
+
+.fxl .toc summary::-webkit-details-marker {
+	display: none;
+}
+
+.fxl .toc summary .i {
+	width: 18px;
+	height: 18px;
+	color: var(--or-text);
+	flex: none;
+}
+
+.fxl .toc summary .chev {
+	display: none;
+}
+
+.fxl .toc ol {
+	list-style: none;
+	display: grid;
+	gap: 4px;
+	margin-top: 14px;
+}
+
+.fxl .toc a {
+	display: flex;
+	gap: 10px;
+	align-items: flex-start;
+	padding: 8px 10px;
+	border-radius: 12px;
+	font-size: 14px;
+	line-height: 1.45;
+	color: var(--t2);
+}
+
+.fxl .toc a:hover,
+.fxl .toc a:focus-visible {
+	background: var(--raised);
+	color: var(--t1);
+}
+
+.fxl .toc a b {
+	flex-shrink: 0;
+	min-width: 24px;
+	height: 24px;
+	border-radius: 8px;
+	background: var(--raised);
+	display: grid;
+	place-items: center;
+	font: 800 11.5px/1 var(--font);
+	color: var(--or-text);
+	margin-top: -2px;
+}
+
+/* รูปหน้าปกของเอกสาร */
+.fxl .dthumb {
+	background: var(--surface);
+	border-radius: 22px;
+	padding: 10px;
+}
+
+.fxl .dthumb img {
+	border-radius: 14px;
+	width: 100%;
+	height: auto;
+	display: block;
+	aspect-ratio: auto;
+	object-fit: fill;
+}
+
+.fxl .dlead {
+	font-size: 17.5px;
+	line-height: 1.85;
+	color: var(--t1);
+	margin-top: 32px;
+}
+
+/* การ์ดข้อมูลเอกสาร */
+.fxl .dinfo {
+	background: var(--surface);
+	border-radius: 20px;
+	padding: 8px 22px;
+	margin-top: 20px;
+}
+
+.fxl .dinfo > div {
+	display: flex;
+	gap: 14px;
+	align-items: flex-start;
+	padding: 14px 0;
+	font-size: 15.5px;
+	line-height: 1.65;
+	color: var(--t2);
+}
+
+.fxl .dinfo > div + div {
+	border-top: 1px solid var(--line);
+}
+
+.fxl .dinfo .i {
+	width: 20px;
+	height: 20px;
+	color: var(--or-text);
+	flex-shrink: 0;
+	margin-top: 2px;
+}
+
+.fxl .dinfo b {
+	color: var(--t1);
+	font-weight: 700;
+}
+
+/* หัวข้อและเนื้อหา */
+.fxl .dsec {
+	padding-top: 36px;
+	margin-top: 36px;
+	border-top: 1px solid var(--line);
+}
+
+.fxl .dsec:first-of-type {
+	margin-top: 40px;
+}
+
+.fxl .dsec h2 {
+	font: 800 23px/1.4 var(--font);
+	color: var(--t1);
+	scroll-margin-top: calc(var(--header-h, 72px) + 16px);
+}
+
+.fxl .dsec h2 .n {
+	color: var(--or-text);
+}
+
+.fxl .dsec p {
+	font-size: 16px;
+	line-height: 1.9;
+	color: var(--t2);
+	margin-top: 14px;
+}
+
+.fxl .dsec ul {
+	list-style: none;
+	display: grid;
+	gap: 10px;
+	margin-top: 16px;
+	padding-left: 0;
+}
+
+.fxl .dsec li {
+	position: relative;
+	padding-left: 24px;
+	font-size: 16px;
+	line-height: 1.75;
+	color: var(--t2);
+}
+
+.fxl .dsec li::before {
+	content: "";
+	position: absolute;
+	left: 3px;
+	top: 11px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--or);
+}
+
+.fxl .dmain a {
+	color: var(--or-text);
+	font-weight: 600;
+	word-break: break-word;
+}
+
+.fxl .dmain .updated {
+	margin-top: 24px;
+}
+
+/* ==========================================================
+   มือถือ
+   ========================================================== */
+@media (max-width: 760px) {
+	/* ลายเฉียงต้องไม่ชิดหัวข้อที่ขึ้นบรรทัดใหม่ (สเปกข้อ 1) */
+	.fxl .fx-phero .slash {
+		right: -114px;
+	}
+
+	.fxl .rintro {
+		padding: 18px 18px 18px 20px;
+		gap: 12px;
+	}
+
+	.fxl .rintro .i {
+		width: 24px;
+		height: 24px;
+	}
+
+	.fxl .rintro p {
+		font-size: 15.5px;
+	}
+
+	.fxl .rfig {
+		margin-top: 16px;
+	}
+
+	.fxl .rgrid {
+		grid-template-columns: 1fr;
+		gap: 12px;
+		margin-top: 28px;
+	}
+
+	.fxl .rcard {
+		padding: 22px;
+	}
+
+	.fxl .rcard .n {
+		font-size: 36px;
+	}
+
+	.fxl .rcard h2 {
+		font-size: 19px;
+		margin-top: 12px;
+	}
+
+	.fxl .rcard p {
+		font-size: 15px;
+	}
+
+	.fxl .rfoot {
+		margin-top: 22px;
+	}
+
+	.fxl .dgrid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.fxl .dside {
+		position: static;
+		order: 0;
+	}
+
+	.fxl .dside .toc {
+		padding: 0 18px;
+	}
+
+	.fxl .toc summary {
+		height: 56px;
+		cursor: pointer;
+	}
+
+	.fxl .toc summary .chev {
+		display: grid;
+		place-items: center;
+		margin-left: auto;
+		width: 32px;
+		height: 32px;
+		border-radius: 10px;
+		background: var(--raised);
+		color: var(--t2);
+		transition: transform .2s;
+	}
+
+	.fxl .toc summary .chev .i {
+		width: 16px;
+		height: 16px;
+		color: var(--t2);
+	}
+
+	.fxl .toc[open] summary .chev {
+		transform: rotate(90deg);
+	}
+
+	.fxl .toc[open] ol {
+		margin: 0 0 16px;
+	}
+
+	.fxl .dthumb {
+		padding: 8px;
+		border-radius: 18px;
+	}
+
+	.fxl .dthumb img {
+		border-radius: 12px;
+	}
+
+	.fxl .dlead {
+		font-size: 16px;
+		margin-top: 24px;
+	}
+
+	.fxl .dinfo {
+		padding: 6px 16px;
+	}
+
+	.fxl .dinfo > div {
+		font-size: 14.5px;
+		gap: 12px;
+	}
+
+	.fxl .dsec {
+		padding-top: 28px;
+		margin-top: 28px;
+	}
+
+	.fxl .dsec:first-of-type {
+		margin-top: 32px;
+	}
+
+	.fxl .dsec h2 {
+		font-size: 20px;
+	}
+
+	.fxl .dsec p,
+	.fxl .dsec li {
+		font-size: 15px;
+	}
+}
+
+/* บนคอมกล่องสารบัญกางอยู่ตลอดและกดพับไม่ได้ */
+@media (min-width: 761px) {
+	.fxl .toc summary {
+		pointer-events: none;
+	}
+}
