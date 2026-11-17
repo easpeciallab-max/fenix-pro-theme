@@ -2857,10 +2857,22 @@ function fenix_excerpt_length( $chars = 120, $words = 22 ) {
 }
 
 function fenix_register_seo_meta() {
-	$fields = array( '_yoast_wpseo_title', '_yoast_wpseo_metadesc', '_yoast_wpseo_focuskw', '_yoast_wpseo_canonical', '_elementor_element_cache', '_elementor_css' );
+	$fields = array(
+		'_yoast_wpseo_title'             => 'sanitize_text_field',
+		'_yoast_wpseo_metadesc'          => 'sanitize_text_field',
+		'_yoast_wpseo_focuskw'           => 'sanitize_text_field',
+		'_yoast_wpseo_canonical'         => 'sanitize_text_field',
+		/* รูปสำหรับแชร์ของแต่ละหน้า · ต้องแก้ได้จากที่เดียวเวลาเปลี่ยนรูปปกเว็บ */
+		'_yoast_wpseo_opengraph-image'   => 'esc_url_raw',
+		'_yoast_wpseo_opengraph-image-id' => 'sanitize_text_field',
+		'_yoast_wpseo_twitter-image'     => 'esc_url_raw',
+		'_yoast_wpseo_twitter-image-id'  => 'sanitize_text_field',
+		'_elementor_element_cache'       => 'sanitize_text_field',
+		'_elementor_css'                 => 'sanitize_text_field',
+	);
 
 	foreach ( array( 'post', 'page' ) as $type ) {
-		foreach ( $fields as $field ) {
+		foreach ( $fields as $field => $sanitizer ) {
 			register_post_meta(
 				$type,
 				$field,
@@ -2868,7 +2880,7 @@ function fenix_register_seo_meta() {
 					'type'              => 'string',
 					'single'            => true,
 					'show_in_rest'      => true,
-					'sanitize_callback' => 'sanitize_text_field',
+					'sanitize_callback' => $sanitizer,
 					'auth_callback'     => function () {
 						return current_user_can( 'edit_posts' );
 					},
