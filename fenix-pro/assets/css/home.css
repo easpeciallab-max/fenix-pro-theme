@@ -140,14 +140,15 @@ body.fenix-home .container {
 	transition: background-color 0.18s ease, color 0.18s ease;
 }
 
+/* ปุ่มสีส้มใช้ตัวหนังสือสีขาวเสมอ (เหมือนปุ่มส้มอื่นของเว็บ) */
 .fxh .fx-btn-or {
 	background: var(--or);
-	color: var(--on-or);
+	color: #FFFFFF;
 }
 
 .fxh .fx-btn-or:hover {
 	background: var(--or-dark);
-	color: var(--on-or);
+	color: #FFFFFF;
 }
 
 .fxh .fx-btn-dark {
@@ -3254,7 +3255,7 @@ body.fenix-home .container {
 
 .fxh .idx a:hover .go {
 	background: var(--or);
-	color: var(--on-or);
+	color: #FFFFFF;
 }
 
 .fxh .idx a:hover .no {

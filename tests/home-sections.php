@@ -223,6 +223,15 @@ foreach ( array( 'ปลอดภัย 100%', 'ไม่มีวันแต�
 check( false !== strpos( $html, 'ไม่การันตี' ), 'คำถามเรื่องการันตีกำไร ตอบว่าไม่การันตี' );
 check( false !== strpos( $html, 'ไม่ใช่ระบบรับประกันผลกำไร' ), 'คำเตือนย้ำว่าไม่ใช่ระบบรับประกันผลกำไร' );
 
+/* ---------- ปุ่มสีส้มต้องใช้ตัวหนังสือสีขาวเสมอ ---------- */
+$css = file_get_contents( get_template_directory() . '/assets/css/home.css' );
+foreach ( array( '.fxh .fx-btn-or {', '.fxh .fx-btn-or:hover {' ) as $rule ) {
+	$at    = strpos( $css, $rule );
+	$block = false !== $at ? substr( $css, $at, strpos( $css, '}', $at ) - $at ) : '';
+	check( '' !== $block && false !== strpos( $block, '#FFFFFF' ), "ปุ่มสีส้มใช้ตัวหนังสือสีขาว ($rule)" );
+	check( false === strpos( $block, 'var(--on-or)' ), "ปุ่มสีส้มไม่ใช้ตัวหนังสือสีเข้ม ($rule)" );
+}
+
 /* ---------- รูปทุกใบต้องมี alt ---------- */
 $no_alt = 0;
 foreach ( $x->query( '//img' ) as $img ) {
