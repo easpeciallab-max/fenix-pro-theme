@@ -47,12 +47,15 @@ function fenix_phero( $title, $sub = '', $eyebrow = '', $extra = '' ) {
 /**
  * กล่อง CTA สีส้มปิดท้ายหน้า
  */
-function fenix_pages_cta( $title, $text, $button, $url, $icon = 'line' ) {
+function fenix_pages_cta( $title, $text, $button, $url, $icon = 'line', $class = '' ) {
 	if ( '' === trim( (string) $title ) ) {
 		return;
 	}
+
+	/* หน้าบทความส่งคลาสเพิ่มมาเพื่อปรับระยะของช่วงนี้โดยเฉพาะ */
+	$section_class = trim( 'sec ' . sanitize_html_class( $class ) );
 	?>
-	<section class="sec">
+	<section class="<?php echo esc_attr( $section_class ); ?>">
 		<div class="wrap">
 			<div class="fx-cta">
 				<div class="wm" aria-hidden="true"><?php echo esc_html( fenix_mod( 'cta_watermark' ) ); ?></div>

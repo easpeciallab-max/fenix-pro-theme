@@ -1,0 +1,1107 @@
+/* ==========================================================
+   FENIX PRO EA · หน้าบทความ ชุด 4 (อนุมัติ 17 พ.ย. 2026)
+   ใช้กับบทความทุกเรื่อง ทั้งรุ่นใหม่และรุ่นเก่า
+
+   โหลดต่อจาก pages.css จึงใช้ token ปุ่ม กล่อง CTA และหัวหน้าเพจ
+   ชุดเดียวกับหน้าภายใน · ทุกอย่างอยู่ใต้ .fxa
+
+   เนื้อหาบทความ (.entry-content) เป็น HTML ของ WordPress เอง
+   ไฟล์นี้จัดรูปแบบให้อย่างเดียว ไม่มีการแก้ HTML หรือข้อความ
+   ========================================================== */
+
+.fxp.fxa .wrap.awrap {
+	max-width: 1124px;
+}
+
+/* ==========================================================
+   หัวบทความ · ตัวหนังสือซ้าย รูปหน้าปกขวา (รูป 01–02)
+   ========================================================== */
+.fxp.fxa .fx-phero.ahero {
+	padding: 40px 0 64px;
+}
+
+.fxp.fxa .ahero .crumb {
+	min-width: 0;
+	flex-wrap: nowrap;
+}
+
+.fxp.fxa .ahero .crumb a {
+	flex-shrink: 0;
+}
+
+/* ชื่อบทความยาว ตัดเป็น "…" บรรทัดเดียว ไม่ให้ดันลายเฉียง */
+.fxp.fxa .ahero .crumb .cur {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	line-height: 1.3;
+}
+
+.fxp.fxa .ahead {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 480px;
+	gap: 56px;
+	align-items: center;
+	position: relative;
+}
+
+.fxp.fxa .acat {
+	display: inline-flex;
+	align-items: center;
+	height: 32px;
+	padding: 0 14px;
+	border-radius: 999px;
+	background: var(--or);
+	color: #FFFFFF;
+	font: 700 12.5px/1 var(--font);
+	letter-spacing: 0.06em;
+}
+
+.fxp.fxa .ahero h1 {
+	font: 900 44px/1.2 var(--font);
+	letter-spacing: -0.015em;
+	text-transform: uppercase;
+	margin-top: 18px;
+	max-width: none;
+	text-wrap: balance;
+}
+
+.fxp.fxa .ameta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 20px;
+	margin-top: 22px;
+	font: 500 14.5px/1.4 var(--font);
+	color: var(--t3);
+}
+
+.fxp.fxa .ameta span {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.fxp.fxa .ameta .i {
+	width: 16px;
+	height: 16px;
+	color: var(--or-text);
+	flex: none;
+}
+
+.fxp.fxa .acover {
+	background: var(--surface);
+	border-radius: 24px;
+	padding: 10px;
+	margin: 0;
+}
+
+/* รูปหน้าปกห้ามยืด */
+.fxp.fxa .acover img {
+	width: 100%;
+	height: auto;
+	border-radius: 16px;
+	display: block;
+	aspect-ratio: auto;
+	object-fit: fill;
+}
+
+/* ==========================================================
+   โครงหน้า · เนื้อหาซ้าย สารบัญขวาที่ติดจอ (รูป 03)
+   ========================================================== */
+.fxp.fxa .abody {
+	padding: 64px 0 80px;
+}
+
+.fxp.fxa .agrid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 300px;
+	gap: 56px;
+	align-items: start;
+}
+
+.fxp.fxa .amain {
+	order: 1;
+	min-width: 0;
+	max-width: 720px;
+}
+
+.fxp.fxa .aside-col {
+	order: 2;
+	position: sticky;
+	top: 24px;
+}
+
+.fxp.fxa .atoc {
+	background: var(--surface);
+	border-radius: 22px;
+	padding: 22px 14px 14px 22px;
+	max-height: calc(100vh - 48px);
+	overflow: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--hover) transparent;
+	margin: 0;
+	border: 0;
+}
+
+.fxp.fxa .atoc summary {
+	list-style: none;
+	font: 800 15px/1.3 var(--font);
+	color: var(--t1);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: default;
+	padding-right: 8px;
+}
+
+.fxp.fxa .atoc summary::-webkit-details-marker {
+	display: none;
+}
+
+.fxp.fxa .atoc summary .i {
+	width: 18px;
+	height: 18px;
+	color: var(--or-text);
+	flex: none;
+}
+
+.fxp.fxa .atoc summary .chev {
+	display: none;
+}
+
+.fxp.fxa .atoc ol {
+	list-style: none;
+	margin: 14px 0 0;
+	padding: 0;
+	counter-reset: toc;
+}
+
+.fxp.fxa .atoc li {
+	margin: 0;
+	padding: 0;
+}
+
+.fxp.fxa .atoc li + li {
+	margin-top: 2px;
+}
+
+.fxp.fxa .atoc a {
+	display: flex;
+	gap: 10px;
+	align-items: flex-start;
+	padding: 7px 10px;
+	border-radius: 12px;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--t2);
+}
+
+.fxp.fxa .atoc a:hover,
+.fxp.fxa .atoc a:focus-visible {
+	background: var(--raised);
+	color: var(--t1);
+}
+
+/* เลขลำดับหัวข้อมาจาก CSS counter ไม่ได้เขียนไว้ใน HTML */
+.fxp.fxa .atoc .toc-l2 {
+	counter-increment: toc;
+}
+
+.fxp.fxa .atoc .toc-l2 a::before {
+	content: counter(toc);
+	flex-shrink: 0;
+	min-width: 24px;
+	height: 24px;
+	border-radius: 8px;
+	background: var(--raised);
+	display: grid;
+	place-items: center;
+	font: 800 11.5px/1 var(--font);
+	color: var(--or-text);
+	margin-top: -1px;
+}
+
+.fxp.fxa .atoc .toc-l3 a {
+	position: relative;
+	margin-left: 34px;
+	padding: 5px 10px 5px 14px;
+	font-size: 13.5px;
+	color: var(--t3);
+}
+
+/* เส้นแนวตั้งของหัวข้อย่อย ต่อกันเป็นเส้นเดียว */
+.fxp.fxa .atoc .toc-l3 a::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: -2px;
+	width: 1.5px;
+	background: var(--line);
+}
+
+/* ==========================================================
+   เนื้อหาบทความ · ทำด้วย CSS ล้วน (รูป 04–11)
+   ========================================================== */
+.fxp.fxa .entry-content {
+	font-size: 17px;
+	line-height: 1.9;
+	color: var(--t2);
+}
+
+.fxp.fxa .entry-content > * {
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+
+.fxp.fxa .entry-content > :first-child {
+	margin-top: 0;
+}
+
+/* ย่อหน้าที่มีแต่คอมเมนต์ ไม่ต้องกินที่ */
+.fxp.fxa .entry-content p:empty {
+	display: none;
+}
+
+.fxp.fxa .entry-content p {
+	margin-bottom: 0;
+}
+
+.fxp.fxa .entry-content > p:first-child {
+	font-size: 19px;
+	line-height: 1.85;
+	color: var(--t1);
+}
+
+.fxp.fxa .entry-content strong,
+.fxp.fxa .entry-content b {
+	color: var(--t1);
+	font-weight: 700;
+}
+
+.fxp.fxa .entry-content a {
+	color: var(--or-text);
+	font-weight: 600;
+	text-decoration: underline;
+	text-decoration-thickness: 1.5px;
+	text-decoration-color: rgba(255, 122, 26, 0.4);
+	text-underline-offset: 4px;
+	word-break: break-word;
+}
+
+.fxp.fxa .entry-content h2 {
+	font: 800 28px/1.4 var(--font);
+	color: var(--t1);
+	letter-spacing: -0.005em;
+	margin-top: 64px;
+	scroll-margin-top: 24px;
+}
+
+/* ขีดส้มเหนือหัวข้อ */
+.fxp.fxa .entry-content h2::before {
+	content: "";
+	display: block;
+	width: 36px;
+	height: 4px;
+	border-radius: 2px;
+	background: var(--or);
+	margin-bottom: 18px;
+}
+
+.fxp.fxa .entry-content h3 {
+	font: 700 21px/1.45 var(--font);
+	color: var(--t1);
+	margin-top: 36px;
+	scroll-margin-top: 24px;
+}
+
+.fxp.fxa .entry-content :where(h2, h3) + * {
+	margin-top: 14px;
+}
+
+.fxp.fxa .entry-content h2 + h3 {
+	margin-top: 22px;
+}
+
+.fxp.fxa .entry-content h2 + p:empty + figure,
+.fxp.fxa .entry-content h2 + figure {
+	margin-top: 20px;
+}
+
+/* ---------- รายการ · จุดส้ม และเลขในกล่อง ---------- */
+.fxp.fxa .entry-content ul,
+.fxp.fxa .entry-content ol {
+	list-style: none;
+	display: grid;
+	gap: 10px;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+.fxp.fxa .entry-content li {
+	position: relative;
+	padding-left: 30px;
+	line-height: 1.75;
+	margin-bottom: 0;
+}
+
+.fxp.fxa .entry-content ul > li::before {
+	content: "";
+	position: absolute;
+	left: 6px;
+	top: 12px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--or);
+}
+
+.fxp.fxa .entry-content ol {
+	counter-reset: ol;
+}
+
+.fxp.fxa .entry-content ol > li {
+	counter-increment: ol;
+	padding-left: 38px;
+}
+
+.fxp.fxa .entry-content ol > li::before {
+	content: counter(ol);
+	position: absolute;
+	left: 0;
+	top: 2px;
+	width: 26px;
+	height: 26px;
+	border-radius: 8px;
+	background: var(--raised);
+	display: grid;
+	place-items: center;
+	font: 800 12.5px/1 var(--font);
+	color: var(--or-text);
+}
+
+/* ---------- รูปในเนื้อหา ---------- */
+.fxp.fxa .entry-content figure.wp-block-image {
+	background: var(--surface);
+	border-radius: 22px;
+	padding: 10px;
+	margin: 28px 0 0;
+}
+
+.fxp.fxa .entry-content figure.wp-block-image img {
+	width: 100%;
+	height: auto;
+	border-radius: 14px;
+	margin: 0;
+	display: block;
+	aspect-ratio: auto;
+	object-fit: fill;
+}
+
+.fxp.fxa .entry-content figcaption {
+	font-size: 14px;
+	line-height: 1.6;
+	color: var(--t3);
+	padding: 12px 8px 4px;
+	margin: 0;
+	text-align: left;
+}
+
+.fxp.fxa .entry-content :where(figure) + * {
+	margin-top: 28px;
+}
+
+/* ---------- ตาราง · รองรับทั้งบทความรุ่นใหม่และรุ่นเก่า ---------- */
+.fxp.fxa .entry-content .table-scroll,
+.fxp.fxa .entry-content figure.wp-block-table {
+	background: var(--surface);
+	border: 0;
+	border-radius: 20px;
+	overflow-x: auto;
+	margin: 28px 0 0;
+	scrollbar-width: thin;
+	scrollbar-color: var(--hover) transparent;
+}
+
+/* บทความรุ่นเก่าห่อตารางสองชั้น กรอบนอกจึงไม่ต้องวาดซ้ำ */
+.fxp.fxa .entry-content figure.wp-block-table:has(> .table-scroll) {
+	background: none;
+	border-radius: 0;
+	overflow: visible;
+}
+
+.fxp.fxa .entry-content figure.wp-block-table > .table-scroll {
+	margin: 0;
+}
+
+.fxp.fxa .entry-content table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	font-size: 15px;
+	line-height: 1.6;
+	margin: 0;
+}
+
+/* ตาราง 4 คอลัมน์ขึ้นไป เลื่อนด้านข้างในกรอบของตัวเอง */
+.fxp.fxa .entry-content table:has(tr > :nth-child(4)) {
+	min-width: 620px;
+}
+
+/* ห้ามตัดคำกลางคำในตาราง (เช่น "Environmen/t") · ตารางที่กว้างเกินให้เลื่อนในกรอบแทน */
+.fxp.fxa .entry-content :is(th, td) {
+	overflow-wrap: normal;
+	word-break: normal;
+}
+
+.fxp.fxa .entry-content th {
+	background: var(--raised);
+	text-align: left;
+	font: 700 13.5px/1.45 var(--font);
+	color: var(--t1);
+	padding: 14px 18px;
+	letter-spacing: 0.02em;
+	vertical-align: bottom;
+	border: 0;
+}
+
+.fxp.fxa .entry-content td {
+	padding: 14px 18px;
+	border: 0;
+	border-top: 1px solid var(--line);
+	vertical-align: top;
+	color: var(--t2);
+}
+
+.fxp.fxa .entry-content thead + tbody tr:first-child td {
+	border-top: 0;
+}
+
+.fxp.fxa .entry-content td:first-child {
+	color: var(--t1);
+	font-weight: 600;
+}
+
+.fxp.fxa .entry-content tbody tr:hover {
+	background: none;
+}
+
+.fxp.fxa .entry-content :where(.table-scroll) + * {
+	margin-top: 28px;
+}
+
+/* ---------- กล่องคำเตือนในบทความ ---------- */
+.fxp.fxa .entry-content aside {
+	background: var(--surface);
+	border-radius: 20px;
+	padding: 20px 24px 20px 58px;
+	box-shadow: inset 4px 0 0 var(--yellow);
+	position: relative;
+	margin-top: 28px;
+}
+
+.fxp.fxa .entry-content aside::before {
+	content: "";
+	position: absolute;
+	left: 22px;
+	top: 24px;
+	width: 20px;
+	height: 20px;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FACC15' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4M12 17h.01'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.fxp.fxa .entry-content aside p {
+	font-size: 15.5px;
+	line-height: 1.8;
+}
+
+.fxp.fxa .entry-content :where(aside) + * {
+	margin-top: 28px;
+}
+
+/* ---------- สารบัญย่อที่อยู่ในเนื้อหาของบทความเอง ---------- */
+.fxp.fxa .entry-content > nav {
+	background: var(--surface);
+	border-radius: 20px;
+	padding: 20px 22px 22px;
+	margin-top: 28px;
+}
+
+.fxp.fxa .entry-content > nav p {
+	font: 700 14px/1.3 var(--font);
+	color: var(--t3);
+}
+
+.fxp.fxa .entry-content > nav p strong {
+	color: inherit;
+	font-weight: inherit;
+}
+
+.fxp.fxa .entry-content > nav ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 14px;
+}
+
+.fxp.fxa .entry-content > nav li {
+	padding: 0;
+}
+
+.fxp.fxa .entry-content > nav li::before {
+	display: none;
+}
+
+.fxp.fxa .entry-content > nav a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 36px;
+	padding: 6px 14px;
+	border-radius: 999px;
+	background: var(--raised);
+	color: var(--t1);
+	font-size: 14px;
+	line-height: 1.4;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.fxp.fxa .entry-content :where(nav) + * {
+	margin-top: 36px;
+}
+
+/* ---------- โค้ด ---------- */
+.fxp.fxa .entry-content code {
+	font: 500 0.86em/1.5 ui-monospace, Consolas, "Cascadia Mono", monospace;
+	background: var(--raised);
+	color: var(--t1);
+	border-radius: 6px;
+	padding: 0.12em 0.45em;
+}
+
+/* ต้องกำหนดฟอนต์และระยะบรรทัดที่ pre เอง ไม่งั้นได้ระยะของเนื้อหารอบข้าง */
+.fxp.fxa .entry-content pre {
+	background: var(--surface);
+	border-radius: 18px;
+	padding: 20px 22px;
+	overflow-x: auto;
+	margin-top: 24px;
+	font: 500 14.5px/1.75 ui-monospace, Consolas, "Cascadia Mono", monospace;
+	color: var(--t1);
+}
+
+.fxp.fxa .entry-content pre code {
+	background: none;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+}
+
+/* ---------- บรรทัด "ตรวจทานเนื้อหาล่าสุด" ---------- */
+.fxp.fxa .entry-content p:has(> small:only-child) {
+	margin-top: 32px;
+}
+
+.fxp.fxa .entry-content p > small:only-child {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	height: 36px;
+	padding: 0 16px 0 14px;
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1.5px var(--hover);
+	font: 600 13.5px/1 var(--font);
+	color: var(--t2);
+}
+
+.fxp.fxa .entry-content p > small:only-child::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF7A1A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cpath d='M16 2v4M8 2v4M3 10h18'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* ==========================================================
+   ท้ายบทความ (รูป 12)
+   ========================================================== */
+.fxp.fxa .article-share {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 48px;
+	padding-top: 28px;
+	border-top: 1px solid var(--line);
+}
+
+.fxp.fxa .article-share-label {
+	font: 700 15px/1.3 var(--font);
+	color: var(--t1);
+	margin-right: 6px;
+}
+
+.fxp.fxa .share-btn {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	background: var(--raised);
+	color: var(--t1);
+	display: grid;
+	place-items: center;
+	border: 0;
+	cursor: pointer;
+	padding: 0;
+}
+
+.fxp.fxa .share-btn .i {
+	width: 20px;
+	height: 20px;
+}
+
+.fxp.fxa .share-line .i {
+	color: var(--line-green);
+	width: 24px;
+	height: 24px;
+}
+
+.fxp.fxa .article-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	list-style: none;
+	margin: 24px 0 0;
+	padding: 0;
+}
+
+.fxp.fxa .article-tags li {
+	padding: 0;
+}
+
+.fxp.fxa .article-tags a {
+	display: inline-flex;
+	align-items: center;
+	height: 32px;
+	padding: 0 14px;
+	border-radius: 999px;
+	background: var(--raised);
+	color: var(--t2);
+	font-size: 13.5px;
+	font-weight: 600;
+}
+
+.fxp.fxa .article-disclaimer {
+	display: flex;
+	gap: 14px;
+	align-items: flex-start;
+	background: var(--surface);
+	border-radius: 20px;
+	padding: 20px 24px 20px 22px;
+	box-shadow: inset 4px 0 0 var(--yellow);
+	margin-top: 24px;
+}
+
+.fxp.fxa .article-disclaimer .i {
+	width: 20px;
+	height: 20px;
+	color: var(--yellow);
+	margin-top: 3px;
+	flex: none;
+}
+
+.fxp.fxa .article-disclaimer p {
+	font-size: 14.5px;
+	line-height: 1.8;
+	color: var(--t2);
+	margin: 0;
+}
+
+.fxp.fxa .article-disclaimer a {
+	color: var(--or-text);
+	font-weight: 600;
+}
+
+/* ==========================================================
+   CTA และบทความที่เกี่ยวข้อง (รูป 13–14)
+   ========================================================== */
+.fxp.fxa .sec.acta {
+	padding: 0 0 80px;
+}
+
+.fxp.fxa .acta .fx-cta h2 {
+	text-wrap: balance;
+}
+
+.fxp.fxa .related-head {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 24px;
+	margin-bottom: 28px;
+}
+
+.fxp.fxa .related-head .h2 {
+	margin-top: 0;
+}
+
+.fxp.fxa .rail-nav {
+	display: flex;
+	gap: 10px;
+}
+
+.fxp.fxa .rail-btn {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	background: transparent;
+	color: #FFFFFF;
+	box-shadow: inset 0 0 0 1.5px #FFFFFF;
+	border: 0;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	padding: 0;
+}
+
+.fxp.fxa .rail-btn .i {
+	width: 20px;
+	height: 20px;
+}
+
+.fxp.fxa .related-rail {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: calc((100% - 40px) / 3);
+	gap: 20px;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+}
+
+.fxp.fxa .related-rail::-webkit-scrollbar {
+	display: none;
+}
+
+.fxp.fxa .post-card {
+	background: var(--surface);
+	border-radius: var(--r);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	scroll-snap-align: start;
+	border: 0;
+	padding: 0;
+	color: inherit;
+}
+
+.fxp.fxa .post-card img {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 768/403;
+	object-fit: cover;
+	display: block;
+	border-radius: 0;
+	margin: 0;
+}
+
+.fxp.fxa .post-card-body {
+	padding: 20px 22px 24px;
+}
+
+.fxp.fxa .post-meta {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 13.5px;
+	line-height: 1.3;
+	color: var(--t3);
+}
+
+.fxp.fxa .post-meta .i {
+	width: 15px;
+	height: 15px;
+	color: var(--or-text);
+	flex: none;
+}
+
+.fxp.fxa .post-card h3 {
+	font: 700 17px/1.5 var(--font);
+	color: var(--t1);
+	text-transform: uppercase;
+	margin-top: 12px;
+}
+
+/* ==========================================================
+   มือถือ
+   ========================================================== */
+@media (max-width: 760px) {
+	.fxp.fxa .fx-phero.ahero {
+		padding: 24px 0 36px;
+	}
+
+	/* ลายเฉียงต้องไม่ชิดหัวข้อ */
+	.fxp.fxa .fx-phero .slash {
+		right: -114px;
+	}
+
+	.fxp.fxa .ahero .crumb {
+		max-width: 300px;
+	}
+
+	.fxp.fxa .ahead {
+		grid-template-columns: 1fr;
+		gap: 24px;
+	}
+
+	.fxp.fxa .acat {
+		height: 30px;
+		font-size: 12px;
+	}
+
+	.fxp.fxa .ahero h1 {
+		font-size: 28px;
+		line-height: 1.3;
+		margin-top: 14px;
+		max-width: 310px;
+	}
+
+	.fxp.fxa .ameta {
+		font-size: 13.5px;
+		margin-top: 16px;
+		gap: 6px 16px;
+	}
+
+	.fxp.fxa .acover {
+		padding: 8px;
+		border-radius: 20px;
+	}
+
+	.fxp.fxa .acover img {
+		border-radius: 13px;
+	}
+
+	.fxp.fxa .abody {
+		padding: 28px 0 56px;
+	}
+
+	.fxp.fxa .agrid {
+		grid-template-columns: 1fr;
+		gap: 28px;
+	}
+
+	.fxp.fxa .aside-col {
+		position: static;
+		order: 0;
+	}
+
+	.fxp.fxa .atoc {
+		padding: 0 18px;
+		max-height: none;
+		overflow: visible;
+	}
+
+	.fxp.fxa .atoc summary {
+		height: 56px;
+		padding-right: 0;
+		cursor: pointer;
+	}
+
+	.fxp.fxa .atoc summary .chev {
+		display: grid;
+		place-items: center;
+		margin-left: auto;
+		width: 32px;
+		height: 32px;
+		border-radius: 10px;
+		background: var(--raised);
+		transition: transform .2s;
+		flex: none;
+	}
+
+	.fxp.fxa .atoc summary .chev .i {
+		width: 16px;
+		height: 16px;
+		color: var(--t2);
+	}
+
+	.fxp.fxa .atoc[open] summary .chev {
+		transform: rotate(90deg);
+	}
+
+	.fxp.fxa .atoc ol {
+		margin: 0 0 16px;
+	}
+
+	.fxp.fxa .entry-content {
+		font-size: 16px;
+		line-height: 1.85;
+	}
+
+	.fxp.fxa .entry-content > * {
+		margin-top: 18px;
+	}
+
+	.fxp.fxa .entry-content > p:first-child {
+		font-size: 17px;
+	}
+
+	.fxp.fxa .entry-content h2 {
+		font-size: 23px;
+		margin-top: 48px;
+	}
+
+	.fxp.fxa .entry-content h2::before {
+		margin-bottom: 14px;
+	}
+
+	.fxp.fxa .entry-content h3 {
+		font-size: 19px;
+		margin-top: 30px;
+	}
+
+	.fxp.fxa .entry-content li {
+		padding-left: 26px;
+	}
+
+	.fxp.fxa .entry-content ul > li::before {
+		left: 4px;
+		top: 11px;
+	}
+
+	.fxp.fxa .entry-content ol > li {
+		padding-left: 36px;
+	}
+
+	.fxp.fxa .entry-content figure.wp-block-image {
+		padding: 8px;
+		border-radius: 18px;
+		margin-top: 24px;
+	}
+
+	.fxp.fxa .entry-content figure.wp-block-image img {
+		border-radius: 12px;
+	}
+
+	.fxp.fxa .entry-content figcaption {
+		font-size: 13px;
+		padding: 10px 6px 4px;
+	}
+
+	.fxp.fxa .entry-content .table-scroll,
+	.fxp.fxa .entry-content figure.wp-block-table {
+		border-radius: 16px;
+		margin-top: 24px;
+	}
+
+	.fxp.fxa .entry-content table {
+		font-size: 14px;
+	}
+
+	.fxp.fxa .entry-content th {
+		padding: 12px;
+		font-size: 13px;
+	}
+
+	.fxp.fxa .entry-content td {
+		padding: 12px;
+	}
+
+	/* ตาราง 3 คอลัมน์ขึ้นไป บีบให้พอดีจอ · ห้ามตัดคำกลางคำ */
+	.fxp.fxa .entry-content table:has(tr > :nth-child(3)) {
+		font-size: 13.5px;
+	}
+
+	.fxp.fxa .entry-content table:has(tr > :nth-child(3)) :is(th, td) {
+		padding: 11px 9px;
+	}
+
+	.fxp.fxa .entry-content table:has(tr > :nth-child(3)) :is(th, td):first-child {
+		padding-left: 12px;
+	}
+
+	.fxp.fxa .entry-content table:has(tr > :nth-child(3)) :is(th, td):last-child {
+		padding-right: 12px;
+	}
+
+	.fxp.fxa .entry-content aside {
+		padding: 16px 18px 16px 50px;
+		border-radius: 18px;
+	}
+
+	.fxp.fxa .entry-content aside::before {
+		left: 18px;
+		top: 20px;
+		width: 18px;
+		height: 18px;
+	}
+
+	.fxp.fxa .entry-content aside p {
+		font-size: 14.5px;
+	}
+
+	.fxp.fxa .entry-content > nav {
+		padding: 18px 18px 20px;
+		border-radius: 18px;
+	}
+
+	.fxp.fxa .entry-content > nav a {
+		font-size: 13.5px;
+		min-height: 34px;
+		padding: 5px 12px;
+	}
+
+	.fxp.fxa .entry-content pre {
+		padding: 16px 18px;
+		border-radius: 16px;
+		font-size: 13.5px;
+	}
+
+	.fxp.fxa .article-share {
+		margin-top: 40px;
+		padding-top: 24px;
+	}
+
+	.fxp.fxa .article-disclaimer {
+		padding: 16px 18px;
+		gap: 12px;
+	}
+
+	.fxp.fxa .article-disclaimer p {
+		font-size: 13.5px;
+	}
+
+	.fxp.fxa .sec.acta {
+		padding: 0 0 56px;
+	}
+
+	.fxp.fxa .related-head {
+		margin-bottom: 20px;
+	}
+
+	.fxp.fxa .rail-nav {
+		display: none;
+	}
+
+	/* การ์ดถัดไปโผล่ขอบให้รู้ว่าเลื่อนได้ */
+	.fxp.fxa .related-rail {
+		grid-auto-columns: 82%;
+		gap: 14px;
+		margin: 0 -20px;
+		padding: 0 20px;
+		scroll-padding: 0 20px;
+	}
+
+	.fxp.fxa .post-card-body {
+		padding: 16px 18px 20px;
+	}
+
+	.fxp.fxa .post-card h3 {
+		font-size: 16px;
+	}
+}
+
+/* บนคอมกล่องสารบัญกางอยู่ตลอดและกดพับไม่ได้ */
+@media (min-width: 761px) {
+	.fxp.fxa .atoc summary {
+		pointer-events: none;
+	}
+}

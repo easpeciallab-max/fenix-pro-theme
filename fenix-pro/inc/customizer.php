@@ -950,6 +950,8 @@ function fenix_customize_register( $wp_customize ) {
 		'description' => 'เนื้อหาของหน้า BACKTEST และ เกี่ยวกับเรา ยังแก้ในตัวแก้ไขของหน้านั้นเหมือนเดิม ที่นี่เป็นข้อความประกอบรอบ ๆ',
 		'fields'      => array(
 			'pages_cta_btn'     => array( 'ปุ่มในกล่อง CTA ส้ม (ทุกหน้า)', 'text' ),
+			'post_cta_title'    => array( 'หน้าบทความ · หัวข้อกล่อง CTA', 'text' ),
+			'post_cta_text'     => array( 'หน้าบทความ · ข้อความกล่อง CTA', 'textarea' ),
 			'forward_kicker'    => array( 'Forward Test · ป้ายบนหัวข้อ', 'text' ),
 			'fw_cta_title'      => array( 'Forward Test · หัวข้อกล่อง CTA', 'text' ),
 			'fw_cta_text'       => array( 'Forward Test · ข้อความกล่อง CTA', 'textarea' ),

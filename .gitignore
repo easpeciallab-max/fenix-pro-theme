@@ -36,3 +36,6 @@ content-drafts/generated/source-scenes/
 
 # WP Pusher ดึงทั้งโฟลเดอร์ fenix-pro/ ไปติดตั้ง อย่า commit ไฟล์ลับใด ๆ
 # (ค่า config เช่น LINE URL / ราคา อยู่ใน WordPress DB ผ่าน Customizer ไม่ใช่ในโค้ด)
+
+# ไฟล์ตัวอย่างสำหรับถ่ายภาพหน้าจอ (ไม่ต้องขึ้นเว็บ)
+fenix-pro/mock/

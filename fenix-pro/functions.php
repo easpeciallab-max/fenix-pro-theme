@@ -61,6 +61,16 @@ function fenix_assets() {
 		null
 	);
 	wp_enqueue_style( 'fenix-style', get_stylesheet_uri(), array( 'fenix-fonts' ), $style_version );
+
+	/* Footer ใหม่ใช้กับทุกหน้า จึงโหลดต่อจาก style.css เสมอ */
+	$footer_css = get_template_directory() . '/assets/css/footer.css';
+	wp_enqueue_style(
+		'fenix-footer',
+		get_template_directory_uri() . '/assets/css/footer.css',
+		array( 'fenix-style' ),
+		file_exists( $footer_css ) ? filemtime( $footer_css ) : FENIX_VERSION
+	);
+
 	wp_enqueue_script( 'fenix-main', get_template_directory_uri() . '/assets/js/main.js', array(), $script_version, true );
 	wp_localize_script(
 		'fenix-main',
@@ -110,11 +120,13 @@ function fenix_assets() {
 
 	$is_guide = is_page_template( 'template-guide.php' );
 	$is_legal = is_page_template( array( 'template-risk.php', 'template-legal.php' ) );
+	$is_post  = is_singular( 'post' );
 
 	if (
 		is_category()
 		|| $is_guide
 		|| $is_legal
+		|| $is_post
 		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php' ) )
 	) {
 		$pages_css = get_template_directory() . '/assets/css/pages.css';
@@ -165,6 +177,27 @@ function fenix_assets() {
 			get_template_directory_uri() . '/assets/js/legal.js',
 			array(),
 			file_exists( $legal_js ) ? filemtime( $legal_js ) : FENIX_VERSION,
+			true
+		);
+	}
+
+	/* หน้าบทความใช้สไตล์ของชุด 1 เป็นฐาน แล้วทับด้วยสไตล์ของตัวเอง */
+	if ( $is_post ) {
+		$post_css = get_template_directory() . '/assets/css/post.css';
+		$post_js  = get_template_directory() . '/assets/js/post.js';
+
+		wp_enqueue_style(
+			'fenix-post',
+			get_template_directory_uri() . '/assets/css/post.css',
+			array( 'fenix-pages' ),
+			file_exists( $post_css ) ? filemtime( $post_css ) : FENIX_VERSION
+		);
+
+		wp_enqueue_script(
+			'fenix-post',
+			get_template_directory_uri() . '/assets/js/post.js',
+			array(),
+			file_exists( $post_js ) ? filemtime( $post_js ) : FENIX_VERSION,
 			true
 		);
 	}
@@ -272,9 +305,14 @@ function fenix_body_classes( $classes ) {
 
 	if (
 		is_category()
+		|| is_singular( 'post' )
 		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php', 'template-guide.php', 'template-risk.php', 'template-legal.php' ) )
 	) {
 		$classes[] = 'fenix-pages';
+	}
+
+	if ( is_singular( 'post' ) ) {
+		$classes[] = 'fenix-post';
 	}
 
 	if ( is_page_template( 'template-guide.php' ) ) {
@@ -910,6 +948,9 @@ MT5 | เท่านั้น
 			'blog_kicker'    => 'Articles',
 			'blog_title'     => 'บทความและความรู้',
 			'blog_subtitle'  => 'รวมบทความเกี่ยวกับ EA การเทรดอัตโนมัติ และการบริหารความเสี่ยงบน MetaTrader 5',
+			/* ===== หน้าบทความ ชุด 4 (อนุมัติ 17 พ.ย. 2026) ===== */
+			'post_cta_title'    => 'มีคำถาม? ทักมาคุยกับเราได้เลย',
+			'post_cta_text'     => 'สอบถามรายละเอียด การติดตั้ง และความเหมาะสมกับทุนของคุณได้ทาง LINE',
 			/* ===== หน้าภายในชุด 1 (อนุมัติ 17 พ.ย. 2026) ===== */
 			'pages_cta_btn'     => 'ทัก LINE เพื่อสอบถาม',
 			'forward_kicker'    => 'Forward Test',

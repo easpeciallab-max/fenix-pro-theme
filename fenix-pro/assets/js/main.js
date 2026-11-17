@@ -229,7 +229,8 @@
 			btn.addEventListener('click', function () {
 				var dir = parseInt(btn.getAttribute('data-dir'), 10) || 1;
 				var card = rail.querySelector('.post-card');
-				var step = card ? card.offsetWidth + 18 : rail.clientWidth * 0.8;
+				var gap = parseFloat(getComputedStyle(rail).columnGap) || 20;
+				var step = card ? card.offsetWidth + gap : rail.clientWidth * 0.8;
 				rail.scrollBy({ left: dir * step, behavior: 'smooth' });
 			});
 		});
@@ -266,20 +267,6 @@
 			}
 		});
 	});
-
-	/* Reading progress bar */
-	var progress = document.querySelector('.reading-progress span');
-	var progressArticle = document.querySelector('.single-article');
-	if (progress && progressArticle) {
-		var onProgress = function () {
-			var total = progressArticle.offsetHeight - window.innerHeight;
-			var scrolled = Math.min(Math.max(-progressArticle.getBoundingClientRect().top, 0), Math.max(total, 0));
-			progress.style.width = (total > 0 ? (scrolled / total) * 100 : 0) + '%';
-		};
-		window.addEventListener('scroll', onProgress, { passive: true });
-		window.addEventListener('resize', onProgress);
-		onProgress();
-	}
 
 	/* Load more posts (AJAX) */
 	var loadMoreBtn = document.querySelector('.load-more-btn');

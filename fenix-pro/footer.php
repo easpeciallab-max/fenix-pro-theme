@@ -13,18 +13,19 @@ $fenix_mobile_nav = fenix_mobile_nav_items();
 
 <?php if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'footer' ) ) : ?>
 <footer class="site-footer" id="contact">
-	<div class="container">
+	<div class="wrap">
 
 		<div class="footer-cta">
-			<div>
+			<div class="fslash" aria-hidden="true"><i></i><i></i><i></i></div>
+			<div class="footer-cta-text">
 				<p class="footer-kicker"><?php echo esc_html( fenix_mod( 'footer_kicker' ) ); ?></p>
 				<h2><?php echo esc_html( fenix_mod( 'footer_cta_title' ) ); ?></h2>
 				<p><?php echo esc_html( fenix_mod( 'footer_cta_text' ) ); ?></p>
+				<a class="btn btn-line footer-primary" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
+					<?php echo fenix_icon( 'line', 'i fill' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					<span><?php echo esc_html( fenix_mod( 'footer_line_text' ) ); ?></span>
+				</a>
 			</div>
-			<a class="footer-primary" href="<?php echo esc_url( $fenix_line ); ?>" target="_blank" rel="noopener">
-				<?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				<span><?php echo esc_html( fenix_mod( 'footer_line_text' ) ); ?></span>
-			</a>
 		</div>
 
 		<div class="footer-main">
@@ -49,14 +50,11 @@ $fenix_mobile_nav = fenix_mobile_nav_items();
 				<p><?php echo esc_html( fenix_mod( 'footer_prep_text' ) ); ?></p>
 
 				<?php if ( $fenix_prep ) : ?>
-				<ul class="footer-prep-list">
+				<ol class="footer-prep-list">
 					<?php foreach ( $fenix_prep as $fenix_item ) : ?>
-					<li>
-						<?php echo fenix_icon( 'check', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-						<span><?php echo esc_html( $fenix_item ); ?></span>
-					</li>
+					<li><span><?php echo esc_html( $fenix_item ); ?></span></li>
 					<?php endforeach; ?>
-				</ul>
+				</ol>
 				<?php endif; ?>
 			</div>
 

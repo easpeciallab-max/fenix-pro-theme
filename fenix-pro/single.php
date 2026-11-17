@@ -1,6 +1,10 @@
 <?php
 /**
- * Single post · บทความ (ออกแบบสำหรับคอนเทนต์ SEO)
+ * Single post · หน้าบทความ (ดีไซน์ชุด 4 อนุมัติ 17 พ.ย. 2026)
+ *
+ * ใช้กับบทความทุกเรื่อง ทั้งรุ่นใหม่และรุ่นเก่า
+ * เนื้อหาบทความเป็น HTML ของ WordPress เอง เทมเพลตนี้ไม่แตะเนื้อหาสักตัวอักษร
+ * รูปแบบของเนื้อหาทำด้วย CSS ล้วนใน assets/css/post.css
  *
  * @package fenix-pro
  */
@@ -13,101 +17,129 @@ while ( have_posts() ) :
 	$fenix_cats  = get_the_category();
 	$fenix_cat   = ! empty( $fenix_cats ) ? $fenix_cats[0] : null;
 	$fenix_thumb = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+	$fenix_line  = fenix_mod( 'line_url' );
 	?>
 
-	<div class="reading-progress" aria-hidden="true"><span></span></div>
-
-	<main id="main">
+	<main id="main" class="fxp fxa">
 		<article <?php post_class( 'single-article' ); ?>>
 
-			<header class="article-hero">
-				<div class="container container-narrow">
-					<nav class="breadcrumb" aria-label="เส้นทางนำทาง">
+			<header class="fx-phero ahero">
+				<div class="slash" aria-hidden="true"><i></i><i></i><i></i></div>
+				<div class="wrap awrap">
+					<nav class="crumb" aria-label="เส้นทางนำทาง">
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>">หน้าแรก</a>
 						<?php if ( $fenix_cat ) : ?>
-							<span class="breadcrumb-sep" aria-hidden="true">›</span>
+							<?php echo fenix_icon( 'chev-r', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							<a href="<?php echo esc_url( get_category_link( $fenix_cat->term_id ) ); ?>"><?php echo esc_html( $fenix_cat->name ); ?></a>
 						<?php endif; ?>
-						<span class="breadcrumb-sep" aria-hidden="true">›</span>
-						<span class="breadcrumb-current"><?php the_title(); ?></span>
+						<?php echo fenix_icon( 'chev-r', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<span class="cur"><?php the_title(); ?></span>
 					</nav>
 
-					<?php if ( $fenix_cat ) : ?>
-						<a class="article-cat" href="<?php echo esc_url( get_category_link( $fenix_cat->term_id ) ); ?>"><?php echo esc_html( $fenix_cat->name ); ?></a>
-					<?php endif; ?>
+					<div class="ahead">
+						<div class="atext">
+							<?php if ( $fenix_cat ) : ?>
+								<a class="acat" href="<?php echo esc_url( get_category_link( $fenix_cat->term_id ) ); ?>"><?php echo esc_html( $fenix_cat->name ); ?></a>
+							<?php endif; ?>
 
-					<h1 class="article-title"><?php the_title(); ?></h1>
+							<h1 class="article-title"><?php the_title(); ?></h1>
 
-					<div class="article-meta">
-						<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
-						<span class="article-meta-sep" aria-hidden="true">·</span>
-						<span><?php echo esc_html( 'เข้าชม ' . number_format_i18n( fenix_get_post_views( get_the_ID() ) ) . ' ครั้ง' ); ?></span>
+							<div class="ameta">
+								<span>
+									<?php echo fenix_icon( 'cal', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+								</span>
+								<span>
+									<?php echo fenix_icon( 'eye', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									<?php echo esc_html( 'เข้าชม ' . number_format_i18n( fenix_get_post_views( get_the_ID() ) ) . ' ครั้ง' ); ?>
+								</span>
+							</div>
+						</div>
+
+						<?php if ( has_post_thumbnail() ) : ?>
+							<figure class="acover"><?php the_post_thumbnail( 'large', array( 'alt' => esc_attr( fenix_featured_image_alt() ) ) ); ?></figure>
+						<?php endif; ?>
 					</div>
 				</div>
 			</header>
 
-			<?php if ( has_post_thumbnail() ) : ?>
-				<div class="container container-narrow">
-					<figure class="article-thumb"><?php the_post_thumbnail( 'large', array( 'alt' => esc_attr( fenix_featured_image_alt() ) ) ); ?></figure>
-				</div>
-			<?php endif; ?>
+			<div class="abody">
+				<div class="wrap awrap">
+					<?php
+					$GLOBALS['fenix_toc'] = array();
+					$fenix_content        = apply_filters( 'the_content', get_the_content() );
+					$fenix_content        = str_replace( ']]>', ']]&gt;', $fenix_content );
+					$fenix_toc            = isset( $GLOBALS['fenix_toc'] ) ? $GLOBALS['fenix_toc'] : array();
+					?>
 
-			<div class="container container-narrow">
-				<?php
-				$GLOBALS['fenix_toc'] = array();
-				$fenix_content        = apply_filters( 'the_content', get_the_content() );
-				$fenix_content        = str_replace( ']]>', ']]&gt;', $fenix_content );
-				$fenix_toc            = isset( $GLOBALS['fenix_toc'] ) ? $GLOBALS['fenix_toc'] : array();
-				?>
+					<div class="agrid">
+						<?php if ( count( $fenix_toc ) >= 1 ) : ?>
+							<aside class="aside-col">
+								<details class="toc atoc" open data-post-toc>
+									<summary>
+										<?php echo fenix_icon( 'list', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+										สารบัญ
+										<span class="chev"><?php echo fenix_icon( 'chev-r', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+									</summary>
+									<ol>
+										<?php foreach ( $fenix_toc as $fenix_h ) : ?>
+											<li class="toc-l<?php echo esc_attr( $fenix_h['level'] ); ?>"><a href="#<?php echo esc_attr( $fenix_h['id'] ); ?>"><?php echo esc_html( $fenix_h['text'] ); ?></a></li>
+										<?php endforeach; ?>
+									</ol>
+								</details>
+							</aside>
+						<?php endif; ?>
 
-				<?php if ( count( $fenix_toc ) >= 1 ) : ?>
-					<nav class="toc" aria-label="สารบัญ">
-						<p class="toc-title"><?php echo fenix_icon( 'layout', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?> สารบัญ</p>
-						<ul>
-							<?php foreach ( $fenix_toc as $fenix_h ) : ?>
-								<li class="toc-l<?php echo esc_attr( $fenix_h['level'] ); ?>"><a href="#<?php echo esc_attr( $fenix_h['id'] ); ?>"><?php echo esc_html( $fenix_h['text'] ); ?></a></li>
-							<?php endforeach; ?>
-						</ul>
-					</nav>
-				<?php endif; ?>
+						<div class="amain">
+							<div class="entry-content">
+								<?php echo $fenix_content; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							</div>
 
-				<div class="entry-content">
-					<?php echo $fenix_content; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				</div>
+							<div class="article-share">
+								<span class="article-share-label">แชร์บทความนี้</span>
+								<a class="share-btn share-line" href="<?php echo esc_url( 'https://social-plugins.line.me/lineit/share?url=' . rawurlencode( get_permalink() ) ); ?>" target="_blank" rel="noopener" aria-label="แชร์ไป LINE"><?php echo fenix_icon( 'line', 'i fill' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+								<a class="share-btn share-fb" href="<?php echo esc_url( 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( get_permalink() ) ); ?>" target="_blank" rel="noopener" aria-label="แชร์ไป Facebook"><?php echo fenix_icon( 'facebook', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+								<button class="share-btn share-copy" type="button" data-url="<?php echo esc_url( get_permalink() ); ?>" aria-label="คัดลอกลิงก์"><?php echo fenix_icon( 'link', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+							</div>
 
-				<div class="article-share">
-					<span class="article-share-label">แชร์บทความนี้</span>
-					<a class="share-btn share-line" href="<?php echo esc_url( 'https://social-plugins.line.me/lineit/share?url=' . rawurlencode( get_permalink() ) ); ?>" target="_blank" rel="noopener" aria-label="แชร์ไป LINE"><?php echo fenix_icon( 'line' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
-					<a class="share-btn share-fb" href="<?php echo esc_url( 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( get_permalink() ) ); ?>" target="_blank" rel="noopener" aria-label="แชร์ไป Facebook"><?php echo fenix_icon( 'facebook' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
-					<button class="share-btn share-copy" type="button" data-url="<?php echo esc_url( get_permalink() ); ?>" aria-label="คัดลอกลิงก์"><?php echo fenix_icon( 'link' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
-				</div>
+							<?php
+							wp_link_pages(
+								array(
+									'before' => '<div class="page-links">หน้า: ',
+									'after'  => '</div>',
+								)
+							);
 
-				<?php
-				wp_link_pages(
-					array(
-						'before' => '<div class="page-links">หน้า: ',
-						'after'  => '</div>',
-					)
-				);
+							$fenix_tags = get_the_tag_list( '<ul class="article-tags"><li>', '</li><li>', '</li></ul>' );
+							if ( $fenix_tags ) {
+								echo wp_kses_post( $fenix_tags );
+							}
+							?>
 
-				$fenix_tags = get_the_tag_list( '<ul class="article-tags"><li>', '</li><li>', '</li></ul>' );
-				if ( $fenix_tags ) {
-					echo wp_kses_post( $fenix_tags );
-				}
-				?>
-
-				<div class="article-disclaimer">
-					<?php echo fenix_icon( 'warn', 'icon icon-sm' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-					<p>
-						<?php echo esc_html( fenix_mod( 'risk_text' ) ); ?>
-						<a href="<?php echo esc_url( home_url( '/risk-disclosure/' ) ); ?>">อ่านคำเตือนฉบับเต็ม</a>
-					</p>
+							<div class="article-disclaimer">
+								<?php echo fenix_icon( 'warn', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								<p>
+									<?php echo esc_html( fenix_mod( 'risk_text' ) ); ?>
+									<a href="<?php echo esc_url( home_url( '/risk-disclosure/' ) ); ?>">อ่านคำเตือนฉบับเต็ม</a>
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 		</article>
 
-		<?php fenix_line_cta(); ?>
+		<?php
+		fenix_pages_cta(
+			fenix_mod( 'post_cta_title' ),
+			fenix_mod( 'post_cta_text' ),
+			fenix_mod( 'pages_cta_btn' ),
+			$fenix_line,
+			'line',
+			'acta'
+		);
+		?>
 
 		<?php
 		if ( $fenix_cat ) :
@@ -122,13 +154,13 @@ while ( have_posts() ) :
 			);
 			if ( $fenix_related->have_posts() ) :
 				?>
-				<section class="section section-alt related-section" aria-label="บทความที่เกี่ยวข้อง">
-					<div class="container">
+				<section class="sec alt related-section" aria-label="บทความที่เกี่ยวข้อง">
+					<div class="wrap">
 						<div class="related-head">
-							<h2>บทความที่เกี่ยวข้อง</h2>
+							<h2 class="h2">บทความที่เกี่ยวข้อง</h2>
 							<div class="rail-nav">
-								<button type="button" class="rail-btn rail-prev" data-dir="-1" aria-label="เลื่อนซ้าย"><?php echo fenix_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
-								<button type="button" class="rail-btn rail-next" data-dir="1" aria-label="เลื่อนขวา"><?php echo fenix_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+								<button type="button" class="rail-btn rail-prev" data-dir="-1" aria-label="เลื่อนซ้าย"><?php echo fenix_icon( 'arrow-l', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+								<button type="button" class="rail-btn rail-next" data-dir="1" aria-label="เลื่อนขวา"><?php echo fenix_icon( 'arrow', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 							</div>
 						</div>
 						<div class="related-rail">
@@ -136,17 +168,18 @@ while ( have_posts() ) :
 							while ( $fenix_related->have_posts() ) :
 								$fenix_related->the_post();
 								?>
-								<article <?php post_class( 'post-card' ); ?>>
+								<a class="post-card" href="<?php the_permalink(); ?>">
 									<?php if ( has_post_thumbnail() ) : ?>
-										<a class="post-card-thumb" href="<?php the_permalink(); ?>">
-											<?php the_post_thumbnail( 'medium_large', array( 'alt' => esc_attr( fenix_featured_image_alt() ) ) ); ?>
-										</a>
+										<?php the_post_thumbnail( 'medium_large', array( 'alt' => esc_attr( fenix_featured_image_alt() ) ) ); ?>
 									<?php endif; ?>
 									<div class="post-card-body">
-										<span class="post-meta"><?php echo esc_html( get_the_date() ); ?></span>
-										<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+										<span class="post-meta">
+											<?php echo fenix_icon( 'cal', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+											<?php echo esc_html( get_the_date() ); ?>
+										</span>
+										<h3><?php the_title(); ?></h3>
 									</div>
-								</article>
+								</a>
 								<?php
 							endwhile;
 							wp_reset_postdata();

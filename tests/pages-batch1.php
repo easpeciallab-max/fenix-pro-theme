@@ -32,6 +32,7 @@ function esc_url( $value ) { return esc_attr( $value ); }
 /* ภาษาไทยนับความยาวเป็นตัวอักษร ไม่ใช่คำ — จำลองให้เหมือนเว็บจริง */
 function _x( $text, $context = '', $domain = '' ) { return 'words' === $text ? 'characters_excluding_spaces' : $text; }
 function wp_strip_all_tags( $value ) { return trim( strip_tags( (string) $value ) ); }
+function sanitize_html_class( $value ) { return preg_replace( '/[^A-Za-z0-9_\-]/', '', (string) $value ); }
 function wp_parse_url( $url, $component = -1 ) { return parse_url( $url, $component ); }
 function wp_json_encode( $value ) { return json_encode( $value, JSON_UNESCAPED_UNICODE ); }
 function number_format_i18n( $number ) { return number_format( (float) $number ); }
