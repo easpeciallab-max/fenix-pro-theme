@@ -37,4 +37,11 @@
 	} else if (phone.addListener) {
 		phone.addListener(sync);
 	}
+
+	/* กันเหนียวอีกชั้น เผื่อเบราว์เซอร์ไม่แจ้งตอนข้ามเส้น
+	   สั่งได้อย่างเดียวคือกางบนจอกว้าง จะได้ไม่ไปพับของที่ผู้อ่านเปิดค้างไว้บนมือถือ
+	   (บนมือถือแถบที่อยู่เว็บซ่อนตัวตอนเลื่อนก็นับเป็น resize) */
+	window.addEventListener('resize', function () {
+		if (!phone.matches && !toc.open) { toc.open = true; }
+	});
 })();
