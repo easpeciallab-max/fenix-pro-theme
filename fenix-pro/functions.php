@@ -108,8 +108,11 @@ function fenix_assets() {
 		);
 	}
 
+	$is_guide = is_page_template( 'template-guide.php' );
+
 	if (
 		is_category()
+		|| $is_guide
 		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php' ) )
 	) {
 		$pages_css = get_template_directory() . '/assets/css/pages.css';
@@ -119,6 +122,27 @@ function fenix_assets() {
 			get_template_directory_uri() . '/assets/css/pages.css',
 			array( 'fenix-style' ),
 			file_exists( $pages_css ) ? filemtime( $pages_css ) : FENIX_VERSION
+		);
+	}
+
+	/* หน้าคู่มือใช้สไตล์ของชุด 1 เป็นฐาน แล้วทับด้วยสไตล์ของตัวเอง */
+	if ( $is_guide ) {
+		$guide_css = get_template_directory() . '/assets/css/guide.css';
+		$guide_js  = get_template_directory() . '/assets/js/guide.js';
+
+		wp_enqueue_style(
+			'fenix-guide',
+			get_template_directory_uri() . '/assets/css/guide.css',
+			array( 'fenix-pages' ),
+			file_exists( $guide_css ) ? filemtime( $guide_css ) : FENIX_VERSION
+		);
+
+		wp_enqueue_script(
+			'fenix-guide',
+			get_template_directory_uri() . '/assets/js/guide.js',
+			array(),
+			file_exists( $guide_js ) ? filemtime( $guide_js ) : FENIX_VERSION,
+			true
 		);
 	}
 
@@ -225,9 +249,13 @@ function fenix_body_classes( $classes ) {
 
 	if (
 		is_category()
-		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php' ) )
+		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php', 'template-guide.php' ) )
 	) {
 		$classes[] = 'fenix-pages';
+	}
+
+	if ( is_page_template( 'template-guide.php' ) ) {
+		$classes[] = 'fenix-guide';
 	}
 
 	return $classes;
@@ -1343,27 +1371,46 @@ function fenix_guide_meta( $slug ) {
 function fenix_guide_rail( $current ) {
 	$guides = fenix_guides();
 	$pos    = array_search( $current, array_keys( $guides ), true );
-	$out    = '<ol class="guide-rail" aria-label="ลำดับขั้นตอนทั้งหมด">';
+	$out    = '<div class="railwrap"><ol class="rail" aria-label="ลำดับขั้นตอนทั้งหมด">';
 	$i      = 0;
 
 	foreach ( $guides as $slug => $guide ) {
 		$i++;
 		$class = '';
 		$mark  = (string) $i;
+		$extra = '';
 
 		if ( false !== $pos && $i - 1 < $pos ) {
-			$class = ' class="is-done"';
-			$mark  = '&#10003;';
+			$class = ' class="done"';
+			$mark  = fenix_icon( 'check', 'i' );
 		} elseif ( $slug === $current ) {
-			$class = ' class="is-now"';
+			$class = ' class="now"';
+			$extra = ' aria-current="page"';
 		}
 
-		$out .= '<li' . $class . '><a href="' . esc_url( home_url( '/' . $slug . '/' ) ) . '">'
-			. '<b>' . $mark . '</b> ' . esc_html( $guide['short'] ) . '</a></li>';
+		$out .= '<li' . $class . '><a href="' . esc_url( home_url( '/' . $slug . '/' ) ) . '"' . $extra . '>'
+			. '<b>' . $mark . '</b><span>' . esc_html( $guide['short'] ) . '</span></a></li>';
 	}
 
-	return $out . '</ol>';
+	return $out . '</ol></div>';
 }
+
+/**
+ * เนื้อหาหน้าคู่มือเดิมแนบ <style> ของตัวเองมาด้วย (สีเก่า ไล่สี เงาเรืองแสง)
+ * ดีไซน์ใหม่ชี้สไตล์ไปที่คลาสเดิมแทน จึงต้องถอดบล็อกนั้นออกก่อนแสดงผล
+ * ข้อความและรูปไม่ถูกแตะ ถอดเฉพาะ <style> เท่านั้น
+ *
+ * @param string $content เนื้อหาของหน้า
+ * @return string
+ */
+function fenix_guide_strip_inline_css( $content ) {
+	if ( ! is_page_template( 'template-guide.php' ) || ! is_main_query() || ! in_the_loop() ) {
+		return $content;
+	}
+
+	return (string) preg_replace( '~<style\b[^>]*>.*?</style>~is', '', (string) $content );
+}
+add_filter( 'the_content', 'fenix_guide_strip_inline_css', 20 );
 function fenix_product_from_url( $url ) {
 	$name = basename( (string) parse_url( (string) $url, PHP_URL_PATH ) );
 	$out  = array(
@@ -2281,6 +2328,7 @@ function fenix_icon( $name, $class = 'icon' ) {
 		'warn'     => '<path d="M12 3.5l9.5 16.5h-19L12 3.5z"/><path d="M12 10v4.2"/><circle cx="12" cy="17" r="0.4"/>',
 		'chat'     => '<path d="M21 12a8 8 0 0 1-8 8c-1.2 0-2.4-.25-3.4-.7L4 21l1.4-4.2A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/>',
 		'arrow'    => '<path d="M5 12h14M13 6l6 6-6 6"/>',
+		'arrow-l'  => '<path d="M19 12H5M11 18l-6-6 6-6"/>',
 		'quote'    => '<path d="M7.5 11c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3V9.5C10.5 7 9 5.5 7 5M17.5 11c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3V9.5C20.5 7 19 5.5 17 5"/>',
 		'mail'     => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
 		'download' => '<path d="M12 4v10M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/>',

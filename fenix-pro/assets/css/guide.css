@@ -1,0 +1,1147 @@
+/* ==========================================================
+   FENIX PRO EA · หน้าคู่มือ ชุด 2 (อนุมัติ 17 พ.ย. 2026)
+   8 หน้า: เปิดบัญชี · ติดตั้ง MT5 · ฝากเงิน · ติดตั้ง EA ·
+   คูณ LOT · VPS WINDOWS · VPS ANDROID · VPS IPHONE
+
+   โหลดต่อจาก pages.css จึงใช้ token ปุ่ม และกล่อง CTA ชุดเดียวกับชุด 1
+   ทุกอย่างอยู่ใต้ .fxg
+
+   เนื้อหาของหน้ายังเป็นของเดิมทุกตัวอักษร ไฟล์นี้แค่ชี้สไตล์ใหม่
+   ไปที่ชื่อคลาสเดิมของหน้า (zag-* · mt5g-* · step/num/highlight ·
+   บล็อกของ WordPress) ตามตารางแปลงในสเปกข้อ 4
+   ========================================================== */
+
+/* ---------- หัวหน้าเพจ (รูป 01) ---------- */
+.fxg .ghero .kick {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font: 700 13px/1 var(--font);
+	letter-spacing: .14em;
+	color: var(--or-text);
+	text-transform: uppercase;
+	position: relative;
+}
+
+.fxg .ghero .kick::before {
+	content: "";
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--or);
+}
+
+.fxg .ghero h1 {
+	font: 900 52px/1.15 var(--font);
+	max-width: 900px;
+	margin-top: 16px;
+	position: relative;
+}
+
+.fxg .gmeta {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	margin-top: 24px;
+	position: relative;
+}
+
+.fxg .gmeta span {
+	height: 38px;
+	padding: 0 14px 0 12px;
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1.5px var(--hover);
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font: 600 14px/1 var(--font);
+	color: var(--t2);
+}
+
+.fxg .gmeta .i {
+	width: 16px;
+	height: 16px;
+	color: var(--or-text);
+}
+
+/* ---------- แถบ 8 ขั้น (รูป 02) ---------- */
+.fxg .railwrap {
+	padding: 36px 0 8px;
+}
+
+.fxg .rail {
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	gap: 0;
+	margin: 0;
+	list-style: none;
+	position: relative;
+}
+
+.fxg .rail li {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 10px;
+	padding: 0 4px;
+}
+
+.fxg .rail li::before {
+	content: "";
+	position: absolute;
+	top: 21px;
+	left: -50%;
+	right: 50%;
+	height: 3px;
+	background: var(--line);
+	z-index: 0;
+}
+
+.fxg .rail li:first-child::before {
+	display: none;
+}
+
+.fxg .rail li.done::before,
+.fxg .rail li.now::before {
+	background: var(--green);
+}
+
+.fxg .rail a {
+	display: contents;
+}
+
+.fxg .rail b {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	font: 800 16px/1 var(--font);
+	background: var(--raised);
+	color: var(--t2);
+	position: relative;
+	z-index: 1;
+	box-shadow: 0 0 0 5px var(--bg);
+}
+
+.fxg .rail li.done b {
+	background: var(--green);
+	color: #052E16;
+}
+
+.fxg .rail li.done b .i {
+	width: 20px;
+	height: 20px;
+	stroke-width: 3;
+}
+
+.fxg .rail li.now b {
+	background: var(--or);
+	color: #FFFFFF;
+	box-shadow: 0 0 0 5px var(--bg), 0 0 0 8px var(--or);
+}
+
+.fxg .rail span {
+	font: 600 13.5px/1.35 var(--font);
+	color: var(--t3);
+}
+
+.fxg .rail li.done span {
+	color: var(--t2);
+}
+
+.fxg .rail li.now span {
+	color: var(--t1);
+	font-weight: 800;
+}
+
+/* ---------- โครงสองคอลัมน์ ---------- */
+.fxg .gwrap {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 320px;
+	gap: 40px;
+	align-items: start;
+	padding: 40px 0 24px;
+}
+
+.fxg .gside {
+	position: sticky;
+	top: 24px;
+	display: grid;
+	gap: 16px;
+	order: 2;
+}
+
+.fxg .gmain {
+	order: 1;
+	min-width: 0;
+}
+
+/* ---------- กล่องด้านข้าง (รูป 03) ---------- */
+.fxg .gbox {
+	background: var(--surface);
+	border-radius: 22px;
+	padding: 22px;
+}
+
+.fxg .gbox h2,
+.fxg .gbox h3 {
+	font: 800 15px/1.3 var(--font);
+	letter-spacing: .02em;
+	margin-bottom: 12px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	color: var(--t1);
+}
+
+.fxg .gbox h2 .i,
+.fxg .gbox h3 .i {
+	width: 18px;
+	height: 18px;
+	color: var(--or-text);
+	flex: none;
+}
+
+.fxg .gbox ul {
+	list-style: none;
+	display: grid;
+	gap: 10px;
+}
+
+.fxg .gbox ul li {
+	display: flex;
+	gap: 10px;
+	font-size: 14.5px;
+	line-height: 1.55;
+	color: var(--t2);
+}
+
+.fxg .gbox ul li::before {
+	content: "";
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+	margin-top: 1px;
+	border-radius: 50%;
+	background: var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23052E16' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat;
+}
+
+.fxg .toc ol {
+	list-style: none;
+	display: grid;
+	gap: 6px;
+}
+
+.fxg .toc li::before {
+	display: none;
+}
+
+.fxg .toc a {
+	display: flex;
+	gap: 10px;
+	align-items: flex-start;
+	padding: 9px 10px;
+	border-radius: 12px;
+	font-size: 14px;
+	line-height: 1.45;
+	color: var(--t2);
+}
+
+.fxg .toc a b {
+	flex-shrink: 0;
+	min-width: 24px;
+	height: 24px;
+	border-radius: 8px;
+	background: var(--raised);
+	display: grid;
+	place-items: center;
+	font: 800 11.5px/1 var(--font);
+	color: var(--or-text);
+}
+
+/* ข้อแรกเน้นไว้ตามต้นแบบ และเน้นตอนชี้หรือกด
+   ไม่มีระบบจำว่าอ่านถึงข้อไหน (สเปกข้อ 1.3) */
+.fxg .toc li:first-child a,
+.fxg .toc a:hover,
+.fxg .toc a:focus-visible {
+	background: var(--raised);
+	color: var(--t1);
+}
+
+.fxg .toc li:first-child a b,
+.fxg .toc a:hover b,
+.fxg .toc a:focus-visible b {
+	background: var(--or);
+	color: #FFFFFF;
+}
+
+/* ==========================================================
+   เนื้อหาคู่มือ · ชี้สไตล์ใหม่ไปที่คลาสเดิมของหน้า
+   ========================================================== */
+.fxg .gc {
+	font-size: 16px;
+	line-height: 1.8;
+	color: var(--t2);
+}
+
+.fxg .gc > * + * {
+	margin-top: 20px;
+}
+
+/* จังหวะห่างของทุกบล็อกที่ซ้อนอยู่ข้างใน (กฎเฉพาะเจาะจงด้านล่างชนะ) */
+.fxg .gc :where(div, section, article, aside, figure, header, nav, ul, ol, p, h2, h3, h4, table, blockquote, figcaption, footer) + :where(div, section, article, aside, figure, header, nav, ul, ol, p, h2, h3, h4, table, blockquote, figcaption, footer) {
+	margin-top: 16px;
+}
+
+.fxg .gc h2 {
+	font: 800 26px/1.35 var(--font);
+	color: var(--t1);
+	margin-top: 44px;
+}
+
+.fxg .gc h3 {
+	font: 700 20px/1.4 var(--font);
+	color: var(--t1);
+	margin-top: 28px;
+}
+
+.fxg .gc h4 {
+	font: 700 17px/1.45 var(--font);
+	color: var(--t1);
+}
+
+.fxg .gc h2:first-child,
+.fxg .gc h3:first-child {
+	margin-top: 0;
+}
+
+.fxg .gc p {
+	margin-top: 12px;
+}
+
+.fxg .gc strong,
+.fxg .gc b {
+	color: var(--t1);
+	font-weight: 700;
+}
+
+.fxg .gc small {
+	font-size: 14px;
+}
+
+.fxg .gc a:not(.fx-btn) {
+	color: var(--or-text);
+	font-weight: 600;
+}
+
+.fxg .gc ul,
+.fxg .gc ol {
+	margin-top: 14px;
+	padding-left: 0;
+	list-style: none;
+	display: grid;
+	gap: 10px;
+}
+
+.fxg .gc ul > li {
+	position: relative;
+	padding-left: 22px;
+}
+
+.fxg .gc ul > li::before {
+	content: "";
+	position: absolute;
+	left: 2px;
+	top: 11px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--or);
+}
+
+.fxg .gc ol {
+	counter-reset: o;
+}
+
+.fxg .gc ol > li {
+	position: relative;
+	padding-left: 38px;
+	counter-increment: o;
+}
+
+.fxg .gc ol > li:not(:has(.zag-num, .mt5g-num, .num))::before {
+	content: counter(o);
+	position: absolute;
+	left: 0;
+	top: 2px;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: var(--raised);
+	color: var(--or-text);
+	display: grid;
+	place-items: center;
+	font: 800 12.5px/1 var(--font);
+}
+
+.fxg .gc li:has(> :is(.zag-num, .mt5g-num, .num)) {
+	display: flex;
+	gap: 12px;
+	align-items: flex-start;
+	padding-left: 0;
+}
+
+/* ---------- รายการเช็ก (รูป 05) ---------- */
+.fxg .gc :is(.zag-check, .mt5g-check, .checklist ul, .mini-list) {
+	display: grid;
+	gap: 10px;
+}
+
+.fxg .gc :is(.zag-check, .mt5g-check, .checklist ul) > li {
+	padding-left: 34px;
+}
+
+/* เครื่องหมายถูกเดิมเป็นตัวอักษร ✓ ใน CSS เก่า ของใหม่วาดด้วย ::before */
+.fxg .gc :is(.zag-check, .mt5g-check, .checklist ul) > li::before {
+	content: "";
+	left: 0;
+	top: 3px;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23052E16' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/13px no-repeat;
+}
+
+/* ---------- เลขวงกลม / กล่องเลขขั้น (รูป 04, 06) ---------- */
+.fxg .gc :is(.zag-num, .mt5g-num, .num) {
+	flex-shrink: 0;
+	min-width: 26px;
+	height: 26px;
+	padding: 0 6px;
+	border-radius: 999px;
+	background: var(--or);
+	color: var(--on-or);
+	display: inline-grid;
+	place-items: center;
+	font: 800 13px/1 var(--font);
+}
+
+.fxg .gc :is(.step-head, .g-stephead) {
+	display: flex;
+	gap: 18px;
+	align-items: flex-start;
+}
+
+.fxg .gc :is(.step-head, .g-stephead) :is(.num, .zag-num, .mt5g-num) {
+	min-width: 52px;
+	height: 52px;
+	border-radius: 16px;
+	font-size: 22px;
+	color: #FFFFFF;
+}
+
+.fxg .gc :is(.step-head, .g-stephead) :is(h2, h3) {
+	margin-top: 4px !important;
+}
+
+/* ---------- ป้าย STEP และข้อความนำ ---------- */
+.fxg .gc :is(.zag-kicker, .mt5g-kicker) {
+	font: 700 12.5px/1 var(--font);
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--or-text);
+}
+
+.fxg .gc :is(.zag-kicker, .mt5g-kicker) + :is(h2, h3) {
+	margin-top: 10px !important;
+}
+
+.fxg .gc :is(.zag-lead, .mt5g-lead, .lead, .summary, .zag-eyebrow, .mt5g-pill) {
+	color: var(--t1);
+	font-size: 17px;
+	/* ธีมจัด .lead ไว้กลางหน้า เนื้อหาคู่มือต้องชิดซ้ายตามแบบ */
+	text-align: left;
+	max-width: none;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.fxg .gc :is(.zag-eyebrow, .mt5g-pill) {
+	display: block;
+	font: 700 12.5px/1.5 var(--font);
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--or-text);
+}
+
+/* ---------- กล่องเปิดหน้า (รูป 04) ---------- */
+.fxg .gc :is(.zag-hero, .mt5g-hero, .mt5g-header) {
+	background: var(--surface);
+	border-radius: 24px;
+	padding: 28px;
+}
+
+.fxg .gc :is(.zag-summary-card, .mt5g-quick) {
+	background: var(--raised);
+	border-radius: 18px;
+	padding: 20px;
+	font-size: 15px;
+	color: var(--t2);
+}
+
+.fxg .gc :is(.zag-summary-card, .mt5g-quick) h2 {
+	font-size: 19px;
+	margin: 0 0 10px;
+}
+
+.fxg .gc .zag-notice {
+	color: var(--t2);
+	font-size: 14.5px;
+}
+
+/* ---------- ปุ่มลัดในหน้า (รูป 04) ---------- */
+.fxg .gc :is(.zag-nav, .mt5g-nav),
+.fxg .gc :is(.zag-nav, .mt5g-nav) > div,
+.fxg .gc .zag-hero-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.fxg .gc :is(.zag-nav, .mt5g-nav) a {
+	height: 40px;
+	padding: 0 16px;
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1.5px #FFFFFF;
+	display: inline-flex;
+	align-items: center;
+	font: 600 14px/1 var(--font);
+	color: #FFFFFF !important;
+}
+
+/* ---------- ปุ่มในเนื้อหา ---------- */
+.fxg .gc :is(.zag-btn, .mt5g-store-btn) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	height: 48px;
+	padding: 0 22px;
+	border-radius: 999px;
+	font: 700 15px/1 var(--font);
+	text-align: center;
+	white-space: normal;
+	background: transparent;
+	color: #FFFFFF !important;
+	box-shadow: inset 0 0 0 1.5px #FFFFFF;
+}
+
+/* ปุ่มดาวน์โหลดเป็นปุ่มหลัก (รูป 07) */
+.fxg .gc .mt5g-store-btn.mt5g-download {
+	background: var(--or);
+	color: #FFFFFF !important;
+	box-shadow: none;
+}
+
+.fxg .gc .mt5g-store-btns .mt5g-store-btn {
+	width: 100%;
+}
+
+/* ไอคอนในปุ่มดาวน์โหลดเดิมไม่ใช้ (สเปกข้อ 4) */
+.fxg .gc .mt5g-download-ic {
+	display: none;
+}
+
+/* ---------- การ์ดขั้นตอน (รูป 05, 06) ---------- */
+.fxg .gc :is(.zag-step, .mt5g-step, .step) {
+	background: var(--surface);
+	border-radius: 24px;
+	padding: 28px;
+	display: grid;
+	gap: 20px;
+}
+
+.fxg .gc :is(.zag-step, .mt5g-step):has(> :is(.zag-text, .mt5g-text) + :is(.zag-shot, .mt5g-shot)) {
+	grid-template-columns: 1fr 1fr;
+	align-items: start;
+}
+
+.fxg .gc :is(.zag-text, .mt5g-text) > * + * {
+	margin-top: 12px;
+}
+
+/* ---------- กล่องทิป (รูป 05–07) ---------- */
+.fxg .gc :is(.zag-tip, .mt5g-note, .mt5g-mini-note, .risk, .callout:not([style*="left"])) {
+	background: var(--raised);
+	border-radius: 14px;
+	padding: 13px 16px;
+	font-size: 14.5px;
+	line-height: 1.65;
+	color: var(--t1);
+	box-shadow: inset 3px 0 0 var(--or);
+}
+
+/* ---------- กล่องข้อความตัวอย่าง (รูป 12) ---------- */
+.fxg .gc .zag-copybox {
+	background: var(--bg-alt);
+	border-radius: 14px;
+	padding: 16px 18px;
+	box-shadow: inset 0 0 0 1.5px var(--hover);
+	font-size: 15px;
+	color: var(--t1);
+}
+
+/* ---------- การ์ด (รูป 07) ---------- */
+.fxg .gc :is(.zag-final-card, .mt5g-device-card, .mt5g-store-card, .mt5g-install-panel, .checklist) {
+	background: var(--raised);
+	border-radius: 20px;
+	padding: 22px;
+}
+
+.fxg .gc .mt5g-install-panel {
+	background: var(--surface);
+	border-radius: 24px;
+	padding: 28px;
+}
+
+.fxg .gc a.mt5g-device-card {
+	display: block;
+	color: var(--t1);
+}
+
+.fxg .gc .mt5g-device-card strong {
+	display: block;
+	margin-bottom: 4px;
+}
+
+.fxg .gc .mt5g-device-card small {
+	display: block;
+	color: var(--t2);
+	font-size: 14px;
+	font-weight: 500;
+	margin-top: 4px;
+}
+
+.fxg .gc .mt5g-store-top {
+	display: flex;
+	gap: 14px;
+	align-items: center;
+}
+
+.fxg .gc :is(.mt5g-app-icon, .mt5g-device-ic) {
+	width: 56px;
+	height: 56px;
+	border-radius: 16px;
+	background: #FFFFFF;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.fxg .gc :is(.mt5g-app-icon, .mt5g-device-ic) img {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+}
+
+/* ช่องไอคอนที่ไม่มีรูปจริง (มีแค่ภาพวาดในโค้ด) ไม่ต้องแสดง ตามต้นแบบ */
+.fxg .gc :is(.mt5g-app-icon, .mt5g-device-ic):not(:has(img)) {
+	display: none !important;
+}
+
+.fxg .gc .mt5g-store-top :is(h2, h3) {
+	margin-top: 0 !important;
+	font-size: 19px;
+}
+
+.fxg .gc .mt5g-store-top p {
+	margin-top: 2px;
+	font-size: 14px;
+}
+
+/* ---------- การ์ดแก้ปัญหา (รูป 08) ---------- */
+.fxg .gc .mt5g-trouble-card {
+	background: var(--raised);
+	border-radius: 16px;
+	padding: 16px 18px;
+	font-size: 14.5px;
+	box-shadow: inset 3px 0 0 var(--yellow);
+}
+
+.fxg .gc .mt5g-trouble-card strong {
+	display: block;
+	color: var(--t1);
+	margin-bottom: 4px;
+}
+
+/* ---------- หัวข้อกลุ่ม (รูป 08) ---------- */
+.fxg .gc .mt5g-group-title {
+	font: 800 22px/1.3 var(--font);
+	color: var(--t1);
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	margin-top: 48px;
+}
+
+.fxg .gc .zag-section-title {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+}
+
+.fxg .gc .zag-section-title h2 {
+	margin: 0;
+}
+
+/* ---------- แถวแบ่งคอลัมน์ ---------- */
+.fxg .gc :is(.zag-hero-grid, .mt5g-device-grid, .mt5g-install-grid, .mt5g-store-btns, .mt5g-zoom-grid, .mt5g-trouble-grid, .grid, .zag-final, .checklist ul) {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: 16px;
+	margin-top: 16px;
+}
+
+.fxg .gc :is(.zag-hero-grid, .mt5g-device-grid, .mt5g-install-grid, .mt5g-store-btns, .mt5g-zoom-grid, .mt5g-trouble-grid, .grid, .zag-final) > * {
+	margin-top: 0 !important;
+	min-width: 0;
+}
+
+.fxg .gc :is(.zag-hero-grid, .zag-final) {
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.fxg .gc .mt5g-store-btns {
+	grid-template-columns: 1fr;
+	gap: 10px;
+}
+
+.fxg .gc .grid:has(> .step) {
+	grid-template-columns: 1fr;
+}
+
+.fxg .gc .mt5g-trouble-grid {
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* ---------- ป้าย FENIX PRO และส่วนเปิดเนื้อหา (รูป 15) ---------- */
+.fxg .gc .brand {
+	font: 700 12px/1.4 var(--font);
+	letter-spacing: .14em;
+	color: var(--t3);
+	text-transform: uppercase;
+}
+
+.fxg .gc .guide-head {
+	display: grid;
+	gap: 8px;
+}
+
+/* แถบไล่สีเดิมด้านบน ไม่ใช้ในดีไซน์ใหม่ */
+.fxg .gc .topbar {
+	display: none;
+}
+
+.fxg .gc :is(.zag-footer, .mt5g-footer, .guide-footer) {
+	font-size: 13.5px;
+	line-height: 1.6;
+	color: var(--t3);
+}
+
+/* กล่องของตัวสร้างหน้าเดิม ไม่ให้มาจัดเลย์เอาต์หรือจัดกึ่งกลางให้ */
+.fxg .gc :is(.elementor, .elementor-element, .elementor-widget, .elementor-widget-container, .e-con, .e-con-inner, .e-child) {
+	display: block;
+	width: auto;
+	max-width: none;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	background: none;
+	border: 0;
+}
+
+/* กล่องห่อของ widget เดิม ไม่ต้องมีกรอบหรือความกว้างของตัวเอง */
+.fxg .gc :is(.page, .zag-wrap, .mt5g-wrap, .mt5g-main, .zag-steps, .mt5g-steps, .mt5g-device, .mt5g-win, .mt5g-trouble, .mt5g-install-grid-1) {
+	width: auto;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	background: none;
+	border: 0;
+}
+
+/* ---------- ตาราง (รูป 10) ---------- */
+.fxg .gc :is(.wp-block-table, .table-scroll) {
+	overflow-x: auto;
+}
+
+.fxg .gc table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	background: var(--surface);
+	border-radius: 18px;
+	overflow: hidden;
+	font-size: 14.5px;
+}
+
+.fxg .gc th {
+	background: var(--raised);
+	text-align: left;
+	color: var(--t1);
+	font-weight: 700;
+	padding: 12px 14px;
+}
+
+.fxg .gc td {
+	padding: 12px 14px;
+	border-top: 1px solid var(--line);
+	color: var(--t2);
+}
+
+.fxg .gc td:first-child {
+	color: var(--t1);
+	font-weight: 700;
+}
+
+/* ---------- คำบรรยาย ---------- */
+.fxg .gc :is(figcaption, .wp-element-caption, .mt5g-zoom-caption) {
+	font-size: 13.5px;
+	line-height: 1.5;
+	color: var(--t3);
+	margin: 8px 2px 0;
+	font-weight: 400;
+}
+
+/* ---------- ภาพหน้าจอ และของที่วางทับบนภาพ ---------- */
+/* คลาสชื่อซ้ำกับธีม (.shot .step .brand .grid .lead) ต้องล้างค่าของธีมก่อน */
+.fxg .gc :is(.zag-shot, .mt5g-shot, .shot, .wp-block-image) {
+	margin-left: 0;
+	margin-right: 0;
+	max-width: 100%;
+	background: none;
+	border: 0;
+	overflow: visible;
+	border-radius: 0;
+}
+
+.fxg .gc .shot figcaption {
+	padding: 0;
+	border: 0;
+}
+
+.fxg .gc :is(.zag-step, .mt5g-step, .step) {
+	border: 0;
+	position: static;
+}
+
+.fxg .gc .brand {
+	display: block;
+}
+
+.fxg .gc :is(.zag-shot, .mt5g-shot, .wp-block-image):has(> img) {
+	position: relative;
+	width: fit-content;
+}
+
+.fxg .gc :is(.mt5g-zoom, .img-wrap) {
+	position: relative;
+	width: fit-content;
+	max-width: 100%;
+	background: none;
+	border: 0;
+	border-radius: 12px;
+}
+
+.fxg .gc :is(.zag-shot, .mt5g-shot, .shot, .wp-block-image, .mt5g-zoom, .img-wrap) img {
+	border-radius: 12px;
+	box-shadow: 0 0 0 1px var(--line);
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* ธีมบังคับสัดส่วน 16:9 กับ .shot img ไว้สำหรับที่อื่น
+   ภาพหน้าจอในคู่มือต้องเห็นเต็มภาพ ห้ามถูกตัด */
+.fxg .gc img {
+	aspect-ratio: auto;
+	object-fit: fill;
+}
+
+/* ภาพวาด SVG ที่ฝังในหน้า (VPS ANDROID / IPHONE) */
+.fxg .gc img[src^="data:"] {
+	width: 100%;
+}
+
+.fxg .gc :is(.mt5g-zoom, .img-wrap, .zag-shot, .mt5g-shot, .shot):has(> img[src^="data:"]) {
+	width: 100%;
+	max-width: 480px;
+}
+
+/* ภาพแนวตั้งจำกัดความกว้างบนคอม */
+.fxg .gc :is(.mt5g-phone, .mt5g-desk-narrow) img {
+	max-width: 320px;
+}
+
+.fxg .gc :is(.zag-ring, .mt5g-ring, .highlight) {
+	position: absolute;
+	border: 3px solid var(--or);
+	border-radius: 14px;
+	box-shadow: 0 0 0 2px #0E0E11;
+	pointer-events: none;
+	background: none;
+}
+
+.fxg .gc :is(.zag-ring, .mt5g-ring) {
+	transform: translate(-50%, -50%);
+}
+
+.fxg .gc .highlight {
+	border-radius: 8px;
+}
+
+.fxg .gc :is(.zag-callout, .mt5g-callout, .callout[style*="left"]) {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: var(--or);
+	color: #FFFFFF;
+	box-shadow: 0 0 0 2px #FFFFFF;
+	border-radius: 999px;
+	padding: 5px 11px;
+	font: 800 12px/1.2 var(--font);
+	white-space: nowrap;
+	border: 0;
+}
+
+.fxg .gc :is(.zag-arrow, .mt5g-arrow) {
+	font-weight: 900;
+}
+
+/* ---------- ปุ่มขั้นก่อนหน้า / ขั้นถัดไป (รูป 11) ---------- */
+.fxg .gnav {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+	margin-top: 48px;
+}
+
+.fxg .gnav a {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 20px 22px;
+	border-radius: 22px;
+	box-shadow: inset 0 0 0 1.5px #FFFFFF;
+	color: #FFFFFF;
+}
+
+.fxg .gnav a.next {
+	background: var(--or);
+	box-shadow: none;
+	color: #FFFFFF;
+	justify-content: flex-end;
+	text-align: right;
+	grid-column: 2;
+}
+
+.fxg .gnav small {
+	display: block;
+	font: 600 13px/1.3 var(--font);
+	color: var(--t3);
+}
+
+.fxg .gnav a.next small {
+	color: #FFFFFF;
+}
+
+.fxg .gnav b {
+	display: block;
+	font: 800 18px/1.35 var(--font);
+	margin-top: 4px;
+}
+
+.fxg .gnav .i {
+	width: 22px;
+	height: 22px;
+	flex-shrink: 0;
+}
+
+/* ==========================================================
+   มือถือ
+   ========================================================== */
+@media (max-width: 760px) {
+	.fxg .ghero h1 {
+		font-size: 30px;
+		max-width: 300px;
+	}
+
+	.fxg .ghero .slash {
+		right: -114px;
+	}
+
+	.fxg .gmeta span {
+		height: 34px;
+		font-size: 13px;
+	}
+
+	.fxg .railwrap {
+		padding: 16px 0 0;
+		margin: 0 -24px;
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+
+	.fxg .railwrap::-webkit-scrollbar {
+		display: none;
+	}
+
+	.fxg .rail {
+		display: flex;
+		gap: 0;
+		width: max-content;
+		padding: 10px 24px 4px;
+	}
+
+	.fxg .rail li {
+		flex: 0 0 86px;
+	}
+
+	.fxg .rail b {
+		width: 38px;
+		height: 38px;
+		font-size: 14px;
+	}
+
+	.fxg .rail li::before {
+		top: 18px;
+	}
+
+	.fxg .rail span {
+		font-size: 12px;
+	}
+
+	.fxg .gwrap {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 16px;
+		padding: 24px 0 8px;
+	}
+
+	.fxg .gside {
+		position: static;
+		order: 0;
+	}
+
+	.fxg .gc {
+		font-size: 15px;
+	}
+
+	.fxg .gc h2 {
+		font-size: 22px;
+	}
+
+	.fxg .gc h3 {
+		font-size: 18px;
+	}
+
+	.fxg .gc :is(.zag-step, .mt5g-step, .step) {
+		padding: 18px;
+		border-radius: 20px;
+	}
+
+	.fxg .gc :is(.zag-step, .mt5g-step):has(> :is(.zag-text, .mt5g-text) + :is(.zag-shot, .mt5g-shot)) {
+		grid-template-columns: 1fr;
+	}
+
+	.fxg .gc :is(.zag-hero, .mt5g-hero, .mt5g-header, .mt5g-install-panel) {
+		padding: 18px;
+	}
+
+	.fxg .gc :is(.step-head, .g-stephead) :is(.num, .zag-num, .mt5g-num) {
+		min-width: 44px;
+		height: 44px;
+		font-size: 18px;
+	}
+
+	.fxg .gc :is(.zag-callout, .mt5g-callout, .callout[style*="left"]) {
+		font-size: 10px;
+		padding: 4px 8px;
+	}
+
+	.fxg .gc :is(.mt5g-phone, .mt5g-desk-narrow) img {
+		max-width: 100%;
+	}
+
+	.fxg .gnav {
+		grid-template-columns: 1fr;
+	}
+
+	.fxg .gnav a.next {
+		grid-column: auto;
+	}
+}
+
+/* ==========================================================
+   ระยะห่าง · ห้ามมีบล็อกไหนชิดกันสนิท (สเปกข้อ 2)
+   ========================================================== */
+.fxg .gc :is(.zag-step, .mt5g-step, .step) + :is(.zag-step, .mt5g-step, .step),
+.fxg .gc :is(.zag-final-card, .mt5g-store-card, .mt5g-device-card) + :is(.zag-final-card, .mt5g-store-card, .mt5g-device-card) {
+	margin-top: 18px;
+}
+
+.fxg .gc .mt5g-store-top > *,
+.fxg .gc :is(.step-head, .g-stephead) > *,
+.fxg .gc li > *,
+.fxg .gc :is(.zag-hero-grid, .mt5g-device-grid, .mt5g-install-grid, .mt5g-store-btns, .mt5g-zoom-grid, .mt5g-trouble-grid, .grid, .zag-final) > *,
+.fxg .gc :is(.zag-nav, .mt5g-nav, .zag-hero-actions) > *,
+.fxg .gnav > * {
+	margin-top: 0;
+}
+
+.fxg .gc .mt5g-store-top + * {
+	margin-top: 16px !important;
+}
+
+.fxg .gc :is(.zag-nav, .mt5g-nav) {
+	margin-top: 22px;
+}
+
+.fxg .gc :is(.zag-nav, .mt5g-nav) + * {
+	margin-top: 28px;
+}
+
+.fxg .gc .mt5g-group-title + * {
+	margin-top: 18px;
+}
+
+.fxg .gc :is(.zag-hero, .mt5g-hero, .mt5g-header) + * {
+	margin-top: 24px;
+}
+
+.fxg .gc :is(.zag-shot, .mt5g-shot, .shot) > figcaption + * {
+	margin-top: 10px;
+}
+
+.fxg .gc :is(.zag-shot, .mt5g-shot, .shot) > * + :is(.zag-tip, .mt5g-note, .mt5g-mini-note, .callout),
+.fxg .gc :is(.mt5g-zoom, .img-wrap) + :is(.zag-tip, .mt5g-note, .mt5g-mini-note, .callout) {
+	margin-top: 12px;
+}
+
+.fxg .gc :is(.zag-text, .mt5g-text) > :is(.zag-check, .mt5g-check) {
+	margin-top: 14px;
+}
+
+.fxg .gc .checklist {
+	margin-top: 28px;
+}
+
+.fxg .gc .checklist h2 {
+	margin-top: 0;
+}

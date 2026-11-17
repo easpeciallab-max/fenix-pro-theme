@@ -96,13 +96,13 @@ $dom->loadHTML( '<?xml encoding="UTF-8">' . $rail );
 libxml_clear_errors();
 $xpath = new DOMXPath( $dom );
 
-check( 8 === $xpath->query( '//ol[@class="guide-rail"]/li' )->length, 'แถบบอกตำแหน่งแสดงครบทั้ง 8 ขั้น' );
-check( 1 === $xpath->query( '//li[@class="is-now"]' )->length, 'มีขั้นเดียวที่ถูกทำเครื่องหมายว่ากำลังอ่านอยู่' );
-check( 6 === $xpath->query( '//li[@class="is-done"]' )->length, 'ขั้นที่ผ่านมาแล้ว 6 ขั้นติดเครื่องหมายถูก' );
+check( 8 === $xpath->query( '//ol[@class="rail"]/li' )->length, 'แถบบอกตำแหน่งแสดงครบทั้ง 8 ขั้น' );
+check( 1 === $xpath->query( '//li[@class="now"]' )->length, 'มีขั้นเดียวที่ถูกทำเครื่องหมายว่ากำลังอ่านอยู่' );
+check( 6 === $xpath->query( '//li[@class="done"]' )->length, 'ขั้นที่ผ่านมาแล้ว 6 ขั้นติดเครื่องหมายถูก' );
 check( 8 === $xpath->query( '//a[starts-with(@href,"https://example.test/")]' )->length, 'ทุกขั้นในแถบกดข้ามไปได้' );
 
 $rail_home = fenix_guide_rail( 'open-mt5-account' );
-check( false === strpos( $rail_home, 'is-done' ), 'อยู่ขั้นแรก ยังไม่มีขั้นไหนถูกทำเครื่องหมายว่าผ่านแล้ว' );
+check( false === strpos( $rail_home, "\"done\"" ), 'อยู่ขั้นแรก ยังไม่มีขั้นไหนถูกทำเครื่องหมายว่าผ่านแล้ว' );
 
 /* ---- ตัดหัวเรื่องซ้ำในเนื้อหาเดิม ---- */
 $with_h1 = '<div class="guide-head"><div class="brand">FENIX PRO</div><h1 class="x">คู่มือใช้งาน VPS</h1><p class="lead">คำโปรย</p></div><h2>ขั้นที่ 1</h2>';
@@ -121,4 +121,4 @@ check( $none === fenix_strip_first_h1( $none ), 'หน้าที่ไม่�
 $tpl = file_get_contents( get_template_directory() . '/template-guide.php' );
 check( false !== strpos( $tpl, 'Template Name:' ), 'เทมเพลตหน้าคู่มือมีชื่อให้เลือกใน Page Attributes' );
 check( false !== strpos( $tpl, 'the_content()' ), 'เทมเพลตแสดงเนื้อหาเดิมของหน้า ไม่ได้เขียนทับ' );
-check( false !== strpos( $tpl, 'fenix_line_cta' ), 'ทุกหน้าคู่มือจบด้วยปุ่มทัก LINE' );
+check( false !== strpos( $tpl, 'fenix_pages_cta' ), 'ทุกหน้าคู่มือจบด้วยปุ่มทัก LINE' );

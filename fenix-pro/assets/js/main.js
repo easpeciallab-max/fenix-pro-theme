@@ -632,12 +632,14 @@
  * -------------------------------------------------------- */
 (function () {
 	var box = document.querySelector('[data-guide-toc]');
-	var body = document.querySelector('.guide-content');
+	var body = document.querySelector('.gc') || document.querySelector('.guide-content');
 	if (!box || !body) { return; }
 
 	var list = box.querySelector('ol');
-	var heads = Array.prototype.slice.call(body.querySelectorAll('h2')).filter(function (h) {
-		return h.textContent.trim() !== '';
+	/* หัวข้อในคู่มือมีทั้ง h2 และ h3 สารบัญเก็บทั้งสองระดับตามแบบที่อนุมัติ
+	   ยกเว้นชื่อบนหัวการ์ด ซึ่งเป็นป้ายของการ์ด ไม่ใช่หัวข้อของหน้า */
+	var heads = Array.prototype.slice.call(body.querySelectorAll('h2, h3')).filter(function (h) {
+		return h.textContent.trim() !== '' && !h.closest('.mt5g-store-top, .g-cardtop');
 	});
 
 	if (heads.length < 4) { return; }
@@ -648,29 +650,21 @@
 		var li = document.createElement('li');
 		var a = document.createElement('a');
 		a.href = '#' + h.id;
+
+		/* เลขข้อในสารบัญ ตามแบบที่อนุมัติ */
+		var no = document.createElement('b');
+		no.textContent = String(i + 1);
+		a.appendChild(no);
+
 		/* บางหัวข้อมีป้ายเล็ก ๆ ติดอยู่ ต้องเว้นวรรคให้ ไม่งั้นคำจะติดกัน */
-		a.textContent = Array.prototype.map.call(h.childNodes, function (n) {
+		a.appendChild(document.createTextNode(Array.prototype.map.call(h.childNodes, function (n) {
 			return (n.textContent || '').trim();
-		}).filter(Boolean).join(' ');
+		}).filter(Boolean).join(' ')));
+
 		li.appendChild(a);
 		list.appendChild(li);
 	});
 
+	/* สารบัญเป็นแค่ลิงก์ไปหัวข้อ ไม่มีระบบติดตามว่าอ่านถึงข้อไหน (สเปกชุด 2 ข้อ 1.3) */
 	box.hidden = false;
-
-	/* ไฮไลต์หัวข้อที่กำลังอ่านอยู่ */
-	if (!('IntersectionObserver' in window)) { return; }
-
-	var items = Array.prototype.slice.call(list.children);
-	var spy = new IntersectionObserver(function (entries) {
-		entries.forEach(function (entry) {
-			if (!entry.isIntersecting) { return; }
-			var at = heads.indexOf(entry.target);
-			items.forEach(function (li, i) {
-				li.classList.toggle('is-reading', i === at);
-			});
-		});
-	}, { rootMargin: '-80px 0px -70% 0px' });
-
-	heads.forEach(function (h) { spy.observe(h); });
 })();
