@@ -29,6 +29,8 @@ function home_url( $path = '' ) { return 'https://example.test' . $path; }
 function esc_attr( $value ) { return htmlspecialchars( (string) $value, ENT_QUOTES, 'UTF-8' ); }
 function esc_html( $value ) { return esc_attr( $value ); }
 function esc_url( $value ) { return esc_attr( $value ); }
+/* ภาษาไทยนับความยาวเป็นตัวอักษร ไม่ใช่คำ — จำลองให้เหมือนเว็บจริง */
+function _x( $text, $context = '', $domain = '' ) { return 'words' === $text ? 'characters_excluding_spaces' : $text; }
 function wp_strip_all_tags( $value ) { return trim( strip_tags( (string) $value ) ); }
 function wp_parse_url( $url, $component = -1 ) { return parse_url( $url, $component ); }
 function wp_json_encode( $value ) { return json_encode( $value, JSON_UNESCAPED_UNICODE ); }
@@ -43,8 +45,29 @@ function get_header() {}
 function get_footer() {}
 function wp_reset_postdata() { $GLOBALS['fx_i'] = -1; }
 function wp_trim_words( $text, $count = 55, $more = '…' ) {
-	$words = preg_split( '/\s+/u', trim( (string) $text ) );
-	return count( $words ) > $count ? implode( ' ', array_slice( $words, 0, $count ) ) . $more : implode( ' ', $words );
+	/* WordPress ภาษาไทยตัดตามจำนวนตัวอักษร */
+	$text = trim( (string) $text );
+	$seen = preg_split( '//u', str_replace( ' ', '', $text ), -1, PREG_SPLIT_NO_EMPTY );
+
+	if ( count( $seen ) <= $count ) {
+		return $text;
+	}
+
+	$chars = preg_split( '//u', $text, -1, PREG_SPLIT_NO_EMPTY );
+	$out   = '';
+	$kept  = 0;
+
+	foreach ( $chars as $char ) {
+		if ( $kept >= $count ) {
+			break;
+		}
+		$out .= $char;
+		if ( ' ' !== $char ) {
+			$kept++;
+		}
+	}
+
+	return $out . $more;
 }
 function is_front_page() { return false; }
 function is_paged() { return false; }
@@ -69,7 +92,7 @@ for ( $fx_n = 1; $fx_n <= 5; $fx_n++ ) {
 		'title' => 'บทความทดสอบเรื่องที่ ' . $fx_n,
 		'date'  => ( 10 + $fx_n ) . ' พฤศจิกายน 2026',
 		'cat'   => 'EA Trust',
-		'ex'    => 'คำโปรยของบทความทดสอบเรื่องที่ ' . $fx_n,
+		'ex'    => 'คำโปรยของบทความทดสอบเรื่องที่ ' . $fx_n . ' อย่าเริ่มเงินจริงทันทีหลังได้ไฟล์ ควรตรวจการส่งมอบ ยืนยันเวอร์ชันและสิทธิ์การใช้งาน ทดสอบบนบัญชีทดลอง แล้วจัดเก็บเอกสารให้กู้ระบบคืนได้เสมอ',
 	);
 }
 $GLOBALS['fx_i'] = -1;
@@ -480,6 +503,12 @@ check( 4 === $x->query( '//div[@data-posts-grid]/article[@class="art"]' )->lengt
 check( 1 === $x->query( '//button[contains(@class,"load-more-btn") and @data-card="art"]' )->length, 'บทความ · ปุ่มโหลดเพิ่มบอกให้ใช้การ์ดแบบใหม่' );
 check( 1 === $x->query( '//button[contains(@class,"load-more-btn") and contains(@class,"fx-btn-out")]' )->length, 'บทความ · ปุ่มโหลดเพิ่มเป็นปุ่มรอง' );
 check( false !== strpos( $bl, 'class="count"' ), 'บทความ · แสดงจำนวนบทความทั้งหมด' );
+
+/* คำโปรยต้องยาวพอตามแบบ · ภาษาไทยนับเป็นตัวอักษร ถ้าใช้จำนวน "คำ" ตรง ๆ จะถูกตัดเหลือไม่กี่ตัวอักษร */
+$feat_ex = $x->query( '//article[@class="feat"]//p' );
+$art_ex  = $x->query( '//article[@class="art"]//p' );
+check( $feat_ex->length && mb_strlen( plain( $feat_ex->item( 0 )->textContent ) ) > 90, 'บทความ · คำโปรยของการ์ดใหญ่ยาวตามแบบ ไม่ถูกตัดสั้นเกินไป' );
+check( $art_ex->length && mb_strlen( plain( $art_ex->item( 0 )->textContent ) ) > 90, 'บทความ · คำโปรยของการ์ดเล็กยาวตามแบบ ไม่ถูกตัดสั้นเกินไป' );
 
 $js = file_get_contents( get_template_directory() . '/assets/js/main.js' );
 check( false !== strpos( $js, "data.append('card'" ), 'โหลดเพิ่ม · ส่งชนิดการ์ดไปกับคำขอ' );

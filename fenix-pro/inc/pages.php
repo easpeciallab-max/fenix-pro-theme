@@ -508,7 +508,7 @@ function fenix_article_card() {
 				<span><?php echo esc_html( get_the_date( 'j F Y' ) ); ?></span>
 			</div>
 			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-			<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 24, '…' ) ); ?></p>
+			<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), fenix_excerpt_length( 120, 24 ), '…' ) ); ?></p>
 			<a class="fx-link" href="<?php the_permalink(); ?>">
 				<?php echo esc_html( fenix_mod( 'blog_read_more' ) ); ?>
 				<?php echo fenix_icon( 'arrow', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -539,7 +539,7 @@ function fenix_article_feature() {
 				<span><?php echo esc_html( get_the_date( 'j F Y' ) ); ?></span>
 			</div>
 			<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-			<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 34, '…' ) ); ?></p>
+			<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), fenix_excerpt_length( 170, 34 ), '…' ) ); ?></p>
 			<a class="fx-link" href="<?php the_permalink(); ?>">
 				<?php echo esc_html( fenix_mod( 'blog_read_more' ) ); ?>
 				<?php echo fenix_icon( 'arrow', 'i' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
