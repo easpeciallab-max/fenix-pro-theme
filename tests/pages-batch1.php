@@ -404,6 +404,12 @@ check( ! $missing, 'เกี่ยวกับเรา · ข้อควา�
 
 check( 1 === $x->query( '//div[@class="who"]' )->length, 'เกี่ยวกับเรา · ช่วงแรกเป็นข้อความคู่กับภาพ' );
 check( 1 === $x->query( '//div[@class="who"]//figure[contains(@class,"fx-shot")]' )->length, 'เกี่ยวกับเรา · ภาพแบนเนอร์อยู่ในช่วงแรก' );
+
+$ab_img = $x->query( '//div[@class="who"]//figure//img' );
+check( $ab_img->length && '' !== $ab_img->item( 0 )->getAttribute( 'width' ) && '' !== $ab_img->item( 0 )->getAttribute( 'height' ),
+	'เกี่ยวกับเรา · ภาพแบนเนอร์บอกขนาดไว้ หน้าจึงไม่เด้งตอนรูปโหลด' );
+check( array( 1024, 538 ) === fenix_pages_img_size( 'https://example.test/a-1024x538.webp' ), 'ขนาดรูปอ่านจากชื่อไฟล์ย่อของ WordPress ได้' );
+check( array( 1200, 630 ) === fenix_pages_img_size( 'https://example.test/a.webp' ), 'รูปที่ไม่บอกขนาดในชื่อไฟล์ใช้สัดส่วนสำรอง' );
 check( 1 === $x->query( '//div[@class="why"]' )->length, 'เกี่ยวกับเรา · ช่วงเหตุผลเป็นหัวข้อคู่กับย่อหน้า' );
 check( 1 === $x->query( '//div[@class="why"]//p[@class="q"]' )->length, 'เกี่ยวกับเรา · ย่อหน้าแรกของช่วงเหตุผลเป็นข้อความเน้น' );
 

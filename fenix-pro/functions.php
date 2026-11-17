@@ -866,7 +866,7 @@ MT5 | เท่านั้น
 			'pr_cta_text'       => 'ทักทีมงานเพื่อให้ช่วยประเมินความเหมาะสมกับทุนและเป้าหมายการใช้งานของคุณ',
 			'about_page_kicker' => '',
 			'about_page_sub'    => '',
-			'about_banner'      => 'https://fenixpro-th.com/wp-content/uploads/2026/07/fenix-pro-ea-metatrader5-auto-trading-banner-1-1024x538.webp',
+			'about_banner'      => 'https://fenixpro-th.com/wp-content/uploads/2026/11/fenix-pro-ea-metatrader5-cover.webp',
 			'about_banner_alt'  => 'FENIX PRO EA ระบบช่วยเทรดอัตโนมัติบน MetaTrader 5',
 			'blog_page_sub'     => 'ความรู้เรื่อง EA, MT5 และการบริหารความเสี่ยง',
 			'blog_count_label'  => 'บทความ',

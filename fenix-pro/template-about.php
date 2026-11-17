@@ -116,8 +116,9 @@ $ab_skip = array_flip( $ab_pairs );
 							</div>
 
 							<?php if ( '' !== $ab_banner ) : ?>
+								<?php list( $ab_bw, $ab_bh ) = fenix_pages_img_size( $ab_banner ); ?>
 								<figure class="fx-shot">
-									<img src="<?php echo esc_url( $ab_banner ); ?>" alt="<?php echo esc_attr( fenix_mod( 'about_banner_alt' ) ); ?>" width="1024" height="538" loading="lazy" decoding="async">
+									<img src="<?php echo esc_url( $ab_banner ); ?>" alt="<?php echo esc_attr( fenix_mod( 'about_banner_alt' ) ); ?>" width="<?php echo (int) $ab_bw; ?>" height="<?php echo (int) $ab_bh; ?>" loading="lazy" decoding="async">
 								</figure>
 							<?php else : ?>
 								<span></span>

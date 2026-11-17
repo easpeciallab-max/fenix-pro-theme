@@ -109,6 +109,42 @@ function fenix_pages_dom( $html ) {
 	return $root ? array( $dom, $root ) : null;
 }
 
+/**
+ * ขนาดจริงของรูปที่ตั้งไว้ใน Customizer
+ * ใช้บอกสัดส่วนให้เบราว์เซอร์กันหน้าเด้งตอนรูปโหลด
+ * เปลี่ยนรูปใน Customizer แล้วไม่ต้องมาแก้ตัวเลขในโค้ด
+ *
+ * @param string $url      ที่อยู่รูป
+ * @param array  $fallback ขนาดสำรองถ้าหาไม่เจอ
+ * @return array array( กว้าง, สูง )
+ */
+function fenix_pages_img_size( $url, $fallback = array( 1200, 630 ) ) {
+	$url = trim( (string) $url );
+
+	if ( '' === $url ) {
+		return $fallback;
+	}
+
+	/* รูปย่อของ WordPress บอกขนาดไว้ในชื่อไฟล์อยู่แล้ว */
+	if ( preg_match( '/-(\d{2,5})x(\d{2,5})\.[a-z]{3,4}(?:\?|$)/i', $url, $found ) ) {
+		return array( (int) $found[1], (int) $found[2] );
+	}
+
+	if ( function_exists( 'attachment_url_to_postid' ) ) {
+		$id = attachment_url_to_postid( $url );
+
+		if ( $id ) {
+			$meta = wp_get_attachment_metadata( $id );
+
+			if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) {
+				return array( (int) $meta['width'], (int) $meta['height'] );
+			}
+		}
+	}
+
+	return $fallback;
+}
+
 /** คืน HTML ข้างในของโหนด */
 function fenix_pages_inner( $node ) {
 	$out = '';
