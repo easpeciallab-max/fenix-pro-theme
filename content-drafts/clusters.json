@@ -144,7 +144,11 @@
                 "check-broker-license",
                 "same-ea-different-broker-results",
                 "cent-vs-usd-account-ea",
-                "leverage-margin-level-ea"
+                "leverage-margin-level-ea",
+                "thai-sec-forex-brokers",
+                "how-to-compare-spreads",
+                "forex-minimum-deposit",
+                "open-forex-account-steps"
             ]
         },
         "calculate-lot-size": {
@@ -156,7 +160,11 @@
                 "risk-per-trade",
                 "money-management",
                 "cold-money-trading-budget",
-                "margin-level-grid-ea"
+                "margin-level-grid-ea",
+                "pip-vs-point",
+                "pip-value-calculation",
+                "trading-with-small-capital",
+                "what-is-margin-forex"
             ]
         },
         "account-blowup-causes": {

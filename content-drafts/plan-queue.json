@@ -1163,7 +1163,8 @@
         "pillar": "choose-broker-account-for-ea",
         "tier": "A",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21101
     },
     {
         "n": "150",
@@ -1175,7 +1176,8 @@
         "pillar": "choose-broker-account-for-ea",
         "tier": "A",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21102
     },
     {
         "n": "151",
@@ -1187,7 +1189,8 @@
         "pillar": "choose-broker-account-for-ea",
         "tier": "B",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21103
     },
     {
         "n": "152",
@@ -1199,7 +1202,8 @@
         "pillar": "choose-broker-account-for-ea",
         "tier": "A",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21104
     },
     {
         "n": "153",
@@ -1247,7 +1251,8 @@
         "pillar": "calculate-lot-size",
         "tier": "A",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21105
     },
     {
         "n": "157",
@@ -1259,7 +1264,8 @@
         "pillar": "calculate-lot-size",
         "tier": "A",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21106
     },
     {
         "n": "158",
@@ -1271,7 +1277,8 @@
         "pillar": "calculate-lot-size",
         "tier": "A",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21107
     },
     {
         "n": "159",
@@ -1283,7 +1290,8 @@
         "pillar": "calculate-lot-size",
         "tier": "A",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21108
     },
     {
         "n": "160",
