@@ -30,7 +30,10 @@
                 "copy-trade-vs-ea",
                 "do-trading-bots-work",
                 "ea-vs-indicator",
-                "who-should-use-trading-bot"
+                "who-should-use-trading-bot",
+                "what-is-forex",
+                "forex-for-beginners",
+                "forex-market-hours-thailand"
             ]
         },
         "xauusd-ea-complete-guide": {
@@ -151,7 +154,8 @@
                 "open-forex-account-steps",
                 "broker-wont-let-withdraw",
                 "swap-free-account",
-                "which-leverage-for-ea"
+                "which-leverage-for-ea",
+                "is-forex-legal-thailand"
             ]
         },
         "calculate-lot-size": {
@@ -200,7 +204,8 @@
                 "blowup-negative-balance",
                 "after-account-blowup",
                 "wipeout-vs-blowup",
-                "negative-balance-protection"
+                "negative-balance-protection",
+                "daily-profit-target-reality"
             ]
         },
         "ea-bitcoin-mt5-guide": {
@@ -231,7 +236,10 @@
                 "does-ea-run-after-rdp-disconnect",
                 "vps-mt5-ea-troubleshooting",
                 "secure-vps-for-mt5",
-                "broker-vps-vs-rented-vps"
+                "broker-vps-vs-rented-vps",
+                "vps-forex-price",
+                "run-ea-without-vps",
+                "ea-runs-when-pc-off"
             ]
         },
         "ea-scam-warning-signs": {
@@ -247,7 +255,12 @@
                 "ea-license-account-device-lock",
                 "ea-refund-license-support-terms",
                 "after-buying-ea-checklist",
-                "ea-without-stop-loss-risks"
+                "ea-without-stop-loss-risks",
+                "ea-sellers-in-thailand",
+                "rent-vs-buy-ea",
+                "ea-vs-signal-service",
+                "prop-firm-ea-rules",
+                "allow-dll-imports"
             ]
         }
     },
