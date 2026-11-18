@@ -28,7 +28,9 @@
                 "build-trading-bot-with-ai",
                 "build-own-ea-mt5",
                 "copy-trade-vs-ea",
-                "do-trading-bots-work"
+                "do-trading-bots-work",
+                "ea-vs-indicator",
+                "who-should-use-trading-bot"
             ]
         },
         "xauusd-ea-complete-guide": {
@@ -46,7 +48,14 @@
         "free-vs-paid-ea": {
             "label": "EA ฟรีกับ EA เสียเงิน",
             "anchor": "EA ฟรีกับ EA เสียเงินต่างกันยังไง",
-            "children": []
+            "children": [
+                "free-ea-line-groups-risk",
+                "types-of-free-ea",
+                "check-before-using-free-ea",
+                "lifetime-free-ea",
+                "ea-close-all-tool",
+                "semi-auto-ea"
+            ]
         },
         "how-to-backtest-ea-mt5": {
             "label": "วิธี backtest EA บน MT5",
@@ -88,7 +97,8 @@
                 "ea-not-working-mt5",
                 "mt5-alerts-notifications",
                 "monitor-account-mobile",
-                "symbol-suffix-explained"
+                "symbol-suffix-explained",
+                "run-ea-on-mobile"
             ]
         },
         "choose-broker-account-for-ea": {
