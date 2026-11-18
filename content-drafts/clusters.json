@@ -1,119 +1,211 @@
 {
-  "_readme": "โครงเสาหลัก-บทลูกของเว็บ ใช้คุมการเชื่อมลิงก์ภายใน บทลูกลิงก์ขึ้นเสา 1 ลิงก์ เสาลิงก์ลงบทลูกทุกบท",
-  "pillars": {
-    "what-is-ea": {
-      "label": "บอทเทรด forex คืออะไร",
-      "anchor": "บอทเทรด forex (EA) คืออะไร ทำงานยังไง",
-      "children": [
-        "how-ea-works", "ea-vs-manual-trading", "ea-vs-algo-trading", "ea-trading-terms",
-        "ea-myths", "ea-pros-cons", "ea-beginner-checklist", "types-of-ea-trading-strategies",
-        "grid-ea-risks", "martingale-ea-risks", "scalping-ea-mt5", "trend-following-ea",
-        "recovery-order-vs-martingale", "two-way-grid-bitcoin", "atr-grid-spacing",
-        "ea-news-filter-trading", "ea-and-manual-same-account", "trading-psychology", "is-ea-worth-it"
-      ]
+    "_readme": "โครงเสาหลัก-บทลูกของเว็บ ใช้คุมการเชื่อมลิงก์ภายใน บทลูกลิงก์ขึ้นเสา 1 ลิงก์ เสาลิงก์ลงบทลูกทุกบท",
+    "pillars": {
+        "what-is-ea": {
+            "label": "บอทเทรด forex คืออะไร",
+            "anchor": "บอทเทรด forex (EA) คืออะไร ทำงานยังไง",
+            "children": [
+                "how-ea-works",
+                "ea-vs-manual-trading",
+                "ea-vs-algo-trading",
+                "ea-trading-terms",
+                "ea-myths",
+                "ea-pros-cons",
+                "ea-beginner-checklist",
+                "types-of-ea-trading-strategies",
+                "grid-ea-risks",
+                "martingale-ea-risks",
+                "scalping-ea-mt5",
+                "trend-following-ea",
+                "recovery-order-vs-martingale",
+                "two-way-grid-bitcoin",
+                "atr-grid-spacing",
+                "ea-news-filter-trading",
+                "ea-and-manual-same-account",
+                "trading-psychology",
+                "is-ea-worth-it",
+                "how-to-use-trading-bot",
+                "build-trading-bot-with-ai",
+                "build-own-ea-mt5",
+                "copy-trade-vs-ea",
+                "do-trading-bots-work"
+            ]
+        },
+        "xauusd-ea-complete-guide": {
+            "label": "บอทเทรดทอง XAUUSD",
+            "anchor": "บอทเทรดทอง XAUUSD บน MT5 ใช้ยังไง",
+            "children": [
+                "xauusd-ea-guide",
+                "gold-volatile-hours-thailand",
+                "nfp-fomc-gold-ea",
+                "gold-spread-widening",
+                "gold-lot-size-pip-value",
+                "gold-ea-minimum-capital"
+            ]
+        },
+        "free-vs-paid-ea": {
+            "label": "EA ฟรีกับ EA เสียเงิน",
+            "anchor": "EA ฟรีกับ EA เสียเงินต่างกันยังไง",
+            "children": []
+        },
+        "how-to-backtest-ea-mt5": {
+            "label": "วิธี backtest EA บน MT5",
+            "anchor": "วิธี backtest EA บน MT5 ทีละขั้นตอน",
+            "children": [
+                "read-ea-backtest",
+                "mt5-real-ticks-backtest",
+                "in-sample-out-of-sample-ea",
+                "walk-forward-analysis-ea",
+                "monte-carlo-testing-ea",
+                "backtest-spread-commission-slippage",
+                "how-long-to-backtest-ea",
+                "compare-backtest-forward-test",
+                "forward-test-ea",
+                "over-optimization-ea",
+                "read-equity-curve-ea",
+                "ea-stats-explained",
+                "verify-ea-myfxbook",
+                "demo-test-bitcoin-ea"
+            ]
+        },
+        "how-to-install-mt5": {
+            "label": "MT5 สำหรับมือใหม่",
+            "anchor": "วิธีติดตั้งและใช้งาน MT5 สำหรับมือใหม่",
+            "children": [
+                "how-to-install-ea-mt5",
+                "enable-autotrading-mt5",
+                "mt4-vs-mt5-for-ea",
+                "ex5-vs-mq5-files",
+                "mt5-experts-journal-logs",
+                "magic-number-mt5-ea",
+                "mt5-ea-preset-set-file",
+                "set-file-choose-size",
+                "update-ea-mt5-safely",
+                "mt5-no-connection-invalid-account",
+                "mt5-broker-server-time-ea",
+                "multiple-mt5-terminals-accounts",
+                "run-multiple-ea-mt5",
+                "ea-not-working-mt5",
+                "mt5-alerts-notifications",
+                "monitor-account-mobile",
+                "symbol-suffix-explained"
+            ]
+        },
+        "choose-broker-account-for-ea": {
+            "label": "เลือกโบรกเกอร์สำหรับรันบอทเทรด",
+            "anchor": "เลือกโบรกเกอร์ forex สำหรับรันบอทเทรด",
+            "children": [
+                "mt5-brokers",
+                "raw-vs-standard-account",
+                "forex-commission-explained",
+                "swap-triple-wednesday",
+                "slippage-explained",
+                "leverage-2000-ea-risk",
+                "stop-out-vs-margin-call",
+                "hedging-vs-netting-account",
+                "broker-deposit-withdraw-guide",
+                "forex-kyc-documents",
+                "forex-tax-thailand",
+                "check-broker-license",
+                "same-ea-different-broker-results",
+                "cent-vs-usd-account-ea",
+                "leverage-margin-level-ea"
+            ]
+        },
+        "calculate-lot-size": {
+            "label": "ทุน ขนาดล็อต และมาร์จิ้น",
+            "anchor": "คำนวณ lot size ยังไงให้เหมาะกับทุน",
+            "children": [
+                "ea-starting-capital",
+                "fixed-lot-vs-auto-lot",
+                "risk-per-trade",
+                "money-management",
+                "cold-money-trading-budget",
+                "margin-level-grid-ea"
+            ]
+        },
+        "account-blowup-causes": {
+            "label": "พอร์ตแตกและการบริหารความเสี่ยง",
+            "anchor": "พอร์ตแตกคืออะไร เกิดจากอะไร",
+            "children": [
+                "what-is-drawdown",
+                "drawdown-money-vs-percent",
+                "drawdown-buffer-sizing",
+                "reduce-risk-after-drawdown",
+                "risk-of-ruin-ea-trading",
+                "equity-stop-ea",
+                "daily-loss-limit-ea",
+                "portfolio-exposure-multiple-orders",
+                "correlation-risk-ea-portfolio",
+                "multiple-ea-overlapping-risk",
+                "split-accounts-vs-one",
+                "consecutive-losses-normal",
+                "when-to-pause-ea",
+                "when-to-quit-an-ea",
+                "ea-risk-management-guide",
+                "stop-loss-take-profit-trailing-stop",
+                "withdraw-profit-strategy",
+                "compound-vs-withdraw-grid-ea",
+                "realistic-monthly-target",
+                "monthly-trading-review",
+                "new-year-ea-plan",
+                "ea-trading-journal"
+            ]
+        },
+        "ea-bitcoin-mt5-guide": {
+            "label": "บอทเทรดบิตคอยน์",
+            "anchor": "บอทเทรดบิตคอยน์บน MT5 คืออะไร",
+            "children": [
+                "btcusd-cfd-vs-spot",
+                "btcusd-spread-fees",
+                "btc-volatility-vs-gold",
+                "btc-market-hours",
+                "btcusd-swap-overnight",
+                "bitcoin-ea-no-stop-loss",
+                "bitcoin-ea-first-run-checklist",
+                "bitcoin-ea-capital",
+                "crypto-bot-vs-forex-ea"
+            ]
+        },
+        "vps-for-ea": {
+            "label": "VPS สำหรับรันบอทเทรด",
+            "anchor": "VPS สำหรับรัน EA คืออะไร จำเป็นไหม",
+            "children": [
+                "choose-vps-specs-for-mt5",
+                "mt5-vps-latency-ping",
+                "run-multiple-mt5-on-vps",
+                "auto-start-mt5-on-vps",
+                "does-ea-run-after-rdp-disconnect",
+                "vps-mt5-ea-troubleshooting",
+                "secure-vps-for-mt5",
+                "broker-vps-vs-rented-vps"
+            ]
+        },
+        "ea-scam-warning-signs": {
+            "label": "ตรวจ EA ก่อนจ่ายเงิน",
+            "anchor": "EA หลอกลวงดูยังไง สัญญาณเตือนก่อนเสียเงิน",
+            "children": [
+                "how-to-choose-ea",
+                "questions-before-buying-ea",
+                "verify-ea-seller-before-buying",
+                "verify-ea-profit-screenshots",
+                "evaluate-ea-checklist",
+                "detect-grid-martingale-ea-results",
+                "ea-license-account-device-lock",
+                "ea-refund-license-support-terms",
+                "after-buying-ea-checklist",
+                "ea-without-stop-loss-risks"
+            ]
+        }
     },
-    "xauusd-ea-complete-guide": {
-      "label": "บอทเทรดทอง XAUUSD",
-      "anchor": "บอทเทรดทอง XAUUSD บน MT5 ใช้ยังไง",
-      "children": [
-        "xauusd-ea-guide", "gold-volatile-hours-thailand", "nfp-fomc-gold-ea",
-        "gold-spread-widening", "gold-lot-size-pip-value", "gold-ea-minimum-capital"
-      ]
-    },
-    "free-vs-paid-ea": {
-      "label": "EA ฟรีกับ EA เสียเงิน",
-      "anchor": "EA ฟรีกับ EA เสียเงินต่างกันยังไง",
-      "children": []
-    },
-    "how-to-backtest-ea-mt5": {
-      "label": "วิธี backtest EA บน MT5",
-      "anchor": "วิธี backtest EA บน MT5 ทีละขั้นตอน",
-      "children": [
-        "read-ea-backtest", "mt5-real-ticks-backtest", "in-sample-out-of-sample-ea",
-        "walk-forward-analysis-ea", "monte-carlo-testing-ea", "backtest-spread-commission-slippage",
-        "how-long-to-backtest-ea", "compare-backtest-forward-test", "forward-test-ea",
-        "over-optimization-ea", "read-equity-curve-ea", "ea-stats-explained",
-        "verify-ea-myfxbook", "demo-test-bitcoin-ea"
-      ]
-    },
-    "how-to-install-mt5": {
-      "label": "MT5 สำหรับมือใหม่",
-      "anchor": "วิธีติดตั้งและใช้งาน MT5 สำหรับมือใหม่",
-      "children": [
-        "how-to-install-ea-mt5", "enable-autotrading-mt5", "mt4-vs-mt5-for-ea", "ex5-vs-mq5-files",
-        "mt5-experts-journal-logs", "magic-number-mt5-ea", "mt5-ea-preset-set-file",
-        "set-file-choose-size", "update-ea-mt5-safely", "mt5-no-connection-invalid-account",
-        "mt5-broker-server-time-ea", "multiple-mt5-terminals-accounts", "run-multiple-ea-mt5",
-        "ea-not-working-mt5", "mt5-alerts-notifications", "monitor-account-mobile", "symbol-suffix-explained"
-      ]
-    },
-    "choose-broker-account-for-ea": {
-      "label": "เลือกโบรกเกอร์สำหรับรันบอทเทรด",
-      "anchor": "เลือกโบรกเกอร์ forex สำหรับรันบอทเทรด",
-      "children": [
-        "mt5-brokers", "raw-vs-standard-account", "forex-commission-explained",
-        "swap-triple-wednesday", "slippage-explained", "leverage-2000-ea-risk",
-        "stop-out-vs-margin-call", "hedging-vs-netting-account", "broker-deposit-withdraw-guide",
-        "forex-kyc-documents", "forex-tax-thailand", "check-broker-license",
-        "same-ea-different-broker-results", "cent-vs-usd-account-ea", "leverage-margin-level-ea"
-      ]
-    },
-    "calculate-lot-size": {
-      "label": "ทุน ขนาดล็อต และมาร์จิ้น",
-      "anchor": "คำนวณ lot size ยังไงให้เหมาะกับทุน",
-      "children": [
-        "ea-starting-capital", "fixed-lot-vs-auto-lot", "risk-per-trade", "money-management",
-        "cold-money-trading-budget", "margin-level-grid-ea"
-      ]
-    },
-    "account-blowup-causes": {
-      "label": "พอร์ตแตกและการบริหารความเสี่ยง",
-      "anchor": "พอร์ตแตกคืออะไร เกิดจากอะไร",
-      "children": [
-        "what-is-drawdown", "drawdown-money-vs-percent", "drawdown-buffer-sizing",
-        "reduce-risk-after-drawdown", "risk-of-ruin-ea-trading", "equity-stop-ea",
-        "daily-loss-limit-ea", "portfolio-exposure-multiple-orders", "correlation-risk-ea-portfolio",
-        "multiple-ea-overlapping-risk", "split-accounts-vs-one", "consecutive-losses-normal",
-        "when-to-pause-ea", "when-to-quit-an-ea", "ea-risk-management-guide",
-        "stop-loss-take-profit-trailing-stop", "withdraw-profit-strategy",
-        "compound-vs-withdraw-grid-ea", "realistic-monthly-target", "monthly-trading-review",
-        "new-year-ea-plan", "ea-trading-journal"
-      ]
-    },
-    "ea-bitcoin-mt5-guide": {
-      "label": "บอทเทรดบิตคอยน์",
-      "anchor": "บอทเทรดบิตคอยน์บน MT5 คืออะไร",
-      "children": [
-        "btcusd-cfd-vs-spot", "btcusd-spread-fees", "btc-volatility-vs-gold", "btc-market-hours",
-        "btcusd-swap-overnight", "bitcoin-ea-no-stop-loss", "bitcoin-ea-first-run-checklist",
-        "bitcoin-ea-capital"
-      ]
-    },
-    "vps-for-ea": {
-      "label": "VPS สำหรับรันบอทเทรด",
-      "anchor": "VPS สำหรับรัน EA คืออะไร จำเป็นไหม",
-      "children": [
-        "choose-vps-specs-for-mt5", "mt5-vps-latency-ping", "run-multiple-mt5-on-vps",
-        "auto-start-mt5-on-vps", "does-ea-run-after-rdp-disconnect", "vps-mt5-ea-troubleshooting",
-        "secure-vps-for-mt5", "broker-vps-vs-rented-vps"
-      ]
-    },
-    "ea-scam-warning-signs": {
-      "label": "ตรวจ EA ก่อนจ่ายเงิน",
-      "anchor": "EA หลอกลวงดูยังไง สัญญาณเตือนก่อนเสียเงิน",
-      "children": [
-        "how-to-choose-ea", "questions-before-buying-ea", "verify-ea-seller-before-buying",
-        "verify-ea-profit-screenshots", "evaluate-ea-checklist", "detect-grid-martingale-ea-results",
-        "ea-license-account-device-lock", "ea-refund-license-support-terms",
-        "after-buying-ea-checklist", "ea-without-stop-loss-risks"
-      ]
+    "outside": {
+        "_why": "หน้าสินค้าโดยตรง ไม่เข้ากลุ่มเนื้อหา รอเจ้าของตัดสินเรื่องชื่อรุ่นก่อน",
+        "slugs": [
+            "what-is-fenix-pro-ea",
+            "fenix-pro-ea-risk-first",
+            "fenix-pro-ea-use-cases",
+            "fenix-pro-ea-setup",
+            "fenix-pro-ea-updates"
+        ]
     }
-  },
-  "outside": {
-    "_why": "หน้าสินค้าโดยตรง ไม่เข้ากลุ่มเนื้อหา รอเจ้าของตัดสินเรื่องชื่อรุ่นก่อน",
-    "slugs": [
-      "what-is-fenix-pro-ea", "fenix-pro-ea-risk-first", "fenix-pro-ea-use-cases",
-      "fenix-pro-ea-setup", "fenix-pro-ea-updates"
-    ]
-  }
 }
