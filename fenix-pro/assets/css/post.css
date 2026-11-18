@@ -1076,3 +1076,61 @@
 	}
 }
 
+
+/* ==========================================================
+   โครงกลุ่มบทความ: ลิงก์ขึ้นเสาหลัก และรายการอ่านต่อในกลุ่ม
+   ========================================================== */
+.fxp.fxa .entry-content p.cluster-up {
+	margin: 28px 0;
+	padding: 14px 18px;
+	background: var(--bg-alt);
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	font-size: 15px;
+}
+
+.fxp.fxa .entry-content ul.cluster-list {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px 20px;
+	margin: 20px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.fxp.fxa .entry-content ul.cluster-list li {
+	position: relative;
+	margin: 0;
+	padding: 10px 0 10px 20px;
+	border-bottom: 1px solid var(--line);
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+.fxp.fxa .entry-content ul.cluster-list li::before {
+	content: "";
+	position: absolute;
+	top: 19px;
+	left: 2px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--or);
+}
+
+.fxp.fxa .entry-content ul.cluster-list a {
+	color: var(--t1);
+	text-decoration: none;
+	border-bottom: 0;
+}
+
+.fxp.fxa .entry-content ul.cluster-list a:hover {
+	color: var(--or-text);
+}
+
+@media (max-width: 760px) {
+	.fxp.fxa .entry-content ul.cluster-list {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 0;
+	}
+}
