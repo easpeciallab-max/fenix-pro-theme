@@ -115,7 +115,15 @@
                 "mt5-alerts-notifications",
                 "monitor-account-mobile",
                 "symbol-suffix-explained",
-                "run-ea-on-mobile"
+                "run-ea-on-mobile",
+                "what-is-mt5",
+                "download-mt5",
+                "mt5-mobile-app",
+                "mt5-on-mac",
+                "mt5-first-setup",
+                "mt5-market-closed",
+                "mt5-order-errors",
+                "mt4-ea-on-mt5"
             ]
         },
         "choose-broker-account-for-ea": {
