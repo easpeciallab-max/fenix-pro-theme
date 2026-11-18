@@ -30,6 +30,17 @@
 | `ea-and-manual-same-account` | ใช้บอทเทรดคู่กับเทรดมือในบัญชีเดียวได้ไหม |
 | `trading-psychology` | จิตวิทยาการเทรด ใช้บอทเทรดแล้วทำไมยังต้องคุมใจ |
 | `is-ea-worth-it` | ซื้อ EA คุ้มไหม คำนวณจุดคุ้มทุนก่อนตัดสินใจ |
+| `how-to-use-trading-bot` | บอทเทรด forex ใช้ยังไง เริ่มต้นจากศูนย์ |
+| `build-trading-bot-with-ai` | สร้างบอทเทรดเองด้วย AI ได้จริงไหม ทำได้แค่ไหน |
+| `build-own-ea-mt5` | เขียนบอทเทรด MT5 เองต้องรู้อะไรบ้าง |
+| `copy-trade-vs-ea` | Copy Trade กับบอทเทรด ต่างกันยังไง |
+| `do-trading-bots-work` | บอทเทรดทำกำไรได้จริงไหม ดูยังไงว่าของจริง |
+| `ea-vs-indicator` | Indicator กับ EA ต่างกันยังไง ใช้ร่วมกันได้ไหม |
+| `who-should-use-trading-bot` | บอทเทรดเหมาะกับใคร และไม่เหมาะกับใคร |
+| `what-is-forex` | Forex คืออะไร เทรดยังไง ฉบับมือใหม่ |
+| `forex-for-beginners` | เริ่มเทรด forex ต้องเตรียมอะไรบ้าง |
+| `forex-market-hours-thailand` | ตลาด forex เปิดปิดกี่โมง เวลาไทย |
+
 
 ## กลุ่ม: บอทเทรดทอง XAUUSD
 
@@ -42,12 +53,24 @@
 | `gold-spread-widening` | สเปรดทองกว้างตอนไหน ทำไมกระทบบอทเทรด |
 | `gold-lot-size-pip-value` | คำนวณ lot size ทอง XAUUSD ยังไง ทอง 1 lot เท่ากับเท่าไร |
 | `gold-ea-minimum-capital` | เทรดทองด้วยบอทเทรด ใช้ทุนขั้นต่ำเท่าไร |
+| `online-gold-vs-physical-gold` | เทรดทองคำออนไลน์ ต่างกับซื้อทองแท่งยังไง |
+| `what-is-xauusd` | XAUUSD คืออะไร อ่านกราฟทองยังไงให้เข้าใจ |
+| `what-moves-gold-price` | ราคาทองขึ้นลงเพราะอะไร ปัจจัยที่ต้องรู้ |
+| `trading-gold-during-news` | เทรดทองช่วงข่าว ต้องระวังอะไรเป็นพิเศษ |
+
 
 ## กลุ่ม: EA ฟรีกับ EA เสียเงิน
 
 | slug | ชื่อเรื่อง |
 |---|---|
 | `free-vs-paid-ea` **(เสาหลัก)** | EA ฟรีกับ EA เสียเงินต่างกันยังไง ของแจกใช้ได้จริงไหม |
+| `free-ea-line-groups-risk` | แจก EA ฟรีในกลุ่มไลน์ เสี่ยงอะไรบ้าง |
+| `types-of-free-ea` | EA ฟรีมีกี่แบบ แยกยังไงว่าอันไหนพอใช้ได้ |
+| `check-before-using-free-ea` | โหลด EA ฟรีมาใช้ ต้องตรวจอะไรก่อนเปิดใช้งาน |
+| `lifetime-free-ea` | EA ฟรีตลอดชีพ มีจริงไหม เบื้องหลังคืออะไร |
+| `ea-close-all-tool` | EA Close All คืออะไร ใช้ปิดออเดอร์ทั้งหมดยังไง |
+| `semi-auto-ea` | EA ช่วยเทรดมือคืออะไร ต่างกับบอทเต็มระบบยังไง |
+
 
 ## กลุ่ม: วิธี backtest EA บน MT5
 
@@ -68,6 +91,20 @@
 | `ea-stats-explained` | Profit Factor, Win Rate, Drawdown อ่านยังไง |
 | `verify-ea-myfxbook` | ตรวจผล EA ด้วย Myfxbook ยังไง ดูยังไงว่าของจริง |
 | `demo-test-bitcoin-ea` | ทดลองบอทเทรดบนบัญชีเดโม่ยังไงให้ได้ผลใกล้ของจริง |
+| `simulated-vs-real-ticks` | ราคาจำลองจากแท่ง 1 นาที ต่างจาก tick จริงแค่ไหน |
+| `tester-spread-settings` | ตั้งค่าสเปรดในตัวทดสอบยังไงให้ใกล้ของจริง |
+| `recovery-factor-expected-payoff` | Recovery Factor, Expected Payoff, Sharpe อ่านยังไง |
+| `cherry-picked-test-days` | ผลทดสอบที่ตัดช่วงแย่ ๆ ออก ทำไมเชื่อไม่ได้ |
+| `backtest-period-too-short` | ช่วงเวลาทดสอบสั้นเกินไป ดูยังไงว่าสั้น |
+| `starting-mid-period-results` | เปิดบัญชีกลางทาง ผลจะต่างจากผลทดสอบแค่ไหน |
+| `setup-forward-test-demo` | ตั้ง Forward Test บนบัญชีเดโม่ยังไงให้วัดผลได้ |
+| `backtest-not-working` | Backtest ไม่ขึ้นหรือรันไม่ได้ แก้ยังไง |
+| `speed-up-backtest` | Backtest ช้ามาก เร่งให้เร็วขึ้นยังไง |
+| `modelling-quality-99` | Modelling Quality 99  หมายความว่าอะไรจริง ๆ |
+| `backtest-data-quality` | ข้อมูลราคาที่ใช้ทดสอบ ดูตรงไหนว่าเชื่อได้ |
+| `connect-myfxbook` | เชื่อมบัญชีเข้า Myfxbook ทีละขั้นตอน |
+| `myfxbook-verified-meaning` | Myfxbook Verified แปลว่าอะไร ไม่ได้แปลว่าอะไร |
+
 
 ## กลุ่ม: MT5 สำหรับมือใหม่
 
@@ -91,6 +128,16 @@
 | `mt5-alerts-notifications` | ตั้งแจ้งเตือน MT5 เข้ามือถือ ทำยังไง |
 | `monitor-account-mobile` | ดูพอร์ตและบอทเทรดผ่านมือถือ ทำอะไรได้บ้าง |
 | `symbol-suffix-explained` | ชื่อสินค้าใน MT5 ลงท้าย .c .s .m คืออะไร |
+| `run-ea-on-mobile` | รันบอทเทรดบนมือถือได้ไหม ข้อจำกัดคืออะไร |
+| `what-is-mt5` | MT5 คืออะไร ใช้ทำอะไรได้บ้าง ฉบับมือใหม่ |
+| `download-mt5` | ดาวน์โหลด MT5 ติดตั้งบนคอมและมือถือ |
+| `mt5-mobile-app` | MT5 บนมือถือ ใช้ทำอะไรได้บ้าง ทำอะไรไม่ได้ |
+| `mt5-on-mac` | ใช้ MT5 บน Mac ได้ไหม มีทางไหนบ้าง |
+| `mt5-first-setup` | ตั้งค่า MT5 ครั้งแรก ควรตั้งอะไรบ้าง |
+| `mt5-market-closed` | MT5 ขึ้น Market Closed หรือ Trade Disabled แก้ยังไง |
+| `mt5-order-errors` | MT5 ขึ้น Invalid Volume หรือ Not Enough Money แก้ยังไง |
+| `mt4-ea-on-mt5` | EA ของ MT4 เอามาใช้กับ MT5 ได้ไหม |
+
 
 ## กลุ่ม: เลือกโบรกเกอร์สำหรับรันบอทเทรด
 
@@ -112,6 +159,15 @@
 | `same-ea-different-broker-results` | บอทเทรดตัวเดียวกันคนละโบรก ทำไมผลไม่เท่ากัน |
 | `cent-vs-usd-account-ea` | บัญชีเซนต์คืออะไร ต่างกับบัญชีปกติยังไง เหมาะกับบอทเทรดไหม |
 | `leverage-margin-level-ea` | Leverage, Margin Level, Free Margin คืออะไร |
+| `thai-sec-forex-brokers` | โบรกเกอร์ forex ที่ ก.ล.ต. รับรอง มีจริงไหม |
+| `how-to-compare-spreads` | สเปรดเท่าไรถึงเรียกว่าต่ำ วัดเองยังไง |
+| `forex-minimum-deposit` | ฝากขั้นต่ำเท่าไรถึงเปิดบัญชีเทรดได้ |
+| `open-forex-account-steps` | เปิดบัญชี forex ต้องใช้อะไรบ้าง ขั้นตอนทั้งหมด |
+| `broker-wont-let-withdraw` | โบรกไม่ให้ถอนเงิน เกิดจากอะไร ทำยังไงต่อ |
+| `swap-free-account` | บัญชี Swap Free คืออะไร เหมาะกับใคร |
+| `which-leverage-for-ea` | เลเวอเรจเท่าไรเหมาะกับการรันบอทเทรด |
+| `is-forex-legal-thailand` | เทรด forex ผิดกฎหมายในไทยไหม |
+
 
 ## กลุ่ม: ทุน ขนาดล็อต และมาร์จิ้น
 
@@ -124,6 +180,11 @@
 | `money-management` | Money Management คืออะไร สำคัญกว่าระบบเทรดยังไง |
 | `cold-money-trading-budget` | เงินเย็นคืออะไร แบ่งเงินก่อนเริ่มเทรดยังไง |
 | `margin-level-grid-ea` | Margin Level คืออะไร ของบอทกริดควรไม่ต่ำกว่าเท่าไร |
+| `pip-vs-point` | Pip กับ Point ต่างกันยังไง นับยังไงไม่ให้สับสน |
+| `pip-value-calculation` | มูลค่าต่อจุด (Pip Value) คิดยังไง |
+| `trading-with-small-capital` | ทุนหลักพันเทรดได้ไหม เริ่มยังไงให้ไม่พัง |
+| `what-is-margin-forex` | Margin คืออะไร ใช้ไปเท่าไรถึงเรียกว่าอันตราย |
+
 
 ## กลุ่ม: พอร์ตแตกและการบริหารความเสี่ยง
 
@@ -152,6 +213,13 @@
 | `monthly-trading-review` | สรุปผลเทรดรายเดือน ควรดูตัวเลขอะไรบ้าง |
 | `new-year-ea-plan` | วางแผนใช้บอทเทรดทั้งปี แบบที่ทำได้จริง |
 | `ea-trading-journal` | สมุดบันทึกการเทรดสำหรับคนใช้บอทเทรด จดอะไรบ้าง |
+| `bitcoin-account-blowup` | พอร์ตแตกตอนเทรดบิตคอยน์ เกิดจากอะไร |
+| `blowup-negative-balance` | พอร์ตแตกแล้วเป็นหนี้โบรกไหม |
+| `after-account-blowup` | พอร์ตแตกแล้วทำยังไงต่อ ขั้นตอนตั้งหลักใหม่ |
+| `wipeout-vs-blowup` | ล้างพอร์ตคืออะไร ต่างกับพอร์ตแตกตรงไหน |
+| `negative-balance-protection` | Negative Balance Protection คืออะไร มีทุกโบรกไหม |
+| `daily-profit-target-reality` | ตั้งเป้ากำไรวันละเท่านั้นเท่านี้ ทำได้จริงไหม |
+
 
 ## กลุ่ม: บอทเทรดบิตคอยน์
 
@@ -166,6 +234,10 @@
 | `bitcoin-ea-no-stop-loss` | บอทเทรดบิตคอยน์ไม่มี Stop Loss เสี่ยงแค่ไหน |
 | `bitcoin-ea-first-run-checklist` | เริ่มใช้บอทเทรดบิตคอยน์ครั้งแรก ต้องเช็กอะไรบ้าง |
 | `bitcoin-ea-capital` | ใช้บอทเทรดบิตคอยน์ ต้องมีทุนเท่าไร |
+| `crypto-bot-vs-forex-ea` | บอทเทรดคริปโตกับบอทเทรด forex ต่างกันยังไง |
+| `bitcoin-trading-for-beginners` | เทรดบิตคอยน์มือใหม่ เริ่มยังไงให้ไม่พลาด |
+| `crypto-on-mt5-vs-exchange` | เทรดคริปโตบน MT5 ต่างกับเทรดบนเอ็กซ์เชนจ์ยังไง |
+
 
 ## กลุ่ม: VPS สำหรับรันบอทเทรด
 
@@ -180,6 +252,10 @@
 | `vps-mt5-ea-troubleshooting` | VPS หลุด MT5 ค้าง EA หยุดทำงาน แก้ยังไง |
 | `secure-vps-for-mt5` | วิธีรักษาความปลอดภัย VPS สำหรับ MT5: รหัสผ่าน Update และ Backup |
 | `broker-vps-vs-rented-vps` | VPS ฟรีของโบรกกับ VPS เช่า ต่างกันยังไง |
+| `vps-forex-price` | VPS สำหรับ forex ราคาเท่าไร เลือกยังไง |
+| `run-ea-without-vps` | รันบอทเทรดโดยไม่ใช้ VPS ได้ไหม |
+| `ea-runs-when-pc-off` | ปิดคอมแล้วบอทเทรดยังทำงานอยู่ไหม |
+
 
 ## กลุ่ม: ตรวจ EA ก่อนจ่ายเงิน
 
@@ -196,14 +272,21 @@
 | `ea-refund-license-support-terms` | ก่อนซื้อ EA ควรอ่านเงื่อนไขคืนเงิน License และ Support ตรงไหนบ้าง |
 | `after-buying-ea-checklist` | ซื้อ EA แล้วต้องได้อะไรบ้าง เช็กลิสต์หลังโอนเงิน |
 | `ea-without-stop-loss-risks` | EA ไม่มี Stop Loss เสี่ยงยังไง ต้องตรวจอะไรบ้าง |
+| `ea-sellers-in-thailand` | คนขาย EA ในไทยมีกี่แบบ ดูยังไงว่าเจอแบบไหน |
+| `rent-vs-buy-ea` | เช่า EA รายเดือนกับซื้อขาด แบบไหนคุ้มกว่า |
+| `ea-vs-signal-service` | EA ที่ขายพร้อมสัญญาณ ต่างกับ EA ล้วนยังไง |
+| `prop-firm-ea-rules` | Prop Firm ใช้บอทเทรดได้ไหม ต้องดูกฎอะไร |
+| `allow-dll-imports` | ทำไม EA บางตัวขอให้เปิด Allow DLL Imports |
 
-## หน้าอื่นที่ลิงก์ได้
 
-| path | ใช้เมื่อ |
+## นอกกลุ่ม (หน้าสินค้าโดยตรง)
+
+| slug | ชื่อเรื่อง |
 |---|---|
-| `/lot-size-calculator/` | เครื่องคำนวณขนาดล็อต (เครื่องมือในเว็บเรา) |
-| `/backtest/` | ผลทดสอบย้อนหลัง |
-| `/forward-test/` | ผลเดินหน้าจริง |
-| `/pricing/` | ราคาและแพ็กเกจ |
-| `/go/` | หน้าเริ่มใช้งาน/ดาวน์โหลด |
-| `/risk-disclosure/` | คำเตือนความเสี่ยงฉบับเต็ม |
+| `what-is-fenix-pro-ea` | FENIX PRO EA คืออะไร? ทำความรู้จักระบบช่วยเทรดอัตโนมัติบน MT5 ฉบับเจาะลึก |
+| `fenix-pro-ea-risk-first` | เบื้องหลัง FENIX PRO EA: ทำไมเราออกแบบระบบด้วยแนวคิด Risk-first? |
+| `fenix-pro-ea-use-cases` | เคสการใช้งาน FENIX PRO EA: เหมาะกับนักเทรดแบบไหนและใช้ในสถานการณ์ใด |
+| `fenix-pro-ea-setup` | วิธีตั้งค่า FENIX PRO EA ให้เหมาะกับทุนและสไตล์การเทรดของคุณ |
+| `fenix-pro-ea-updates` | อัปเดตเวอร์ชัน FENIX PRO EA: เราพัฒนาและดูแลระบบอย่างไร |
+
+รวม 212 บท (นับทั้งที่เผยแพร่แล้วและที่ตั้งเวลาไว้) ปรับปรุง 18 พฤศจิกายน 2569

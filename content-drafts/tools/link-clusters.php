@@ -7,8 +7,8 @@ $dir = $argv[1];
 $clusters = json_decode( file_get_contents( 'content-drafts/clusters.json' ), true );
 
 $posts = array();
-foreach ( array( 1, 2 ) as $p ) {
-	$j = json_decode( file_get_contents( "$dir/content-$p.json" ), true );
+foreach ( glob( "$dir/content-*.json" ) as $file ) {
+	$j = json_decode( file_get_contents( $file ), true );
 	if ( ! is_array( $j ) ) { continue; }
 	foreach ( $j as $r ) {
 		if ( empty( $r['slug'] ) ) { continue; }
