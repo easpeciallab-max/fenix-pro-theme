@@ -132,6 +132,31 @@ foreach ( $files as $file ) {
 	} );
 	$say( count( array_unique( $articles ) ) >= 3, 'ลิงก์ไปบทความอื่นในเว็บ ' . count( array_unique( $articles ) ) . ' เรื่อง (อย่างน้อย 3)' );
 	$say( count( $money ) >= 1, 'มีลิงก์ไปหน้าขายอย่างน้อย 1 ลิงก์' );
+	$say( count( $internal[0] ) <= 8, 'ลิงก์ภายในรวม ' . count( $internal[0] ) . ' ลิงก์ (ไม่เกิน 8)' );
+
+	/* ส่วนคำถามที่พบบ่อย ใช้สร้าง FAQ schema บนเว็บ */
+	$faq_pos = stripos( $body, '<h2 id="faq"' );
+	$say( false !== $faq_pos, 'มีส่วนคำถามที่พบบ่อย (h2 id=faq)' );
+	if ( false !== $faq_pos ) {
+		$faq_block = substr( $body, $faq_pos );
+		$end = stripos( substr( $faq_block, 4 ), '<h2' );
+		if ( false !== $end ) { $faq_block = substr( $faq_block, 0, $end + 4 ); }
+		$q = preg_match_all( '~<h3[^>]*>~i', $faq_block );
+		$say( $q >= 3 && $q <= 6, 'คำถามในส่วน FAQ ' . $q . ' ข้อ (3-6 ข้อ)' );
+	}
+
+	/* ย่อหน้าแรกต้องเป็นคำตอบสั้น ไม่ใช่เกริ่นยาว */
+	if ( preg_match( '~<p[^>]*>(.*?)</p>~s', $body, $lead ) ) {
+		$lead_len = mb_strlen( trim( strip_tags( $lead[1] ) ), 'UTF-8' );
+		$say( $lead_len >= 120 && $lead_len <= 420, 'ย่อหน้าแรกยาว ' . $lead_len . ' ตัวอักษร (120-420 เพื่อใช้เป็นกล่องคำตอบ)' );
+	}
+
+	/* ห้ามเอ่ยชื่อรุ่นสินค้า */
+	$models = array();
+	foreach ( array( 'FENIX PRO', 'FENIX DUAL', 'FENIX BTC', 'FENIX PLUS', 'FENIX FAST' ) as $m ) {
+		if ( false !== stripos( $body, $m ) ) { $models[] = $m; }
+	}
+	$say( ! $models, $models ? 'มีชื่อรุ่นสินค้าในเนื้อหา: ' . implode( ', ', $models ) : 'ไม่มีชื่อรุ่นสินค้าในเนื้อหา' );
 
 	preg_match_all( '~<a\s[^>]*href="(https?://(?!fenixpro-th\.com)[^"]+)"[^>]*>~i', $body, $external, PREG_SET_ORDER );
 	$say( count( $external ) >= 3, 'แหล่งข้อมูลภายนอก ' . count( $external ) . ' ลิงก์ (อย่างน้อย 3)' );
