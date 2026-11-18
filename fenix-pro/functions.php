@@ -240,6 +240,15 @@ add_action( 'wp_enqueue_scripts', 'fenix_assets' );
  * Builder compatibility
  * -------------------------------------------------------------- */
 function fenix_is_elementor_page( $post_id = null ) {
+	/*
+	 * ถอด Elementor ออกจากเว็บแล้ว แต่ meta เก่า (_elementor_edit_mode) ยังค้างในฐานข้อมูล
+	 * ถ้าไม่เช็กว่าปลั๊กอินยังอยู่ไหม หน้าเหล่านั้นจะยังถูกมองว่าเป็นหน้าของ builder
+	 * ทำให้ได้คลาส fenix-has-elementor และเข้าทางเรนเดอร์ของ builder ทั้งที่ไม่มีตัวปลั๊กอินแล้ว
+	 */
+	if ( ! class_exists( '\Elementor\Plugin' ) ) {
+		return false;
+	}
+
 	if ( ! $post_id ) {
 		$post_id = get_queried_object_id();
 	}
@@ -2726,6 +2735,11 @@ function fenix_resource_hints( $hints, $relation ) {
 			'href'        => 'https://fonts.gstatic.com',
 			'crossorigin' => 'anonymous',
 		);
+
+		/* ปุ่มเปลี่ยนภาษาโหลดสคริปต์จาก CDN ภายนอก · เปิดการเชื่อมต่อรอไว้ให้เร็วขึ้น */
+		if ( defined( 'GTRANSLATE_VERSION' ) || class_exists( 'GTranslate' ) ) {
+			$hints[] = 'https://cdn.gtranslate.net';
+		}
 	}
 	return $hints;
 }
