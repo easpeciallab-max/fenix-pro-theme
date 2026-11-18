@@ -2801,6 +2801,14 @@ function fenix_wrap_content_tables( $content ) {
 }
 add_filter( 'the_content', 'fenix_wrap_content_tables', 20 );
 
+/* WordPress 6.7 ใส่ sizes="auto" ให้รูปที่โหลดแบบ lazy พร้อม CSS สำรอง
+ * contain-intrinsic-size: 3000px 1500px เบราว์เซอร์จึงจองกล่องสูง 1500px
+ * ให้รูปที่ยังไม่โหลด ถ้าหน้าไหนมีกฎ aspect-ratio ทับสัดส่วนจากแท็ก
+ * รูปจะยืดค้างอยู่อย่างนั้นจนกว่าจะเลื่อนไปถึง
+ * ปิดทิ้ง แล้วให้ width/height ของแท็กทำหน้าที่จองพื้นที่เหมือนเดิม
+ */
+add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );
+
 /* --------------------------------------------------------------
  * Table of Contents · เก็บหัวข้อ H2/H3 จากเนื้อหาบทความ + ใส่ id ให้ลิงก์
  * ($GLOBALS['fenix_toc'] ถูกเติมตอน the_content ถูกประมวลผล)

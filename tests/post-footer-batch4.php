@@ -436,6 +436,15 @@ check( false !== strpos( $fn, "'post_cta_title'" ) && false !== strpos( $fn, "'p
 $cz = file_get_contents( get_template_directory() . '/inc/customizer.php' );
 check( false !== strpos( $cz, "'post_cta_title'" ) && false !== strpos( $cz, "'post_cta_text'" ), 'Customizer มีช่องกรอก CTA ของหน้าบทความ' );
 
+/* รูปในบทความต้องจองพื้นที่จาก width/height ของแท็ก ไม่ใช่ค่าสำรองของ WordPress */
+preg_match( '/\.fxp\.fxa \.entry-content figure\.wp-block-image img\s*\{([^}]*)\}/', $css, $m_cimg );
+check( ! empty( $m_cimg ) && false === strpos( $m_cimg[1], 'aspect-ratio' ), 'รูปในเนื้อหาไม่ถูกสั่ง aspect-ratio ทับ (กันรูปยืดตอนยังไม่โหลด)' );
+
+preg_match( '/\.fxp\.fxa \.acover img\s*\{([^}]*)\}/', $css, $m_cov );
+check( ! empty( $m_cov ) && false === strpos( $m_cov[1], 'aspect-ratio' ), 'รูปหน้าปกไม่ถูกสั่ง aspect-ratio ทับ' );
+
+check( false !== strpos( $fn, "add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' )" ), 'ปิด sizes="auto" ของ WordPress ที่ทำให้กล่องรูปสูง 1500px' );
+
 $js = file_get_contents( get_template_directory() . '/assets/js/post.js' );
 check( false === strpos( $js, 'localStorage' ), 'สคริปต์หน้าบทความไม่บันทึกอะไรลงเครื่องผู้ใช้' );
 check( false !== strpos( $js, 'max-width: 760px' ), 'พับกล่องสารบัญเฉพาะบนมือถือ' );

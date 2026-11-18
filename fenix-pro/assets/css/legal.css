@@ -220,13 +220,12 @@
 	padding: 10px;
 }
 
+/* สัดส่วนมาจาก width/height ของแท็ก ห้ามสั่ง aspect-ratio ทับ (ดูคำอธิบายใน post.css) */
 .fxl .dthumb img {
 	border-radius: 14px;
 	width: 100%;
 	height: auto;
 	display: block;
-	aspect-ratio: auto;
-	object-fit: fill;
 }
 
 .fxl .dlead {

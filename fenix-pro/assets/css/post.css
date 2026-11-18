@@ -96,14 +96,13 @@
 	margin: 0;
 }
 
-/* รูปหน้าปกห้ามยืด */
+/* รูปหน้าปกห้ามยืด · ปล่อยให้สัดส่วนมาจาก width/height ของแท็ก
+   (ห้ามสั่ง aspect-ratio ทับ ไม่งั้นเบราว์เซอร์จะไม่มีสัดส่วนไว้จองพื้นที่ก่อนรูปโหลด) */
 .fxp.fxa .acover img {
 	width: 100%;
 	height: auto;
 	border-radius: 16px;
 	display: block;
-	aspect-ratio: auto;
-	object-fit: fill;
 }
 
 /* ==========================================================
@@ -389,14 +388,15 @@
 	margin: 28px 0 0;
 }
 
+/* สัดส่วนรูปมาจาก width/height ของแท็กที่ WordPress ใส่มาให้
+   ห้ามสั่ง aspect-ratio ทับ ไม่งั้นรูปที่โหลดแบบ lazy จะไม่มีสัดส่วนไว้จองพื้นที่
+   แล้วกล่องรูปจะยืดสูงตามค่าสำรองของ WordPress จนกว่ารูปจะโหลดเสร็จ */
 .fxp.fxa .entry-content figure.wp-block-image img {
 	width: 100%;
 	height: auto;
 	border-radius: 14px;
 	margin: 0;
 	display: block;
-	aspect-ratio: auto;
-	object-fit: fill;
 }
 
 .fxp.fxa .entry-content figcaption {
