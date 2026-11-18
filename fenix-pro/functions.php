@@ -3311,7 +3311,8 @@ function fenix_faq_jsonld() {
 		return;
 	}
 
-	$content = apply_filters( 'the_content', get_post_field( 'post_content', get_queried_object_id() ) );
+	/* อ่านเนื้อหาดิบ ไม่ต้องรันตัวกรองซ้ำอีกรอบ หัวข้อ h2/h3 อยู่ในเนื้อหาดิบอยู่แล้ว */
+	$content = (string) get_post_field( 'post_content', get_queried_object_id() );
 	if ( false === stripos( $content, 'id="faq"' ) ) {
 		return;
 	}
