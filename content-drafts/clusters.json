@@ -85,7 +85,13 @@
                 "cherry-picked-test-days",
                 "backtest-period-too-short",
                 "starting-mid-period-results",
-                "setup-forward-test-demo"
+                "setup-forward-test-demo",
+                "backtest-not-working",
+                "speed-up-backtest",
+                "modelling-quality-99",
+                "backtest-data-quality",
+                "connect-myfxbook",
+                "myfxbook-verified-meaning"
             ]
         },
         "how-to-install-mt5": {
