@@ -123,7 +123,10 @@
 		}
 	}
 
-	/* เปลี่ยนสินทรัพย์แล้วเติมค่าเริ่มต้นของสินทรัพย์นั้นให้ */
+	/* เปลี่ยนสินทรัพย์แล้วเติมค่าเริ่มต้นของสินทรัพย์นั้นให้
+	   ระยะ Stop Loss ของแต่ละสินทรัพย์อยู่คนละสเกล ถ้าไม่เปลี่ยนตามจะได้ผลที่อ่านผิด */
+	var slHint = document.getElementById( 'cf-sl-hint' );
+
 	el.symbol.addEventListener( 'change', function () {
 		var opt = el.symbol.options[ el.symbol.selectedIndex ];
 		var val = opt.value;
@@ -132,6 +135,12 @@
 		}
 		if ( opt.getAttribute( 'data-price' ) ) {
 			el.price.value = opt.getAttribute( 'data-price' );
+		}
+		if ( opt.getAttribute( 'data-sl' ) ) {
+			el.sl.value = opt.getAttribute( 'data-sl' );
+		}
+		if ( slHint && opt.getAttribute( 'data-unit' ) ) {
+			slHint.textContent = opt.getAttribute( 'data-unit' );
 		}
 		calc();
 	} );

@@ -39,10 +39,10 @@ $calc_line  = trim( (string) fenix_mod( 'line_url' ) );
 					<div class="cf-row">
 						<label for="cf-symbol">สินทรัพย์ที่จะเทรด</label>
 						<select id="cf-symbol" name="symbol">
-							<option value="100" data-price="2000" data-step="0.01" selected>ทองคำ XAUUSD (1 ล็อต = 100 ออนซ์)</option>
-							<option value="100000" data-price="1.08" data-step="0.0001">คู่เงินหลักที่จบด้วย USD (1 ล็อต = 100,000)</option>
-							<option value="1" data-price="60000" data-step="0.01">บิตคอยน์ BTCUSD (1 ล็อต = 1 เหรียญ)</option>
-							<option value="custom" data-price="100" data-step="0.01">กำหนดขนาดสัญญาเอง</option>
+							<option value="100" data-price="2000" data-sl="5" data-unit="ทองคำใส่ระยะเป็นดอลลาร์ต่อออนซ์ เช่น 5 คือราคาเดินสวน 5.00" selected>ทองคำ XAUUSD (1 ล็อต = 100 ออนซ์)</option>
+							<option value="100000" data-price="1.08" data-sl="0.0050" data-unit="คู่เงินใส่ระยะเป็นราคา เช่น 50 จุด (pip) ของคู่ทศนิยม 4 ตำแหน่ง คือ 0.0050">คู่เงินหลักที่จบด้วย USD (1 ล็อต = 100,000)</option>
+							<option value="1" data-price="60000" data-sl="500" data-unit="บิตคอยน์ใส่ระยะเป็นดอลลาร์ เช่น 500 คือราคาเดินสวน 500.00">บิตคอยน์ BTCUSD (1 ล็อต = 1 เหรียญ)</option>
+							<option value="custom" data-price="100" data-sl="1" data-unit="ใส่ระยะเป็นหน่วยราคาเดียวกับที่ใช้ในขนาดสัญญา">กำหนดขนาดสัญญาเอง</option>
 						</select>
 						<p class="cf-hint">ค่าเริ่มต้นเป็นค่าที่โบรกเกอร์ส่วนใหญ่ตั้งไว้ ให้เปิดหน้า Specification ของบัญชีตัวเองแล้วแก้ให้ตรงเสมอ</p>
 					</div>
@@ -68,7 +68,7 @@ $calc_line  = trim( (string) fenix_mod( 'line_url' ) );
 						<div class="cf-row">
 							<label for="cf-sl">ระยะ Stop Loss (หน่วยราคา)</label>
 							<input type="number" id="cf-sl" name="sl" value="5" min="0" step="any" inputmode="decimal">
-							<p class="cf-hint">ทองคำใส่เป็นดอลลาร์ต่อออนซ์ เช่น 5 คือราคาเดินสวน 5.00</p>
+							<p class="cf-hint" id="cf-sl-hint">ทองคำใส่ระยะเป็นดอลลาร์ต่อออนซ์ เช่น 5 คือราคาเดินสวน 5.00</p>
 						</div>
 
 						<div class="cf-row">
