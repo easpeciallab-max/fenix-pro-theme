@@ -3192,7 +3192,7 @@ add_action( 'rest_api_init', 'fenix_register_mods_route' );
  * POST /wp-json/fenix/v1/llms {"llms_txt_...":ค่า}
  */
 /* เลขรุ่นของชุด REST สำหรับผู้ดูแล · ใช้ดูว่าเว็บดึงโค้ดรุ่นล่าสุดขึ้นไปแล้วหรือยัง */
-define( 'FENIX_ADMIN_API_BUILD', '2026-11-18-3' );
+define( 'FENIX_ADMIN_API_BUILD', '2026-11-18-4' );
 
 function fenix_register_llms_route() {
 	register_rest_route(
@@ -3304,13 +3304,19 @@ function fenix_gtranslate_update( $request ) {
 
 	$saved = array();
 
-	if ( isset( $body['languages'] ) && is_array( $body['languages'] ) ) {
-		$codes = array_values( array_unique( array_filter( $body['languages'], $valid ) ) );
+	/* incl_langs = แบบรายการเลือก · fincl_langs = แบบปุ่มลอย (ธีมนี้ใช้แบบลอย) */
+	foreach ( array( 'languages', 'incl_langs', 'fincl_langs' ) as $key ) {
+		if ( ! isset( $body[ $key ] ) || ! is_array( $body[ $key ] ) ) {
+			continue;
+		}
+
+		$codes = array_values( array_unique( array_filter( $body[ $key ], $valid ) ) );
 		if ( ! $codes ) {
 			return new WP_Error( 'fenix_gt_lang', 'ไม่มีรหัสภาษาที่ใช้ได้', array( 'status' => 400 ) );
 		}
-		$option['languages'] = $codes;
-		$saved['languages']  = $codes;
+
+		$option[ $key ] = $codes;
+		$saved[ $key ]  = $codes;
 	}
 
 	if ( isset( $body['default_language'] ) && $valid( $body['default_language'] ) ) {
