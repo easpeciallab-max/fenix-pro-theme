@@ -445,6 +445,9 @@ check( ! empty( $m_cov ) && false === strpos( $m_cov[1], 'aspect-ratio' ), 'ร�
 
 check( false !== strpos( $fn, "add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' )" ), 'ปิด sizes="auto" ของ WordPress ที่ทำให้กล่องรูปสูง 1500px' );
 
+preg_match( '/\.fxp\.fxa \.entry-content > nav\s*\{([^}]*)\}/', $css, $m_nav );
+check( ! empty( $m_nav ) && preg_match( '/display:\s*none/', $m_nav[1] ), 'หน้าบทความใช้สารบัญกล่องเดียว · ซ่อนสารบัญย่อในเนื้อหาไว้' );
+
 $js = file_get_contents( get_template_directory() . '/assets/js/post.js' );
 check( false === strpos( $js, 'localStorage' ), 'สคริปต์หน้าบทความไม่บันทึกอะไรลงเครื่องผู้ใช้' );
 check( false !== strpos( $js, 'max-width: 760px' ), 'พับกล่องสารบัญเฉพาะบนมือถือ' );

@@ -521,54 +521,11 @@
 }
 
 /* ---------- สารบัญย่อที่อยู่ในเนื้อหาของบทความเอง ---------- */
+/* ใช้สารบัญกล่องเดียวคือกล่องของธีมที่คอลัมน์ขวา (เจ้าของสั่งเมื่อ 18 พ.ย. 2026)
+   ตัวนี้เป็นเนื้อหาของบทความเอง จึงไม่ลบออกจากบทความ แค่ซ่อนด้วย CSS
+   หัวข้อทุกอันยังอยู่ในกล่องสารบัญของธีมครบเหมือนเดิม */
 .fxp.fxa .entry-content > nav {
-	background: var(--surface);
-	border-radius: 20px;
-	padding: 20px 22px 22px;
-	margin-top: 28px;
-}
-
-.fxp.fxa .entry-content > nav p {
-	font: 700 14px/1.3 var(--font);
-	color: var(--t3);
-}
-
-.fxp.fxa .entry-content > nav p strong {
-	color: inherit;
-	font-weight: inherit;
-}
-
-.fxp.fxa .entry-content > nav ul {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-	margin-top: 14px;
-}
-
-.fxp.fxa .entry-content > nav li {
-	padding: 0;
-}
-
-.fxp.fxa .entry-content > nav li::before {
 	display: none;
-}
-
-.fxp.fxa .entry-content > nav a {
-	display: inline-flex;
-	align-items: center;
-	min-height: 36px;
-	padding: 6px 14px;
-	border-radius: 999px;
-	background: var(--raised);
-	color: var(--t1);
-	font-size: 14px;
-	line-height: 1.4;
-	font-weight: 600;
-	text-decoration: none;
-}
-
-.fxp.fxa .entry-content :where(nav) + * {
-	margin-top: 36px;
 }
 
 /* ---------- โค้ด ---------- */
@@ -1036,17 +993,6 @@
 
 	.fxp.fxa .entry-content aside p {
 		font-size: 14.5px;
-	}
-
-	.fxp.fxa .entry-content > nav {
-		padding: 18px 18px 20px;
-		border-radius: 18px;
-	}
-
-	.fxp.fxa .entry-content > nav a {
-		font-size: 13.5px;
-		min-height: 34px;
-		padding: 5px 12px;
 	}
 
 	.fxp.fxa .entry-content pre {
