@@ -42,7 +42,11 @@
                 "nfp-fomc-gold-ea",
                 "gold-spread-widening",
                 "gold-lot-size-pip-value",
-                "gold-ea-minimum-capital"
+                "gold-ea-minimum-capital",
+                "online-gold-vs-physical-gold",
+                "what-is-xauusd",
+                "what-moves-gold-price",
+                "trading-gold-during-news"
             ]
         },
         "free-vs-paid-ea": {
