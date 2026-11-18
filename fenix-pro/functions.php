@@ -3191,6 +3191,9 @@ add_action( 'rest_api_init', 'fenix_register_mods_route' );
  * GET  /wp-json/fenix/v1/llms
  * POST /wp-json/fenix/v1/llms {"llms_txt_...":ค่า}
  */
+/* เลขรุ่นของชุด REST สำหรับผู้ดูแล · ใช้ดูว่าเว็บดึงโค้ดรุ่นล่าสุดขึ้นไปแล้วหรือยัง */
+define( 'FENIX_ADMIN_API_BUILD', '2026-11-18-3' );
+
 function fenix_register_llms_route() {
 	register_rest_route(
 		'fenix/v1',
@@ -3241,10 +3244,87 @@ function fenix_llms_get() {
 	}
 
 	return array(
+		'build'  => FENIX_ADMIN_API_BUILD,
 		'found'  => $out,
 		'others' => $others,
 		'keys'   => is_array( $option ) ? array_keys( $option ) : array(),
 	);
+}
+
+/**
+ * REST สำหรับผู้ดูแล: อ่าน/แก้รายการภาษาของปุ่มเปลี่ยนภาษา
+ *
+ * GET  /wp-json/fenix/v1/gtranslate
+ * POST /wp-json/fenix/v1/gtranslate {"languages":["th","en"],"default_language":"th"}
+ */
+function fenix_register_gtranslate_route() {
+	register_rest_route(
+		'fenix/v1',
+		'/gtranslate',
+		array(
+			array(
+				'methods'             => 'GET',
+				'permission_callback' => 'fenix_llms_permission',
+				'callback'            => 'fenix_gtranslate_get',
+			),
+			array(
+				'methods'             => 'POST',
+				'permission_callback' => 'fenix_llms_permission',
+				'callback'            => 'fenix_gtranslate_update',
+			),
+		)
+	);
+}
+add_action( 'rest_api_init', 'fenix_register_gtranslate_route' );
+
+function fenix_gtranslate_get() {
+	return array(
+		'build'  => FENIX_ADMIN_API_BUILD,
+		'option' => get_option( 'GTranslate' ),
+	);
+}
+
+/**
+ * รับได้เฉพาะรายการภาษาและภาษาตั้งต้น · รหัสภาษาต้องอยู่ในรูปแบบมาตรฐานเท่านั้น
+ *
+ * @param WP_REST_Request $request คำขอ.
+ * @return array|WP_Error
+ */
+function fenix_gtranslate_update( $request ) {
+	$body   = $request->get_json_params();
+	$option = get_option( 'GTranslate' );
+
+	if ( ! is_array( $option ) ) {
+		return new WP_Error( 'fenix_gt_missing', 'ไม่พบออปชันของปลั๊กอินเปลี่ยนภาษา', array( 'status' => 404 ) );
+	}
+
+	$valid = function ( $code ) {
+		return is_string( $code ) && preg_match( '/^[a-z]{2}(-[A-Za-z]{2,4})?$/', $code );
+	};
+
+	$saved = array();
+
+	if ( isset( $body['languages'] ) && is_array( $body['languages'] ) ) {
+		$codes = array_values( array_unique( array_filter( $body['languages'], $valid ) ) );
+		if ( ! $codes ) {
+			return new WP_Error( 'fenix_gt_lang', 'ไม่มีรหัสภาษาที่ใช้ได้', array( 'status' => 400 ) );
+		}
+		$option['languages'] = $codes;
+		$saved['languages']  = $codes;
+	}
+
+	if ( isset( $body['default_language'] ) && $valid( $body['default_language'] ) ) {
+		$option['default_language'] = $body['default_language'];
+		$saved['default_language']  = $body['default_language'];
+	}
+
+	if ( ! $saved ) {
+		return new WP_Error( 'fenix_gt_empty', 'ไม่มีค่าที่จะบันทึก', array( 'status' => 400 ) );
+	}
+
+	update_option( 'GTranslate', $option );
+
+	return array( 'saved' => $saved );
 }
 
 /**
