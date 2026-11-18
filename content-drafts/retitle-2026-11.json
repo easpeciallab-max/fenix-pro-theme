@@ -50,14 +50,14 @@
     {
         "id": 20556,
         "slug": "recovery-order-vs-martingale",
-        "title": "Martingale คืออะไร ต่างกับไม้กู้ยังไง",
-        "kw": "martingale คือ"
+        "title": "ไม้กู้คืออะไร ต่างกับการทบไม้แบบมาร์ติงเกลยังไง",
+        "kw": "ไม้กู้ ea"
     },
     {
         "id": 20557,
         "slug": "bitcoin-ea-no-stop-loss",
-        "title": "บอทเทรดที่ไม่มี Stop Loss เสี่ยงแค่ไหน",
-        "kw": "ea ไม่มี stop loss"
+        "title": "บอทเทรดบิตคอยน์ไม่มี Stop Loss เสี่ยงแค่ไหน",
+        "kw": "เทรด bitcoin ไม่มี stop loss"
     },
     {
         "id": 20558,
@@ -147,7 +147,7 @@
         "id": 20606,
         "slug": "same-ea-different-broker-results",
         "title": "บอทเทรดตัวเดียวกันคนละโบรก ทำไมผลไม่เท่ากัน",
-        "kw": "บอทเทรด forex"
+        "kw": "ea คนละโบรก ผลต่างกัน"
     },
     {
         "id": 20661,
@@ -224,8 +224,8 @@
     {
         "id": 20632,
         "slug": "drawdown-money-vs-percent",
-        "title": "Drawdown คืออะไร คิดยังไง (เป็นเงินกับเป็นเปอร์เซ็นต์)",
-        "kw": "drawdown คือ"
+        "title": "Drawdown คิดยังไง เป็นเงินกับเป็นเปอร์เซ็นต์ต่างกันยังไง",
+        "kw": "drawdown คิดยังไง"
     },
     {
         "id": 20680,
@@ -291,7 +291,7 @@
         "id": 20708,
         "slug": "ea-and-manual-same-account",
         "title": "ใช้บอทเทรดคู่กับเทรดมือในบัญชีเดียวได้ไหม",
-        "kw": "ea กับเทรดมือ"
+        "kw": "ea กับเทรดมือ บัญชีเดียวกัน"
     },
     {
         "id": 20709,
