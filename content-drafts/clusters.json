@@ -78,7 +78,14 @@
                 "read-equity-curve-ea",
                 "ea-stats-explained",
                 "verify-ea-myfxbook",
-                "demo-test-bitcoin-ea"
+                "demo-test-bitcoin-ea",
+                "simulated-vs-real-ticks",
+                "tester-spread-settings",
+                "recovery-factor-expected-payoff",
+                "cherry-picked-test-days",
+                "backtest-period-too-short",
+                "starting-mid-period-results",
+                "setup-forward-test-demo"
             ]
         },
         "how-to-install-mt5": {
