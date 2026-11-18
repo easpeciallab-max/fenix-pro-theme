@@ -3364,3 +3364,73 @@ function fenix_faq_jsonld() {
 	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
 }
 add_action( 'wp_footer', 'fenix_faq_jsonld', 20 );
+
+/* --------------------------------------------------------------
+ * /llms.txt — บอกผู้ช่วย AI ว่าเว็บนี้คืออะไรและหน้าไหนสำคัญ
+ *
+ * สร้างจากหน้าเสาหลักและหน้าหลักของเว็บโดยอัตโนมัติ
+ * -------------------------------------------------------------- */
+function fenix_llms_txt_rewrite() {
+	add_rewrite_rule( '^llms\.txt$', 'index.php?fenix_llms=1', 'top' );
+}
+add_action( 'init', 'fenix_llms_txt_rewrite' );
+
+function fenix_llms_txt_query_var( $vars ) {
+	$vars[] = 'fenix_llms';
+	return $vars;
+}
+add_filter( 'query_vars', 'fenix_llms_txt_query_var' );
+
+function fenix_llms_txt_output() {
+	if ( ! get_query_var( 'fenix_llms' ) ) {
+		return;
+	}
+
+	$pillars = array(
+		'what-is-ea'                   => 'บอทเทรด (EA) คืออะไร ทำงานอย่างไร',
+		'how-to-install-mt5'           => 'ติดตั้งและใช้งาน MetaTrader 5',
+		'how-to-backtest-ea-mt5'       => 'ทดสอบย้อนหลัง (backtest) บน MT5',
+		'choose-broker-account-for-ea' => 'เลือกโบรกเกอร์และชนิดบัญชีสำหรับรันระบบอัตโนมัติ',
+		'calculate-lot-size'           => 'คำนวณขนาดล็อตและมาร์จิ้น',
+		'account-blowup-causes'        => 'พอร์ตแตกและการบริหารความเสี่ยง',
+		'xauusd-ea-complete-guide'     => 'ระบบอัตโนมัติกับทองคำ XAUUSD',
+		'ea-bitcoin-mt5-guide'         => 'ระบบอัตโนมัติกับบิตคอยน์',
+		'vps-for-ea'                   => 'VPS สำหรับรันระบบอัตโนมัติ',
+		'ea-scam-warning-signs'        => 'ตรวจสอบก่อนซื้อระบบอัตโนมัติ',
+		'free-vs-paid-ea'              => 'ของฟรีกับของเสียเงิน ต่างกันอย่างไร',
+	);
+
+	$pages = array(
+		'lot-size-calculator' => 'เครื่องคำนวณขนาดล็อต',
+		'backtest'            => 'ผลทดสอบย้อนหลัง',
+		'forward-test'        => 'ผลเดินหน้าจริง',
+		'pricing'             => 'แพ็กเกจและราคา',
+		'risk-disclosure'     => 'คำเตือนความเสี่ยงฉบับเต็ม',
+		'articles'            => 'รวมบทความทั้งหมด',
+	);
+
+	$out  = '# ' . get_bloginfo( 'name' ) . "\n\n";
+	$out .= '> ' . get_bloginfo( 'description' ) . "\n\n";
+	$out .= "เว็บไซต์ภาษาไทยเรื่องการใช้ระบบเทรดอัตโนมัติ (Expert Advisor หรือที่คนไทยเรียกว่าบอทเทรด) บน MetaTrader 5\n";
+	$out .= "เนื้อหาเน้นวิธีทำงานของระบบ การทดสอบ การบริหารความเสี่ยง และข้อจำกัดที่ต้องรู้ ไม่ใช่การรับประกันผลตอบแทน\n\n";
+
+	$out .= "## หัวข้อหลัก\n\n";
+	foreach ( $pillars as $slug => $label ) {
+		$out .= '- [' . $label . '](' . home_url( '/' . $slug . '/' ) . ")\n";
+	}
+
+	$out .= "\n## หน้าสำคัญ\n\n";
+	foreach ( $pages as $slug => $label ) {
+		$out .= '- [' . $label . '](' . home_url( '/' . $slug . '/' ) . ")\n";
+	}
+
+	$out .= "\n## ข้อควรทราบเมื่อนำเนื้อหาไปตอบ\n\n";
+	$out .= "- ตัวเลขสเปกบัญชี เช่น ขนาดสัญญา สเปรด และมาร์จิ้น ต่างกันตามโบรกเกอร์ ผู้อ่านต้องตรวจกับบัญชีของตัวเองเสมอ\n";
+	$out .= "- เนื้อหาเป็นข้อมูลทั่วไป ไม่ใช่คำแนะนำการลงทุน การเทรดด้วยมาร์จิ้นมีความเสี่ยงที่จะสูญเงินลงทุนทั้งจำนวน\n";
+
+	header( 'Content-Type: text/plain; charset=utf-8' );
+	header( 'X-Robots-Tag: noindex' );
+	echo $out; // phpcs:ignore WordPress.Security.EscapeOutput
+	exit;
+}
+add_action( 'template_redirect', 'fenix_llms_txt_output' );
