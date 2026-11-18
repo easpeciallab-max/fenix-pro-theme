@@ -148,7 +148,10 @@
                 "thai-sec-forex-brokers",
                 "how-to-compare-spreads",
                 "forex-minimum-deposit",
-                "open-forex-account-steps"
+                "open-forex-account-steps",
+                "broker-wont-let-withdraw",
+                "swap-free-account",
+                "which-leverage-for-ea"
             ]
         },
         "calculate-lot-size": {
@@ -193,7 +196,11 @@
                 "monthly-trading-review",
                 "new-year-ea-plan",
                 "ea-trading-journal",
-                "bitcoin-account-blowup"
+                "bitcoin-account-blowup",
+                "blowup-negative-balance",
+                "after-account-blowup",
+                "wipeout-vs-blowup",
+                "negative-balance-protection"
             ]
         },
         "ea-bitcoin-mt5-guide": {
