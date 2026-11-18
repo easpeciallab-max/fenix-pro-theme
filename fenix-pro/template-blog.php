@@ -37,6 +37,8 @@ if ( $bl_query->found_posts ) {
 
 	<?php fenix_articles_body( $bl_query ); ?>
 
+	<?php fenix_cluster_nav(); ?>
+
 </main>
 
 <?php

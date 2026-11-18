@@ -1626,3 +1626,56 @@ body.fenix-pages {
 		width: 100%;
 	}
 }
+
+/* ==========================================================
+   แถบกลุ่มบทความบนหน้ารวมบทความ
+   ========================================================== */
+.fxp .cluster-nav .cn-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 16px;
+}
+
+.fxp .cluster-nav .cn-card {
+	display: block;
+	padding: 20px 22px;
+	background: var(--surface);
+	border: 1px solid var(--line);
+	border-radius: 18px;
+	transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.fxp .cluster-nav .cn-card:hover {
+	background: var(--raised);
+	border-color: var(--or);
+}
+
+.fxp .cluster-nav .cn-card h3 {
+	margin: 0;
+	color: var(--t1);
+	font: 700 17px/1.4 var(--font);
+}
+
+.fxp .cluster-nav .cn-card p {
+	margin: 6px 0 0;
+	color: var(--t2);
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+	.fxp .cluster-nav .cn-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 560px) {
+	.fxp .cluster-nav .cn-grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 12px;
+	}
+
+	.fxp .cluster-nav .cn-card {
+		padding: 18px;
+	}
+}

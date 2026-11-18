@@ -641,3 +641,44 @@ function fenix_articles_body( $query, $load_query = array() ) {
 	</section>
 	<?php
 }
+
+/**
+ * แถบกลุ่มบทความบนหน้ารวมบทความ
+ *
+ * ลิงก์ไปบทความเสาหลักของแต่ละกลุ่ม ช่วยให้คนอ่านและเครื่องมือค้นหาเห็นโครงของเว็บ
+ * ถ้าโครงกลุ่มเปลี่ยน แก้รายการนี้ที่เดียว (ต้นทางอยู่ใน content-drafts/clusters.json)
+ */
+function fenix_cluster_nav() {
+	$clusters = array(
+		'what-is-ea'                   => array( 'บอทเทรด forex คืออะไร', 'พื้นฐานบอทเทรดและกลยุทธ์แต่ละแบบ' ),
+		'how-to-install-mt5'           => array( 'MT5 สำหรับมือใหม่', 'ติดตั้ง ตั้งค่า และแก้ปัญหาที่เจอบ่อย' ),
+		'how-to-backtest-ea-mt5'       => array( 'ทดสอบย้อนหลัง', 'วิธี backtest และอ่านผลให้ไม่โดนหลอก' ),
+		'choose-broker-account-for-ea' => array( 'โบรกเกอร์และบัญชี', 'เลือกโบรก ชนิดบัญชี ค่าธรรมเนียม' ),
+		'calculate-lot-size'           => array( 'ทุนและขนาดล็อต', 'คำนวณล็อต มาร์จิ้น และทุนที่ต้องมี' ),
+		'account-blowup-causes'        => array( 'พอร์ตแตกและความเสี่ยง', 'สาเหตุ การป้องกัน และการตั้งเพดาน' ),
+		'xauusd-ea-complete-guide'     => array( 'ทองคำ XAUUSD', 'เทรดทองด้วยระบบอัตโนมัติ' ),
+		'ea-bitcoin-mt5-guide'         => array( 'บิตคอยน์และคริปโต', 'เทรดคริปโตบน MT5 ต้องรู้อะไร' ),
+		'vps-for-ea'                   => array( 'VPS สำหรับรันระบบ', 'เลือก ติดตั้ง และดูแล VPS' ),
+		'ea-scam-warning-signs'        => array( 'ตรวจก่อนจ่ายเงิน', 'ดูให้ออกว่าอันไหนเชื่อได้' ),
+		'free-vs-paid-ea'              => array( 'ของฟรีกับของเสียเงิน', 'EA ฟรีใช้ได้จริงแค่ไหน' ),
+	);
+	?>
+	<section class="sec alt cluster-nav">
+		<div class="wrap">
+			<div class="shead">
+				<span class="eyebrow">หัวข้อหลัก</span>
+				<h2 class="h2">เลือกอ่านตามกลุ่มเรื่อง</h2>
+			</div>
+
+			<div class="cn-grid">
+				<?php foreach ( $clusters as $slug => $info ) : ?>
+					<a class="cn-card" href="<?php echo esc_url( home_url( '/' . $slug . '/' ) ); ?>">
+						<h3><?php echo esc_html( $info[0] ); ?></h3>
+						<p><?php echo esc_html( $info[1] ); ?></p>
+					</a>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
+	<?php
+}
