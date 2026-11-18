@@ -3027,6 +3027,8 @@ function fenix_register_seo_meta() {
 		'_yoast_wpseo_title'             => 'sanitize_text_field',
 		'_yoast_wpseo_metadesc'          => 'sanitize_text_field',
 		'_yoast_wpseo_focuskw'           => 'sanitize_text_field',
+		/* ธงบทความเสาหลัก · ปลั๊กอินใช้จัดลำดับความสำคัญของหน้าในไฟล์สำหรับ AI และคำแนะนำลิงก์ */
+		'_yoast_wpseo_is_cornerstone'    => 'sanitize_text_field',
 		'_yoast_wpseo_canonical'         => 'sanitize_text_field',
 		/* รูปสำหรับแชร์ของแต่ละหน้า · ต้องแก้ได้จากที่เดียวเวลาเปลี่ยนรูปปกเว็บ */
 		'_yoast_wpseo_opengraph-image'   => 'esc_url_raw',
@@ -3230,9 +3232,18 @@ function fenix_llms_get() {
 		}
 	}
 
+	/* ค่าบางส่วนของฟีเจอร์นี้อาจอยู่คนละออปชัน · ไล่ชื่อออปชันที่มีคำว่า llms มาให้ดูด้วย */
+	$others = array();
+	foreach ( array_keys( wp_load_alloptions() ) as $name ) {
+		if ( false !== stripos( $name, 'llms' ) ) {
+			$others[ $name ] = get_option( $name );
+		}
+	}
+
 	return array(
-		'found' => $out,
-		'keys'  => is_array( $option ) ? array_keys( $option ) : array(),
+		'found'  => $out,
+		'others' => $others,
+		'keys'   => is_array( $option ) ? array_keys( $option ) : array(),
 	);
 }
 
