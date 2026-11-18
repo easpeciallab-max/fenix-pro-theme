@@ -3265,6 +3265,30 @@ function fenix_llms_update( $request ) {
 	}
 
 	$saved = array();
+
+	/* รายการหน้าที่เลือกเองอยู่คนละออปชัน · รับเป็นก้อน llmstxt แล้วกรองทีละคีย์ */
+	if ( isset( $body['llmstxt'] ) && is_array( $body['llmstxt'] ) ) {
+		$llms = get_option( 'wpseo_llmstxt' );
+		$llms = is_array( $llms ) ? $llms : array();
+
+		foreach ( $body['llmstxt'] as $key => $value ) {
+			if ( 'llms_txt_selection_mode' === $key ) {
+				$value = in_array( $value, array( 'auto', 'manual' ), true ) ? $value : 'auto';
+			} elseif ( 'other_included_pages' === $key ) {
+				$value = array_values( array_unique( array_filter( array_map( 'absint', (array) $value ) ) ) );
+			} elseif ( in_array( $key, array( 'about_us_page', 'contact_page', 'terms_page', 'privacy_policy_page', 'shop_page' ), true ) ) {
+				$value = absint( $value );
+			} else {
+				continue;
+			}
+
+			$llms[ $key ] = $value;
+		}
+
+		update_option( 'wpseo_llmstxt', $llms );
+		$saved['llmstxt'] = $llms;
+		unset( $body['llmstxt'] );
+	}
 	foreach ( $body as $key => $value ) {
 		if ( false === stripos( $key, 'llms' ) ) {
 			continue;
