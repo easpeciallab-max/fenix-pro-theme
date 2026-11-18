@@ -1051,3 +1051,28 @@
 		pointer-events: none;
 	}
 }
+
+/* ==========================================================
+   กล่องคำตอบสั้นใต้หัวเรื่อง (ย่อหน้าแรกของบทความ)
+   ย่อหน้าแรกต้องตอบคำถามของชื่อเรื่องให้จบใน 2-3 บรรทัด
+   เครื่องมือค้นหาและผู้ช่วย AI หยิบส่วนนี้ไปตอบบ่อยที่สุด
+   ========================================================== */
+.fxp.fxa .entry-content > p:first-of-type {
+	position: relative;
+	margin: 0 0 26px;
+	padding: 18px 20px 18px 22px;
+	background: var(--surface);
+	border-left: 3px solid var(--or);
+	border-radius: 0 14px 14px 0;
+	color: var(--t1);
+	font-size: 17px;
+	line-height: 1.8;
+}
+
+@media (max-width: 560px) {
+	.fxp.fxa .entry-content > p:first-of-type {
+		padding: 16px 16px 16px 18px;
+		font-size: 16px;
+	}
+}
+

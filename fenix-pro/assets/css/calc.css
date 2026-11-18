@@ -1,0 +1,211 @@
+/* ==========================================================
+   FENIX · เครื่องคำนวณขนาดล็อต
+   ใช้โทเคนของชุดหน้าภายใน (pages.css) ทั้งหมด ทุกอย่างอยู่ใต้ .fxcalc
+   ========================================================== */
+
+.fxp.fxcalc .calc-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+	gap: 24px;
+	align-items: start;
+}
+
+/* ---------- ฟอร์ม ---------- */
+.fxp.fxcalc .calc-form {
+	background: var(--surface);
+	border: 1px solid var(--line);
+	border-radius: 20px;
+	padding: 28px;
+}
+
+.fxp.fxcalc .cf-head {
+	margin-bottom: 24px;
+}
+
+.fxp.fxcalc .cf-head .h2 {
+	margin: 0;
+}
+
+.fxp.fxcalc .cf-head .fx-lead {
+	margin-top: 10px;
+	color: var(--t2);
+	font-size: 15px;
+}
+
+.fxp.fxcalc .cf-row + .cf-row,
+.fxp.fxcalc .cf-row + .cf-2,
+.fxp.fxcalc .cf-2 + .cf-row,
+.fxp.fxcalc .cf-2 + .cf-2 {
+	margin-top: 18px;
+}
+
+.fxp.fxcalc .cf-2 {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+}
+
+.fxp.fxcalc .calc-form label {
+	display: block;
+	margin-bottom: 8px;
+	color: var(--t2);
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.fxp.fxcalc .calc-form input,
+.fxp.fxcalc .calc-form select {
+	width: 100%;
+	height: 48px;
+	padding: 0 14px;
+	background: var(--raised);
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	color: var(--t1);
+	font: 600 16px/1.2 var(--font);
+	appearance: none;
+}
+
+.fxp.fxcalc .calc-form select {
+	padding-right: 38px;
+	background-image: linear-gradient(45deg, transparent 50%, var(--t2) 50%), linear-gradient(135deg, var(--t2) 50%, transparent 50%);
+	background-position: calc(100% - 20px) 21px, calc(100% - 14px) 21px;
+	background-size: 6px 6px, 6px 6px;
+	background-repeat: no-repeat;
+}
+
+.fxp.fxcalc .calc-form input:focus,
+.fxp.fxcalc .calc-form select:focus {
+	outline: 2px solid var(--or);
+	outline-offset: 1px;
+	border-color: transparent;
+}
+
+.fxp.fxcalc .cf-hint {
+	margin: 8px 0 0;
+	color: var(--t3);
+	font-size: 13px;
+	line-height: 1.6;
+}
+
+.fxp.fxcalc .cf-reset {
+	margin-top: 24px;
+}
+
+/* ---------- ผลลัพธ์ ---------- */
+.fxp.fxcalc .calc-out {
+	position: sticky;
+	top: 96px;
+	background: var(--bg-alt);
+	border: 1px solid var(--line);
+	border-radius: 20px;
+	padding: 28px;
+}
+
+.fxp.fxcalc .co-main {
+	padding-bottom: 20px;
+	border-bottom: 1px solid var(--line);
+}
+
+.fxp.fxcalc .co-label {
+	display: block;
+	color: var(--t2);
+	font-size: 14px;
+}
+
+.fxp.fxcalc .co-value {
+	display: block;
+	margin: 6px 0 4px;
+	color: var(--or-text);
+	font: 700 34px/1.2 var(--font);
+	letter-spacing: -0.5px;
+}
+
+.fxp.fxcalc .co-note {
+	display: block;
+	color: var(--t3);
+	font-size: 13px;
+	line-height: 1.6;
+}
+
+.fxp.fxcalc .co-list {
+	margin: 20px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.fxp.fxcalc .co-list li {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 16px;
+	padding: 12px 0;
+	border-bottom: 1px solid var(--line);
+	font-size: 14.5px;
+}
+
+.fxp.fxcalc .co-list li:last-child {
+	border-bottom: 0;
+}
+
+.fxp.fxcalc .co-list span {
+	color: var(--t2);
+}
+
+.fxp.fxcalc .co-list strong {
+	color: var(--t1);
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.fxp.fxcalc .co-warn {
+	margin: 16px 0 0;
+	padding: 14px 16px;
+	background: rgba(250, 204, 21, 0.1);
+	border: 1px solid rgba(250, 204, 21, 0.35);
+	border-radius: 12px;
+	color: var(--yellow);
+	font-size: 14px;
+	line-height: 1.7;
+}
+
+.fxp.fxcalc .co-foot {
+	margin: 16px 0 0;
+	color: var(--t3);
+	font-size: 13px;
+}
+
+.fxp.fxcalc .calc-note {
+	margin-top: 24px;
+}
+
+.fxp.fxcalc .calc-copy .entry-content {
+	max-width: 780px;
+}
+
+/* ---------- จอเล็ก ---------- */
+@media (max-width: 900px) {
+	.fxp.fxcalc .calc-grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.fxp.fxcalc .calc-out {
+		position: static;
+	}
+}
+
+@media (max-width: 560px) {
+	.fxp.fxcalc .calc-form,
+	.fxp.fxcalc .calc-out {
+		padding: 22px 18px;
+	}
+
+	.fxp.fxcalc .cf-2 {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 18px;
+	}
+
+	.fxp.fxcalc .co-value {
+		font-size: 30px;
+	}
+}

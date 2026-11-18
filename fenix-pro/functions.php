@@ -127,7 +127,7 @@ function fenix_assets() {
 		|| $is_guide
 		|| $is_legal
 		|| $is_post
-		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php' ) )
+		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php', 'template-calculator.php' ) )
 	) {
 		$pages_css = get_template_directory() . '/assets/css/pages.css';
 
@@ -198,6 +198,27 @@ function fenix_assets() {
 			get_template_directory_uri() . '/assets/js/post.js',
 			array(),
 			file_exists( $post_js ) ? filemtime( $post_js ) : FENIX_VERSION,
+			true
+		);
+	}
+
+	/* หน้าเครื่องคำนวณขนาดล็อต */
+	if ( is_page_template( 'template-calculator.php' ) ) {
+		$calc_css = get_template_directory() . '/assets/css/calc.css';
+		$calc_js  = get_template_directory() . '/assets/js/calc.js';
+
+		wp_enqueue_style(
+			'fenix-calc',
+			get_template_directory_uri() . '/assets/css/calc.css',
+			array( 'fenix-pages' ),
+			file_exists( $calc_css ) ? filemtime( $calc_css ) : FENIX_VERSION
+		);
+
+		wp_enqueue_script(
+			'fenix-calc',
+			get_template_directory_uri() . '/assets/js/calc.js',
+			array(),
+			file_exists( $calc_js ) ? filemtime( $calc_js ) : FENIX_VERSION,
 			true
 		);
 	}
@@ -306,7 +327,7 @@ function fenix_body_classes( $classes ) {
 	if (
 		is_category()
 		|| is_singular( 'post' )
-		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php', 'template-guide.php', 'template-risk.php', 'template-legal.php' ) )
+		|| is_page_template( array( 'template-backtest.php', 'template-forward.php', 'template-pricing.php', 'template-about.php', 'template-blog.php', 'template-guide.php', 'template-risk.php', 'template-legal.php', 'template-calculator.php' ) )
 	) {
 		$classes[] = 'fenix-pages';
 	}
@@ -951,6 +972,13 @@ MT5 | เท่านั้น
 			/* ===== หน้าบทความ ชุด 4 (อนุมัติ 17 พ.ย. 2026) ===== */
 			'post_cta_title'    => 'มีคำถาม? ทักมาคุยกับเราได้เลย',
 			'post_cta_text'     => 'สอบถามรายละเอียด การติดตั้ง และความเหมาะสมกับทุนของคุณได้ทาง LINE',
+			/* ===== หน้าเครื่องคำนวณขนาดล็อต ===== */
+			'calc_kicker'       => 'Lot Size Calculator',
+			'calc_sub'          => 'กรอกทุน ความเสี่ยงต่อไม้ และระยะ Stop Loss แล้วดูว่าขนาดไม้ที่รับความเสี่ยงได้จริงคือเท่าไร',
+			'calc_form_title'   => 'กรอกค่าของบัญชีตัวเอง',
+			'calc_form_text'    => 'ค่าเริ่มต้นเป็นค่าที่โบรกเกอร์ส่วนใหญ่ใช้ ให้เปลี่ยนให้ตรงกับสเปกบัญชีของคุณก่อนอ่านผล',
+			'calc_cta_title'    => 'คำนวณแล้วยังไม่แน่ใจว่าทุนเท่านี้พอไหม',
+			'calc_cta_text'     => 'ทักมาคุยได้ เราช่วยดูให้ว่าทุนกับความเสี่ยงที่ตั้งไว้สอดคล้องกันหรือยัง',
 			/* ===== หน้าภายในชุด 1 (อนุมัติ 17 พ.ย. 2026) ===== */
 			'pages_cta_btn'     => 'ทัก LINE เพื่อสอบถาม',
 			'forward_kicker'    => 'Forward Test',
@@ -3270,3 +3298,69 @@ function fenix_fix_dashboard_line_button( $output, $tag ) {
 	return null === $fixed ? $output : $fixed;
 }
 add_filter( 'do_shortcode_tag', 'fenix_fix_dashboard_line_button', 10, 2 );
+
+/* --------------------------------------------------------------
+ * FAQPage JSON-LD ของบทความ
+ *
+ * อ่านจากเนื้อหาบทความตรง ๆ ไม่ต้องกรอกซ้ำที่ไหน
+ * รูปแบบที่รองรับ: <h2 id="faq">...</h2> แล้วตามด้วยคู่ <h3>คำถาม</h3> + ย่อหน้าคำตอบ
+ * จบส่วนเมื่อเจอ <h2> ถัดไป
+ * -------------------------------------------------------------- */
+function fenix_faq_jsonld() {
+	if ( ! is_singular( 'post' ) ) {
+		return;
+	}
+
+	$content = apply_filters( 'the_content', get_post_field( 'post_content', get_queried_object_id() ) );
+	if ( false === stripos( $content, 'id="faq"' ) ) {
+		return;
+	}
+
+	/* ตัดเอาเฉพาะช่วงตั้งแต่หัวข้อ FAQ จนถึง h2 ถัดไป */
+	$start = stripos( $content, '<h2 id="faq"' );
+	if ( false === $start ) {
+		return;
+	}
+	$block = substr( $content, $start );
+	$next  = stripos( substr( $block, 4 ), '<h2' );
+	if ( false !== $next ) {
+		$block = substr( $block, 0, $next + 4 );
+	}
+
+	if ( ! preg_match_all( '#<h3[^>]*>(.*?)</h3>(.*?)(?=<h3|$)#is', $block, $matches, PREG_SET_ORDER ) ) {
+		return;
+	}
+
+	$items = array();
+	foreach ( $matches as $m ) {
+		$question = trim( wp_strip_all_tags( $m[1] ) );
+		$answer   = trim( wp_strip_all_tags( $m[2] ) );
+		$answer   = trim( preg_replace( '/\s+/u', ' ', $answer ) );
+
+		if ( '' === $question || '' === $answer ) {
+			continue;
+		}
+
+		$items[] = array(
+			'@type'          => 'Question',
+			'name'           => $question,
+			'acceptedAnswer' => array(
+				'@type' => 'Answer',
+				'text'  => $answer,
+			),
+		);
+	}
+
+	if ( count( $items ) < 2 ) {
+		return;
+	}
+
+	$schema = array(
+		'@context'   => 'https://schema.org',
+		'@type'      => 'FAQPage',
+		'mainEntity' => $items,
+	);
+
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+}
+add_action( 'wp_footer', 'fenix_faq_jsonld', 20 );
