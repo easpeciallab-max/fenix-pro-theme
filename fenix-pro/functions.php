@@ -3180,6 +3180,106 @@ function fenix_register_mods_route() {
 }
 add_action( 'rest_api_init', 'fenix_register_mods_route' );
 
+/**
+ * REST สำหรับผู้ดูแล: อ่าน/แก้เฉพาะค่าที่เกี่ยวกับ llms.txt ของปลั๊กอิน SEO
+ *
+ * หน้าตั้งค่าของปลั๊กอินแก้ได้จากหน้าจอ WordPress เท่านั้น ทำให้ตั้งรายการหน้าจากภายนอกไม่ได้
+ * จุดนี้เปิดให้อ่านและเขียนเฉพาะคีย์ที่มีคำว่า llms เท่านั้น ค่าอื่นในออปชันเดียวกันแตะไม่ได้
+ *
+ * GET  /wp-json/fenix/v1/llms
+ * POST /wp-json/fenix/v1/llms {"llms_txt_...":ค่า}
+ */
+function fenix_register_llms_route() {
+	register_rest_route(
+		'fenix/v1',
+		'/llms',
+		array(
+			array(
+				'methods'             => 'GET',
+				'permission_callback' => 'fenix_llms_permission',
+				'callback'            => 'fenix_llms_get',
+			),
+			array(
+				'methods'             => 'POST',
+				'permission_callback' => 'fenix_llms_permission',
+				'callback'            => 'fenix_llms_update',
+			),
+		)
+	);
+}
+add_action( 'rest_api_init', 'fenix_register_llms_route' );
+
+function fenix_llms_permission() {
+	return current_user_can( 'manage_options' );
+}
+
+/**
+ * คืนเฉพาะคีย์ที่เกี่ยวกับ llms.txt จากออปชันของปลั๊กอิน SEO
+ *
+ * @return array
+ */
+function fenix_llms_get() {
+	$option = get_option( 'wpseo' );
+	$out    = array();
+
+	if ( is_array( $option ) ) {
+		foreach ( $option as $key => $value ) {
+			if ( false !== stripos( $key, 'llms' ) ) {
+				$out[ $key ] = $value;
+			}
+		}
+	}
+
+	return array(
+		'found' => $out,
+		'keys'  => is_array( $option ) ? array_keys( $option ) : array(),
+	);
+}
+
+/**
+ * เขียนค่าเฉพาะคีย์ที่มีคำว่า llms · คีย์อื่นถูกปฏิเสธทั้งหมด
+ *
+ * @param WP_REST_Request $request คำขอ.
+ * @return array|WP_Error
+ */
+function fenix_llms_update( $request ) {
+	$body = $request->get_json_params();
+	if ( ! is_array( $body ) || ! $body ) {
+		return new WP_Error( 'fenix_llms_empty', 'ไม่มีค่าที่จะบันทึก', array( 'status' => 400 ) );
+	}
+
+	$option = get_option( 'wpseo' );
+	if ( ! is_array( $option ) ) {
+		return new WP_Error( 'fenix_llms_missing', 'ไม่พบออปชันของปลั๊กอิน SEO', array( 'status' => 404 ) );
+	}
+
+	$saved = array();
+	foreach ( $body as $key => $value ) {
+		if ( false === stripos( $key, 'llms' ) ) {
+			continue;
+		}
+
+		if ( is_array( $value ) ) {
+			$value = array_values( array_map( 'absint', $value ) );
+		} elseif ( is_bool( $value ) ) {
+			$value = (bool) $value;
+		} else {
+			$value = sanitize_text_field( (string) $value );
+		}
+
+		$option[ $key ] = $value;
+		$saved[ $key ]  = $value;
+	}
+
+	if ( ! $saved ) {
+		return new WP_Error( 'fenix_llms_no_key', 'ไม่มีคีย์ที่อนุญาตให้แก้', array( 'status' => 400 ) );
+	}
+
+	update_option( 'wpseo', $option );
+
+	return array( 'saved' => $saved );
+}
+
 function fenix_mods_permission() {
 	return current_user_can( 'edit_theme_options' );
 }
