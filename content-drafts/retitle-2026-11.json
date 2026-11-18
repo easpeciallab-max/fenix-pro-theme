@@ -1,0 +1,308 @@
+[
+    {
+        "id": 20510,
+        "slug": "btc-market-hours",
+        "title": "ตลาดบิตคอยน์เปิดกี่โมง เทรด BTC เสาร์อาทิตย์ได้ไหม",
+        "kw": "เทรด bitcoin เสาร์อาทิตย์"
+    },
+    {
+        "id": 20531,
+        "slug": "btcusd-swap-overnight",
+        "title": "Swap BTCUSD คืออะไร ถือบิตคอยน์ข้ามคืนเสียเท่าไร",
+        "kw": "swap btcusd"
+    },
+    {
+        "id": 20532,
+        "slug": "two-way-grid-bitcoin",
+        "title": "บอทกริดสองทางบนบิตคอยน์ ทำงานยังไง",
+        "kw": "บอทเทรดคริปโต กริด"
+    },
+    {
+        "id": 20533,
+        "slug": "atr-grid-spacing",
+        "title": "ATR คืออะไร ใช้ตั้งระยะกริดของบอทเทรดยังไง",
+        "kw": "atr คือ"
+    },
+    {
+        "id": 20534,
+        "slug": "bitcoin-ea-capital",
+        "title": "ใช้บอทเทรดบิตคอยน์ ต้องมีทุนเท่าไร",
+        "kw": "เทรด bitcoin ทุนเท่าไร"
+    },
+    {
+        "id": 20535,
+        "slug": "set-file-choose-size",
+        "title": "ไฟล์ .set ของ EA คืออะไร เลือกชุดค่ายังไงให้ตรงกับทุน",
+        "kw": "ไฟล์ set ea คือ"
+    },
+    {
+        "id": 20554,
+        "slug": "cent-vs-usd-account-ea",
+        "title": "บัญชีเซนต์คืออะไร ต่างกับบัญชีปกติยังไง เหมาะกับบอทเทรดไหม",
+        "kw": "บัญชี cent คือ"
+    },
+    {
+        "id": 20555,
+        "slug": "margin-level-grid-ea",
+        "title": "Margin Level คืออะไร ของบอทกริดควรไม่ต่ำกว่าเท่าไร",
+        "kw": "margin level คือ"
+    },
+    {
+        "id": 20556,
+        "slug": "recovery-order-vs-martingale",
+        "title": "Martingale คืออะไร ต่างกับไม้กู้ยังไง",
+        "kw": "martingale คือ"
+    },
+    {
+        "id": 20557,
+        "slug": "bitcoin-ea-no-stop-loss",
+        "title": "บอทเทรดที่ไม่มี Stop Loss เสี่ยงแค่ไหน",
+        "kw": "ea ไม่มี stop loss"
+    },
+    {
+        "id": 20558,
+        "slug": "bitcoin-ea-first-run-checklist",
+        "title": "เริ่มใช้บอทเทรดบิตคอยน์ครั้งแรก ต้องเช็กอะไรบ้าง",
+        "kw": "เทรด bitcoin มือใหม่"
+    },
+    {
+        "id": 20559,
+        "slug": "demo-test-bitcoin-ea",
+        "title": "ทดลองบอทเทรดบนบัญชีเดโม่ยังไงให้ได้ผลใกล้ของจริง",
+        "kw": "ทดลองเทรด bitcoin"
+    },
+    {
+        "id": 20581,
+        "slug": "choose-broker-account-for-ea",
+        "title": "เลือกโบรกเกอร์ forex สำหรับรันบอทเทรด ดูอะไรบ้าง",
+        "kw": "โบรกเกอร์ forex มือใหม่"
+    },
+    {
+        "id": 20582,
+        "slug": "raw-vs-standard-account",
+        "title": "บัญชี Raw Spread กับ Standard ต่างกันยังไง สเปรดต่ำกว่าไหม",
+        "kw": "โบรกเกอร์ forex สเปรดต่ำ"
+    },
+    {
+        "id": 20583,
+        "slug": "forex-commission-explained",
+        "title": "ค่าคอมมิชชั่น forex คิดยังไง คุ้มกว่าสเปรดกว้างไหม",
+        "kw": "คอมมิชชั่น forex"
+    },
+    {
+        "id": 20584,
+        "slug": "swap-triple-wednesday",
+        "title": "Swap forex คืออะไร ทำไมวันพุธโดนคูณสาม",
+        "kw": "swap forex คืออะไร"
+    },
+    {
+        "id": 20592,
+        "slug": "slippage-explained",
+        "title": "Slippage คืออะไร เกิดจากอะไร ลดได้ยังไง",
+        "kw": "slippage คือ"
+    },
+    {
+        "id": 20585,
+        "slug": "leverage-2000-ea-risk",
+        "title": "Leverage forex คืออะไร 1:2000 อันตรายไหมเมื่อใช้บอทเทรด",
+        "kw": "leverage forex"
+    },
+    {
+        "id": 20586,
+        "slug": "stop-out-vs-margin-call",
+        "title": "Margin Call กับ Stop Out คืออะไร ต่างกันยังไง",
+        "kw": "margin call คือ"
+    },
+    {
+        "id": 20593,
+        "slug": "hedging-vs-netting-account",
+        "title": "บัญชี Hedging กับ Netting ต่างกันยังไง สำคัญกับบอทกริดแค่ไหน",
+        "kw": "hedging netting คือ"
+    },
+    {
+        "id": 20617,
+        "slug": "broker-deposit-withdraw-guide",
+        "title": "ฝากถอนเงินโบรกเกอร์ forex กี่วันเข้า เสียค่าอะไรบ้าง",
+        "kw": "ฝากถอน forex"
+    },
+    {
+        "id": 20603,
+        "slug": "forex-kyc-documents",
+        "title": "KYC คืออะไร เปิดบัญชีเทรดต้องใช้เอกสารอะไรบ้าง",
+        "kw": "kyc คือ"
+    },
+    {
+        "id": 20604,
+        "slug": "forex-tax-thailand",
+        "title": "เทรด forex เทรดทอง เสียภาษีไหม เสียเท่าไร",
+        "kw": "เทรดทอง เสียภาษีเท่าไร"
+    },
+    {
+        "id": 20605,
+        "slug": "check-broker-license",
+        "title": "โบรกเกอร์ forex ถูกกฎหมายไหม เช็กใบอนุญาตยังไง",
+        "kw": "โบรกเกอร์ forex ถูกกฎหมาย"
+    },
+    {
+        "id": 20606,
+        "slug": "same-ea-different-broker-results",
+        "title": "บอทเทรดตัวเดียวกันคนละโบรก ทำไมผลไม่เท่ากัน",
+        "kw": "บอทเทรด forex"
+    },
+    {
+        "id": 20661,
+        "slug": "symbol-suffix-explained",
+        "title": "ชื่อสินค้าใน MT5 ลงท้าย .c .s .m คืออะไร",
+        "kw": "mt5 สัญลักษณ์"
+    },
+    {
+        "id": 20618,
+        "slug": "xauusd-ea-complete-guide",
+        "title": "บอทเทรดทอง XAUUSD บน MT5 ใช้ยังไง ฉบับเริ่มต้นจนใช้งานจริง",
+        "kw": "ea เทรดทอง mt5"
+    },
+    {
+        "id": 20619,
+        "slug": "gold-volatile-hours-thailand",
+        "title": "เทรดทองเวลาไหนดี ทองผันผวนช่วงไหน (เวลาไทย)",
+        "kw": "เทรดทอง เวลาไหนดี"
+    },
+    {
+        "id": 20620,
+        "slug": "nfp-fomc-gold-ea",
+        "title": "ข่าว NFP กับ FOMC กระทบราคาทองยังไง บอทเทรดต้องทำอะไร",
+        "kw": "ข่าว nfp ทอง"
+    },
+    {
+        "id": 20651,
+        "slug": "gold-spread-widening",
+        "title": "สเปรดทองกว้างตอนไหน ทำไมกระทบบอทเทรด",
+        "kw": "สเปรดทอง"
+    },
+    {
+        "id": 20652,
+        "slug": "gold-lot-size-pip-value",
+        "title": "คำนวณ lot size ทอง XAUUSD ยังไง ทอง 1 lot เท่ากับเท่าไร",
+        "kw": "คำนวณ lot size ทอง"
+    },
+    {
+        "id": 20653,
+        "slug": "gold-ea-minimum-capital",
+        "title": "เทรดทองด้วยบอทเทรด ใช้ทุนขั้นต่ำเท่าไร",
+        "kw": "เทรดทอง ขั้นต่ำกี่บาท"
+    },
+    {
+        "id": 20654,
+        "slug": "ea-risk-management-guide",
+        "title": "บริหารความเสี่ยงตอนใช้บอทเทรด ตั้งแต่วันแรกจนถอนกำไร",
+        "kw": "บอทเทรด ความเสี่ยง"
+    },
+    {
+        "id": 20655,
+        "slug": "cold-money-trading-budget",
+        "title": "เงินเย็นคืออะไร แบ่งเงินก่อนเริ่มเทรดยังไง",
+        "kw": "เงินเย็น ลงทุน"
+    },
+    {
+        "id": 20656,
+        "slug": "realistic-monthly-target",
+        "title": "ตั้งเป้ากำไรต่อเดือนเท่าไรถึงสมจริง",
+        "kw": "เทรด forex กําไรเดือนละ"
+    },
+    {
+        "id": 20630,
+        "slug": "withdraw-profit-strategy",
+        "title": "ถอนกำไรจากพอร์ตยังไงไม่ให้เสียสมดุล",
+        "kw": "ถอนกำไร forex"
+    },
+    {
+        "id": 20631,
+        "slug": "compound-vs-withdraw-grid-ea",
+        "title": "ทบต้นหรือถอนออก แบบไหนเหมาะกับบอทกริด",
+        "kw": "ทบต้น forex"
+    },
+    {
+        "id": 20632,
+        "slug": "drawdown-money-vs-percent",
+        "title": "Drawdown คืออะไร คิดยังไง (เป็นเงินกับเป็นเปอร์เซ็นต์)",
+        "kw": "drawdown คือ"
+    },
+    {
+        "id": 20680,
+        "slug": "drawdown-buffer-sizing",
+        "title": "ควรเผื่อเงินรับ Drawdown ไว้เท่าไร",
+        "kw": "drawdown เท่าไร"
+    },
+    {
+        "id": 20681,
+        "slug": "account-blowup-causes",
+        "title": "พอร์ตแตกคืออะไร เกิดจากอะไร และป้องกันยังไง",
+        "kw": "พอร์ตแตกคืออะไร"
+    },
+    {
+        "id": 20682,
+        "slug": "multiple-ea-overlapping-risk",
+        "title": "รันบอทเทรดหลายตัวพร้อมกัน เสี่ยงซ้อนกันยังไง",
+        "kw": "รัน ea หลายตัว"
+    },
+    {
+        "id": 20683,
+        "slug": "split-accounts-vs-one",
+        "title": "แบ่งเงินหลายบัญชีดีกว่าบัญชีเดียวไหม",
+        "kw": "แบ่งพอร์ตเทรด"
+    },
+    {
+        "id": 20684,
+        "slug": "monthly-trading-review",
+        "title": "สรุปผลเทรดรายเดือน ควรดูตัวเลขอะไรบ้าง",
+        "kw": "สรุปผลเทรด"
+    },
+    {
+        "id": 20685,
+        "slug": "new-year-ea-plan",
+        "title": "วางแผนใช้บอทเทรดทั้งปี แบบที่ทำได้จริง",
+        "kw": "วางแผนเทรด"
+    },
+    {
+        "id": 20704,
+        "slug": "ea-trading-journal",
+        "title": "สมุดบันทึกการเทรดสำหรับคนใช้บอทเทรด จดอะไรบ้าง",
+        "kw": "บันทึกการเทรด"
+    },
+    {
+        "id": 20705,
+        "slug": "when-to-pause-ea",
+        "title": "ควรหยุดบอทเทรดชั่วคราวตอนไหน",
+        "kw": "หยุด ea"
+    },
+    {
+        "id": 20706,
+        "slug": "when-to-quit-an-ea",
+        "title": "ควรเลิกใช้บอทเทรดตัวนั้นเมื่อไร",
+        "kw": "เลิกใช้ ea"
+    },
+    {
+        "id": 20707,
+        "slug": "consecutive-losses-normal",
+        "title": "บอทเทรดขาดทุนติดกันกี่ไม้ถึงเรียกว่าผิดปกติ",
+        "kw": "ea ขาดทุนติดกัน"
+    },
+    {
+        "id": 20708,
+        "slug": "ea-and-manual-same-account",
+        "title": "ใช้บอทเทรดคู่กับเทรดมือในบัญชีเดียวได้ไหม",
+        "kw": "ea กับเทรดมือ"
+    },
+    {
+        "id": 20709,
+        "slug": "mt5-alerts-notifications",
+        "title": "ตั้งแจ้งเตือน MT5 เข้ามือถือ ทำยังไง",
+        "kw": "mt5 แจ้งเตือน"
+    },
+    {
+        "id": 20710,
+        "slug": "monitor-account-mobile",
+        "title": "ดูพอร์ตและบอทเทรดผ่านมือถือ ทำอะไรได้บ้าง",
+        "kw": "ea mt5 มือถือ"
+    }
+]
