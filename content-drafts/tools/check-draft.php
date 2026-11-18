@@ -91,13 +91,10 @@ foreach ( $files as $file ) {
 	$say( count( $ids[1] ) === count( $h2[0] ), 'หัวข้อ H2 ทุกอันมี id' );
 	$say( count( $ids[1] ) === count( array_unique( $ids[1] ) ), 'id ของหัวข้อไม่ซ้ำกัน' );
 
-	$say( false !== stripos( $body, '<nav' ), 'มีสารบัญในเนื้อหา' );
-
-	/* ลิงก์ในสารบัญต้องชี้ไปหัวข้อที่มีจริง */
-	if ( preg_match( '~<nav[^>]*>(.*?)</nav>~is', $body, $navm ) ) {
-		preg_match_all( '/href="#([^"]+)"/', $navm[1], $anchors );
-		$missing = array_diff( $anchors[1], $ids[1] );
-		$say( empty( $missing ), 'ลิงก์ในสารบัญชี้ไปหัวข้อที่มีจริงทุกอัน' . ( $missing ? ' (หาย: ' . implode( ', ', $missing ) . ')' : '' ) );
+	/* ตั้งแต่ 18 พ.ย. 2026 บทความไม่ต้องมีสารบัญในเนื้อหา ธีมสร้างกล่องสารบัญให้เองจากหัวข้อ */
+	/* บทความ 051-060 เขียนไว้ก่อนเปลี่ยนกติกา ของเดิมไม่ต้องแก้ (ธีมซ่อนให้แล้ว) */
+	if ( (int) preg_replace( '/\D.*/', '', basename( $file ) ) >= 61 ) {
+		$say( false === stripos( $body, '<nav' ), 'ไม่มีสารบัญเขียนไว้ในเนื้อหา (ใช้กล่องสารบัญของธีมอย่างเดียว)' );
 	}
 
 	$say( false !== stripos( $body, '<aside' ), 'มีกล่องเตือน <aside>' );
