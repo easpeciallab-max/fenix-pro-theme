@@ -3192,7 +3192,7 @@ add_action( 'rest_api_init', 'fenix_register_mods_route' );
  * POST /wp-json/fenix/v1/llms {"llms_txt_...":ค่า}
  */
 /* เลขรุ่นของชุด REST สำหรับผู้ดูแล · ใช้ดูว่าเว็บดึงโค้ดรุ่นล่าสุดขึ้นไปแล้วหรือยัง */
-define( 'FENIX_ADMIN_API_BUILD', '2026-11-18-4' );
+define( 'FENIX_ADMIN_API_BUILD', '2026-11-18-5' );
 
 function fenix_register_llms_route() {
 	register_rest_route(
