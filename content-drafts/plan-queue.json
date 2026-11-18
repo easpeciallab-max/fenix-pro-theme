@@ -851,7 +851,8 @@
         "pillar": "ea-bitcoin-mt5-guide",
         "tier": "A",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21035
     },
     {
         "n": "126",
@@ -863,7 +864,8 @@
         "pillar": "ea-bitcoin-mt5-guide",
         "tier": "B",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21036
     },
     {
         "n": "127",
@@ -875,7 +877,8 @@
         "pillar": "account-blowup-causes",
         "tier": "B",
         "phase": "แผนคีย์เวิร์ดจริง 2027",
-        "status": "pending"
+        "status": "done",
+        "post_id": 21037
     },
     {
         "n": "128",
