@@ -186,14 +186,9 @@ check( 1 === $x->query( '//div[contains(@class,"condbox")]' )->length, 'กล�
 check( false !== strpos( $html, 'ผลลัพธ์ในอดีตไม่ได้รับประกันผลลัพธ์ในอนาคต' ), 'คำเตือนผลการทดสอบยังอยู่' );
 check( 5 === $x->query( '//div[contains(@class,"fx-steps")]/div' )->length, 'ขั้นตอนตรวจสอบเราเอง 5 ข้อ' );
 
-/* ---------- 11 รีวิว ---------- */
-check( 0 === $x->query( '//section[@id="reviews"]' )->length, 'ยังไม่มีภาพแชตจริง ส่วนรีวิวถูกซ่อนไว้' );
-$x4 = xp( render_front( array( 'show_rv' => true, 'rv_img1' => 'https://example.test/chat1.jpg' ) ) );
-check( 1 === $x4->query( '//section[@id="reviews"]' )->length, 'เปิดส่วนรีวิวพร้อมภาพจริงแล้วแสดงได้' );
-check( 1 === $x4->query( '//div[contains(@class,"phone2")]' )->length, 'แสดงเฉพาะช่องที่มีภาพจริง ไม่มีช่องว่างปลอม' );
-
-$x5 = xp( render_front( array( 'show_rv' => true ) ) );
-check( 0 === $x5->query( '//section[@id="reviews"]' )->length, 'เปิดส่วนรีวิวแต่ยังไม่มีภาพ ยังไม่แสดง (ห้ามใช้ภาพปลอม)' );
+/* ---------- 11 ไม่มีส่วนรีวิวแล้ว (เจ้าของสั่งถอดออก 19 พ.ย. 2569) ---------- */
+check( 0 === $x->query( '//section[@id="reviews"]' )->length, 'ไม่มีส่วนรีวิวบนหน้าแรก' );
+check( false === strpos( $html, 'phone2' ), 'ไม่มีโครงกรอบโทรศัพท์ของรีวิวหลงเหลือ' );
 
 /* ---------- 12 อุปกรณ์ ---------- */
 check( 3 === $x->query( '//div[contains(@class,"req-g")]/div[contains(@class,"req")]' )->length, 'การ์ดอุปกรณ์ครบ 3 ใบ' );

@@ -1067,47 +1067,7 @@ $fx_vr = fenix_rows( fenix_mod( 'vs_risk_row' ), 3 );
 <?php endif; ?>
 
 
-<?php /* ============ 11 · เสียงจากผู้ใช้งานจริง (เปิดเมื่อมีภาพแชตจริง) ============ */ ?>
-<?php
-$fx_rv = array();
-for ( $fx_i = 1; $fx_i <= 3; $fx_i++ ) {
-	$fx_img = trim( (string) fenix_mod( 'rv_img' . $fx_i ) );
-	if ( '' !== $fx_img ) {
-		$fx_rv[] = $fx_img;
-	}
-}
-?>
-<?php if ( fenix_mod( 'show_rv' ) && $fx_rv ) : ?>
-<section class="sec" id="reviews">
-	<div class="wrap">
-		<div class="shead center up">
-			<span class="eyebrow"><?php echo esc_html( fenix_mod( 'rv_kicker' ) ); ?></span>
-			<h2 class="h2"><?php echo esc_html( fenix_mod( 'reviews_title' ) ); ?></h2>
-			<p class="fx-lead"><?php echo esc_html( fenix_mod( 'rv_sub' ) ); ?></p>
-		</div>
 
-		<div class="rv-g up">
-			<?php foreach ( $fx_rv as $fx_img ) : ?>
-				<div class="phone2">
-					<div class="scr">
-						<div class="hd">
-							<span class="av"><?php echo fenix_icon( 'line', 'i fill' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-							<?php echo esc_html( fenix_mod( 'rv_group' ) ); ?>
-						</div>
-						<div class="shot">
-							<img src="<?php echo esc_url( $fx_img ); ?>" alt="<?php echo esc_attr( fenix_mod( 'rv_group' ) ); ?>" loading="lazy" decoding="async">
-						</div>
-					</div>
-				</div>
-			<?php endforeach; ?>
-		</div>
-
-		<?php if ( fenix_mod( 'rv_note' ) ) : ?>
-			<p class="rv-foot"><?php echo esc_html( fenix_mod( 'rv_note' ) ); ?></p>
-		<?php endif; ?>
-	</div>
-</section>
-<?php endif; ?>
 
 
 <?php /* ============ 12 · ใช้กับอะไรได้บ้าง ============ */ ?>

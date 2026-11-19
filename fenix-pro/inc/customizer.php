@@ -260,22 +260,6 @@ function fenix_customize_register( $wp_customize ) {
 			),
 		),
 
-		'fenix_reviews' => array(
-			'title'       => '11) รีวิวลูกค้า',
-			'description' => 'สำคัญ: ใช้รีวิวจริงจากลูกค้าเท่านั้น ห้ามแต่งรีวิว และหลีกเลี่ยงรีวิวแนวการันตีกำไร เมื่อมีรีวิวจริงแล้วค่อยติ๊ก "แสดงส่วนนี้"',
-			'fields'      => array(
-				'show_reviews'     => array( 'แสดงส่วนนี้ (เปิดเมื่อมีรีวิวจริง)', 'checkbox' ),
-				'reviews_title'    => array( 'หัวข้อ', 'text' ),
-				'reviews_subtitle' => array( 'คำอธิบายใต้หัวข้อ', 'textarea' ),
-				'rev1_text'        => array( 'รีวิว 1 · ข้อความ', 'textarea' ),
-				'rev1_name'        => array( 'รีวิว 1 · ชื่อผู้รีวิว', 'text' ),
-				'rev2_text'        => array( 'รีวิว 2 · ข้อความ', 'textarea' ),
-				'rev2_name'        => array( 'รีวิว 2 · ชื่อผู้รีวิว', 'text' ),
-				'rev3_text'        => array( 'รีวิว 3 · ข้อความ', 'textarea' ),
-				'rev3_name'        => array( 'รีวิว 3 · ชื่อผู้รีวิว', 'text' ),
-			),
-		),
-
 		'fenix_faq' => array(
 			'title'       => '12) FAQ คำถามที่พบบ่อย',
 			'description' => 'มีช่องให้ 10 ข้อ ข้อไหนเว้นว่างไว้จะไม่แสดงผล',
@@ -851,21 +835,6 @@ function fenix_customize_register( $wp_customize ) {
 			'ev_stamp'       => array( 'ข้อความในตราประทับ', 'text' ),
 			'ev_fw_text'     => array( 'ข้อความในแท็บ Forward Test', 'textarea' ),
 			'perf_conditions' => array( 'เงื่อนไขการทดสอบฉบับเต็ม (ห้ามลบ)', 'textarea' ),
-		),
-	);
-
-	$sections['fenix_home_rv'] = array(
-		'title'       => '25) หน้าแรก · เสียงจากผู้ใช้งาน (ภาพแชต)',
-		'description' => 'ใช้ได้เฉพาะภาพแชตจริงที่ผู้ใช้อนุญาต และต้องปิดชื่อ รูปโปรไฟล์ และเลขบัญชีก่อนอัปโหลด · ถ้ายังไม่มีภาพจริง ปิดส่วนนี้ไว้ ห้ามใช้ภาพสมมติ',
-		'fields'      => array(
-			'show_rv'   => array( 'แสดงส่วนนี้ (เปิดเมื่อมีภาพจริงแล้ว)', 'checkbox' ),
-			'rv_kicker' => array( 'ป้ายบนหัวข้อ', 'text' ),
-			'rv_sub'    => array( 'คำโปรย', 'textarea' ),
-			'rv_group'  => array( 'ชื่อกลุ่มบนหัวจอโทรศัพท์', 'text' ),
-			'rv_img1'   => array( 'ภาพแชตที่ 1 (แนวตั้ง 1080 × 1920)', 'image' ),
-			'rv_img2'   => array( 'ภาพแชตที่ 2', 'image' ),
-			'rv_img3'   => array( 'ภาพแชตที่ 3', 'image' ),
-			'rv_note'   => array( 'หมายเหตุใต้ภาพ (ห้ามลบ)', 'textarea' ),
 		),
 	);
 
