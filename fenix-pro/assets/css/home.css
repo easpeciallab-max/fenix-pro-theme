@@ -1918,6 +1918,65 @@ body.fenix-home .container {
 	}
 }
 
+/* แท็บสลับจอของแดชบอร์ด · แถบอยู่ใต้ภาพ */
+.fxh .dash-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 14px;
+}
+
+.fxh .dash-tabs button {
+	appearance: none;
+	border: 1px solid var(--line);
+	background: var(--surface);
+	color: var(--t2);
+	font: inherit;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 9px 16px;
+	border-radius: 999px;
+	cursor: pointer;
+	transition: border-color .18s ease, color .18s ease, background .18s ease;
+}
+
+.fxh .dash-tabs button:hover {
+	color: var(--t1);
+	border-color: var(--or);
+}
+
+.fxh .dash-tabs button[aria-selected="true"] {
+	background: var(--or);
+	border-color: var(--or);
+	color: #FFFFFF;
+}
+
+.fxh .dash-tabs button:focus-visible {
+	outline: 2px solid var(--or);
+	outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+	.fxh .dash-tabs {
+		gap: 6px;
+		margin-top: 12px;
+		overflow-x: auto;
+		flex-wrap: nowrap;
+		scrollbar-width: none;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.fxh .dash-tabs::-webkit-scrollbar {
+		display: none;
+	}
+
+	.fxh .dash-tabs button {
+		flex: 0 0 auto;
+		font-size: 13px;
+		padding: 8px 14px;
+	}
+}
+
 .fxh .phone {
 	position: absolute;
 	right: -28px;

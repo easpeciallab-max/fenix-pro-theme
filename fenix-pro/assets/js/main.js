@@ -655,3 +655,42 @@
 	/* สารบัญเป็นแค่ลิงก์ไปหัวข้อ ไม่มีระบบติดตามว่าอ่านถึงข้อไหน (สเปกชุด 2 ข้อ 1.3) */
 	box.hidden = false;
 })();
+/* ---------- แท็บสลับภาพหน้าจอแดชบอร์ดบนหน้าแรก ---------- */
+(function () {
+	var box = document.querySelector('.dash-switch');
+	if (!box) { return; }
+
+	var tabs = Array.prototype.slice.call(box.querySelectorAll('[role="tab"]'));
+	var panels = Array.prototype.slice.call(box.querySelectorAll('[role="tabpanel"]'));
+	if (tabs.length < 2 || tabs.length !== panels.length) { return; }
+
+	function show(i, focus) {
+		tabs.forEach(function (t, k) {
+			var on = k === i;
+			t.setAttribute('aria-selected', on ? 'true' : 'false');
+			t.tabIndex = on ? 0 : -1;
+			panels[k].hidden = !on;
+		});
+
+		/* ภาพที่เพิ่งถูกเปิดต้องโหลดทันที ไม่ต้องรอเลื่อนจอ */
+		var img = panels[i].querySelector('img');
+		if (img) { img.loading = 'eager'; }
+
+		if (focus) { tabs[i].focus(); }
+	}
+
+	tabs.forEach(function (tab, i) {
+		tab.addEventListener('click', function () { show(i, false); });
+
+		tab.addEventListener('keydown', function (e) {
+			var next = null;
+			if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { next = (i + 1) % tabs.length; }
+			if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { next = (i - 1 + tabs.length) % tabs.length; }
+			if (e.key === 'Home') { next = 0; }
+			if (e.key === 'End') { next = tabs.length - 1; }
+			if (next === null) { return; }
+			e.preventDefault();
+			show(next, true);
+		});
+	});
+})();

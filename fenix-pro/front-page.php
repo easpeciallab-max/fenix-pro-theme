@@ -689,9 +689,37 @@ $fx_vr = fenix_rows( fenix_mod( 'vs_risk_row' ), 3 );
 				<?php
 				$fx_shot   = trim( (string) fenix_mod( 'dash_image' ) );
 				$fx_shot_m = trim( (string) fenix_mod( 'dash_image_m' ) );
+
+				/* หลายจอ · บรรทัดละ "ชื่อแท็บ | ภาพจอคอม | ภาพจอมือถือ" */
+				$fx_shots = array();
+				foreach ( fenix_rows( fenix_mod( 'dash_shots' ), 3 ) as $fx_row ) {
+					list( $fx_tab, $fx_d, $fx_m ) = $fx_row['cells'];
+					if ( '' !== $fx_tab && '' !== $fx_d ) {
+						$fx_shots[] = array( $fx_tab, $fx_d, $fx_m );
+					}
+				}
 				?>
 
-				<?php if ( '' !== $fx_shot ) : ?>
+				<?php if ( count( $fx_shots ) > 1 ) : ?>
+					<div class="dash-switch">
+						<?php foreach ( $fx_shots as $fx_i => $fx_s ) : ?>
+							<figure class="dash-shot<?php echo '' !== $fx_s[2] ? ' has-m' : ''; ?>" id="dshot-<?php echo (int) $fx_i; ?>" role="tabpanel" aria-labelledby="dtab-<?php echo (int) $fx_i; ?>"<?php echo $fx_i ? ' hidden' : ''; ?>>
+								<picture>
+									<?php if ( '' !== $fx_s[2] ) : ?>
+										<source media="(max-width: 760px)" srcset="<?php echo esc_url( $fx_s[2] ); ?>">
+									<?php endif; ?>
+									<img src="<?php echo esc_url( $fx_s[1] ); ?>" alt="<?php echo esc_attr( fenix_mod( 'dash_title' ) . ' · ' . $fx_s[0] ); ?>" loading="lazy" decoding="async">
+								</picture>
+							</figure>
+						<?php endforeach; ?>
+
+						<div class="dash-tabs" role="tablist" aria-label="<?php echo esc_attr( fenix_mod( 'dash_title' ) ); ?>">
+							<?php foreach ( $fx_shots as $fx_i => $fx_s ) : ?>
+								<button type="button" role="tab" id="dtab-<?php echo (int) $fx_i; ?>" aria-controls="dshot-<?php echo (int) $fx_i; ?>" aria-selected="<?php echo $fx_i ? 'false' : 'true'; ?>" tabindex="<?php echo $fx_i ? '-1' : '0'; ?>"><?php echo esc_html( $fx_s[0] ); ?></button>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				<?php elseif ( '' !== $fx_shot ) : ?>
 					<figure class="dash-shot<?php echo '' !== $fx_shot_m ? ' has-m' : ''; ?>">
 						<picture>
 							<?php if ( '' !== $fx_shot_m ) : ?>

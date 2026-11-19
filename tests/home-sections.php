@@ -190,6 +190,18 @@ check( 5 === $x->query( '//div[contains(@class,"fx-steps")]/div' )->length, 'ข
 check( 0 === $x->query( '//section[@id="reviews"]' )->length, 'ไม่มีส่วนรีวิวบนหน้าแรก' );
 check( false === strpos( $html, 'phone2' ), 'ไม่มีโครงกรอบโทรศัพท์ของรีวิวหลงเหลือ' );
 
+/* ---------- แท็บสลับจอแดชบอร์ด ---------- */
+$shots = "ภาพรวม | https://x.test/a.webp | https://x.test/a-m.webp
+ออเดอร์ | https://x.test/b.webp |";
+$xd = xp( render_front( array( 'dash_shots' => $shots ) ) );
+check( 2 === $xd->query( '//div[contains(@class,"dash-tabs")]/button' )->length, 'มีแท็บครบตามจำนวนจอที่กรอก' );
+check( 2 === $xd->query( '//figure[contains(@class,"dash-shot")]' )->length, 'มีช่องภาพครบตามจำนวนจอ' );
+check( 1 === $xd->query( '//figure[contains(@class,"dash-shot") and @hidden]' )->length, 'เปิดมาเห็นจอแรกจอเดียว' );
+check( 1 === $xd->query( '//div[contains(@class,"dash-tabs")]/button[@aria-selected="true"]' )->length, 'แท็บที่เลือกอยู่มีอันเดียว' );
+check( 1 === $xd->query( '//div[contains(@class,"dash-switch")]//source[@media="(max-width: 760px)"]' )->length, 'จอที่มีภาพมือถือจะสลับภาพให้เอง' );
+$xd1 = xp( render_front( array( 'dash_shots' => 'ภาพรวม | https://x.test/a.webp |' ) ) );
+check( 0 === $xd1->query( '//div[contains(@class,"dash-tabs")]' )->length, 'มีจอเดียวไม่ต้องขึ้นแท็บ' );
+
 /* ---------- 12 อุปกรณ์ ---------- */
 check( 3 === $x->query( '//div[contains(@class,"req-g")]/div[contains(@class,"req")]' )->length, 'การ์ดอุปกรณ์ครบ 3 ใบ' );
 check( 1 === $x->query( '//div[contains(@class,"req") and contains(@class,"hl")]' )->length, 'การ์ด VPS ถูกทำเป็นตัวแนะนำ' );
