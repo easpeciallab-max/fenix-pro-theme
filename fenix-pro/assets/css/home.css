@@ -1903,6 +1903,21 @@ body.fenix-home .container {
 	background: var(--surface);
 }
 
+.fxh .dash-shot img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* ภาพของมือถือเป็นแนวตั้ง · จำกัดความสูงไม่ให้กินทั้งหน้าจอ */
+@media (max-width: 760px) {
+	.fxh .dash-shot.has-m img {
+		max-height: 78vh;
+		object-fit: cover;
+		object-position: top center;
+	}
+}
+
 .fxh .phone {
 	position: absolute;
 	right: -28px;

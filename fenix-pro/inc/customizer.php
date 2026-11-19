@@ -775,6 +775,7 @@ function fenix_customize_register( $wp_customize ) {
 			'dash_title'  => array( 'หัวข้อ', 'text' ),
 			'dash_sub'    => array( 'คำโปรย', 'textarea' ),
 			'dash_image'  => array( 'ภาพหน้าจอ Dashboard จริง (ใส่แล้วจะใช้ภาพนี้แทนภาพจำลอง)', 'image', 'ต้องปิดชื่อผู้ใช้และเลขบัญชีก่อนอัปโหลด' ),
+			'dash_image_m' => array( 'ภาพหน้าจอแดชบอร์ดสำหรับมือถือ (แนวตั้ง)', 'image' ),
 			'dash_host'   => array( 'ที่อยู่เว็บในแถบเบราว์เซอร์จำลอง', 'text' ),
 			'dash_menu'   => array( 'เมนูข้างในภาพจำลอง (บรรทัดละ 1 เมนู)', 'textarea' ),
 			'dash_news'   => array( 'แถบตัวกรองข่าว (หัวข้อ | คำอธิบาย)', 'text' ),

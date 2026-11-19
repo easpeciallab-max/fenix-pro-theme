@@ -686,11 +686,19 @@ $fx_vr = fenix_rows( fenix_mod( 'vs_risk_row' ), 3 );
 
 		<div class="dash-g up">
 			<div class="stage">
-				<?php $fx_shot = trim( (string) fenix_mod( 'dash_image' ) ); ?>
+				<?php
+				$fx_shot   = trim( (string) fenix_mod( 'dash_image' ) );
+				$fx_shot_m = trim( (string) fenix_mod( 'dash_image_m' ) );
+				?>
 
 				<?php if ( '' !== $fx_shot ) : ?>
-					<figure class="dash-shot">
-						<img src="<?php echo esc_url( $fx_shot ); ?>" alt="<?php echo esc_attr( fenix_mod( 'dash_title' ) ); ?>" loading="lazy" decoding="async">
+					<figure class="dash-shot<?php echo '' !== $fx_shot_m ? ' has-m' : ''; ?>">
+						<picture>
+							<?php if ( '' !== $fx_shot_m ) : ?>
+								<source media="(max-width: 760px)" srcset="<?php echo esc_url( $fx_shot_m ); ?>">
+							<?php endif; ?>
+							<img src="<?php echo esc_url( $fx_shot ); ?>" alt="<?php echo esc_attr( fenix_mod( 'dash_title' ) ); ?>" loading="lazy" decoding="async">
+						</picture>
 					</figure>
 				<?php else : ?>
 					<div class="browser" aria-hidden="true">
